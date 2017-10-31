@@ -16,3 +16,5 @@ This is a scattered list of observations and principles to guide implementation
 - A calendar should be described via a protocol. This should ideally make adding a Julian calendar easier.
 - Quarters and Weeks are difficult units to support. They do not fit in nicely with the Era/Year/Month/Day/Hour/Minute/Second/Subsecond units.
 - An `Instant` can *not* be used for arithmetic, because it exists independently of a calendar. If you want to "add one day" to an `Instant`, you'll first have to convert it into a calendar-relative value.
+- All types should be value types, because time isn't mutable. Thank goodness.
+- Provide a `Clock` type. `Date()` is one of the great hidden dependencies on global state in code and makes testing extremely difficult. A `Clock` would provide a `.now()` function that would give you the current `Instant`. It could also potentially have a `.today()` method for the calendar-relative value.
