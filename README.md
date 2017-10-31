@@ -8,7 +8,7 @@ Foundation.framework has one of the absolute best and most capable APIs availabl
 
 ## Inspiration
 
-See [Inspriation.md](Inspriation.md).
+See [Inspiration.md](Inspiration.md).
 
 ## Goals
 
