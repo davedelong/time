@@ -13,5 +13,6 @@ There are myriads of date/time convenience methods available on Github. *Chronol
 - https://github.com/SwiftKitz/Datez
 - https://github.com/melvitax/DateHelper
 - https://github.com/Kawoou/AnyDate
+- https://github.com/dreymonde/Time
 
 (Other suggested repos are welcomed via pull requests)
