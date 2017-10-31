@@ -21,3 +21,17 @@ This is a scattered list of observations and principles to guide implementation
 - The calendar-relative values will need a way to describe (ideally through the type system) what their components include. This would make it easier to prevent non-sensical manipulations, such as "add 3 hours to June".
 - Let's try really hard to not `throw` just because we're trying to deal with "February 30th". Handling thrown errors is a pain.
 - Any calendar relative value that has a year (and/or an era) can be converted in to a `Range<Instant>`. A missing era would be assumed to be the current era. 
+
+## Concrete "Must-haves"
+
+### Terms
+
+- "Calendar-relative" will mean a value that has a timezone, a calendar, and a locale. Hereafter abreviated as "TCL" (Timezone-Calendar-Locale) for terseness.
+
+### Must-haves
+
+- A "date" that is calendar-relative. Ex: "Today" is relative to a user's TCL
+- A "date" that is *not* calendar-relative. Ex: "Oct 31" is non-relative until it is explicitly related to a TCL
+- A "time" that is calendar-relative must also have a "date". 
+- A "time" that is *not* calendar-relative does not require a date. Ex: "3:30 PM" 
+- Calendar-relative values can be converted in to a `Range<Instant>`.
