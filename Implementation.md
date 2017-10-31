@@ -26,7 +26,8 @@ This is a scattered list of observations and principles to guide implementation
 
 ### Terms
 
-- "Calendar-relative" will mean a value that has a timezone, a calendar, and a locale. Hereafter abreviated as "TCL" (Timezone-Calendar-Locale) for terseness.
+- "Calendar-relative": a value that has a timezone, a calendar, and a locale.
+- "TCL": abbreviation for "timezone/calendar/locale"
 
 ### Must-haves
 
