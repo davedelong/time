@@ -65,6 +65,12 @@ enum GregorianMonth {
 
 However, this sort of enumeration explosion becomes quickly tedious as you consider the lengths to which this might extend. Should this enumerations include the days of the week? What about the eras? If it includes the eras, how do we handle yet-to-be-created eras for the Japanese calendar? etc.
 
+### An English-like API
+
+A common idiom seen in other date/time wrappers is expressing an interval as `2.days.ago`. This looks really appealing for everyone who speaks English, but requires an extra degree of grammatical understanding for non-English speakers that I believe is inappropriate.
+
+It is unavoidable that we express the API using English words, but we can at least try to minimize the degree of comprehension required for non-native speakers.
+
 ## Implementation
 
 See [Implementation.md](Implementation.md).
