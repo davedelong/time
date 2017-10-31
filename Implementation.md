@@ -15,3 +15,4 @@ This is a scattered list of observations and principles to guide implementation
 - `NSDateComponents` will be replaced. It is flexible, but it is overloaded. As a simple example, there is a *major* semantic difference between "March" and the interval "3 months", yet the are represented via identical `NSDateComponents`.
 - A calendar should be described via a protocol. This should ideally make adding a Julian calendar easier.
 - Quarters and Weeks are difficult units to support. They do not fit in nicely with the Era/Year/Month/Day/Hour/Minute/Second/Subsecond units.
+- An `Instant` can *not* be used for arithmetic, because it exists independently of a calendar. If you want to "add one day" to an `Instant`, you'll first have to convert it into a calendar-relative value.
