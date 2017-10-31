@@ -19,3 +19,4 @@ This is a scattered list of observations and principles to guide implementation
 - All types should be value types, because time isn't mutable. Thank goodness.
 - Provide a `Clock` type. `Date()` is one of the great hidden dependencies on global state in code and makes testing extremely difficult. A `Clock` would provide a `.now()` function that would give you the current `Instant`. It could also potentially have a `.today()` method for the calendar-relative value.
 - The calendar-relative values will need a way to describe (ideally through the type system) what their components include. This would make it easier to prevent non-sensical manipulations, such as "add 3 hours to June".
+- Let's try really hard to not `throw` just because we're trying to deal with "February 30th". Handling thrown errors is a pain.
