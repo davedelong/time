@@ -28,7 +28,13 @@ There are myriads of date/time convenience methods available on Github. *Chronol
 
 The goals of *Chronology* include:
 
-- easier date/time arithmetic: doing "proper" arithmetic via the Foundation API requires a fair amount of domain knowledge
+- easier date/time arithmetic: doing "proper" arithmetic via the Foundation API requires a fair amount of domain knowledge. The goal here is to enable things like:
+
+  ```swift
+  let today = ...
+  let tomorrow = today + .days(1)
+  ```
+  
 - better names: for example, `NSDate`/`Date` is incorrectly named
 - more extensibility: Foundation does not allow you to provide your own calendar implementation
 - better separation of responsibilities: `NSDateComponents` should not be used for both calendrical components and calendrical intervals
