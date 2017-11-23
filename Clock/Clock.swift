@@ -18,6 +18,7 @@ public struct Clock {
     }
     
     public init(referenceDate: Date, rate: Double = 1.0) {
+        guard rate > 0.0 else { fatalError("Clocks can only count forwards") }
         impl = CustomClock(referenceDate: referenceDate, rate: rate)
     }
     
