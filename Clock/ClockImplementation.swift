@@ -9,8 +9,7 @@ import Foundation
 
 internal protocol ClockImplementation {
     
-    var referenceDate: Date { get }
-    var rate: Double { get }
+    var timeZone: TimeZone { get }
     
     func now() -> Date
     
@@ -18,8 +17,7 @@ internal protocol ClockImplementation {
 
 internal struct SystemClock: ClockImplementation {
     
-    let referenceDate = Date(timeIntervalSinceReferenceDate: 0)
-    let rate: Double = 1.0
+    let timeZone = TimeZone.autoupdatingCurrent
     
     func now() -> Date { return Date() }
     
@@ -30,10 +28,12 @@ internal struct CustomClock: ClockImplementation {
     let relativeStart = Date()
     let referenceDate: Date
     let rate: Double
+    let timeZone: TimeZone
     
-    init(referenceDate: Date, rate: Double) {
+    init(referenceDate: Date, rate: Double, timeZone: TimeZone) {
         self.referenceDate = referenceDate
         self.rate = rate
+        self.timeZone = timeZone
     }
     
     func now() -> Date {
