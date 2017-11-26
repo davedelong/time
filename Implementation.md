@@ -38,3 +38,7 @@ This is a scattered list of observations and principles to guide implementation
 - A "time" that is calendar-relative must also have a "date". 
 - A "time" that is *not* calendar-relative does not require a date. Ex: "3:30 PM" 
 - Calendar-relative values can be converted in to a `Range<Instant>`.
+
+### Less-concrete thoughts
+
+- "Times" that are not calendar-relative should still be manipulateable. I should be able to temporally adjust a time and get a new time. Times that roll over would reset back to 00:00 (ie, 23:00:00 + 2:00:00 = 01:00:00). This arithmetic would operate on the default range of the HMS units defined by the calendar. 
