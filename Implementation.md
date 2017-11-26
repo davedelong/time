@@ -29,6 +29,7 @@ This is a scattered list of observations and principles to guide implementation
 ### Terms
 
 - "Calendar-relative": a value that has a timezone, a calendar, and a locale.
+- "Floating": a value that is not calendar-relative
 - "TCL": abbreviation for "timezone/calendar/locale"
 
 ### Must-haves
