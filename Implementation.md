@@ -22,7 +22,7 @@ This is a scattered list of observations and principles to guide implementation
 - Let's try really hard to not `throw` just because we're trying to deal with "February 30th". Handling thrown errors is a pain.
 - Any calendar relative value that has a year (and/or an era) can be converted in to a `Range<Instant>`. A missing era would be assumed to be the current era. 
 - Abstract interface for manipulating dates and times: `TemporalAdjustment`
-- Unit names should be fully qualified. ie, not "weekday" and "day", but `dayOfWeek`, `dayOfMonth`, etc. 
+- Unit names should be fully qualified. ie, not "weekday" and "day", but `dayOfWeek`, `dayOfMonth`, `dayOfYear`, `monthOfYear`, etc. The lone exception to this *might* be `yearOfEra`. Maybe also the time units, since times can be used independent of a date. `hourOfDay` is redundant, because you don't really use hours in terms of any larger units (`hourOfWeek`, `hourOfMonth`, etc). Ditto minutes with respect to hours, and seconds with respect to minutes.
 
 ## Concrete "Must-haves"
 
