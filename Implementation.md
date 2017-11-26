@@ -34,9 +34,9 @@ This is a scattered list of observations and principles to guide implementation
 ### Must-haves
 
 - A "date" that is calendar-relative. Ex: "Today" is relative to a user's TCL
-- A "date" that is *not* calendar-relative. Ex: "Oct 31" is non-relative until it is explicitly related to a TCL
+- A "date" that is *not* calendar-relative (ie, it's a `FloatingDate`). Ex: "Oct 31" is non-relative until it is explicitly related to a TCL
 - A "time" that is calendar-relative must also have a "date". 
-- A "time" that is *not* calendar-relative does not require a date. Ex: "3:30 PM" 
+- A "time" that is *not* calendar-relative (ie, it's a `FloatingTime`) does not require a date. Ex: "3:30 PM" 
 - Calendar-relative values can be converted in to a `Range<Instant>`.
 
 ### Less-concrete thoughts
