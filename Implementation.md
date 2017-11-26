@@ -21,6 +21,7 @@ This is a scattered list of observations and principles to guide implementation
 - The calendar-relative values will need a way to describe (ideally through the type system) what their components include. This would make it easier to prevent non-sensical manipulations, such as "add 3 hours to June".
 - Let's try really hard to not `throw` just because we're trying to deal with "February 30th". Handling thrown errors is a pain.
 - Any calendar relative value that has a year (and/or an era) can be converted in to a `Range<Instant>`. A missing era would be assumed to be the current era. 
+- Abstract interface for manipulating dates and times: `TemporalAdjustment`
 
 ## Concrete "Must-haves"
 
