@@ -37,5 +37,10 @@ There are myriads of date/time convenience methods available on Github. *Chronol
   - Does not appear to support non-Gregorian calendars (everything is ISO8601)
   - Nice: separation of `Date`, `Time`, and `DateTime` types
   - (will require deeper examination)
+- https://docs.oracle.com/javase/8/docs/api/java/time/chrono/package-summary.html
+  - The basis of the Java 8 API. Allows for non-Gregorian calendars
+- https://docs.oracle.com/javase/8/docs/api/java/time/temporal/package-summary.html
+  - The package that allows access to fields of a temporal object
+  - Interesting: defines temporal adjusters
 
 (Other suggested repos are welcomed via pull requests)
