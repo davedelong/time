@@ -3,6 +3,9 @@
 There are myriads of date/time convenience methods available on Github. *Chronology* will draw on them for inspiration. In no particular order, these include:
 
 - https://github.com/instacart/TrueTime.swift
+  - An NTP library
+- https://github.com/lyft/Kronos
+  - Another NTP library
 - https://github.com/naoty/Timepiece
   - Nice formatting methods
   - Interesting: "truncation" methods to drop HMS off a datetime
