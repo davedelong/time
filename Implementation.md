@@ -43,3 +43,4 @@ This is a scattered list of observations and principles to guide implementation
 ### Less-concrete thoughts
 
 - Floating times should still be manipulateable. I should be able to temporally adjust a floating time and get a new floating time. Times that roll over would reset back to 00:00 (ie, 23:00:00 + 2:00:00 = 01:00:00). This arithmetic would operate on the default range of the HMS units defined by the calendar. 
+- Things need to be built in such a way that adding new kinds of calendar-significant events (especially celestial events like "full moon", "sunrise", "sunset", etc) are feasible.
