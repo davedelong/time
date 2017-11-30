@@ -57,6 +57,12 @@ A common idiom seen in other date/time wrappers is expressing an interval as `2.
 
 It is unavoidable that we express the API using English words, but we can at least try to minimize the degree of comprehension required for non-native speakers.
 
+### An [NTP Clock](https://en.wikipedia.org/wiki/Network_Time_Protocol)
+
+There are a couple of great NTP libraries out there (see [Inspiration.md](Inspiration.md)), but NTP clocks are typically used for applications that have definitive real-time business needs. Your typical iOS app does not have such needs.
+
+An NTP Clock may *eventually* make its way in to this library, but it would be an extremely low priority and would need significant justification.
+
 ## Implementation
 
 See [Implementation.md](Implementation.md).
