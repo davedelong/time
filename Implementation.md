@@ -23,21 +23,23 @@ This is a scattered list of observations and principles to guide implementation
 - Abstract interface for manipulating dates and times: `TemporalAdjustment`
 - Unit names should be fully qualified. ie, not "weekday" and "day", but `dayOfWeek`, `dayOfMonth`, `dayOfYear`, `monthOfYear`, etc. The lone exception to this *might* be `yearOfEra`. Maybe also the time units, since times can be used independent of a date. `hourOfDay` is redundant, because you don't really use hours in terms of any larger units (`hourOfWeek`, `hourOfMonth`, etc). Ditto minutes with respect to hours, and seconds with respect to minutes.
 
+
 ## Concrete "Must-haves"
 
 ### Terms
 
-- "Calendar-relative": a value that has a timezone, a calendar, and a locale.
-- "Floating": a value that is not calendar-relative
 - "TCL": abbreviation for "timezone/calendar/locale"
+- "Calendar-relative": a value that has a TCL
+- "Anchored": a value that has a timezone, a calendar, and a locale.
+- "Floating": a value that is not anchored with all of its requisite larger units
 
 ### Must-haves
 
-- A "date" that is calendar-relative. Ex: "Today" is relative to a user's TCL
-- A "date" that is *not* calendar-relative (ie, it's floating). Ex: "Oct 31" is non-relative until it is explicitly related to a TCL
-- A "time" that is calendar-relative must also have a "date". 
-- A "time" that is *not* calendar-relative (ie, it's floating) does not require a date. Ex: "3:30 PM" 
-- Calendar-relative values can be converted in to a `Range<Instant>`.
+- A "date" that is anchored. Ex: "Today" is relative to a user's TCL
+- A "date" that is *not* anchored (ie, it's floating). Ex: "Oct 31" is floating until a year is known.
+- A "time" that is anchored must also have a "date". 
+- A "time" that is *not* anchored (ie, it's floating) does not require a date. Ex: "3:30 PM" 
+- Anchored values can be converted in to a `Range<Instant>`.
 - A `Clock` type. `Date()` is one of the great hidden dependencies on global state in code and makes testing extremely difficult. A `Clock` would provide a `.now()` function that would give you the current `Instant`. It could also potentially have a `.today()` method for the calendar-relative value.
 
 ### Less-concrete thoughts
