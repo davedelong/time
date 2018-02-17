@@ -15,13 +15,13 @@ public struct Epoch: Hashable {
     
     public static let reference = Epoch(0)
     
-    public static let unix = Epoch(-Date.timeIntervalBetween1970AndReferenceDate)
+    public static let unix = Epoch(-SISeconds.secondsBetweenUnixAndReferenceEpochs)
     
-    public var hashValue: Int { return Int(offsetFromReferenceDate) }
+    public var hashValue: Int { return offsetFromReferenceDate.hashValue }
     
-    internal let offsetFromReferenceDate: TimeInterval
+    internal let offsetFromReferenceDate: SISeconds
     
-    internal init(_ offsetFromReferenceDate: TimeInterval) {
+    internal init(_ offsetFromReferenceDate: SISeconds) {
         self.offsetFromReferenceDate = offsetFromReferenceDate
     }
     

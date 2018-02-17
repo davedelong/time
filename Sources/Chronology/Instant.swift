@@ -7,8 +7,6 @@
 
 import Foundation
 
-public typealias SISeconds = Double
-
 public struct Instant: Hashable, Comparable {
     
     public static func ==(lhs: Instant, rhs: Instant) -> Bool {
@@ -32,7 +30,7 @@ public struct Instant: Hashable, Comparable {
     
     private let intervalSinceReferenceEpoch: SISeconds
     
-    public var hashValue: Int { return Int(intervalSinceReferenceEpoch) }
+    public var hashValue: Int { return intervalSinceReferenceEpoch.hashValue }
     
     public init(interval: SISeconds, since epoch: Epoch) {
         self.epoch = epoch
