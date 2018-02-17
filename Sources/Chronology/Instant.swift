@@ -7,6 +7,8 @@
 
 import Foundation
 
+public typealias SISeconds = Double
+
 public struct Instant: Hashable, Comparable {
     
     public static func ==(lhs: Instant, rhs: Instant) -> Bool {
@@ -17,31 +19,30 @@ public struct Instant: Hashable, Comparable {
         return lhs.intervalSinceReferenceEpoch < rhs.intervalSinceReferenceEpoch
     }
     
-    public static func -(lhs: Instant, rhs: Instant) -> TimeInterval {
+    public static func -(lhs: Instant, rhs: Instant) -> SISeconds {
         return lhs.intervalSinceReferenceEpoch - rhs.intervalSinceReferenceEpoch
     }
     
-    public static func +(lhs: Instant, rhs: TimeInterval) -> Instant {
+    public static func +(lhs: Instant, rhs: SISeconds) -> Instant {
         return Instant(interval: lhs.intervalSinceEpoch + rhs, since: lhs.epoch)
     }
     
     public let epoch: Epoch
-    public let intervalSinceEpoch: TimeInterval
+    public let intervalSinceEpoch: SISeconds
     
-    private let intervalSinceReferenceEpoch: TimeInterval
+    private let intervalSinceReferenceEpoch: SISeconds
     
     public var hashValue: Int { return Int(intervalSinceReferenceEpoch) }
     
-    public init(interval: TimeInterval, since epoch: Epoch) {
+    public init(interval: SISeconds, since epoch: Epoch) {
         self.epoch = epoch
         self.intervalSinceEpoch = interval
         self.intervalSinceReferenceEpoch = epoch.offsetFromReferenceDate + interval
     }
     
-    internal init(_ date: Date = Date()) {
-        self.epoch = Epoch.reference
-        self.intervalSinceEpoch = date.timeIntervalSinceReferenceDate
-        self.intervalSinceReferenceEpoch = date.timeIntervalSinceReferenceDate
+    public func converting(to epoch: Epoch) -> Instant {
+        let epochOffset = epoch.offsetFromReferenceDate - self.epoch.offsetFromReferenceDate
+        let epochInterval = intervalSinceEpoch - epochOffset
+        return Instant(interval: epochInterval, since: epoch)
     }
-    
 }

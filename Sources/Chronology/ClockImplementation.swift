@@ -7,6 +7,12 @@
 
 import Foundation
 
+internal extension Instant {
+    init() {
+        self.init(interval: Foundation.Date.timeIntervalSinceReferenceDate, since: .reference)
+    }
+}
+
 internal protocol ClockImplementation {
     
     func now() -> Instant
@@ -22,16 +28,21 @@ internal struct CustomClock: ClockImplementation {
     let absoluteStart = Instant()
     let clockStart: Instant
     let rate: Double
+    let calendar: Calendar
     
-    init(referenceInstant: Instant, rate: Double) {
+    private let actualRate: Double
+    
+    init(referenceInstant: Instant, rate: Double, calendar: Calendar) {
         self.clockStart = referenceInstant
+        self.calendar = calendar
         self.rate = rate
+        self.actualRate = rate * calendar.SISecondsPerSecond
     }
     
     func now() -> Instant {
         let absoluteNow = Instant()
         let elapsedTime = absoluteNow - absoluteStart
-        let scaledElapsedTime = elapsedTime * rate
+        let scaledElapsedTime = elapsedTime * actualRate
         return clockStart + scaledElapsedTime
     }
     

@@ -6,7 +6,7 @@ This is a scattered list of observations and principles to guide implementation
 - All concrete calendrical types *must* include:
   - the relative calendar
   - the timezone
-  - (potentially) the locale
+  - the locale
   
   Time zones are the second major source of developer confusion. Explicitly surfacing the timezone and calendar in the type(s) will reinforce their importance.
   
@@ -14,7 +14,9 @@ This is a scattered list of observations and principles to guide implementation
   
 - `NSDateComponents` will be replaced. It is flexible, but it is overloaded. As a simple example, there is a *major* semantic difference between "March" and the interval "3 months", yet the are represented via identical `NSDateComponents`.
 - A calendar should be described via a protocol. This should ideally make adding a Julian calendar easier.
+- Supporting non-terrestrial calendars (like various Martian calendars) would be very nice.
 - Quarters and Weeks are difficult units to support. They do not fit in nicely with the Era/Year/Month/Day/Hour/Minute/Second/Subsecond units.
+    - Quarters and Weeks are "synthetic" units
 - An `Instant` can *not* be used for arithmetic, because it exists independently of a calendar. If you want to "add one day" to an `Instant`, you'll first have to convert it into a calendar-relative value.
 - All types should be value types, because time isn't mutable. Thank goodness.
 - The calendar-relative values will need a way to describe (ideally through the type system) what their components include. This would make it easier to prevent non-sensical manipulations, such as "add 3 hours to June".
@@ -35,12 +37,15 @@ This is a scattered list of observations and principles to guide implementation
 
 ### Must-haves
 
+- A `Clock` type. `Date()` is one of the great hidden dependencies on global state in code and makes testing extremely difficult. A `Clock` would provide a `.now()` function that would give you the current `Instant`. It could also potentially have a `.today()` method for the calendar-relative value.
+- The `Clock` is the entry point for all calendrical values. From the `Clock` you'll be able to get "now", today, etc.
+- An `Epoch` type. An epoch represents an era in time, or rather a fixed point in time relative from which other instances are described.
+- An `Instant` type. `Instant` is roughly equivalent to the current `NSDate`, in that it represents a point in time relative to an `Epoch`.
 - A "date" that is anchored. Ex: "Today" is relative to a user's TCL
 - A "date" that is *not* anchored (ie, it's floating). Ex: "Oct 31" is floating until a year is known.
 - A "time" that is anchored must also have a "date". 
 - A "time" that is *not* anchored (ie, it's floating) does not require a date. Ex: "3:30 PM" 
 - Anchored values can be converted in to a `Range<Instant>`.
-- A `Clock` type. `Date()` is one of the great hidden dependencies on global state in code and makes testing extremely difficult. A `Clock` would provide a `.now()` function that would give you the current `Instant`. It could also potentially have a `.today()` method for the calendar-relative value.
 
 ### Less-concrete thoughts
 
