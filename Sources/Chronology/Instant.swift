@@ -7,6 +7,13 @@
 
 import Foundation
 
+// TODO: make this more resilient against overflow
+// It could be worthwhile having checks to see if it's better to convert from one epoch to another
+// based on how close to a particular epoch an Instant is.
+// For example, if we get a value in early 2038 based on the Unix epoch, we might want to consider
+// recognizing this and instead basing it off the Reference epoch instead
+// (note: the 2038 problem isn't an issue with Instant because it's based on Double and not Int32, but still)
+
 public struct Instant: Hashable, Comparable {
     
     public static func ==(lhs: Instant, rhs: Instant) -> Bool {

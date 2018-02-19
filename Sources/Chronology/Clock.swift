@@ -109,7 +109,7 @@ public struct Clock {
     public func converting(to calendar: Calendar) -> Clock {
         if calendar == self.calendar { return self }
         // TODO: if the new calendar defines a different scaling of SI Seconds... ?
-        if calendar.isTerrestrial != self.calendar.isTerrestrial {
+        if calendar.SISecondsPerSecond != self.calendar.SISecondsPerSecond {
             
         }
         return Clock(implementation: impl, timeZone: timeZone, calendar: calendar)
@@ -118,7 +118,7 @@ public struct Clock {
     public func converting(to calendar: Calendar, in timeZone: TimeZone) -> Clock {
         if timeZone == self.timeZone && calendar == self.calendar { return self }
         // TODO: if the new calendar defines a different scaling of SI Seconds... ?
-        if calendar.isTerrestrial != self.calendar.isTerrestrial {
+        if calendar.SISecondsPerSecond != self.calendar.SISecondsPerSecond {
             
         }
         return Clock(implementation: impl, timeZone: timeZone, calendar: calendar)

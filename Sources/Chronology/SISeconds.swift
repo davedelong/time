@@ -9,9 +9,7 @@ import Foundation
 
 public struct SISeconds: Hashable, Comparable, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
     
-    internal static let secondsBetweenUnixAndReferenceEpochs: SISeconds = {
-        SISeconds(Date.timeIntervalBetween1970AndReferenceDate)
-    }()
+    internal static let secondsBetweenUnixAndReferenceEpochs = SISeconds(Date.timeIntervalBetween1970AndReferenceDate)
     
     public static func ==(lhs: SISeconds, rhs: SISeconds) -> Bool { return lhs.value == rhs.value }
     public static func <(lhs: SISeconds, rhs: SISeconds) -> Bool { return lhs.value < rhs.value }
