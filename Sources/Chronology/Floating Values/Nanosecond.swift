@@ -7,15 +7,15 @@
 
 import Foundation
 
-public struct Nanosecond: RegionField, NanosecondField, DateComponentsField {
+public struct Nanosecond: RegionField, NanosecondField, DateComponentsField, DateComponentsInitializable {
+    internal static var representedComponents: Set<Calendar.Component> = [.nanosecond]
     
     public let region: Region
     public let dateComponents: DateComponents
     
     internal init(dateComponents: DateComponents, region: Region) {
-        require(dateComponents.nanosecond != nil, "Cannot create a Nanosecond without a nanosecond value")
         self.region = region
-        self.dateComponents = dateComponents
+        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
     
 }

@@ -19,18 +19,16 @@ public extension YearField where Self: Anchored, Self: DateComponentsField {
     var era: Era { return Era(dateComponents: self.dateComponents, region: region) }
 }
 
-public struct Year: RegionField, EraField, YearField, DateComponentsField, Anchored {
+public struct Year: RegionField, EraField, YearField, DateComponentsField, Anchored, DateComponentsInitializable {
+    internal static var representedComponents: Set<Calendar.Component> = [.era, .year]
     
     public let region: Region
     public let dateComponents: DateComponents
     public var range: ClosedRange<Instant> { return getRange(self, unit: .year) }
     
     internal init(dateComponents: DateComponents, region: Region) {
-        require(dateComponents.year != nil, "Cannot create a Year without a year value")
-        require(dateComponents.era != nil, "Cannot create a Year without an era value")
-        
         self.region = region
-        self.dateComponents = dateComponents
+        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
     
 }

@@ -7,15 +7,15 @@
 
 import Foundation
 
-public struct Second: RegionField, SecondField, DateComponentsField {
+public struct Second: RegionField, SecondField, DateComponentsField, DateComponentsInitializable {
+    internal static var representedComponents: Set<Calendar.Component> = [.second]
     
     public let region: Region
     public let dateComponents: DateComponents
     
     internal init(dateComponents: DateComponents, region: Region) {
-        require(dateComponents.second != nil, "Cannot create a Second without a second value")
         self.region = region
-        self.dateComponents = dateComponents
+        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
     
 }

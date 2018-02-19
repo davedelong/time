@@ -20,23 +20,16 @@ public extension SecondField where Self: Anchored, Self: DateComponentsField {
     var yearMonthDayHourMinute: YearMonthDayHourMinute { return YearMonthDayHourMinute(dateComponents: self.dateComponents, region: region) }
 }
 
-public struct YearMonthDayHourMinuteSecond: RegionField, EraField, YearField, MonthField, DayField, HourField, MinuteField, SecondField, DateComponentsField, Anchored {
+public struct YearMonthDayHourMinuteSecond: RegionField, EraField, YearField, MonthField, DayField, HourField, MinuteField, SecondField, DateComponentsField, Anchored, DateComponentsInitializable {
+    internal static var representedComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second]
     
     public let region: Region
     public let dateComponents: DateComponents
     public var range: ClosedRange<Instant> { return getRange(self, unit: .second) }
     
     internal init(dateComponents: DateComponents, region: Region) {
-        require(dateComponents.second != nil, "Cannot create a YearMonthDayHourMinuteSecond without a second value")
-        require(dateComponents.minute != nil, "Cannot create a YearMonthDayHourMinuteSecond without a minute value")
-        require(dateComponents.hour != nil, "Cannot create a YearMonthDayHourMinuteSecond without an hour value")
-        require(dateComponents.day != nil, "Cannot create a YearMonthDayHourMinuteSecond without a day value")
-        require(dateComponents.month != nil, "Cannot create a YearMonthDayHourMinuteSecond without a month value")
-        require(dateComponents.year != nil, "Cannot create a YearMonthDayHourMinuteSecond without a year value")
-        require(dateComponents.era != nil, "Cannot create a YearMonthDayHourMinuteSecond without an era value")
-        
         self.region = region
-        self.dateComponents = dateComponents
+        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
     
 }

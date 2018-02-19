@@ -20,24 +20,16 @@ public extension NanosecondField where Self: Anchored, Self: DateComponentsField
     var yearMonthDayHourMinuteSecond: YearMonthDayHourMinuteSecond { return YearMonthDayHourMinuteSecond(dateComponents: self.dateComponents, region: region) }
 }
 
-public struct YearMonthDayHourMinuteSecondNanosecond: RegionField, EraField, YearField, MonthField, DayField, HourField, MinuteField, SecondField, NanosecondField, DateComponentsField, Anchored {
+public struct YearMonthDayHourMinuteSecondNanosecond: RegionField, EraField, YearField, MonthField, DayField, HourField, MinuteField, SecondField, NanosecondField, DateComponentsField, Anchored, DateComponentsInitializable {
+    internal static var representedComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .nanosecond]
     
     public let region: Region
     public let dateComponents: DateComponents
     public var range: ClosedRange<Instant> { return getRange(self, unit: .nanosecond) }
     
     internal init(dateComponents: DateComponents, region: Region) {
-        require(dateComponents.nanosecond != nil, "Cannot create a YearMonthDayHourMinuteSecondNanosecond without a nanosecond value")
-        require(dateComponents.second != nil, "Cannot create a YearMonthDayHourMinuteSecondNanosecond without a second value")
-        require(dateComponents.minute != nil, "Cannot create a YearMonthDayHourMinuteSecondNanosecond without a minute value")
-        require(dateComponents.hour != nil, "Cannot create a YearMonthDayHourMinuteSecondNanosecond without an hour value")
-        require(dateComponents.day != nil, "Cannot create a YearMonthDayHourMinuteSecondNanosecond without a day value")
-        require(dateComponents.month != nil, "Cannot create a YearMonthDayHourMinuteSecondNanosecond without a month value")
-        require(dateComponents.year != nil, "Cannot create a YearMonthDayHourMinuteSecondNanosecond without a year value")
-        require(dateComponents.era != nil, "Cannot create a YearMonthDayHourMinuteSecondNanosecond without an era value")
-        
         self.region = region
-        self.dateComponents = dateComponents
+        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
     
 }
