@@ -21,21 +21,3 @@ internal extension DateComponents {
     }
     
 }
-
-internal protocol DateComponentsInitializable: CalendarValue {
-    init(region: Region, dateComponents: DateComponents)
-}
-
-extension DateComponentsInitializable {
-    
-    init(dateComponents: DateComponents, region: Region) {
-        self.init(region: region, dateComponents: dateComponents.requireAndRestrict(to: Self.representedComponents))
-    }
-    
-    init(instant: Instant, region: Region) {
-        let components = Self.representedComponents
-        let dateComponents = region.calendar.dateComponents(components, from: instant.date)
-        self.init(dateComponents: dateComponents, region: region)
-    }
-    
-}

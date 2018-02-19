@@ -7,24 +7,39 @@
 
 import Foundation
 
-public struct MonthDayHourMinute: CalendarValue, MonthField, DayField, HourField, MinuteField, DateComponentsInitializable {
+public struct MonthDayHourMinute: CalendarValue, MonthField, DayField, HourField, MinuteField {
     public static var representedComponents: Set<Calendar.Component> = [.month, .day, .hour, .minute]
     
     public let region: Region
     public let dateComponents: DateComponents
+    
+    public init(region: Region, dateComponents: DateComponents) {
+        self.region = region
+        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
+    }
 }
 
-public struct DayHourMinuteSecond: CalendarValue, DayField, HourField, MinuteField, SecondField, DateComponentsInitializable {
+public struct DayHourMinuteSecond: CalendarValue, DayField, HourField, MinuteField, SecondField {
     public static var representedComponents: Set<Calendar.Component> = [.day, .hour, .minute, .second]
     
     public let region: Region
     public let dateComponents: DateComponents
+    
+    public init(region: Region, dateComponents: DateComponents) {
+        self.region = region
+        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
+    }
 }
 
-public struct HourMinuteSecondNanosecond: CalendarValue, HourField, MinuteField, SecondField, NanosecondField, DateComponentsInitializable {
+public struct HourMinuteSecondNanosecond: CalendarValue, HourField, MinuteField, SecondField, NanosecondField {
     public static var representedComponents: Set<Calendar.Component> = [.hour, .minute, .second, .nanosecond]
     
     public let region: Region
     public let dateComponents: DateComponents
+    
+    public init(region: Region, dateComponents: DateComponents) {
+        self.region = region
+        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
+    }
 }
 
