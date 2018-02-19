@@ -158,3 +158,32 @@ public extension CalendarValue where Self: HourField, Self: MinuteField, Self: S
 public extension CalendarValue where Self: MinuteField, Self: SecondField, Self: NanosecondField {
     var minuteSecondNanosecond: MinuteSecondNanosecond { return MinuteSecondNanosecond(dateComponents: dateComponents, region: region) }
 }
+
+/// Access the four-unit floating values
+
+public extension CalendarValue where Self: MonthField, Self: DayField, Self: HourField, Self: MinuteField {
+    var monthDayHourMinute: MonthDayHourMinute { return MonthDayHourMinute(dateComponents: dateComponents, region: region) }
+}
+
+public extension CalendarValue where Self: DayField, Self: HourField, Self: MinuteField, Self: SecondField {
+    var dayHourMinuteSecond: DayHourMinuteSecond { return DayHourMinuteSecond(dateComponents: dateComponents, region: region) }
+}
+
+public extension CalendarValue where Self: HourField, Self: MinuteField, Self: SecondField, Self: NanosecondField {
+    var hourMinuteSecondNanosecond: HourMinuteSecondNanosecond { return HourMinuteSecondNanosecond(dateComponents: dateComponents, region: region) }
+}
+
+/// Access the five- and six-unit floating values
+
+public extension CalendarValue where Self: MonthField, Self: DayField, Self: HourField, Self: MinuteField, Self: SecondField {
+    var monthDayHourMinuteSecond: MonthDayHourMinuteSecond { return MonthDayHourMinuteSecond(dateComponents: dateComponents, region: region) }
+}
+
+public extension CalendarValue where Self: DayField, Self: HourField, Self: MinuteField, Self: SecondField, Self: NanosecondField {
+    var dayHourMinuteSecondNanosecond: DayHourMinuteSecondNanosecond { return DayHourMinuteSecondNanosecond(dateComponents: dateComponents, region: region) }
+}
+
+public extension CalendarValue where Self: MonthField, Self: DayField, Self: HourField, Self: MinuteField, Self: SecondField, Self: NanosecondField {
+    var monthDayHourMinuteSecondNanosecond: MonthDayHourMinuteSecondNanosecond { return MonthDayHourMinuteSecondNanosecond(dateComponents: dateComponents, region: region) }
+}
+
