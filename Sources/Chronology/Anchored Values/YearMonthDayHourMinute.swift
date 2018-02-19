@@ -15,6 +15,10 @@ public extension MinuteField where Self: DateComponentsField {
     var minuteValue: Int { return dateComponents.minute.unwrap("Cannot create an MinuteField without a minute value") }
 }
 
+public extension MinuteField where Self: Anchored, Self: DateComponentsField {
+    var yearMonthDayHour: YearMonthDayHour { return YearMonthDayHour(dateComponents: self.dateComponents, region: region) }
+}
+
 public struct YearMonthDayHourMinute: RegionField, EraField, YearField, MonthField, DayField, HourField, MinuteField, DateComponentsField, Anchored {
     
     public let region: Region

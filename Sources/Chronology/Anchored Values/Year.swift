@@ -15,6 +15,10 @@ public extension YearField where Self: DateComponentsField {
     var yearValue: Int { return dateComponents.year.unwrap("Cannot create a YearField without a year value") }
 }
 
+public extension YearField where Self: Anchored, Self: DateComponentsField {
+    var era: Era { return Era(dateComponents: self.dateComponents, region: region) }
+}
+
 public struct Year: RegionField, EraField, YearField, DateComponentsField, Anchored {
     
     public let region: Region

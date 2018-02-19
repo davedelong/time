@@ -15,6 +15,10 @@ public extension DayField where Self: DateComponentsField {
     var dayValue: Int { return dateComponents.day.unwrap("Cannot create a DayField without a day value") }
 }
 
+public extension DayField where Self: Anchored, Self: DateComponentsField {
+    var yearMonth: YearMonth { return YearMonth(dateComponents: self.dateComponents, region: region) }
+}
+
 public struct YearMonthDay: RegionField, EraField, YearField, MonthField, DayField, DateComponentsField, Anchored {
     
     public let region: Region

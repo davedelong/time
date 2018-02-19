@@ -15,6 +15,10 @@ public extension NanosecondField where Self: DateComponentsField {
     var nanosecondValue: Int { return dateComponents.nanosecond.unwrap("Cannot create an NanosecondField without a nanosecond value") }
 }
 
+public extension NanosecondField where Self: Anchored, Self: DateComponentsField {
+    var yearMonthDayHourMinuteSecond: YearMonthDayHourMinuteSecond { return YearMonthDayHourMinuteSecond(dateComponents: self.dateComponents, region: region) }
+}
+
 public struct YearMonthDayHourMinuteSecondNanosecond: RegionField, EraField, YearField, MonthField, DayField, HourField, MinuteField, SecondField, NanosecondField, DateComponentsField, Anchored {
     
     public let region: Region

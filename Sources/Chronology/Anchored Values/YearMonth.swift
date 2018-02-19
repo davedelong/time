@@ -15,6 +15,10 @@ public extension MonthField where Self: DateComponentsField {
     var monthValue: Int { return dateComponents.month.unwrap("Cannot create a MonthField without a month value") }
 }
 
+public extension MonthField where Self: Anchored, Self: DateComponentsField {
+    var year: Year { return Year(dateComponents: self.dateComponents, region: region) }
+}
+
 public struct YearMonth: RegionField, EraField, YearField, MonthField, DateComponentsField, Anchored {
     
     public let region: Region

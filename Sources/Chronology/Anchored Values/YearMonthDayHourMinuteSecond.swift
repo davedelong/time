@@ -15,6 +15,10 @@ public extension SecondField where Self: DateComponentsField {
     var secondValue: Int { return dateComponents.second.unwrap("Cannot create an SecondField without a second value") }
 }
 
+public extension SecondField where Self: Anchored, Self: DateComponentsField {
+    var yearMonthDayHourMinute: YearMonthDayHourMinute { return YearMonthDayHourMinute(dateComponents: self.dateComponents, region: region) }
+}
+
 public struct YearMonthDayHourMinuteSecond: RegionField, EraField, YearField, MonthField, DayField, HourField, MinuteField, SecondField, DateComponentsField, Anchored {
     
     public let region: Region
