@@ -21,11 +21,10 @@ public extension HourField where Self: Anchored, Self: DateComponentsField {
 }
 
 public struct YearMonthDayHour: RegionField, EraField, YearField, MonthField, DayField, HourField, DateComponentsField, Anchored, DateComponentsInitializable {
-    internal static var representedComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour]
+    public static var representedComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour]
     
     public let region: Region
     public let dateComponents: DateComponents
-    public var range: ClosedRange<Instant> { return getRange(self, unit: .hour) }
     
     internal init(dateComponents: DateComponents, region: Region) {
         self.region = region

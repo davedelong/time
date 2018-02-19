@@ -20,11 +20,10 @@ public extension YearField where Self: Anchored, Self: DateComponentsField {
 }
 
 public struct Year: RegionField, EraField, YearField, DateComponentsField, Anchored, DateComponentsInitializable {
-    internal static var representedComponents: Set<Calendar.Component> = [.era, .year]
+    public static var representedComponents: Set<Calendar.Component> = [.era, .year]
     
     public let region: Region
     public let dateComponents: DateComponents
-    public var range: ClosedRange<Instant> { return getRange(self, unit: .year) }
     
     internal init(dateComponents: DateComponents, region: Region) {
         self.region = region

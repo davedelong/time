@@ -13,17 +13,20 @@ public protocol Anchored {
     
 }
 
-internal func getRange<T: Anchored & DateComponentsField>(_ value: T, unit: Calendar.Component) -> ClosedRange<Instant> {
-    let components = value.dateComponents
-    let cal = value.calendar
-    let date = cal.date(from: components).unwrap("Anchored values must always be convertible to a concrete NSDate")
+public extension Anchored where Self: DateComponentsField {
     
-    var start = Date()
-    var length: TimeInterval = 0
-    let succeeded = cal.dateInterval(of: unit, start: &start, interval: &length, for: date)
-    require(succeeded, "We should always be able to get the range of a calendar component")
+    var range: ClosedRange<Instant> {
+        let date = calendar.date(from: dateComponents).unwrap("Anchored values must always be convertible to a concrete NSDate")
+        let unit = type(of: self).smalledRepresentedComponent
+        
+        var start = Date()
+        var length: TimeInterval = 0
+        let succeeded = calendar.dateInterval(of: unit, start: &start, interval: &length, for: date)
+        require(succeeded, "We should always be able to get the range of a calendar component")
+        
+        let startInsant = Instant(date: start)
+        let endInstant = Instant(date: start.addingTimeInterval(length))
+        return startInsant...endInstant
+    }
     
-    let startInsant = Instant(date: start)
-    let endInstant = Instant(date: start.addingTimeInterval(length))
-    return startInsant...endInstant
 }

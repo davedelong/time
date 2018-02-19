@@ -16,11 +16,10 @@ public extension EraField where Self: DateComponentsField {
 }
 
 public struct Era: RegionField, EraField, DateComponentsField, Anchored, DateComponentsInitializable {
-    internal static var representedComponents: Set<Calendar.Component> = [.era]
+    public static var representedComponents: Set<Calendar.Component> = [.era]
     
     public let region: Region
     public let dateComponents: DateComponents
-    public var range: ClosedRange<Instant> { return getRange(self, unit: .era) }
     
     internal init(dateComponents: DateComponents, region: Region) {
         self.region = region

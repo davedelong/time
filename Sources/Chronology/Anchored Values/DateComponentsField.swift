@@ -8,14 +8,26 @@
 import Foundation
 
 public protocol DateComponentsField: RegionField {
+    static var representedComponents: Set<Calendar.Component> { get }
     
     var dateComponents: Foundation.DateComponents { get }
     
 }
 
-internal protocol DateComponentsInitializable {
-    static var representedComponents: Set<Calendar.Component> { get }
+public extension DateComponentsField {
     
+    public static var smalledRepresentedComponent: Calendar.Component {
+        let order: Array<Calendar.Component> = [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
+        let represented = self.representedComponents
+        for c in order {
+            if represented.contains(c) { return c }
+        }
+        fatalError("\(Self.self) defines impossible represented units: \(represented)")
+    }
+    
+}
+
+internal protocol DateComponentsInitializable: DateComponentsField {
     init(dateComponents: DateComponents, region: Region)
 }
 
