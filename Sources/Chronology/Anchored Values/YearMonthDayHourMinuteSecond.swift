@@ -12,6 +12,7 @@ public protocol SecondField {
 }
 
 public extension SecondField where Self: DateComponentsField {
+    var second: Second { return Second(dateComponents: dateComponents, region: region) }
     var secondValue: Int { return dateComponents.second.unwrap("Cannot create an SecondField without a second value") }
 }
 

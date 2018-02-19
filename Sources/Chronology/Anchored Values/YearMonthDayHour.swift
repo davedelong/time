@@ -12,6 +12,7 @@ public protocol HourField {
 }
 
 public extension HourField where Self: DateComponentsField {
+    var hour: Hour { return Hour(dateComponents: dateComponents, region: region) }
     var hourValue: Int { return dateComponents.hour.unwrap("Cannot create an HourField without an hour value") }
 }
 

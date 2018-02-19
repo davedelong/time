@@ -12,6 +12,7 @@ public protocol NanosecondField {
 }
 
 public extension NanosecondField where Self: DateComponentsField {
+    var nanosecond: Nanosecond { return Nanosecond(dateComponents: dateComponents, region: region) }
     var nanosecondValue: Int { return dateComponents.nanosecond.unwrap("Cannot create an NanosecondField without a nanosecond value") }
 }
 

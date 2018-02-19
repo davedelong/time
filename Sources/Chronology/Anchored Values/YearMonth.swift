@@ -12,6 +12,7 @@ public protocol MonthField {
 }
 
 public extension MonthField where Self: DateComponentsField {
+    var month: Month { return Month(dateComponents: dateComponents, region: region) }
     var monthValue: Int { return dateComponents.month.unwrap("Cannot create a MonthField without a month value") }
 }
 

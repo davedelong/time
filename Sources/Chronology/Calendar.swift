@@ -26,13 +26,8 @@ public extension Calendar {
 /***
  
  Calendar methods used so far:
+ - SISecondsPerSecond
  - date(from:) -> Date?
  - dateInterval(of:start:interval:for:) -> Bool
  
  ***/
-
-internal protocol CalendarComponentExpressible {
-    
-    static var smallestRepresentedComponent: Calendar.Component { get }
-    
-}

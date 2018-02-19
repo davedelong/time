@@ -12,6 +12,7 @@ public protocol MinuteField {
 }
 
 public extension MinuteField where Self: DateComponentsField {
+    var minute: Minute { return Minute(dateComponents: dateComponents, region: region) }
     var minuteValue: Int { return dateComponents.minute.unwrap("Cannot create an MinuteField without a minute value") }
 }
 

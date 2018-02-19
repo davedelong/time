@@ -12,6 +12,7 @@ public protocol DayField {
 }
 
 public extension DayField where Self: DateComponentsField {
+    var day: Day { return Day(dateComponents: dateComponents, region: region) }
     var dayValue: Int { return dateComponents.day.unwrap("Cannot create a DayField without a day value") }
 }
 
