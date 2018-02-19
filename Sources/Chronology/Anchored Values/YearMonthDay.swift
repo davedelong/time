@@ -26,9 +26,4 @@ public struct YearMonthDay: CalendarValue, EraField, YearField, MonthField, DayF
     public let region: Region
     public let dateComponents: DateComponents
     
-    internal init(dateComponents: DateComponents, region: Region) {
-        self.region = region
-        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
-    }
-    
 }

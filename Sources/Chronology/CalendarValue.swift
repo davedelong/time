@@ -31,10 +31,14 @@ public extension CalendarValue {
 }
 
 internal protocol DateComponentsInitializable: CalendarValue {
-    init(dateComponents: DateComponents, region: Region)
+    init(region: Region, dateComponents: DateComponents)
 }
 
 extension DateComponentsInitializable {
+    
+    init(dateComponents: DateComponents, region: Region) {
+        self.init(region: region, dateComponents: dateComponents.requireAndRestrict(to: Self.representedComponents))
+    }
     
     init(instant: Instant, region: Region) {
         let components = Self.representedComponents
