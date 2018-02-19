@@ -7,10 +7,6 @@
 
 import Foundation
 
-public protocol DateFields: RegionField, EraField, YearField, MonthField, DayField { }
-public protocol TimeFields: HourField, MinuteField, SecondField, NanosecondField { }
-public protocol DateTimeFields: DateFields, TimeFields { }
-
 // These structs are "floating" (not anchored)
 // They do not have enough information to identify their range
 

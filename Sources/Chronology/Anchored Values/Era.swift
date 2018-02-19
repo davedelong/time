@@ -11,11 +11,11 @@ public protocol EraField {
     var eraValue: Int { get }
 }
 
-public extension EraField where Self: DateComponentsField {
+public extension EraField where Self: CalendarValue {
     var eraValue: Int { return dateComponents.era.unwrap("Cannot create an EraField without an era value") }
 }
 
-public struct Era: RegionField, EraField, DateComponentsField, Anchored, DateComponentsInitializable {
+public struct Era: CalendarValue, EraField, Anchored, DateComponentsInitializable {
     public static var representedComponents: Set<Calendar.Component> = [.era]
     
     public let region: Region

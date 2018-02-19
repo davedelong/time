@@ -7,14 +7,13 @@
 
 import Foundation
 
-public protocol DateComponentsField: RegionField {
+public protocol CalendarValue {
     static var representedComponents: Set<Calendar.Component> { get }
-    
-    var dateComponents: Foundation.DateComponents { get }
-    
+    var region: Region { get }
+    var dateComponents: DateComponents { get }
 }
 
-public extension DateComponentsField {
+public extension CalendarValue {
     
     public static var smalledRepresentedComponent: Calendar.Component {
         let order: Array<Calendar.Component> = [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
@@ -25,9 +24,13 @@ public extension DateComponentsField {
         fatalError("\(Self.self) defines impossible represented units: \(represented)")
     }
     
+    public var calendar: Calendar { return region.calendar }
+    public var timeZone: TimeZone { return region.timeZone }
+    public var locale: Locale { return region.locale }
+    
 }
 
-internal protocol DateComponentsInitializable: DateComponentsField {
+internal protocol DateComponentsInitializable: CalendarValue {
     init(dateComponents: DateComponents, region: Region)
 }
 

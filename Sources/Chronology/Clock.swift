@@ -9,7 +9,7 @@ import Foundation
 
 
 /// A `Clock` is how you know what "now" is.
-public struct Clock: RegionField {
+public struct Clock {
     
     /**
      Some other notes:
@@ -31,6 +31,9 @@ public struct Clock: RegionField {
     private let impl: ClockImplementation
     
     public let region: Region
+    public var calendar: Calendar { return region.calendar }
+    public var timeZone: TimeZone { return region.timeZone }
+    public var locale: Locale { return region.locale }
     
     private init(implementation: ClockImplementation, region: Region) {
         self.impl = implementation

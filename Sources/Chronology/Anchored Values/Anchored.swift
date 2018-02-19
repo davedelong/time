@@ -13,7 +13,7 @@ public protocol Anchored {
     
 }
 
-public extension Anchored where Self: DateComponentsField {
+public extension Anchored where Self: CalendarValue {
     
     var range: ClosedRange<Instant> {
         let date = calendar.date(from: dateComponents).unwrap("Anchored values must always be convertible to a concrete NSDate")

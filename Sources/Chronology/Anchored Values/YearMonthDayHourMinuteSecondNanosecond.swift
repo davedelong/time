@@ -11,16 +11,16 @@ public protocol NanosecondField {
     var nanosecondValue: Int { get }
 }
 
-public extension NanosecondField where Self: DateComponentsField {
+public extension NanosecondField where Self: CalendarValue {
     var nanosecond: Nanosecond { return Nanosecond(dateComponents: dateComponents, region: region) }
     var nanosecondValue: Int { return dateComponents.nanosecond.unwrap("Cannot create an NanosecondField without a nanosecond value") }
 }
 
-public extension NanosecondField where Self: Anchored, Self: DateComponentsField {
+public extension NanosecondField where Self: Anchored, Self: CalendarValue {
     var yearMonthDayHourMinuteSecond: YearMonthDayHourMinuteSecond { return YearMonthDayHourMinuteSecond(dateComponents: self.dateComponents, region: region) }
 }
 
-public struct YearMonthDayHourMinuteSecondNanosecond: RegionField, EraField, YearField, MonthField, DayField, HourField, MinuteField, SecondField, NanosecondField, DateComponentsField, Anchored, DateComponentsInitializable {
+public struct YearMonthDayHourMinuteSecondNanosecond: CalendarValue, EraField, YearField, MonthField, DayField, HourField, MinuteField, SecondField, NanosecondField, Anchored, DateComponentsInitializable {
     public static var representedComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .nanosecond]
     
     public let region: Region

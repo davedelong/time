@@ -24,17 +24,3 @@ public struct Region {
     }
     
 }
-
-public protocol RegionField {
-    
-    var region: Region { get }
-    
-}
-
-public extension RegionField {
-    
-    var calendar: Calendar { return region.calendar }
-    var timeZone: TimeZone { return region.timeZone }
-    var locale: Locale { return region.locale }
-    
-}
