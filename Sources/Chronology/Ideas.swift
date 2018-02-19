@@ -13,9 +13,3 @@ protocol Planet {
     associatedtype TimeZone
     
 }
-
-
-//
-protocol TemporalAdjustment {
-    func apply<T>(to value: T) throws -> T
-}

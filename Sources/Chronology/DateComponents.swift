@@ -34,8 +34,7 @@ extension DateComponentsInitializable {
     
     init(instant: Instant, region: Region) {
         let components = Self.representedComponents
-        let date = Date(timeIntervalSinceReferenceDate: instant.intervalSinceReferenceEpoch.value)
-        let dateComponents = region.calendar.dateComponents(components, from: date)
+        let dateComponents = region.calendar.dateComponents(components, from: instant.date)
         self.init(dateComponents: dateComponents, region: region)
     }
     

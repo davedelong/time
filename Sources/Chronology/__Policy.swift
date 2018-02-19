@@ -12,6 +12,3 @@ enum Policy {
     case smart
     case lenient
 }
-
-var ymd: YearMonthDay?
-let foo = ymd?.set(month: 4)
