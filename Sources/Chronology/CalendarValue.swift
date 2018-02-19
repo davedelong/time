@@ -140,3 +140,21 @@ public extension CalendarValue where Self: MinuteField, Self: SecondField {
 public extension CalendarValue where Self: SecondField, Self: NanosecondField {
     var secondNanosecond: SecondNanosecond { return SecondNanosecond(dateComponents: dateComponents, region: region) }
 }
+
+/// Access the three-unit floating values
+
+public extension CalendarValue where Self: MonthField, Self: DayField, Self: HourField {
+    var monthDayHour: MonthDayHour { return MonthDayHour(dateComponents: dateComponents, region: region) }
+}
+
+public extension CalendarValue where Self: DayField, Self: HourField, Self: MinuteField {
+    var dayHourMinute: DayHourMinute { return DayHourMinute(dateComponents: dateComponents, region: region) }
+}
+
+public extension CalendarValue where Self: HourField, Self: MinuteField, Self: SecondField {
+    var hourMinuteSecond: HourMinuteSecond { return HourMinuteSecond(dateComponents: dateComponents, region: region) }
+}
+
+public extension CalendarValue where Self: MinuteField, Self: SecondField, Self: NanosecondField {
+    var minuteSecondNanosecond: MinuteSecondNanosecond { return MinuteSecondNanosecond(dateComponents: dateComponents, region: region) }
+}
