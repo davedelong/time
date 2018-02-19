@@ -1,6 +1,6 @@
 //
 //  Intervals.swift
-//  ChronologyPackageDescription
+//  Chronology
 //
 //  Created by Dave DeLong on 2/17/18.
 //

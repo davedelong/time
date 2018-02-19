@@ -1,6 +1,6 @@
 //
 //  Calendar.swift
-//  ChronologyPackageDescription
+//  Chronology
 //
 //  Created by Dave DeLong on 2/17/18.
 //
@@ -19,5 +19,20 @@ public extension Calendar {
     /// note: This does NOT affect how physics calculations are done (or velocities, etc)
     /// because those are all defined relative to SI Seconds
     public var SISecondsPerSecond: Double { return 1.0 }
+    
+}
+
+
+/***
+ 
+ Calendar methods used so far:
+ - date(from:) -> Date?
+ - dateInterval(of:start:interval:for:) -> Bool
+ 
+ ***/
+
+internal protocol CalendarComponentExpressible {
+    
+    static var smallestRepresentedComponent: Calendar.Component { get }
     
 }

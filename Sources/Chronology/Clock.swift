@@ -9,7 +9,7 @@ import Foundation
 
 
 /// A `Clock` is how you know what "now" is.
-public struct Clock {
+public struct Clock: RegionField {
     
     /**
      Some other notes:
@@ -26,25 +26,21 @@ public struct Clock {
     /// The system clock
     public static let system = Clock()
     
-    public static let UTC = Clock(timeZone: TimeZone(secondsFromGMT: 0)!)
+    public static let UTC = Clock(region: .currentUTC)
     
     private let impl: ClockImplementation
     
-    /// The timezone of the clock
-    public let timeZone: TimeZone
+    public let region: Region
     
-    public let calendar: Calendar
-    
-    private init(implementation: ClockImplementation, timeZone: TimeZone, calendar: Calendar) {
+    private init(implementation: ClockImplementation, region: Region) {
         self.impl = implementation
-        self.timeZone = timeZone
-        self.calendar = calendar
+        self.region = region
     }
     
     
     /// Create a clock that reflects the current system time
-    public init(timeZone: TimeZone = .autoupdatingCurrent, calendar: Calendar = .autoupdatingCurrent) {
-        self.init(implementation: SystemClock(), timeZone: timeZone, calendar: calendar)
+    public init(region: Region = .autoupdatingCurrent) {
+        self.init(implementation: SystemClock(), region: region)
     }
     
     
@@ -57,11 +53,11 @@ public struct Clock {
     ///           2.0 would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
     ///   - timeZone: The TimeZone in which instants are produced
     ///   - calendar: The Calendar relative to which the rate is calculated
-    public init(startingFrom referenceInstant: Instant, rate: Double = 1.0, timeZone: TimeZone = .autoupdatingCurrent, calendar: Calendar = .autoupdatingCurrent) {
+    public init(startingFrom referenceInstant: Instant, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
         guard rate > 0.0 else { fatalError("Clocks can only count forwards") }
         
-        let implementation = CustomClock(referenceInstant: referenceInstant, rate: rate, calendar: calendar)
-        self.init(implementation: implementation, timeZone: timeZone, calendar: calendar)
+        let implementation = CustomClock(referenceInstant: referenceInstant, rate: rate, calendar: region.calendar)
+        self.init(implementation: implementation, region: region)
     }
     
     
@@ -73,9 +69,9 @@ public struct Clock {
     ///           1.0 (the default) means one second on the system clock correlates to a second passing in the clock.
     ///           2.0 would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
     ///   - timeZone: The TimeZone in which instants are produced
-    public init(startingFrom referenceEpoch: Epoch, rate: Double = 1.0, timeZone: TimeZone = .autoupdatingCurrent, calendar: Calendar = .autoupdatingCurrent) {
+    public init(startingFrom referenceEpoch: Epoch, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
         let referenceInstant = Instant(interval: 0, since: referenceEpoch)
-        self.init(startingFrom: referenceInstant, rate: rate, timeZone: timeZone, calendar: calendar)
+        self.init(startingFrom: referenceInstant, rate: rate, region: region)
     }
     
     
@@ -93,7 +89,7 @@ public struct Clock {
     /// - Returns: A new `Clock` that is offset by the specified `TimeInterval` from the receiver
     public func offset(by: TimeInterval) -> Clock {
         let offset = OffsetClock(offset: by, from: impl)
-        return Clock(implementation: offset, timeZone: timeZone, calendar: calendar)
+        return Clock(implementation: offset, region: region)
     }
     
     
@@ -103,26 +99,21 @@ public struct Clock {
     /// - Returns: A new `Clock` that reports values in the specified `TimeZone`
     public func converting(to timeZone: TimeZone) -> Clock {
         if timeZone == self.timeZone { return self }
-        return Clock(implementation: impl, timeZone: timeZone, calendar: calendar)
+        let newRegion = Region(calendar: region.calendar, timeZone: timeZone, locale: region.locale)
+        return self.converting(to: newRegion)
     }
     
     public func converting(to calendar: Calendar) -> Clock {
         if calendar == self.calendar { return self }
         // TODO: if the new calendar defines a different scaling of SI Seconds... ?
-        if calendar.SISecondsPerSecond != self.calendar.SISecondsPerSecond {
-            
-        }
-        return Clock(implementation: impl, timeZone: timeZone, calendar: calendar)
+        let newRegion = Region(calendar: calendar, timeZone: region.timeZone, locale: region.locale)
+        return self.converting(to: newRegion)
     }
     
-    public func converting(to calendar: Calendar, in timeZone: TimeZone) -> Clock {
-        if timeZone == self.timeZone && calendar == self.calendar { return self }
+    public func converting(to newRegion: Region) -> Clock {
+        // TODO: compare the existing region to the new region and short-circuit if possible
         // TODO: if the new calendar defines a different scaling of SI Seconds... ?
-        if calendar.SISecondsPerSecond != self.calendar.SISecondsPerSecond {
-            
-        }
-        return Clock(implementation: impl, timeZone: timeZone, calendar: calendar)
-        
+        return Clock(implementation: impl, region: newRegion)
     }
 }
 

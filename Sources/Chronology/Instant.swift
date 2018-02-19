@@ -45,6 +45,10 @@ public struct Instant: Hashable, Comparable {
         self.intervalSinceReferenceEpoch = epoch.offsetFromReferenceDate + interval
     }
     
+    internal init(date: Foundation.Date) {
+        self.init(interval: SISeconds(date.timeIntervalSinceReferenceDate), since: .reference)
+    }
+    
     public func converting(to epoch: Epoch) -> Instant {
         let epochOffset = epoch.offsetFromReferenceDate - self.epoch.offsetFromReferenceDate
         let epochInterval = intervalSinceEpoch - epochOffset

@@ -1,6 +1,6 @@
 //
 //  __Protocols2.swift
-//  ChronologyPackageDescription
+//  Chronology
 //
 //  Created by Dave DeLong on 11/30/17.
 //

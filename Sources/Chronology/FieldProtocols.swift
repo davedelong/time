@@ -7,38 +7,19 @@
 
 import Foundation
 
-public protocol RegionField { }
-public protocol EraField { }
-public protocol YearField { }
-public protocol MonthField { }
-public protocol DayField { }
-public protocol HourField { }
-public protocol MinuteField { }
-public protocol SecondField { }
-public protocol SubsecondField { }
-
 public protocol DateFields: RegionField, EraField, YearField, MonthField, DayField { }
-public protocol TimeFields: HourField, MinuteField, SecondField, SubsecondField { }
+public protocol TimeFields: HourField, MinuteField, SecondField, NanosecondField { }
 public protocol DateTimeFields: DateFields, TimeFields { }
-
-public protocol Anchored {
-    var range: Range<Instant> { get }
-}
-
-// These structs are "anchored"
-// This means that the values have all the necessary components to identify their range
-// TODO: conform these to "Anchored"; this isn't in yet because doing so would add compiler errors
-public struct Era: RegionField, EraField { }
-public struct Year: RegionField, EraField, YearField { }
-public struct YearMonth: RegionField, EraField, YearField, MonthField { }
-public struct YearMonthDay: DateFields { }
-public struct YearMonthDayHour: DateFields, HourField { }
-public struct YearMonthDayHourMinute: DateFields, HourField, MinuteField { }
-public struct YearMonthDayHourMinuteSecond: DateFields, HourField, MinuteField, SecondField { }
-public struct YearMonthDayHourMinuteSecondSubsecond: DateFields, TimeFields { }
 
 // These structs are "floating" (not anchored)
 // They do not have enough information to identify their range
+
+/***
+ 
+public typealias Date = YearMonthDay
+public typealias Time = HourMinuteSecondSubsecond
+public typealias DateTime = YearMonthDayHourMinuteSecondSubsecond
+
 public struct Month: RegionField, MonthField { }
 public struct Day: RegionField, DayField { }
 public struct Hour: RegionField, HourField { }
@@ -65,3 +46,6 @@ public struct MonthDayHourMinuteSecond: RegionField, MonthField, DayField, HourF
 public struct DayHourMinuteSecondSubsecond: RegionField, DayField, TimeFields { }
 
 public struct MonthDayHourMinuteSecondSubsecond: RegionField, MonthField, DayField, TimeFields { }
+
+***/
+ 
