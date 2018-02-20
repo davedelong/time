@@ -18,4 +18,23 @@ public struct Year: Anchored, EraField, YearField {
         self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
     
+    public func firstMonth() -> YearMonth {
+        return YearMonth(instant: range.lowerBound, region: region)
+    }
+    
+    public func lastMonth() -> YearMonth {
+        return YearMonth(instant: range.upperBound, region: region)
+    }
+    
+    public func nthMonth(_ ordinal: Int) throws -> YearMonth {
+        let offsetMonth = firstMonth() + .months(ordinal - 1)
+        
+        let yearRange = self.range
+        let monthRange = offsetMonth.range
+        
+        guard yearRange.lowerBound <= monthRange.lowerBound else { throw AdjustmentError() }
+        guard monthRange.upperBound <= yearRange.upperBound else { throw AdjustmentError() }
+        return offsetMonth
+    }
+    
 }

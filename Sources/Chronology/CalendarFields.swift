@@ -43,34 +43,18 @@ public protocol Floating: CalendarValue { }
 
 public protocol CalendarValueField { }
 
-public protocol EraField: CalendarValueField {
-    var eraValue: Int { get }
-}
+public protocol EraField: CalendarValueField { }
 
-public protocol YearField: CalendarValueField {
-    var yearValue: Int { get }
-}
+public protocol YearField: CalendarValueField { }
 
-public protocol MonthField: CalendarValueField {
-    var monthValue: Int { get }
-}
+public protocol MonthField: CalendarValueField { }
 
-public protocol DayField: CalendarValueField {
-    var dayValue: Int { get }
-}
+public protocol DayField: CalendarValueField { }
 
-public protocol HourField: CalendarValueField {
-    var hourValue: Int { get }
-}
+public protocol HourField: CalendarValueField { }
 
-public protocol MinuteField: CalendarValueField {
-    var minuteValue: Int { get }
-}
+public protocol MinuteField: CalendarValueField { }
 
-public protocol SecondField: CalendarValueField {
-    var secondValue: Int { get }
-}
+public protocol SecondField: CalendarValueField { }
 
-public protocol NanosecondField: CalendarValueField {
-    var nanosecondValue: Int { get }
-}
+public protocol NanosecondField: CalendarValueField { }

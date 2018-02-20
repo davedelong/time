@@ -41,6 +41,7 @@ public extension CalendarValue {
 /// Access individual field values
 
 public extension CalendarValue where Self: EraField {
+    var era: Era { return Era(region: region, dateComponents: dateComponents) }
     var eraValue: Int { return dateComponents.era.unwrap("An EraField must have an era value") }
 }
 
