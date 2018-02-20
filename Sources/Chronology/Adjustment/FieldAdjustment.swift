@@ -51,19 +51,19 @@ public func -<C: CalendarValue & Anchored & YearField>(lhs: C, rhs: FieldAdjustm
     return lhs + FieldAdjustment(value: -rhs.value)
 }
 
-public func +<C: CalendarValue & Anchored & MonthField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: CalendarValue & Anchored & YearField & MonthField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs.apply(.add(months: rhs.value))
 }
 
-public func -<C: CalendarValue & Anchored & MonthField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: CalendarValue & Anchored & YearField & MonthField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value)
 }
 
-public func +<C: CalendarValue & Anchored & DayField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: CalendarValue & Anchored & YearField & MonthField & DayField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs.apply(.add(days: rhs.value))
 }
 
-public func -<C: CalendarValue & Anchored & DayField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: CalendarValue & Anchored & YearField & MonthField & DayField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value)
 }
 
