@@ -43,58 +43,58 @@ public extension FieldAdjustment where F: NanosecondField {
 }
 
 
-public func +<C: CalendarValue & Anchored & YearField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: Anchored & YearField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs.apply(.add(years: rhs.value))
 }
 
-public func -<C: CalendarValue & Anchored & YearField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: Anchored & YearField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value)
 }
 
-public func +<C: CalendarValue & Anchored & YearField & MonthField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: Anchored & YearField & MonthField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs.apply(.add(months: rhs.value))
 }
 
-public func -<C: CalendarValue & Anchored & YearField & MonthField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: Anchored & YearField & MonthField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value)
 }
 
-public func +<C: CalendarValue & Anchored & YearField & MonthField & DayField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: Anchored & DateFields>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs.apply(.add(days: rhs.value))
 }
 
-public func -<C: CalendarValue & Anchored & YearField & MonthField & DayField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: Anchored & DateFields>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value)
 }
 
-public func +<C: CalendarValue & Anchored & HourField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: Anchored & DateFields & HourField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs.apply(.add(hours: rhs.value))
 }
 
-public func -<C: CalendarValue & Anchored & HourField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: Anchored & DateFields & HourField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value)
 }
 
-public func +<C: CalendarValue & Anchored & MinuteField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: Anchored & DateFields & HourField & MinuteField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs.apply(.add(minutes: rhs.value))
 }
 
-public func -<C: CalendarValue & Anchored & MinuteField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: Anchored & DateFields & HourField & MinuteField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value)
 }
 
-public func +<C: CalendarValue & Anchored & SecondField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: Anchored & DateFields & HourField & MinuteField & SecondField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs.apply(.add(seconds: rhs.value))
 }
 
-public func -<C: CalendarValue & Anchored & SecondField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: Anchored & DateFields & HourField & MinuteField & SecondField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value)
 }
 
-public func +<C: CalendarValue & Anchored & NanosecondField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: Anchored & DateFields & TimeFields>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs.apply(.add(nanoseconds: rhs.value))
 }
 
-public func -<C: CalendarValue & Anchored & NanosecondField>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: Anchored & DateFields & TimeFields>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value)
 }

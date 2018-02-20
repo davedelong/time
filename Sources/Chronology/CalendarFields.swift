@@ -58,3 +58,7 @@ public protocol MinuteField: CalendarValueField { }
 public protocol SecondField: CalendarValueField { }
 
 public protocol NanosecondField: CalendarValueField { }
+
+public typealias DateFields = EraField & YearField & MonthField & DayField
+public typealias TimeFields = HourField & MinuteField & SecondField & NanosecondField
+public typealias DateTimeFields = DateFields & TimeFields

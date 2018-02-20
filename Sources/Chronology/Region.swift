@@ -18,7 +18,11 @@ public struct Region {
     public let locale: Locale
     
     public init(calendar: Calendar, timeZone: TimeZone, locale: Locale) {
-        self.calendar = calendar
+        var actualCalendar = calendar
+        actualCalendar.timeZone = timeZone
+        actualCalendar.locale = locale
+        
+        self.calendar = actualCalendar
         self.timeZone = timeZone
         self.locale = locale
     }

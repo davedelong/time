@@ -12,7 +12,7 @@ import Foundation
 /// or finding the next or previous occurence of a particular event.
 public struct Adjustment<I: CalendarValue, O: CalendarValue> {
     
-    public let adjust: (I) -> O
+    fileprivate let adjust: (I) -> O
     
     public init(_ adjuster: @escaping (I) -> O) {
         self.adjust = adjuster
@@ -26,7 +26,7 @@ public struct Adjustment<I: CalendarValue, O: CalendarValue> {
 /// A trivial demonstration would be attempting to set the day of February to 31; this should throw.
 public struct UnsafeAdjustment<I: CalendarValue, O: CalendarValue> {
     
-    public let adjust: (I) throws -> O
+    fileprivate let adjust: (I) throws -> O
     
     public init(_ adjuster: @escaping (I) throws -> O) {
         self.adjust = adjuster
@@ -35,7 +35,7 @@ public struct UnsafeAdjustment<I: CalendarValue, O: CalendarValue> {
 }
 
 public struct AdjustmentError: Error {
-    public init() { }
+    internal init() { }
 }
 
 public extension CalendarValue {

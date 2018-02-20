@@ -36,6 +36,25 @@ public extension CalendarValue {
         self.init(date: instant.date, region: region)
     }
     
+    public func convert(to region: Region) -> Self {
+        return Self.init(region: region, dateComponents: dateComponents)
+    }
+    
+    public func convert(to calendar: Calendar) -> Self {
+        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        return self.convert(to: newRegion)
+    }
+    
+    public func convert(to timeZone: TimeZone) -> Self {
+        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        return self.convert(to: newRegion)
+    }
+    
+    public func convert(to locale: Locale) -> Self {
+        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        return self.convert(to: newRegion)
+    }
+    
 }
 
 /// Access individual field values
@@ -160,7 +179,7 @@ public extension CalendarValue where Self: DayField & HourField & MinuteField & 
     var dayHourMinuteSecond: DayHourMinuteSecond { return DayHourMinuteSecond(region: region, dateComponents: dateComponents) }
 }
 
-public extension CalendarValue where Self: HourField & MinuteField & SecondField & NanosecondField {
+public extension CalendarValue where Self: TimeFields {
     var hourMinuteSecondNanosecond: HourMinuteSecondNanosecond { return HourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
 }
 
@@ -170,11 +189,11 @@ public extension CalendarValue where Self: MonthField & DayField & HourField & M
     var monthDayHourMinuteSecond: MonthDayHourMinuteSecond { return MonthDayHourMinuteSecond(region: region, dateComponents: dateComponents) }
 }
 
-public extension CalendarValue where Self: DayField & HourField & MinuteField & SecondField & NanosecondField {
+public extension CalendarValue where Self: DayField & TimeFields {
     var dayHourMinuteSecondNanosecond: DayHourMinuteSecondNanosecond { return DayHourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
 }
 
-public extension CalendarValue where Self: MonthField & DayField & HourField & MinuteField & SecondField & NanosecondField {
+public extension CalendarValue where Self: MonthField & DayField & TimeFields {
     var monthDayHourMinuteSecondNanosecond: MonthDayHourMinuteSecondNanosecond { return MonthDayHourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
 }
 
