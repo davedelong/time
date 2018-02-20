@@ -32,3 +32,15 @@ public extension Adjustment where I: Anchored & YearField, I == O {
     }
     
 }
+
+public extension CalendarValue where Self: Anchored, Self: YearField {
+    
+    public func nextYear() -> Self {
+        return self + .years(1)
+    }
+    
+    public func lastYear() -> Self {
+        return self - .years(1)
+    }
+    
+}
