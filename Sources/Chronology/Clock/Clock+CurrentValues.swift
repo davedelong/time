@@ -9,45 +9,33 @@ import Foundation
 
 public extension Clock {
     
-    public func thisEra() -> Era { return Era(instant: thisInstant(), region: region) }
-    public func thisYear() -> Year { return Year(instant: thisInstant(), region: region) }
-    public func thisYearMonth() -> YearMonth { return YearMonth(instant: thisInstant(), region: region) }
-    public func thisYearMonthDay() -> YearMonthDay { return YearMonthDay(instant: thisInstant(), region: region) }
-    public func thisYearMonthDayHour() -> YearMonthDayHour { return YearMonthDayHour(instant: thisInstant(), region: region) }
-    public func thisYearMonthDayHourMinute() -> YearMonthDayHourMinute { return YearMonthDayHourMinute(instant: thisInstant(), region: region) }
-    public func thisYearMonthDayHourMinuteSecond() -> YearMonthDayHourMinuteSecond { return YearMonthDayHourMinuteSecond(instant: thisInstant(), region: region) }
-    public func thisYearMonthDayHourMinuteSecondNanosecond() -> YearMonthDayHourMinuteSecondNanosecond { return YearMonthDayHourMinuteSecondNanosecond(instant: thisInstant(), region: region) }
+    public func now() -> Instant { return thisInstant() }
+    public func this<C: CalendarValue & Anchored>() -> C { return C.init(instant: thisInstant(), region: region) }
     
-    // single unit floating values
-    public func thisMonth() -> Month { return Month(instant: thisInstant(), region: region) }
-    public func thisDay() -> Day { return Day(instant: thisInstant(), region: region) }
-    public func thisHour() -> Hour { return Hour(instant: thisInstant(), region: region) }
-    public func thisMinute() -> Minute { return Minute(instant: thisInstant(), region: region) }
-    public func thisSecond() -> Second { return Second(instant: thisInstant(), region: region) }
-    public func thisNanosecond() -> Nanosecond { return Nanosecond(instant: thisInstant(), region: region) }
+    public func today() -> YearMonthDay { return this() }
+    public func tomorrow() -> YearMonthDay { return today() + .days(1) }
+    public func yesterday() -> YearMonthDay { return today() - .days(1) }
     
-    // two unit floating values
-    public func thisMonthDay() -> MonthDay { return MonthDay(instant: thisInstant(), region: region) }
-    public func thisDayHour() -> DayHour { return DayHour(instant: thisInstant(), region: region) }
-    public func thisHourMinute() -> HourMinute { return HourMinute(instant: thisInstant(), region: region) }
-    public func thisMinuteSecond() -> MinuteSecond { return MinuteSecond(instant: thisInstant(), region: region) }
-    public func thisSecondNanosecond() -> SecondNanosecond { return SecondNanosecond(instant: thisInstant(), region: region) }
+    public func thisEra() -> Era { return this() }
+    public func thisYear() -> Year { return this() }
+    public func thisMonth() -> YearMonth { return this() }
+    public func thisDay() -> YearMonthDay { return this() }
+    public func thisHour() -> YearMonthDayHour { return this() }
+    public func thisMinute() -> YearMonthDayHourMinute { return this() }
+    public func thisSecond() -> YearMonthDayHourMinuteSecond { return this() }
+    public func thisNanosecond() -> YearMonthDayHourMinuteSecondNanosecond { return this() }
     
-    // three unit floating values
-    public func thisMonthDayHour() -> MonthDayHour { return MonthDayHour(instant: thisInstant(), region: region) }
-    public func thisDayHourMinute() -> DayHourMinute { return DayHourMinute(instant: thisInstant(), region: region) }
-    public func thisHourMinuteSecond() -> HourMinuteSecond { return HourMinuteSecond(instant: thisInstant(), region: region) }
-    public func thisMinuteSecondNanosecond() -> MinuteSecondNanosecond { return MinuteSecondNanosecond(instant: thisInstant(), region: region) }
+    public func nextYear() -> Year { return this() + .years(1) }
+    public func nextMonth() -> YearMonth { return this() + .months(1) }
+    public func nextDay() -> YearMonthDay { return this() + .days(1) }
+    public func nextHour() -> YearMonthDayHour { return this() + .hours(1) }
+    public func nextMinute() -> YearMonthDayHourMinute { return this() + .minutes(1) }
+    public func nextSecond() -> YearMonthDayHourMinuteSecond { return this() + .seconds(1) }
     
-    // four unit floating values
-    public func thisMonthDayHourMinute() -> MonthDayHourMinute { return MonthDayHourMinute(instant: thisInstant(), region: region) }
-    public func thisDayHourMinuteSecond() -> DayHourMinuteSecond { return DayHourMinuteSecond(instant: thisInstant(), region: region) }
-    public func thisHourMinuteSecondNanosecond() -> HourMinuteSecondNanosecond { return HourMinuteSecondNanosecond(instant: thisInstant(), region: region) }
-    
-    // five unit floating values
-    public func thisMonthDayHourMinuteSecond() -> MonthDayHourMinuteSecond { return MonthDayHourMinuteSecond(instant: thisInstant(), region: region) }
-    public func thisDayHourMinuteSecondNanosecond() -> DayHourMinuteSecondNanosecond { return DayHourMinuteSecondNanosecond(instant: thisInstant(), region: region) }
-    
-    // six unit floating values
-    public func thisMonthDayHourMinuteSecondNanosecond() -> MonthDayHourMinuteSecondNanosecond { return MonthDayHourMinuteSecondNanosecond(instant: thisInstant(), region: region) }
+    public func previousYear() -> Year { return this() - .years(1) }
+    public func previousMonth() -> YearMonth { return this() - .months(1) }
+    public func previousDay() -> YearMonthDay { return this() - .days(1) }
+    public func previousHour() -> YearMonthDayHour { return this() - .hours(1) }
+    public func previousMinute() -> YearMonthDayHourMinute { return this() - .minutes(1) }
+    public func previousSecond() -> YearMonthDayHourMinuteSecond { return this() - .seconds(1) }
 }

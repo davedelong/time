@@ -3,10 +3,11 @@ import XCTest
 
 class ChronologyTests: XCTestCase {
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(Chronology().text, "Hello, World!")
+        
+        let c = Clock.system
+        let today = c.thisYearMonthDay()
+        
+        let v = today + .nanoseconds(2)
     }
 
 

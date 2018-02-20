@@ -12,12 +12,6 @@ import Foundation
 public struct Clock {
     
     /**
-     Some other notes:
-     - It'd be good to have a "now()" method that takes a granularity, (ie, "now to the current minute/hour", etc)
-     - Then there'd be "thisSecond()", "thisHour()", etc methods that wrap "now()"
-     - "now()" will eventually produce a TCL-relative date, and not a "Date"
-     - Clock will also have the TCL properties, so you can create a clock for Pacific Time, UTC, Beijing Time, etc.
-     
      Implementation details:
      - This uses an internal "ClockImplementation" to simplify the distinction between a custom clock and a system clock
      - If you specify a custom flow-rate of time, it must be greater than zero. You can't stop or reverse time. Sorry.

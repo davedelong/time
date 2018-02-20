@@ -26,10 +26,12 @@ public extension Calendar {
 /***
  
  Calendar methods used so far:
+ 
  - SISecondsPerSecond
  - date(from:) -> Date?
  - dateInterval(of:start:interval:for:) -> Bool
  - date(byAdding:to:wrappingComponents:) -> Date?
  - dateComponents(_:from:) -> DateComponents
+ - isDateInWeekend(_:) -> Bool
  
  ***/
