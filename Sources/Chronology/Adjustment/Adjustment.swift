@@ -34,6 +34,10 @@ public struct UnsafeAdjustment<I: CalendarValue, O: CalendarValue> {
     
 }
 
+public struct AdjustmentError: Error {
+    public init() { }
+}
+
 public extension CalendarValue {
     
     public func apply<O>(_ adjustment: Adjustment<Self, O>) -> O {

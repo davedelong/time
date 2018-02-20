@@ -18,4 +18,23 @@ public struct YearMonthDayHourMinute: Anchored, EraField, YearField, MonthField,
         self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
     
+    public func firstSecond() -> YearMonthDayHourMinuteSecond {
+        return YearMonthDayHourMinuteSecond(instant: range.lowerBound, region: region)
+    }
+    
+    public func lastSecond() -> YearMonthDayHourMinuteSecond {
+        return YearMonthDayHourMinuteSecond(instant: range.upperBound, region: region)
+    }
+    
+    public func nthSecond(_ ordinal: Int) throws -> YearMonthDayHourMinuteSecond {
+        let offsetSecond = firstSecond() + .seconds(ordinal - 1)
+        
+        let minuteRange = self.range
+        let secondRange = offsetSecond.range
+        
+        guard minuteRange.lowerBound <= secondRange.lowerBound else { throw AdjustmentError() }
+        guard secondRange.upperBound <= minuteRange.upperBound else { throw AdjustmentError() }
+        return offsetSecond
+    }
+    
 }

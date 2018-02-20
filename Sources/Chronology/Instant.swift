@@ -51,6 +51,7 @@ public struct Instant: Hashable, Comparable {
     }
     
     public func converting(to epoch: Epoch) -> Instant {
+        if epoch == self.epoch { return self }
         let epochOffset = epoch.offsetFromReferenceDate - self.epoch.offsetFromReferenceDate
         let epochInterval = intervalSinceEpoch - epochOffset
         return Instant(interval: epochInterval, since: epoch)
