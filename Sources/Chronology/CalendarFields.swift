@@ -11,6 +11,10 @@ public protocol Anchored {
     var range: ClosedRange<Instant> { get }
 }
 
+/// A marker protocol for generic constraints.
+/// A value that is not Anchored is Floating.
+public protocol Floating { }
+
 public protocol CalendarValueField { }
 
 public protocol EraField: CalendarValueField {

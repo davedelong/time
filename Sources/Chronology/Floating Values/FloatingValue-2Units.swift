@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MonthDay: CalendarValue, MonthField, DayField {
+public struct MonthDay: CalendarValue, MonthField, DayField, Floating {
     public static var representedComponents: Set<Calendar.Component> = [.month, .day]
     
     public let region: Region
@@ -19,7 +19,7 @@ public struct MonthDay: CalendarValue, MonthField, DayField {
     }
 }
 
-public struct DayHour: CalendarValue, DayField, HourField {
+public struct DayHour: CalendarValue, DayField, HourField, Floating {
     public static var representedComponents: Set<Calendar.Component> = [.day, .hour]
     
     public let region: Region
@@ -31,7 +31,7 @@ public struct DayHour: CalendarValue, DayField, HourField {
     }
 }
 
-public struct HourMinute: CalendarValue, HourField, MinuteField {
+public struct HourMinute: CalendarValue, HourField, MinuteField, Floating {
     public static var representedComponents: Set<Calendar.Component> = [.hour, .minute]
     
     public let region: Region
@@ -43,7 +43,7 @@ public struct HourMinute: CalendarValue, HourField, MinuteField {
     }
 }
 
-public struct MinuteSecond: CalendarValue, MinuteField, SecondField {
+public struct MinuteSecond: CalendarValue, MinuteField, SecondField, Floating {
     public static var representedComponents: Set<Calendar.Component> = [.minute, .second]
     
     public let region: Region
@@ -55,7 +55,7 @@ public struct MinuteSecond: CalendarValue, MinuteField, SecondField {
     }
 }
 
-public struct SecondNanosecond: CalendarValue, SecondField, NanosecondField {
+public struct SecondNanosecond: CalendarValue, SecondField, NanosecondField, Floating {
     public static var representedComponents: Set<Calendar.Component> = [.second, .nanosecond]
     
     public let region: Region
