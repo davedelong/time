@@ -29,5 +29,6 @@ public extension Calendar {
  - SISecondsPerSecond
  - date(from:) -> Date?
  - dateInterval(of:start:interval:for:) -> Bool
+ - date(byAdding:to:wrappingComponents:) -> Date?
  
  ***/

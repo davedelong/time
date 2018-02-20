@@ -11,34 +11,36 @@ public protocol Anchored {
     var range: ClosedRange<Instant> { get }
 }
 
-public protocol EraField {
+public protocol CalendarValueField { }
+
+public protocol EraField: CalendarValueField {
     var eraValue: Int { get }
 }
 
-public protocol YearField {
+public protocol YearField: CalendarValueField {
     var yearValue: Int { get }
 }
 
-public protocol MonthField {
+public protocol MonthField: CalendarValueField {
     var monthValue: Int { get }
 }
 
-public protocol DayField {
+public protocol DayField: CalendarValueField {
     var dayValue: Int { get }
 }
 
-public protocol HourField {
+public protocol HourField: CalendarValueField {
     var hourValue: Int { get }
 }
 
-public protocol MinuteField {
+public protocol MinuteField: CalendarValueField {
     var minuteValue: Int { get }
 }
 
-public protocol SecondField {
+public protocol SecondField: CalendarValueField {
     var secondValue: Int { get }
 }
 
-public protocol NanosecondField {
+public protocol NanosecondField: CalendarValueField {
     var nanosecondValue: Int { get }
 }
