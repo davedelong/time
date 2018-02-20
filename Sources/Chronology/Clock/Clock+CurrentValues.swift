@@ -8,7 +8,6 @@
 import Foundation
 
 public extension Clock {
-    
     public func now() -> Instant { return thisInstant() }
     public func this<C: CalendarValue & Anchored>() -> C { return C.init(instant: thisInstant(), region: region) }
     

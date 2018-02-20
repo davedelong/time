@@ -23,3 +23,7 @@ internal extension Optional {
     }
     
 }
+
+internal func invalid(_ function: StaticString = #function, file: StaticString = #file, line: UInt = #line) -> Never {
+    fatalError("\(function) is invalid", file: file, line: line)
+}
