@@ -12,14 +12,10 @@ import Foundation
 /// or finding the next or previous occurence of a particular event.
 public struct Adjustment<I: CalendarValue, O: CalendarValue> {
     
-    private let adjuster: (I) -> O
+    public let adjust: (I) -> O
     
     public init(_ adjuster: @escaping (I) -> O) {
-        self.adjuster = adjuster
-    }
-    
-    public func adjust(_ input: I) -> O {
-        return adjuster(input)
+        self.adjust = adjuster
     }
     
 }
@@ -30,21 +26,22 @@ public struct Adjustment<I: CalendarValue, O: CalendarValue> {
 /// A trivial demonstration would be attempting to set the day of February to 31; this should throw.
 public struct UnsafeAdjustment<I: CalendarValue, O: CalendarValue> {
     
-    private let adjuster: (I) throws -> O
+    public let adjust: (I) throws -> O
     
     public init(_ adjuster: @escaping (I) throws -> O) {
-        self.adjuster = adjuster
-    }
-    
-    public func adjust(_ input: I) throws -> O {
-        return try adjuster(input)
+        self.adjust = adjuster
     }
     
 }
 
-
-/// This is a nominal wrapper to an adjust to a single field on a CalendarValue
-/// This wrapper enables syntax like "today + .days(3)"
-public struct FieldAdjustment<F: CalendarValueField> {
-    public let value: Int
+public extension CalendarValue {
+    
+    public func apply<O>(_ adjustment: Adjustment<Self, O>) -> O {
+        return adjustment.adjust(self)
+    }
+    
+    public func apply<O>(_ adjustment: UnsafeAdjustment<Self, O>) throws -> O {
+        return try adjustment.adjust(self)
+    }
+    
 }
