@@ -59,6 +59,30 @@ public protocol SecondField: CalendarValueField { }
 
 public protocol NanosecondField: CalendarValueField { }
 
-public typealias DateFields = EraField & YearField & MonthField & DayField
-public typealias TimeFields = HourField & MinuteField & SecondField & NanosecondField
-public typealias DateTimeFields = DateFields & TimeFields
+public typealias YearFields = EraField & YearField
+public typealias YearMonthFields = YearFields & MonthField
+public typealias YearMonthDayFields = YearMonthFields & DayField
+public typealias YearMonthDayHourFields = YearMonthDayFields & HourField
+public typealias YearMonthDayHourMinuteFields = YearMonthDayHourFields & MinuteField
+public typealias YearMonthDayHourMinuteSecondFields = YearMonthDayHourMinuteFields & SecondField
+public typealias YearMonthDayHourMinuteSecondNanosecondFields = YearMonthDayHourMinuteSecondFields & NanosecondField
+
+public typealias MonthDayFields = MonthField & DayField
+public typealias DayHourFields = DayField & HourField
+public typealias HourMinuteFields = HourField & MinuteField
+public typealias MinuteSecondFields = MinuteField & SecondField
+public typealias SecondNanosecondFields = SecondField & NanosecondField
+
+public typealias MonthDayHourFields = MonthDayFields & HourField
+public typealias DayHourMinuteFields = DayHourFields & MinuteField
+public typealias HourMinuteSecondFields = HourMinuteFields & SecondField
+public typealias MinuteSecondNanosecondFields = MinuteSecondFields & NanosecondField
+
+public typealias MonthDayHourMinuteFields = MonthDayHourFields & MinuteField
+public typealias DayHourMinuteSecondFields = DayHourMinuteFields & SecondField
+public typealias HourMinuteSecondNanosecondFields = HourMinuteSecondFields & NanosecondField
+
+public typealias MonthDayHourMinuteSecondFields = MonthDayHourMinuteFields & SecondField
+public typealias DayHourMinuteSecondNanosecondFields = DayHourMinuteSecondFields & NanosecondField
+
+public typealias MonthDayHourMinuteSecondNanosecondFields = MonthDayHourMinuteSecondFields & NanosecondField

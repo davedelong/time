@@ -179,7 +179,7 @@ public extension CalendarValue where Self: DayField & HourField & MinuteField & 
     var dayHourMinuteSecond: DayHourMinuteSecond { return DayHourMinuteSecond(region: region, dateComponents: dateComponents) }
 }
 
-public extension CalendarValue where Self: TimeFields {
+public extension CalendarValue where Self: HourMinuteSecondNanosecondFields {
     var hourMinuteSecondNanosecond: HourMinuteSecondNanosecond { return HourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
 }
 
@@ -189,11 +189,11 @@ public extension CalendarValue where Self: MonthField & DayField & HourField & M
     var monthDayHourMinuteSecond: MonthDayHourMinuteSecond { return MonthDayHourMinuteSecond(region: region, dateComponents: dateComponents) }
 }
 
-public extension CalendarValue where Self: DayField & TimeFields {
+public extension CalendarValue where Self: DayHourMinuteSecondNanosecondFields {
     var dayHourMinuteSecondNanosecond: DayHourMinuteSecondNanosecond { return DayHourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
 }
 
-public extension CalendarValue where Self: MonthField & DayField & TimeFields {
+public extension CalendarValue where Self: MonthDayHourMinuteSecondNanosecondFields {
     var monthDayHourMinuteSecondNanosecond: MonthDayHourMinuteSecondNanosecond { return MonthDayHourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
 }
 

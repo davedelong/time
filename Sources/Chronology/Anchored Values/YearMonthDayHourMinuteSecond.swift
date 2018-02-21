@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct YearMonthDayHourMinuteSecond: Anchored, EraField, YearField, MonthField, DayField, HourField, MinuteField, SecondField {
+public struct YearMonthDayHourMinuteSecond: Anchored, YearMonthDayHourMinuteSecondFields {
     public static var representedComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second]
     
     public let region: Region

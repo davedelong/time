@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MonthDayHourMinuteSecond: Floating, MonthField, DayField, HourField, MinuteField, SecondField {
+public struct MonthDayHourMinuteSecond: Floating, MonthDayHourMinuteSecondFields {
     public static var representedComponents: Set<Calendar.Component> = [.month, .day, .hour, .minute, .second]
     
     public let region: Region
@@ -19,7 +19,7 @@ public struct MonthDayHourMinuteSecond: Floating, MonthField, DayField, HourFiel
     }
 }
 
-public struct DayHourMinuteSecondNanosecond: Floating, DayField, HourField, MinuteField, SecondField, NanosecondField {
+public struct DayHourMinuteSecondNanosecond: Floating, DayHourMinuteSecondNanosecondFields {
     public static var representedComponents: Set<Calendar.Component> = [.day, .hour, .minute, .second, .nanosecond]
     
     public let region: Region
@@ -31,7 +31,7 @@ public struct DayHourMinuteSecondNanosecond: Floating, DayField, HourField, Minu
     }
 }
 
-public struct MonthDayHourMinuteSecondNanosecond: Floating, MonthField, DayField, HourField, MinuteField, SecondField, NanosecondField {
+public struct MonthDayHourMinuteSecondNanosecond: Floating, MonthDayHourMinuteSecondNanosecondFields {
     public static var representedComponents: Set<Calendar.Component> = [.month, .day, .hour, .minute, .second, .nanosecond]
     
     public let region: Region
