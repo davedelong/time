@@ -16,7 +16,7 @@ public protocol CalendarValue {
 
 public extension CalendarValue {
     
-    public static var smalledRepresentedComponent: Calendar.Component {
+    public static var smallestRepresentedComponent: Calendar.Component {
         let order: Array<Calendar.Component> = [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
         let represented = self.representedComponents
         let component = order.first(where: { represented.contains($0) })

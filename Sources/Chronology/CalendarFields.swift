@@ -15,7 +15,7 @@ extension Anchored {
     
     public var range: ClosedRange<Instant> {
         let date = calendar.date(from: dateComponents).unwrap("Anchored values must always be convertible to a concrete NSDate")
-        let unit = type(of: self).smalledRepresentedComponent
+        let unit = type(of: self).smallestRepresentedComponent
         
         var start = Date()
         var length: TimeInterval = 0
