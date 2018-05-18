@@ -7,159 +7,159 @@
 
 import Foundation
 
-public struct FormatTemplate<Field>: Format {
+public struct Template<Field>: Format {
     internal let template: String
     internal init(_ template: String) {
         self.template = template
     }
 }
 
-public extension FormatTemplate where Field == EraField {
-    static let narrow = FormatTemplate("GGGGG")
-    static let abbreviated = FormatTemplate("G")
-    static let wide = FormatTemplate("GGGG")
+public extension Template where Field == EraField {
+    static let narrow = Template("GGGGG")
+    static let abbreviated = Template("G")
+    static let wide = Template("GGGG")
 }
 
-public extension FormatTemplate where Field == YearField {
-    static let full = FormatTemplate("y")
+public extension Template where Field == YearField {
+    static let full = Template("y")
     static let twoDigits = digits(paddedToLength: 2)
-    static func digits(paddedToLength: Int) -> FormatTemplate {
+    static func digits(paddedToLength: Int) -> Template {
         guard paddedToLength > 0 else { fatalError("Cannot pad to a length less than 1") }
         let template = "".padding(toLength: paddedToLength, withPad: "y", startingAt: 0)
-        return FormatTemplate(template)
+        return Template(template)
     }
 }
 
-public extension FormatTemplate where Field == MonthField {
-    static let fullDigits = FormatTemplate("M")
-    static let twoDigits = FormatTemplate("MM")
-    static let abbreviated = FormatTemplate("MMM")
-    static let fullName = FormatTemplate("MMMM")
-    static let narrow = FormatTemplate("MMMMM")
+public extension Template where Field == MonthField {
+    static let fullDigits = Template("M")
+    static let twoDigits = Template("MM")
+    static let abbreviated = Template("MMM")
+    static let fullName = Template("MMMM")
+    static let narrow = Template("MMMMM")
 }
 
 public enum Standalone<Field> { }
-public extension FormatTemplate where Field == Standalone<MonthField> {
-    static let fullDigits = FormatTemplate("L")
-    static let twoDigits = FormatTemplate("LL")
-    static let abbreviated = FormatTemplate("LLL")
-    static let fullName = FormatTemplate("LLLL")
-    static let narrow = FormatTemplate("LLLLL")
+public extension Template where Field == Standalone<MonthField> {
+    static let fullDigits = Template("L")
+    static let twoDigits = Template("LL")
+    static let abbreviated = Template("LLL")
+    static let fullName = Template("LLLL")
+    static let narrow = Template("LLLLL")
 }
 
-public extension FormatTemplate where Field == DayField {
-    static let full = FormatTemplate("d")
-    static let twoDigits = FormatTemplate("dd")
+public extension Template where Field == DayField {
+    static let full = Template("d")
+    static let twoDigits = Template("dd")
 }
 
 public enum Weekday { }
-public extension FormatTemplate where Field == Weekday {
-    static let fullDigits = FormatTemplate("e")
-    static let twoDigits = FormatTemplate("ee")
-    static let abbreviated = FormatTemplate("eee")
-    static let fullName = FormatTemplate("eeee")
-    static let narrow = FormatTemplate("eeeee")
-    static let short = FormatTemplate("eeeeee")
+public extension Template where Field == Weekday {
+    static let fullDigits = Template("e")
+    static let twoDigits = Template("ee")
+    static let abbreviated = Template("eee")
+    static let fullName = Template("eeee")
+    static let narrow = Template("eeeee")
+    static let short = Template("eeeeee")
 }
 
-public extension FormatTemplate where Field == Standalone<Weekday> {
-    static let fullDigits = FormatTemplate("c")
-    static let twoDigits = FormatTemplate("cc")
-    static let abbreviated = FormatTemplate("ccc")
-    static let fullName = FormatTemplate("cccc")
-    static let narrow = FormatTemplate("ccccc")
-    static let short = FormatTemplate("cccccc")
+public extension Template where Field == Standalone<Weekday> {
+    static let fullDigits = Template("c")
+    static let twoDigits = Template("cc")
+    static let abbreviated = Template("ccc")
+    static let fullName = Template("cccc")
+    static let narrow = Template("ccccc")
+    static let short = Template("cccccc")
 }
 
 public enum DayPeriod { }
-public extension FormatTemplate where Field == DayPeriod {
-    static let abbreviated = FormatTemplate("a")
-    static let wide = FormatTemplate("aaaa")
-    static let narrow = FormatTemplate("aaaaa")
+public extension Template where Field == DayPeriod {
+    static let abbreviated = Template("a")
+    static let wide = Template("aaaa")
+    static let narrow = Template("aaaaa")
 }
 
-public extension FormatTemplate where Field == HourField {
-    static let full = FormatTemplate.full(with: nil)
-    static let twoDigits = FormatTemplate.twoDigits(with: nil)
+public extension Template where Field == HourField {
+    static let full = Template.full(with: nil)
+    static let twoDigits = Template.twoDigits(with: nil)
     
-    static func full(with period: FormatTemplate<DayPeriod>? = .abbreviated) -> FormatTemplate {
-        guard let p = period else { return FormatTemplate("J") }
+    static func full(with period: Template<DayPeriod>? = .abbreviated) -> Template {
+        guard let p = period else { return Template("J") }
         
-        if p.template == FormatTemplate<DayPeriod>.wide.template {
-            return FormatTemplate("jjj")
-        } else if p.template == FormatTemplate<DayPeriod>.narrow.template {
-            return FormatTemplate("jjjjj")
+        if p.template == Template<DayPeriod>.wide.template {
+            return Template("jjj")
+        } else if p.template == Template<DayPeriod>.narrow.template {
+            return Template("jjjjj")
         } else {
-            return FormatTemplate("j")
+            return Template("j")
         }
     }
     
-    static func twoDigits(with period: FormatTemplate<DayPeriod>? = .abbreviated) -> FormatTemplate {
-        guard let p = period else { return FormatTemplate("JJ") }
+    static func twoDigits(with period: Template<DayPeriod>? = .abbreviated) -> Template {
+        guard let p = period else { return Template("JJ") }
         
-        if p.template == FormatTemplate<DayPeriod>.wide.template {
-            return FormatTemplate("jjjj")
-        } else if p.template == FormatTemplate<DayPeriod>.narrow.template {
-            return FormatTemplate("jjjjjj")
+        if p.template == Template<DayPeriod>.wide.template {
+            return Template("jjjj")
+        } else if p.template == Template<DayPeriod>.narrow.template {
+            return Template("jjjjjj")
         } else {
-            return FormatTemplate("jj")
+            return Template("jj")
         }
     }
     
 }
 
-public extension FormatTemplate where Field == MinuteField {
-    static let full = FormatTemplate("m")
-    static let twoDigits = FormatTemplate("mm")
+public extension Template where Field == MinuteField {
+    static let full = Template("m")
+    static let twoDigits = Template("mm")
 }
 
-public extension FormatTemplate where Field == SecondField {
-    static let full = FormatTemplate("s")
-    static let twoDigits = FormatTemplate("ss")
+public extension Template where Field == SecondField {
+    static let full = Template("s")
+    static let twoDigits = Template("ss")
 }
 
-public extension FormatTemplate where Field == NanosecondField {
-    static func digits(_ length: Int) -> FormatTemplate {
+public extension Template where Field == NanosecondField {
+    static func digits(_ length: Int) -> Template {
         guard length > 0 else { fatalError("Cannot pad to a length less than 1") }
         let template = "".padding(toLength: length, withPad: "S", startingAt: 0)
-        return FormatTemplate(template)
+        return Template(template)
     }
 }
 
-public extension FormatTemplate where Field == TimeZone {
-    static let shortSpecific = FormatTemplate("z")
-    static let longSpecific = FormatTemplate("zzzz")
+public extension Template where Field == TimeZone {
+    static let shortSpecific = Template("z")
+    static let longSpecific = Template("zzzz")
     
-    static let ISO8601Basic = FormatTemplate("Z")
-    static let ISO8601Extended = FormatTemplate("ZZZZZ")
+    static let ISO8601Basic = Template("Z")
+    static let ISO8601Extended = Template("ZZZZZ")
     
-    static let shortLocalizedGMT = FormatTemplate("O")
-    static let longLocalizedGMT = FormatTemplate("ZZZZ")
+    static let shortLocalizedGMT = Template("O")
+    static let longLocalizedGMT = Template("ZZZZ")
     
-    static let shortGeneric = FormatTemplate("v")
-    static let longGeneric = FormatTemplate("vvvv")
+    static let shortGeneric = Template("v")
+    static let longGeneric = Template("vvvv")
     
-    static let shortID = FormatTemplate("V")
-    static let longID = FormatTemplate("VV")
-    static let exemplarCity = FormatTemplate("VVV")
-    static let genericLocation = FormatTemplate("VVVV")
+    static let shortID = Template("V")
+    static let longID = Template("VV")
+    static let exemplarCity = Template("VVV")
+    static let genericLocation = Template("VVVV")
     
-    static func ISO8601BasicWithHours(includingZ: Bool = false) -> FormatTemplate {
-        return FormatTemplate(includingZ ? "X" : "x")
+    static func ISO8601BasicWithHours(includingZ: Bool = false) -> Template {
+        return Template(includingZ ? "X" : "x")
     }
     
-    static func ISO8601WithHoursAndMinutes(extended: Bool = false, includingZ: Bool = false) -> FormatTemplate {
+    static func ISO8601WithHoursAndMinutes(extended: Bool = false, includingZ: Bool = false) -> Template {
         if extended {
-            return FormatTemplate(includingZ ? "XXX" : "xxx")
+            return Template(includingZ ? "XXX" : "xxx")
         } else {
-            return FormatTemplate(includingZ ? "XX" : "xx")
+            return Template(includingZ ? "XX" : "xx")
         }
     }
-    static func ISO8601WithHoursMinutesAndSeconds(extended: Bool = false, includingZ: Bool = false) -> FormatTemplate {
+    static func ISO8601WithHoursMinutesAndSeconds(extended: Bool = false, includingZ: Bool = false) -> Template {
         if extended {
-            return FormatTemplate(includingZ ? "XXXXX" : "xxxxx")
+            return Template(includingZ ? "XXXXX" : "xxxxx")
         } else {
-            return FormatTemplate(includingZ ? "XXXX" : "xxxx")
+            return Template(includingZ ? "XXXX" : "xxxx")
         }
     }
 }
