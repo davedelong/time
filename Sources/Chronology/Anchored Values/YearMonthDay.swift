@@ -18,12 +18,6 @@ public struct YearMonthDay: Anchored, YearMonthDayFields {
         self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
     
-    public var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
-    
-    public var isWeekday: Bool { return !isWeekend }
-    
-    public var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
-    
     public func firstHour() -> YearMonthDayHour {
         return YearMonthDayHour(instant: range.lowerBound, region: region)
     }

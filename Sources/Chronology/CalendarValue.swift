@@ -111,6 +111,10 @@ public extension Anchored where Self: MonthField {
 
 public extension Anchored where Self: DayField {
     var yearMonth: YearMonth { return YearMonth(region: region, dateComponents: dateComponents) }
+    
+    var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
+    var isWeekday: Bool { return !isWeekend }
+    var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
 }
 
 public extension Anchored where Self: HourField {
