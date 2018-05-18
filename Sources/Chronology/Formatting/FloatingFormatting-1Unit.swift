@@ -7,74 +7,55 @@
 
 import Foundation
 
-extension CalendarValue {
-    
-    internal func formatFloating(using: Array<Format?>) -> String {
-        let template = using.compactMap { $0?.template }.joined()
-        let localizedFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: locale)
-        let formatter = DateFormatter()
-        formatter.calendar = calendar
-        formatter.timeZone = timeZone
-        formatter.locale = locale
-        formatter.dateFormat = localizedFormat
-        
-        let date: Date
-        if let potential = calendar.date(from: dateComponents) {
-            date = potential
-        } else if let future = calendar.nextDate(after: Date(), matching: dateComponents, matchingPolicy: .strict) {
-            date = future
-        } else if let past = calendar.nextDate(after: Date(), matching: dateComponents, matchingPolicy: .strict, direction: .backward) {
-            date = past
-        } else {
-            fatalError("Unable to construct date matching \(dateComponents)")
-        }
-        
-        return formatter.string(from: date)
-    }
-    
-}
-
 public extension CalendarValue where Self: YearField {
-    func format(year: FormatTemplate<YearField>) -> String {
-        return formatFloating(using: [year])
+    func format(year: FormatTemplate<YearField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [year, timeZone])
     }
 }
 
 public extension CalendarValue where Self: MonthField {
-    func format(month: FormatTemplate<Standalone<MonthField>>) -> String {
-        return formatFloating(using: [month])
+    func format(month: FormatTemplate<Standalone<MonthField>>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [month, timeZone])
     }
 }
 
 public extension CalendarValue where Self: DayField {
-    func format(day: FormatTemplate<DayField>) -> String {
-        return formatFloating(using: [day])
+    func format(day: FormatTemplate<DayField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [day, timeZone])
     }
-    func format(weekday: FormatTemplate<Standalone<Weekday>>) -> String {
-        return formatFloating(using: [weekday])
+    func format(weekday: FormatTemplate<Standalone<Weekday>>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [weekday, timeZone])
     }
 }
 
 public extension CalendarValue where Self: HourField {
-    func format(hour: FormatTemplate<HourField>) -> String {
-        return formatFloating(using: [hour])
+    func format(hour: FormatTemplate<HourField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [hour, timeZone])
     }
 }
 
 public extension CalendarValue where Self: MinuteField {
-    func format(minute: FormatTemplate<MinuteField>) -> String {
-        return formatFloating(using: [minute])
+    func format(minute: FormatTemplate<MinuteField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [minute, timeZone])
     }
 }
 
 public extension CalendarValue where Self: SecondField {
-    func format(second: FormatTemplate<SecondField>) -> String {
-        return formatFloating(using: [second])
+    func format(second: FormatTemplate<SecondField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [second, timeZone])
     }
 }
 
 public extension CalendarValue where Self: NanosecondField {
-    func format(nanosecond: FormatTemplate<NanosecondField>) -> String {
-        return formatFloating(using: [nanosecond])
+    func format(nanosecond: FormatTemplate<NanosecondField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [nanosecond, timeZone])
     }
 }

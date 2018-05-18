@@ -7,25 +7,9 @@
 
 import Foundation
 
-extension CalendarValue where Self: Anchored {
-    
-    internal func formatAnchored(using: Array<Format?>) -> String {
-        let template = using.compactMap { $0?.template }.joined()
-        let localizedFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: locale)
-        let formatter = DateFormatter()
-        formatter.calendar = calendar
-        formatter.timeZone = timeZone
-        formatter.locale = locale
-        formatter.dateFormat = localizedFormat
-        
-        return formatter.string(from: approximateMidPoint.date)
-    }
-    
-}
-
 public extension Anchored where Self: EraField {
     func format(era: FormatTemplate<EraField>) -> String {
-        return formatAnchored(using: [era])
+        return format(anchored: [era])
     }
 }
 
@@ -33,7 +17,7 @@ public extension Anchored where Self: YearField {
     func format(era: FormatTemplate<EraField>? = nil,
                 year: FormatTemplate<YearField>,
                 timeZone: FormatTemplate<TimeZone>? = nil) -> String {
-        return formatAnchored(using: [era, year, timeZone])
+        return format(anchored: [era, year, timeZone])
     }
 }
 
@@ -42,7 +26,7 @@ public extension Anchored where Self: MonthField {
                 year: FormatTemplate<YearField>,
                 month: FormatTemplate<MonthField>,
                 timeZone: FormatTemplate<TimeZone>? = nil) -> String {
-        return formatAnchored(using: [era, year, month, timeZone])
+        return format(anchored: [era, year, month, timeZone])
     }
 }
 
@@ -53,7 +37,7 @@ public extension Anchored where Self: DayField {
                 day: FormatTemplate<DayField>,
                 weekday: FormatTemplate<Weekday>? = nil,
                 timeZone: FormatTemplate<TimeZone>? = nil) -> String {
-        return formatAnchored(using: [era, year, month, day, weekday, timeZone])
+        return format(anchored: [era, year, month, day, weekday, timeZone])
     }
 }
 
@@ -65,7 +49,7 @@ public extension Anchored where Self: HourField {
                 weekday: FormatTemplate<Weekday>? = nil,
                 hour: FormatTemplate<HourField>,
                 timeZone: FormatTemplate<TimeZone>? = nil) -> String {
-        return formatAnchored(using: [era, year, month, day, weekday, hour, timeZone])
+        return format(anchored: [era, year, month, day, weekday, hour, timeZone])
     }
 }
 
@@ -78,7 +62,7 @@ public extension Anchored where Self: MinuteField {
                 hour: FormatTemplate<HourField>,
                 minute: FormatTemplate<MinuteField>,
                 timeZone: FormatTemplate<TimeZone>? = nil) -> String {
-        return formatAnchored(using: [era, year, month, day, weekday, hour, minute, timeZone])
+        return format(anchored: [era, year, month, day, weekday, hour, minute, timeZone])
     }
 }
 
@@ -92,7 +76,7 @@ public extension Anchored where Self: SecondField {
                 minute: FormatTemplate<MinuteField>,
                 second: FormatTemplate<SecondField>,
                 timeZone: FormatTemplate<TimeZone>? = nil) -> String {
-        return formatAnchored(using: [era, year, month, day, weekday, hour, minute, second, timeZone])
+        return format(anchored: [era, year, month, day, weekday, hour, minute, second, timeZone])
     }
 }
 
@@ -107,6 +91,6 @@ public extension Anchored where Self: NanosecondField {
                 second: FormatTemplate<SecondField>,
                 nanosecond: FormatTemplate<NanosecondField>,
                 timeZone: FormatTemplate<TimeZone>? = nil) -> String {
-        return formatAnchored(using: [era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
+        return format(anchored: [era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
     }
 }

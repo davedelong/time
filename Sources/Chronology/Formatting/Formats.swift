@@ -7,10 +7,6 @@
 
 import Foundation
 
-internal protocol Format {
-    var template: String { get }
-}
-
 public struct FormatTemplate<Field>: Format {
     internal let template: String
     internal init(_ template: String) {

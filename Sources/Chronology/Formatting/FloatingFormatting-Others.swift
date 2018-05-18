@@ -12,8 +12,9 @@ public extension CalendarValue where Self: YearMonthDayHourMinuteFields {
                 month: FormatTemplate<MonthField>,
                 day: FormatTemplate<DayField>,
                 hour: FormatTemplate<HourField>,
-                minute: FormatTemplate<MinuteField>) -> String {
-        return formatFloating(using: [year, month, day, hour, minute])
+                minute: FormatTemplate<MinuteField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [year, month, day, hour, minute, timeZone])
     }
 }
 
@@ -22,8 +23,9 @@ public extension CalendarValue where Self: MonthDayHourMinuteSecondFields {
                 day: FormatTemplate<DayField>,
                 hour: FormatTemplate<HourField>,
                 minute: FormatTemplate<MinuteField>,
-                second: FormatTemplate<SecondField>) -> String {
-        return formatFloating(using: [month, day, hour, minute, second])
+                second: FormatTemplate<SecondField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [month, day, hour, minute, second, timeZone])
     }
 }
 
@@ -32,8 +34,9 @@ public extension CalendarValue where Self: DayHourMinuteSecondNanosecondFields {
                 hour: FormatTemplate<HourField>,
                 minute: FormatTemplate<MinuteField>,
                 second: FormatTemplate<SecondField>,
-                nanosecond: FormatTemplate<NanosecondField>) -> String {
-        return formatFloating(using: [day, hour, minute, second, nanosecond])
+                nanosecond: FormatTemplate<NanosecondField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [day, hour, minute, second, nanosecond, timeZone])
     }
 }
 
@@ -44,8 +47,9 @@ public extension CalendarValue where Self: YearMonthDayHourMinuteSecondFields {
                 day: FormatTemplate<DayField>,
                 hour: FormatTemplate<HourField>,
                 minute: FormatTemplate<MinuteField>,
-                second: FormatTemplate<SecondField>) -> String {
-        return formatFloating(using: [year, month, day, hour, minute, second])
+                second: FormatTemplate<SecondField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [year, month, day, hour, minute, second, timeZone])
     }
 }
 
@@ -55,8 +59,9 @@ public extension CalendarValue where Self: MonthDayHourMinuteSecondNanosecondFie
                 hour: FormatTemplate<HourField>,
                 minute: FormatTemplate<MinuteField>,
                 second: FormatTemplate<SecondField>,
-                nanosecond: FormatTemplate<NanosecondField>) -> String {
-        return formatFloating(using: [month, day, hour, minute, second, nanosecond])
+                nanosecond: FormatTemplate<NanosecondField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [month, day, hour, minute, second, nanosecond, timeZone])
     }
 }
 
@@ -68,7 +73,8 @@ public extension CalendarValue where Self: YearMonthDayHourMinuteSecondNanosecon
                 hour: FormatTemplate<HourField>,
                 minute: FormatTemplate<MinuteField>,
                 second: FormatTemplate<SecondField>,
-                nanosecond: FormatTemplate<NanosecondField>) -> String {
-        return formatFloating(using: [year, month, day, hour, minute, second, nanosecond])
+                nanosecond: FormatTemplate<NanosecondField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [year, month, day, hour, minute, second, nanosecond, timeZone])
     }
 }

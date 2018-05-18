@@ -9,44 +9,50 @@ import Foundation
 
 public extension CalendarValue where Self: YearMonthFields {
     func format(year: FormatTemplate<YearField>,
-                month: FormatTemplate<MonthField>) -> String {
-        return formatFloating(using: [year, month])
+                month: FormatTemplate<MonthField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [year, month, timeZone])
     }
 }
 
 public extension CalendarValue where Self: MonthDayFields {
     func format(month: FormatTemplate<MonthField>,
                 day: FormatTemplate<DayField>,
-                weekday: FormatTemplate<Weekday>? = nil) -> String {
-        return formatFloating(using: [month, day, weekday])
+                weekday: FormatTemplate<Weekday>? = nil,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [month, day, weekday, timeZone])
     }
 }
 
 public extension CalendarValue where Self: DayHourFields {
     func format(day: FormatTemplate<DayField>,
                 weekday: FormatTemplate<Weekday>? = nil,
-                hour: FormatTemplate<HourField>) -> String {
-        return formatFloating(using: [day, weekday, hour])
+                hour: FormatTemplate<HourField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [day, weekday, hour, timeZone])
     }
 }
 
 public extension CalendarValue where Self: HourMinuteFields {
     func format(hour: FormatTemplate<HourField>,
-                minute: FormatTemplate<MinuteField>) -> String {
-        return formatFloating(using: [hour, minute])
+                minute: FormatTemplate<MinuteField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [hour, minute, timeZone])
     }
 }
 
 public extension CalendarValue where Self: MinuteSecondFields {
     func format(minute: FormatTemplate<MinuteField>,
-                second: FormatTemplate<SecondField>) -> String {
-        return formatFloating(using: [minute, second])
+                second: FormatTemplate<SecondField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [minute, second, timeZone])
     }
 }
 
 public extension CalendarValue where Self: SecondNanosecondFields {
     func format(second: FormatTemplate<SecondField>,
-                nanosecond: FormatTemplate<NanosecondField>) -> String {
-        return formatFloating(using: [second, nanosecond])
+                nanosecond: FormatTemplate<NanosecondField>,
+                timeZone: FormatTemplate<TimeZone>? = nil) -> String {
+        return format(floating: [second, nanosecond, timeZone])
     }
 }
