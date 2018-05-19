@@ -4,11 +4,11 @@
 
 ## Motivation
 
-Foundation.framework has one of the absolute best and most capable APIs available to any developer on any platform. However, it comes with a heavy price in the form of cognitive load. Too many developers do too many incorrect things. Over the years, Foundation has gained more and more convenience methods via the `Calendar` type, but fundamental issues remain.
+Foundation.framework has one of the absolute best and most capable APIs available to any developer on any platform. However, it comes with a heavy price in the form of cognitive load. Too many developers do too many incorrect things. Over the years, Foundation has gained more and more convenience methods via the `Calendar` type, but fundamental issues remain. For more information, see [the wiki page on the Foundation API](https://github.com/davedelong/Chronology/wiki/Foundation's-API).
 
 ## Inspiration
 
-See [Inspiration.md](Inspiration.md).
+Chronology draws inspiration from a number of sources. See [the wiki page for more information](https://github.com/davedelong/Chronology/wiki/Inspiration).
 
 ## Goals
 
