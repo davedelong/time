@@ -6,22 +6,6 @@
 *.xlsx
 *.numbers
 
-# DerivedData
-Cocoa/Instrument_Runs/*
-Docs/API
-Energy/*
-Excel/*
-Financials/*
-# Modeling/*
-Letters/*
-# Documents/*
-Reports/*
-IB_API/twstools/*
-IB_API/twsapi/*
-Databases/*
-Audio/*
-Movies/*
-
 # user-specific XCode stuff
 *.mode1v3
 !default.mode1v3
