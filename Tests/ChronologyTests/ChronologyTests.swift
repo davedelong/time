@@ -5,9 +5,9 @@ class ChronologyTests: XCTestCase {
     func testExample() {
         
         let c = Clock.system
-        let today = c.thisYearMonthDay()
-        
+        let today = c.thisNanosecond()
         let v = today + .nanoseconds(2)
+        XCTAssertNotNil(v)
     }
 
 

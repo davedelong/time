@@ -79,7 +79,6 @@ public struct Clock {
         return impl.now()
     }
     
-    
     /// Offset a clock
     ///
     /// - Parameter by: A `TimeInterval` by which to create an offseted clock
