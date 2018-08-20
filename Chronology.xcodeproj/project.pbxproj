@@ -1,0 +1,663 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6F753DC8212A645300965F50 /* Chronology.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F753DBE212A645300965F50 /* Chronology.framework */; };
+		6F753DCD212A645300965F50 /* ChronologyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753DCC212A645300965F50 /* ChronologyTests.swift */; };
+		6F753DCF212A645300965F50 /* Chronology.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F753DC1212A645300965F50 /* Chronology.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6F753EA9212A7DBB00965F50 /* SISeconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E7E212A7DBB00965F50 /* SISeconds.swift */; };
+		6F753EAA212A7DBB00965F50 /* AnchoredAdjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E80212A7DBB00965F50 /* AnchoredAdjustments.swift */; };
+		6F753EAB212A7DBB00965F50 /* Adjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E81212A7DBB00965F50 /* Adjustment.swift */; };
+		6F753EAC212A7DBB00965F50 /* FieldAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E82212A7DBB00965F50 /* FieldAdjustment.swift */; };
+		6F753EAD212A7DBB00965F50 /* CalendarValue+AnchoredAdjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E83212A7DBB00965F50 /* CalendarValue+AnchoredAdjustments.swift */; };
+		6F753EAE212A7DBB00965F50 /* InvalidFieldAdjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E84212A7DBB00965F50 /* InvalidFieldAdjustments.swift */; };
+		6F753EAF212A7DBB00965F50 /* Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E86212A7DBB00965F50 /* Year.swift */; };
+		6F753EB0212A7DBB00965F50 /* YearMonthDayHourMinute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E87212A7DBB00965F50 /* YearMonthDayHourMinute.swift */; };
+		6F753EB1212A7DBB00965F50 /* YearMonthDayHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E88212A7DBB00965F50 /* YearMonthDayHour.swift */; };
+		6F753EB2212A7DBB00965F50 /* YearMonthDayHourMinuteSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E89212A7DBB00965F50 /* YearMonthDayHourMinuteSecond.swift */; };
+		6F753EB3212A7DBB00965F50 /* YearMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E8A212A7DBB00965F50 /* YearMonth.swift */; };
+		6F753EB4212A7DBB00965F50 /* YearMonthDayHourMinuteSecondNanosecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E8B212A7DBB00965F50 /* YearMonthDayHourMinuteSecondNanosecond.swift */; };
+		6F753EB5212A7DBB00965F50 /* YearMonthDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E8C212A7DBB00965F50 /* YearMonthDay.swift */; };
+		6F753EB6212A7DBB00965F50 /* Era.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E8D212A7DBB00965F50 /* Era.swift */; };
+		6F753EB7212A7DBB00965F50 /* Instant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E8E212A7DBB00965F50 /* Instant.swift */; };
+		6F753EB8212A7DBB00965F50 /* DateComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E8F212A7DBB00965F50 /* DateComponents.swift */; };
+		6F753EB9212A7DBB00965F50 /* Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E90212A7DBB00965F50 /* Assertions.swift */; };
+		6F753EBA212A7DBB00965F50 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E91212A7DBB00965F50 /* Region.swift */; };
+		6F753EBB212A7DBB00965F50 /* FloatingFormatting-2Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E93212A7DBB00965F50 /* FloatingFormatting-2Units.swift */; };
+		6F753EBC212A7DBB00965F50 /* AnchoredFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E94212A7DBB00965F50 /* AnchoredFormatting.swift */; };
+		6F753EBD212A7DBB00965F50 /* FloatingFormatting-1Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E95212A7DBB00965F50 /* FloatingFormatting-1Unit.swift */; };
+		6F753EBE212A7DBB00965F50 /* FloatingFormatting-Others.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E96212A7DBB00965F50 /* FloatingFormatting-Others.swift */; };
+		6F753EBF212A7DBB00965F50 /* FloatingFormatting-3Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E97212A7DBB00965F50 /* FloatingFormatting-3Units.swift */; };
+		6F753EC0212A7DBB00965F50 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E98212A7DBB00965F50 /* Formatting.swift */; };
+		6F753EC1212A7DBB00965F50 /* FloatingFormatting-4Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E99212A7DBB00965F50 /* FloatingFormatting-4Units.swift */; };
+		6F753EC2212A7DBB00965F50 /* Formats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E9A212A7DBB00965F50 /* Formats.swift */; };
+		6F753EC3212A7DBB00965F50 /* FloatingValue-Others.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E9C212A7DBB00965F50 /* FloatingValue-Others.swift */; };
+		6F753EC4212A7DBB00965F50 /* FloatingValue-1Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E9D212A7DBB00965F50 /* FloatingValue-1Unit.swift */; };
+		6F753EC5212A7DBB00965F50 /* FloatingValue-2Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E9E212A7DBB00965F50 /* FloatingValue-2Units.swift */; };
+		6F753EC6212A7DBB00965F50 /* FloatingValue-4Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753E9F212A7DBB00965F50 /* FloatingValue-4Units.swift */; };
+		6F753EC7212A7DBB00965F50 /* FloatingValue-3Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753EA0212A7DBB00965F50 /* FloatingValue-3Units.swift */; };
+		6F753EC8212A7DBB00965F50 /* CalendarFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753EA1212A7DBB00965F50 /* CalendarFields.swift */; };
+		6F753EC9212A7DBB00965F50 /* CalendarValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753EA2212A7DBB00965F50 /* CalendarValue.swift */; };
+		6F753ECA212A7DBB00965F50 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753EA3212A7DBB00965F50 /* Calendar.swift */; };
+		6F753ECC212A7DBB00965F50 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753EA6212A7DBB00965F50 /* Clock.swift */; };
+		6F753ECD212A7DBB00965F50 /* ClockImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753EA7212A7DBB00965F50 /* ClockImplementation.swift */; };
+		6F753ECE212A7DBB00965F50 /* Epoch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753EA8212A7DBB00965F50 /* Epoch.swift */; };
+		6F753ECF212A809A00965F50 /* Clock+CurrentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F753EA5212A7DBB00965F50 /* Clock+CurrentValues.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6F753DC9212A645300965F50 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6F753DB5212A645300965F50 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F753DBD212A645300965F50;
+			remoteInfo = Chronology;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6F753DBE212A645300965F50 /* Chronology.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Chronology.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F753DC1212A645300965F50 /* Chronology.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chronology.h; sourceTree = "<group>"; };
+		6F753DC2212A645300965F50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F753DC7212A645300965F50 /* ChronologyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChronologyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F753DCC212A645300965F50 /* ChronologyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChronologyTests.swift; sourceTree = "<group>"; };
+		6F753DCE212A645300965F50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F753E7E212A7DBB00965F50 /* SISeconds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISeconds.swift; sourceTree = "<group>"; };
+		6F753E80212A7DBB00965F50 /* AnchoredAdjustments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnchoredAdjustments.swift; sourceTree = "<group>"; };
+		6F753E81212A7DBB00965F50 /* Adjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Adjustment.swift; sourceTree = "<group>"; };
+		6F753E82212A7DBB00965F50 /* FieldAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldAdjustment.swift; sourceTree = "<group>"; };
+		6F753E83212A7DBB00965F50 /* CalendarValue+AnchoredAdjustments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CalendarValue+AnchoredAdjustments.swift"; sourceTree = "<group>"; };
+		6F753E84212A7DBB00965F50 /* InvalidFieldAdjustments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidFieldAdjustments.swift; sourceTree = "<group>"; };
+		6F753E86212A7DBB00965F50 /* Year.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Year.swift; sourceTree = "<group>"; };
+		6F753E87212A7DBB00965F50 /* YearMonthDayHourMinute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearMonthDayHourMinute.swift; sourceTree = "<group>"; };
+		6F753E88212A7DBB00965F50 /* YearMonthDayHour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearMonthDayHour.swift; sourceTree = "<group>"; };
+		6F753E89212A7DBB00965F50 /* YearMonthDayHourMinuteSecond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearMonthDayHourMinuteSecond.swift; sourceTree = "<group>"; };
+		6F753E8A212A7DBB00965F50 /* YearMonth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearMonth.swift; sourceTree = "<group>"; };
+		6F753E8B212A7DBB00965F50 /* YearMonthDayHourMinuteSecondNanosecond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearMonthDayHourMinuteSecondNanosecond.swift; sourceTree = "<group>"; };
+		6F753E8C212A7DBB00965F50 /* YearMonthDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearMonthDay.swift; sourceTree = "<group>"; };
+		6F753E8D212A7DBB00965F50 /* Era.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Era.swift; sourceTree = "<group>"; };
+		6F753E8E212A7DBB00965F50 /* Instant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instant.swift; sourceTree = "<group>"; };
+		6F753E8F212A7DBB00965F50 /* DateComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateComponents.swift; sourceTree = "<group>"; };
+		6F753E90212A7DBB00965F50 /* Assertions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assertions.swift; sourceTree = "<group>"; };
+		6F753E91212A7DBB00965F50 /* Region.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		6F753E93212A7DBB00965F50 /* FloatingFormatting-2Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingFormatting-2Units.swift"; sourceTree = "<group>"; };
+		6F753E94212A7DBB00965F50 /* AnchoredFormatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnchoredFormatting.swift; sourceTree = "<group>"; };
+		6F753E95212A7DBB00965F50 /* FloatingFormatting-1Unit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingFormatting-1Unit.swift"; sourceTree = "<group>"; };
+		6F753E96212A7DBB00965F50 /* FloatingFormatting-Others.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingFormatting-Others.swift"; sourceTree = "<group>"; };
+		6F753E97212A7DBB00965F50 /* FloatingFormatting-3Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingFormatting-3Units.swift"; sourceTree = "<group>"; };
+		6F753E98212A7DBB00965F50 /* Formatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+		6F753E99212A7DBB00965F50 /* FloatingFormatting-4Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingFormatting-4Units.swift"; sourceTree = "<group>"; };
+		6F753E9A212A7DBB00965F50 /* Formats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formats.swift; sourceTree = "<group>"; };
+		6F753E9C212A7DBB00965F50 /* FloatingValue-Others.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingValue-Others.swift"; sourceTree = "<group>"; };
+		6F753E9D212A7DBB00965F50 /* FloatingValue-1Unit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingValue-1Unit.swift"; sourceTree = "<group>"; };
+		6F753E9E212A7DBB00965F50 /* FloatingValue-2Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingValue-2Units.swift"; sourceTree = "<group>"; };
+		6F753E9F212A7DBB00965F50 /* FloatingValue-4Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingValue-4Units.swift"; sourceTree = "<group>"; };
+		6F753EA0212A7DBB00965F50 /* FloatingValue-3Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingValue-3Units.swift"; sourceTree = "<group>"; };
+		6F753EA1212A7DBB00965F50 /* CalendarFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarFields.swift; sourceTree = "<group>"; };
+		6F753EA2212A7DBB00965F50 /* CalendarValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarValue.swift; sourceTree = "<group>"; };
+		6F753EA3212A7DBB00965F50 /* Calendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		6F753EA5212A7DBB00965F50 /* Clock+CurrentValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Clock+CurrentValues.swift"; sourceTree = "<group>"; };
+		6F753EA6212A7DBB00965F50 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		6F753EA7212A7DBB00965F50 /* ClockImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockImplementation.swift; sourceTree = "<group>"; };
+		6F753EA8212A7DBB00965F50 /* Epoch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Epoch.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6F753DBA212A645300965F50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F753DC4212A645300965F50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F753DC8212A645300965F50 /* Chronology.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6F753DB4212A645300965F50 = {
+			isa = PBXGroup;
+			children = (
+				6F753E7D212A7DBB00965F50 /* Chronology */,
+				6F753DC0212A645300965F50 /* Supporting Files */,
+				6F753DCB212A645300965F50 /* ChronologyTests */,
+				6F753DBF212A645300965F50 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6F753DBF212A645300965F50 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6F753DBE212A645300965F50 /* Chronology.framework */,
+				6F753DC7212A645300965F50 /* ChronologyTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6F753DC0212A645300965F50 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6F753DC1212A645300965F50 /* Chronology.h */,
+				6F753DC2212A645300965F50 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6F753DCB212A645300965F50 /* ChronologyTests */ = {
+			isa = PBXGroup;
+			children = (
+				6F753DCC212A645300965F50 /* ChronologyTests.swift */,
+				6F753DCE212A645300965F50 /* Info.plist */,
+			);
+			name = ChronologyTests;
+			path = Tests/ChronologyTests;
+			sourceTree = "<group>";
+		};
+		6F753E7D212A7DBB00965F50 /* Chronology */ = {
+			isa = PBXGroup;
+			children = (
+				6F753E7E212A7DBB00965F50 /* SISeconds.swift */,
+				6F753E7F212A7DBB00965F50 /* Adjustment */,
+				6F753E85212A7DBB00965F50 /* Anchored Values */,
+				6F753E8E212A7DBB00965F50 /* Instant.swift */,
+				6F753E8F212A7DBB00965F50 /* DateComponents.swift */,
+				6F753E90212A7DBB00965F50 /* Assertions.swift */,
+				6F753E91212A7DBB00965F50 /* Region.swift */,
+				6F753E92212A7DBB00965F50 /* Formatting */,
+				6F753E9B212A7DBB00965F50 /* Floating Values */,
+				6F753EA1212A7DBB00965F50 /* CalendarFields.swift */,
+				6F753EA2212A7DBB00965F50 /* CalendarValue.swift */,
+				6F753EA3212A7DBB00965F50 /* Calendar.swift */,
+				6F753EA4212A7DBB00965F50 /* Clock */,
+				6F753EA8212A7DBB00965F50 /* Epoch.swift */,
+			);
+			name = Chronology;
+			path = Sources/Chronology;
+			sourceTree = "<group>";
+		};
+		6F753E7F212A7DBB00965F50 /* Adjustment */ = {
+			isa = PBXGroup;
+			children = (
+				6F753E80212A7DBB00965F50 /* AnchoredAdjustments.swift */,
+				6F753E81212A7DBB00965F50 /* Adjustment.swift */,
+				6F753E82212A7DBB00965F50 /* FieldAdjustment.swift */,
+				6F753E83212A7DBB00965F50 /* CalendarValue+AnchoredAdjustments.swift */,
+				6F753E84212A7DBB00965F50 /* InvalidFieldAdjustments.swift */,
+			);
+			path = Adjustment;
+			sourceTree = "<group>";
+		};
+		6F753E85212A7DBB00965F50 /* Anchored Values */ = {
+			isa = PBXGroup;
+			children = (
+				6F753E86212A7DBB00965F50 /* Year.swift */,
+				6F753E87212A7DBB00965F50 /* YearMonthDayHourMinute.swift */,
+				6F753E88212A7DBB00965F50 /* YearMonthDayHour.swift */,
+				6F753E89212A7DBB00965F50 /* YearMonthDayHourMinuteSecond.swift */,
+				6F753E8A212A7DBB00965F50 /* YearMonth.swift */,
+				6F753E8B212A7DBB00965F50 /* YearMonthDayHourMinuteSecondNanosecond.swift */,
+				6F753E8C212A7DBB00965F50 /* YearMonthDay.swift */,
+				6F753E8D212A7DBB00965F50 /* Era.swift */,
+			);
+			path = "Anchored Values";
+			sourceTree = "<group>";
+		};
+		6F753E92212A7DBB00965F50 /* Formatting */ = {
+			isa = PBXGroup;
+			children = (
+				6F753E93212A7DBB00965F50 /* FloatingFormatting-2Units.swift */,
+				6F753E94212A7DBB00965F50 /* AnchoredFormatting.swift */,
+				6F753E95212A7DBB00965F50 /* FloatingFormatting-1Unit.swift */,
+				6F753E96212A7DBB00965F50 /* FloatingFormatting-Others.swift */,
+				6F753E97212A7DBB00965F50 /* FloatingFormatting-3Units.swift */,
+				6F753E98212A7DBB00965F50 /* Formatting.swift */,
+				6F753E99212A7DBB00965F50 /* FloatingFormatting-4Units.swift */,
+				6F753E9A212A7DBB00965F50 /* Formats.swift */,
+			);
+			path = Formatting;
+			sourceTree = "<group>";
+		};
+		6F753E9B212A7DBB00965F50 /* Floating Values */ = {
+			isa = PBXGroup;
+			children = (
+				6F753E9C212A7DBB00965F50 /* FloatingValue-Others.swift */,
+				6F753E9D212A7DBB00965F50 /* FloatingValue-1Unit.swift */,
+				6F753E9E212A7DBB00965F50 /* FloatingValue-2Units.swift */,
+				6F753E9F212A7DBB00965F50 /* FloatingValue-4Units.swift */,
+				6F753EA0212A7DBB00965F50 /* FloatingValue-3Units.swift */,
+			);
+			path = "Floating Values";
+			sourceTree = "<group>";
+		};
+		6F753EA4212A7DBB00965F50 /* Clock */ = {
+			isa = PBXGroup;
+			children = (
+				6F753EA5212A7DBB00965F50 /* Clock+CurrentValues.swift */,
+				6F753EA6212A7DBB00965F50 /* Clock.swift */,
+				6F753EA7212A7DBB00965F50 /* ClockImplementation.swift */,
+			);
+			path = Clock;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6F753DBB212A645300965F50 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F753DCF212A645300965F50 /* Chronology.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6F753DBD212A645300965F50 /* Chronology */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F753DD2212A645300965F50 /* Build configuration list for PBXNativeTarget "Chronology" */;
+			buildPhases = (
+				6F753DB9212A645300965F50 /* Sources */,
+				6F753DBA212A645300965F50 /* Frameworks */,
+				6F753DBB212A645300965F50 /* Headers */,
+				6F753DBC212A645300965F50 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Chronology;
+			productName = Chronology;
+			productReference = 6F753DBE212A645300965F50 /* Chronology.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		6F753DC6212A645300965F50 /* ChronologyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F753DD5212A645300965F50 /* Build configuration list for PBXNativeTarget "ChronologyTests" */;
+			buildPhases = (
+				6F753DC3212A645300965F50 /* Sources */,
+				6F753DC4212A645300965F50 /* Frameworks */,
+				6F753DC5212A645300965F50 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6F753DCA212A645300965F50 /* PBXTargetDependency */,
+			);
+			name = ChronologyTests;
+			productName = ChronologyTests;
+			productReference = 6F753DC7212A645300965F50 /* ChronologyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6F753DB5212A645300965F50 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Sam Krishna";
+				TargetAttributes = {
+					6F753DBD212A645300965F50 = {
+						CreatedOnToolsVersion = 9.4;
+					};
+					6F753DC6212A645300965F50 = {
+						CreatedOnToolsVersion = 9.4;
+					};
+				};
+			};
+			buildConfigurationList = 6F753DB8212A645300965F50 /* Build configuration list for PBXProject "Chronology" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6F753DB4212A645300965F50;
+			productRefGroup = 6F753DBF212A645300965F50 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6F753DBD212A645300965F50 /* Chronology */,
+				6F753DC6212A645300965F50 /* ChronologyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6F753DBC212A645300965F50 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F753DC5212A645300965F50 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6F753DB9212A645300965F50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F753EC8212A7DBB00965F50 /* CalendarFields.swift in Sources */,
+				6F753EC5212A7DBB00965F50 /* FloatingValue-2Units.swift in Sources */,
+				6F753EB3212A7DBB00965F50 /* YearMonth.swift in Sources */,
+				6F753EAA212A7DBB00965F50 /* AnchoredAdjustments.swift in Sources */,
+				6F753EBD212A7DBB00965F50 /* FloatingFormatting-1Unit.swift in Sources */,
+				6F753EB5212A7DBB00965F50 /* YearMonthDay.swift in Sources */,
+				6F753EC1212A7DBB00965F50 /* FloatingFormatting-4Units.swift in Sources */,
+				6F753EB8212A7DBB00965F50 /* DateComponents.swift in Sources */,
+				6F753EB1212A7DBB00965F50 /* YearMonthDayHour.swift in Sources */,
+				6F753ECD212A7DBB00965F50 /* ClockImplementation.swift in Sources */,
+				6F753EC0212A7DBB00965F50 /* Formatting.swift in Sources */,
+				6F753EAE212A7DBB00965F50 /* InvalidFieldAdjustments.swift in Sources */,
+				6F753ECF212A809A00965F50 /* Clock+CurrentValues.swift in Sources */,
+				6F753EB4212A7DBB00965F50 /* YearMonthDayHourMinuteSecondNanosecond.swift in Sources */,
+				6F753EAB212A7DBB00965F50 /* Adjustment.swift in Sources */,
+				6F753EC6212A7DBB00965F50 /* FloatingValue-4Units.swift in Sources */,
+				6F753EA9212A7DBB00965F50 /* SISeconds.swift in Sources */,
+				6F753EBA212A7DBB00965F50 /* Region.swift in Sources */,
+				6F753EBE212A7DBB00965F50 /* FloatingFormatting-Others.swift in Sources */,
+				6F753EB6212A7DBB00965F50 /* Era.swift in Sources */,
+				6F753ECE212A7DBB00965F50 /* Epoch.swift in Sources */,
+				6F753EB0212A7DBB00965F50 /* YearMonthDayHourMinute.swift in Sources */,
+				6F753EBF212A7DBB00965F50 /* FloatingFormatting-3Units.swift in Sources */,
+				6F753EB7212A7DBB00965F50 /* Instant.swift in Sources */,
+				6F753EC7212A7DBB00965F50 /* FloatingValue-3Units.swift in Sources */,
+				6F753EC3212A7DBB00965F50 /* FloatingValue-Others.swift in Sources */,
+				6F753EB2212A7DBB00965F50 /* YearMonthDayHourMinuteSecond.swift in Sources */,
+				6F753EAC212A7DBB00965F50 /* FieldAdjustment.swift in Sources */,
+				6F753EC2212A7DBB00965F50 /* Formats.swift in Sources */,
+				6F753EBB212A7DBB00965F50 /* FloatingFormatting-2Units.swift in Sources */,
+				6F753EAD212A7DBB00965F50 /* CalendarValue+AnchoredAdjustments.swift in Sources */,
+				6F753EAF212A7DBB00965F50 /* Year.swift in Sources */,
+				6F753EBC212A7DBB00965F50 /* AnchoredFormatting.swift in Sources */,
+				6F753ECC212A7DBB00965F50 /* Clock.swift in Sources */,
+				6F753EC9212A7DBB00965F50 /* CalendarValue.swift in Sources */,
+				6F753ECA212A7DBB00965F50 /* Calendar.swift in Sources */,
+				6F753EB9212A7DBB00965F50 /* Assertions.swift in Sources */,
+				6F753EC4212A7DBB00965F50 /* FloatingValue-1Unit.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F753DC3212A645300965F50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F753DCD212A645300965F50 /* ChronologyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6F753DCA212A645300965F50 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F753DBD212A645300965F50 /* Chronology */;
+			targetProxy = 6F753DC9212A645300965F50 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6F753DD0212A645300965F50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6F753DD1212A645300965F50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6F753DD3212A645300965F50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LJWQXKAD69;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.davedelong.Chronology;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		6F753DD4212A645300965F50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LJWQXKAD69;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.davedelong.Chronology;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		6F753DD6212A645300965F50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = LJWQXKAD69;
+				INFOPLIST_FILE = Tests/ChronologyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.davedelong.ChronologyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		6F753DD7212A645300965F50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = LJWQXKAD69;
+				INFOPLIST_FILE = Tests/ChronologyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.davedelong.ChronologyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6F753DB8212A645300965F50 /* Build configuration list for PBXProject "Chronology" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F753DD0212A645300965F50 /* Debug */,
+				6F753DD1212A645300965F50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F753DD2212A645300965F50 /* Build configuration list for PBXNativeTarget "Chronology" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F753DD3212A645300965F50 /* Debug */,
+				6F753DD4212A645300965F50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F753DD5212A645300965F50 /* Build configuration list for PBXNativeTarget "ChronologyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F753DD6212A645300965F50 /* Debug */,
+				6F753DD7212A645300965F50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6F753DB5212A645300965F50 /* Project object */;
+}
