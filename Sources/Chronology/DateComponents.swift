@@ -20,4 +20,25 @@ internal extension DateComponents {
         return final
     }
     
+    func scale(by factor: Int) -> DateComponents {
+        let s: (Int?) -> Int? = { $0.map { $0 * factor } }
+        
+        return DateComponents(calendar: calendar,
+                              timeZone: timeZone,
+                              era: s(era),
+                              year: s(year),
+                              month: s(month),
+                              day: s(day),
+                              hour: s(hour),
+                              minute: s(minute),
+                              second: s(second),
+                              nanosecond: s(nanosecond),
+                              weekday: s(weekday),
+                              weekdayOrdinal: s(weekdayOrdinal),
+                              quarter: s(quarter),
+                              weekOfMonth: s(weekOfMonth),
+                              weekOfYear: s(weekOfYear),
+                              yearForWeekOfYear: s(yearForWeekOfYear))
+    }
+    
 }

@@ -5,9 +5,10 @@ class ChronologyTests: XCTestCase {
     func testExample() {
         
         let c = Clock.system
-        let today = c.thisYearMonthDay()
+        let this = c.thisMonth()
         
-        let v = today + .nanoseconds(2)
+        let minutes = this.hours()
+        print(Array(minutes))
     }
 
 

@@ -37,4 +37,24 @@ public struct Year: Anchored, YearFields {
         return offsetMonth
     }
     
+    public func months() -> ValueSequence<YearMonth> {
+        return ValueSequence(parent: self)
+    }
+    
+    public func days() -> ValueSequence<YearMonthDay> {
+        return ValueSequence(parent: self)
+    }
+    
+    public func hours() -> ValueSequence<YearMonthDayHour> {
+        return ValueSequence(parent: self)
+    }
+    
+    public func minutes() -> ValueSequence<YearMonthDayHourMinute> {
+        return ValueSequence(parent: self)
+    }
+    
+    public func seconds() -> ValueSequence<YearMonthDayHourMinuteSecond> {
+        return ValueSequence(parent: self)
+    }
+    
 }

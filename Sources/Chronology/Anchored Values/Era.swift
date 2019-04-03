@@ -17,4 +17,5 @@ public struct Era: Anchored, EraField {
         self.region = region
         self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
+    
 }

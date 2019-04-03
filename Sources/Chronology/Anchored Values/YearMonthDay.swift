@@ -36,4 +36,16 @@ public struct YearMonthDay: Anchored, YearMonthDayFields {
         guard hourRange.upperBound <= dayRange.upperBound else { throw AdjustmentError() }
         return offsetHour
     }
+    
+    public func hours() -> ValueSequence<YearMonthDayHour> {
+        return ValueSequence(parent: self)
+    }
+    
+    public func minutes() -> ValueSequence<YearMonthDayHourMinute> {
+        return ValueSequence(parent: self)
+    }
+    
+    public func seconds() -> ValueSequence<YearMonthDayHourMinuteSecond> {
+        return ValueSequence(parent: self)
+    }
 }

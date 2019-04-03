@@ -99,40 +99,6 @@ public extension CalendarValue where Self: NanosecondField {
     var nanosecondValue: Int { return dateComponents.nanosecond.unwrap("A NanosecondField must have a nanosecond value") }
 }
 
-/// Access the less-precise fields on Anchored values
-
-public extension Anchored where Self: YearField {
-    var era: Era { return Era(region: region, dateComponents: dateComponents) }
-}
-
-public extension Anchored where Self: MonthField {
-    var year: Year { return Year(region: region, dateComponents: dateComponents) }
-}
-
-public extension Anchored where Self: DayField {
-    var yearMonth: YearMonth { return YearMonth(region: region, dateComponents: dateComponents) }
-    
-    var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
-    var isWeekday: Bool { return !isWeekend }
-    var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
-}
-
-public extension Anchored where Self: HourField {
-    var yearMonthDay: YearMonthDay { return YearMonthDay(region: region, dateComponents: dateComponents) }
-}
-
-public extension Anchored where Self: MinuteField {
-    var yearMonthDayHour: YearMonthDayHour { return YearMonthDayHour(region: region, dateComponents: dateComponents) }
-}
-
-public extension Anchored where Self: SecondField {
-    var yearMonthDayHourMinute: YearMonthDayHourMinute { return YearMonthDayHourMinute(region: region, dateComponents: dateComponents) }
-}
-
-public extension Anchored where Self: NanosecondField {
-    var yearMonthDayHourMinuteSecond: YearMonthDayHourMinuteSecond { return YearMonthDayHourMinuteSecond(region: region, dateComponents: dateComponents)}
-}
-
 /// Access the two-unit floating values
 
 public extension CalendarValue where Self: MonthField & DayField {
@@ -153,51 +119,5 @@ public extension CalendarValue where Self: MinuteField & SecondField {
 
 public extension CalendarValue where Self: SecondField & NanosecondField {
     var secondNanosecond: SecondNanosecond { return SecondNanosecond(region: region, dateComponents: dateComponents) }
-}
-
-/// Access the three-unit floating values
-
-public extension CalendarValue where Self: MonthField & DayField & HourField {
-    var monthDayHour: MonthDayHour { return MonthDayHour(region: region, dateComponents: dateComponents) }
-}
-
-public extension CalendarValue where Self: DayField & HourField & MinuteField {
-    var dayHourMinute: DayHourMinute { return DayHourMinute(region: region, dateComponents: dateComponents) }
-}
-
-public extension CalendarValue where Self: HourField & MinuteField & SecondField {
-    var hourMinuteSecond: HourMinuteSecond { return HourMinuteSecond(region: region, dateComponents: dateComponents) }
-}
-
-public extension CalendarValue where Self: MinuteField & SecondField & NanosecondField {
-    var minuteSecondNanosecond: MinuteSecondNanosecond { return MinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
-}
-
-/// Access the four-unit floating values
-
-public extension CalendarValue where Self: MonthField & DayField & HourField & MinuteField {
-    var monthDayHourMinute: MonthDayHourMinute { return MonthDayHourMinute(region: region, dateComponents: dateComponents) }
-}
-
-public extension CalendarValue where Self: DayField & HourField & MinuteField & SecondField {
-    var dayHourMinuteSecond: DayHourMinuteSecond { return DayHourMinuteSecond(region: region, dateComponents: dateComponents) }
-}
-
-public extension CalendarValue where Self: HourMinuteSecondNanosecondFields {
-    var hourMinuteSecondNanosecond: HourMinuteSecondNanosecond { return HourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
-}
-
-/// Access the five- and six-unit floating values
-
-public extension CalendarValue where Self: MonthField & DayField & HourField & MinuteField & SecondField {
-    var monthDayHourMinuteSecond: MonthDayHourMinuteSecond { return MonthDayHourMinuteSecond(region: region, dateComponents: dateComponents) }
-}
-
-public extension CalendarValue where Self: DayHourMinuteSecondNanosecondFields {
-    var dayHourMinuteSecondNanosecond: DayHourMinuteSecondNanosecond { return DayHourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
-}
-
-public extension CalendarValue where Self: MonthDayHourMinuteSecondNanosecondFields {
-    var monthDayHourMinuteSecondNanosecond: MonthDayHourMinuteSecondNanosecond { return MonthDayHourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
 }
 
