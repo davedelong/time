@@ -18,7 +18,7 @@ public extension Calendar {
     /// SI Seconds are in each calendar-second.
     /// note: This does NOT affect how physics calculations are done (or velocities, etc)
     /// because those are all defined relative to SI Seconds
-    public var SISecondsPerSecond: Double { return 1.0 }
+    var SISecondsPerSecond: Double { return 1.0 }
     
 }
 

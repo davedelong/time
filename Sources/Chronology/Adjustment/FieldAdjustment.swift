@@ -21,31 +21,31 @@ public struct FieldAdjustment<F: CalendarValueField> {
 }
 
 public extension FieldAdjustment where F: YearField {
-    public static func years(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .year) }
+    static func years(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .year) }
 }
 
 public extension FieldAdjustment where F: MonthField {
-    public static func months(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .month) }
+    static func months(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .month) }
 }
 
 public extension FieldAdjustment where F: DayField {
-    public static func days(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .day) }
+    static func days(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .day) }
 }
 
 public extension FieldAdjustment where F: HourField {
-    public static func hours(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .hour) }
+    static func hours(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .hour) }
 }
 
 public extension FieldAdjustment where F: MinuteField {
-    public static func minutes(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .minute) }
+    static func minutes(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .minute) }
 }
 
 public extension FieldAdjustment where F: SecondField {
-    public static func seconds(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .second) }
+    static func seconds(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .second) }
 }
 
 public extension FieldAdjustment where F: NanosecondField {
-    public static func nanoseconds(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .nanosecond) }
+    static func nanoseconds(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .nanosecond) }
 }
 
 

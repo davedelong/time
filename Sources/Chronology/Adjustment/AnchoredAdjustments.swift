@@ -9,7 +9,7 @@ import Foundation
 
 public extension Adjustment where I: Anchored, I == O {
     
-    public static func add(value: Int, unit: Calendar.Component) -> Adjustment<I, O> {
+    static func add(value: Int, unit: Calendar.Component) -> Adjustment<I, O> {
         return Adjustment {
             let d = $0.range.lowerBound.date
             let newDate = $0.calendar.date(byAdding: unit, value: value, to: d).unwrap("Unable to add \(value) \(unit)s to \($0)")

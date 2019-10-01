@@ -16,16 +16,16 @@ public protocol CalendarValue {
 
 public extension CalendarValue {
     
-    public static var smallestRepresentedComponent: Calendar.Component {
+    static var smallestRepresentedComponent: Calendar.Component {
         let order: Array<Calendar.Component> = [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
         let represented = self.representedComponents
         let component = order.first(where: { represented.contains($0) })
         return component.unwrap("\(Self.self) defines impossible represented units: \(represented)")
     }
     
-    public var calendar: Calendar { return region.calendar }
-    public var timeZone: TimeZone { return region.timeZone }
-    public var locale: Locale { return region.locale }
+    var calendar: Calendar { return region.calendar }
+    var timeZone: TimeZone { return region.timeZone }
+    var locale: Locale { return region.locale }
     
     internal init(date: Date, region: Region) {
         let dc = region.calendar.dateComponents(in: region.timeZone, from: date)
@@ -36,21 +36,21 @@ public extension CalendarValue {
         self.init(date: instant.date, region: region)
     }
     
-    public func convert(to region: Region) -> Self {
+    func convert(to region: Region) -> Self {
         return Self.init(region: region, dateComponents: dateComponents)
     }
     
-    public func convert(to calendar: Calendar) -> Self {
+    func convert(to calendar: Calendar) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return self.convert(to: newRegion)
     }
     
-    public func convert(to timeZone: TimeZone) -> Self {
+    func convert(to timeZone: TimeZone) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return self.convert(to: newRegion)
     }
     
-    public func convert(to locale: Locale) -> Self {
+    func convert(to locale: Locale) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return self.convert(to: newRegion)
     }

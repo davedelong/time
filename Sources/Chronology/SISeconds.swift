@@ -29,8 +29,6 @@ public struct SISeconds: Hashable, Comparable, ExpressibleByIntegerLiteral, Expr
     
     internal let value: Double
     
-    public var hashValue: Int { return value.hashValue }
-    
     public init(_ value: Double) {
         self.value = value
     }
@@ -41,5 +39,9 @@ public struct SISeconds: Hashable, Comparable, ExpressibleByIntegerLiteral, Expr
     
     public init(integerLiteral value: Double) {
         self.init(value)
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(value)
     }
 }

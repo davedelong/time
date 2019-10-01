@@ -38,8 +38,6 @@ public struct Instant: Hashable, Comparable {
     private let intervalSinceReferenceEpoch: SISeconds
     internal var date: Foundation.Date { return Date(timeIntervalSinceReferenceDate: intervalSinceReferenceEpoch.value) }
     
-    public var hashValue: Int { return intervalSinceReferenceEpoch.hashValue }
-    
     public init(interval: SISeconds, since epoch: Epoch) {
         self.epoch = epoch
         self.intervalSinceEpoch = interval
@@ -48,6 +46,10 @@ public struct Instant: Hashable, Comparable {
     
     internal init(date: Foundation.Date) {
         self.init(interval: SISeconds(date.timeIntervalSinceReferenceDate), since: .reference)
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(intervalSinceReferenceEpoch)
     }
     
     public func converting(to epoch: Epoch) -> Instant {

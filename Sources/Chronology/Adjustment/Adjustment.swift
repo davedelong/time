@@ -40,11 +40,11 @@ public struct AdjustmentError: Error {
 
 public extension CalendarValue {
     
-    public func apply<O>(_ adjustment: Adjustment<Self, O>) -> O {
+    func apply<O>(_ adjustment: Adjustment<Self, O>) -> O {
         return adjustment.adjust(self)
     }
     
-    public func apply<O>(_ adjustment: UnsafeAdjustment<Self, O>) throws -> O {
+    func apply<O>(_ adjustment: UnsafeAdjustment<Self, O>) throws -> O {
         return try adjustment.adjust(self)
     }
     

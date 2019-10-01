@@ -17,12 +17,14 @@ public struct Epoch: Hashable {
     
     public static let unix = Epoch(-SISeconds.secondsBetweenUnixAndReferenceEpochs)
     
-    public var hashValue: Int { return offsetFromReferenceDate.hashValue }
-    
     internal let offsetFromReferenceDate: SISeconds
     
     internal init(_ offsetFromReferenceDate: SISeconds) {
         self.offsetFromReferenceDate = offsetFromReferenceDate
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(offsetFromReferenceDate)
     }
     
 }
