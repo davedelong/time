@@ -25,7 +25,7 @@ public extension Template where Field == YearField {
     static let twoDigits = digits(paddedToLength: 2)
     static func digits(paddedToLength: Int) -> Template {
         guard paddedToLength > 0 else { fatalError("Cannot pad to a length less than 1") }
-        let template = "".padding(toLength: paddedToLength, withPad: "y", startingAt: 0)
+        let template = String(repeating: "y", count: paddedToLength)
         return Template(template)
     }
 }
@@ -121,7 +121,7 @@ public extension Template where Field == SecondField {
 public extension Template where Field == NanosecondField {
     static func digits(_ length: Int) -> Template {
         guard length > 0 else { fatalError("Cannot pad to a length less than 1") }
-        let template = "".padding(toLength: length, withPad: "S", startingAt: 0)
+        let template = String(repeating: "S", count: length)
         return Template(template)
     }
 }
