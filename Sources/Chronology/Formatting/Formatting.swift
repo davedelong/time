@@ -25,7 +25,7 @@ extension CalendarValue {
         return formatter.string(from: date)
     }
     
-    internal func format(floating: Array<Format?>) -> String {
+    internal func format(relative: Array<Format?>) -> String {
         let date: Date
         if let potential = calendar.date(from: dateComponents) {
             date = potential
@@ -37,7 +37,7 @@ extension CalendarValue {
             fatalError("Unable to construct date matching \(dateComponents)")
         }
         
-        return format(date: date, using: floating)
+        return format(date: date, using: relative)
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  Floating.swift
+//  Relative.swift
 //  ChronologyPackageDescription
 //
 //  Created by Dave DeLong on 10/4/18.
@@ -8,10 +8,10 @@
 import Foundation
 
 /// A marker protocol for generic constraints.
-/// A value that is not Absolute is Floating.
-public protocol Floating: CalendarValue { }
+/// A value that is not Absolute is Relative.
+public protocol Relative: CalendarValue { }
 
-/// Access the three-unit floating values
+/// Access the three-unit relative values
 
 public extension CalendarValue where Self: MonthDayHourFields {
     var monthDayHour: MonthDayHour { return MonthDayHour(region: region, dateComponents: dateComponents) }
@@ -29,7 +29,7 @@ public extension CalendarValue where Self: MinuteSecondNanosecondFields {
     var minuteSecondNanosecond: MinuteSecondNanosecond { return MinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
 }
 
-/// Access the four-unit floating values
+/// Access the four-unit relative values
 
 public extension CalendarValue where Self: MonthDayHourMinuteFields {
     var monthDayHourMinute: MonthDayHourMinute { return MonthDayHourMinute(region: region, dateComponents: dateComponents) }
@@ -43,7 +43,7 @@ public extension CalendarValue where Self: HourMinuteSecondNanosecondFields {
     var hourMinuteSecondNanosecond: HourMinuteSecondNanosecond { return HourMinuteSecondNanosecond(region: region, dateComponents: dateComponents) }
 }
 
-/// Access the five- and six-unit floating values
+/// Access the five- and six-unit relative values
 
 public extension CalendarValue where Self: MonthDayHourMinuteSecondFields {
     var monthDayHourMinuteSecond: MonthDayHourMinuteSecond { return MonthDayHourMinuteSecond(region: region, dateComponents: dateComponents) }

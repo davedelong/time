@@ -1,5 +1,5 @@
 //
-//  FloatingValue-2Units.swift
+//  RelativeValue-3Units.swift
 //  Chronology
 //
 //  Created by Dave DeLong on 2/19/18.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct MonthDay: Floating, MonthDayFields {
-    public static var representedComponents: Set<Calendar.Component> = [.month, .day]
+public struct MonthDayHour: Relative, MonthDayHourFields {
+    public static var representedComponents: Set<Calendar.Component> = [.month, .day, .hour]
     
     public let region: Region
     public let dateComponents: DateComponents
@@ -19,8 +19,8 @@ public struct MonthDay: Floating, MonthDayFields {
     }
 }
 
-public struct DayHour: Floating, DayHourFields {
-    public static var representedComponents: Set<Calendar.Component> = [.day, .hour]
+public struct DayHourMinute: Relative, DayHourMinuteFields {
+    public static var representedComponents: Set<Calendar.Component> = [.day, .hour, .minute]
     
     public let region: Region
     public let dateComponents: DateComponents
@@ -31,8 +31,8 @@ public struct DayHour: Floating, DayHourFields {
     }
 }
 
-public struct HourMinute: Floating, HourMinuteFields {
-    public static var representedComponents: Set<Calendar.Component> = [.hour, .minute]
+public struct HourMinuteSecond: Relative, HourMinuteSecondFields {
+    public static var representedComponents: Set<Calendar.Component> = [.hour, .minute, .second]
     
     public let region: Region
     public let dateComponents: DateComponents
@@ -43,20 +43,8 @@ public struct HourMinute: Floating, HourMinuteFields {
     }
 }
 
-public struct MinuteSecond: Floating, MinuteSecondFields {
-    public static var representedComponents: Set<Calendar.Component> = [.minute, .second]
-    
-    public let region: Region
-    public let dateComponents: DateComponents
-    
-    public init(region: Region, dateComponents: DateComponents) {
-        self.region = region
-        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
-    }
-}
-
-public struct SecondNanosecond: Floating, SecondNanosecondFields {
-    public static var representedComponents: Set<Calendar.Component> = [.second, .nanosecond]
+public struct MinuteSecondNanosecond: Relative, MinuteSecondNanosecondFields {
+    public static var representedComponents: Set<Calendar.Component> = [.minute, .second, .nanosecond]
     
     public let region: Region
     public let dateComponents: DateComponents

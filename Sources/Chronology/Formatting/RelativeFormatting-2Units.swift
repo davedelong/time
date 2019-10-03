@@ -1,5 +1,5 @@
 //
-//  FloatingFormatting-2Units.swift
+//  RelativeFormatting-2Units.swift
 //  Chronology
 //
 //  Created by Dave DeLong on 5/18/18.
@@ -11,7 +11,7 @@ public extension CalendarValue where Self: YearMonthFields {
     func format(year: Template<YearField>,
                 month: Template<MonthField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [year, month, timeZone])
+        return format(relative: [year, month, timeZone])
     }
 }
 
@@ -20,7 +20,7 @@ public extension CalendarValue where Self: MonthDayFields {
                 day: Template<DayField>,
                 weekday: Template<Weekday>? = nil,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [month, day, weekday, timeZone])
+        return format(relative: [month, day, weekday, timeZone])
     }
 }
 
@@ -29,7 +29,7 @@ public extension CalendarValue where Self: DayHourFields {
                 weekday: Template<Weekday>? = nil,
                 hour: Template<HourField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [day, weekday, hour, timeZone])
+        return format(relative: [day, weekday, hour, timeZone])
     }
 }
 
@@ -37,7 +37,7 @@ public extension CalendarValue where Self: HourMinuteFields {
     func format(hour: Template<HourField>,
                 minute: Template<MinuteField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [hour, minute, timeZone])
+        return format(relative: [hour, minute, timeZone])
     }
 }
 
@@ -45,7 +45,7 @@ public extension CalendarValue where Self: MinuteSecondFields {
     func format(minute: Template<MinuteField>,
                 second: Template<SecondField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [minute, second, timeZone])
+        return format(relative: [minute, second, timeZone])
     }
 }
 
@@ -53,6 +53,6 @@ public extension CalendarValue where Self: SecondNanosecondFields {
     func format(second: Template<SecondField>,
                 nanosecond: Template<NanosecondField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [second, nanosecond, timeZone])
+        return format(relative: [second, nanosecond, timeZone])
     }
 }

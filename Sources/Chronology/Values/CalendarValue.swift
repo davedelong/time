@@ -99,7 +99,7 @@ public extension CalendarValue where Self: NanosecondField {
     var nanosecondValue: Int { return dateComponents.nanosecond.unwrap("A NanosecondField must have a nanosecond value") }
 }
 
-/// Access the two-unit floating values
+/// Access the two-unit relative values
 
 public extension CalendarValue where Self: MonthField & DayField {
     var monthDay: MonthDay { return MonthDay(region: region, dateComponents: dateComponents) }

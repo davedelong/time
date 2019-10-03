@@ -1,5 +1,5 @@
 //
-//  FloatingValue-4Units.swift
+//  RelativeValue-4Units.swift
 //  Chronology
 //
 //  Created by Dave DeLong on 2/19/18.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MonthDayHourMinute: Floating, MonthDayHourMinuteFields {
+public struct MonthDayHourMinute: Relative, MonthDayHourMinuteFields {
     public static var representedComponents: Set<Calendar.Component> = [.month, .day, .hour, .minute]
     
     public let region: Region
@@ -19,7 +19,7 @@ public struct MonthDayHourMinute: Floating, MonthDayHourMinuteFields {
     }
 }
 
-public struct DayHourMinuteSecond: Floating, DayHourMinuteSecondFields {
+public struct DayHourMinuteSecond: Relative, DayHourMinuteSecondFields {
     public static var representedComponents: Set<Calendar.Component> = [.day, .hour, .minute, .second]
     
     public let region: Region
@@ -31,7 +31,7 @@ public struct DayHourMinuteSecond: Floating, DayHourMinuteSecondFields {
     }
 }
 
-public struct HourMinuteSecondNanosecond: Floating, HourMinuteSecondNanosecondFields {
+public struct HourMinuteSecondNanosecond: Relative, HourMinuteSecondNanosecondFields {
     public static var representedComponents: Set<Calendar.Component> = [.hour, .minute, .second, .nanosecond]
     
     public let region: Region

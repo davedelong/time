@@ -1,5 +1,5 @@
 //
-//  FloatingFormatting-Others.swift
+//  RelativeFormatting-Others.swift
 //  Chronology
 //
 //  Created by Dave DeLong on 5/18/18.
@@ -14,7 +14,7 @@ public extension CalendarValue where Self: YearMonthDayHourMinuteFields {
                 hour: Template<HourField>,
                 minute: Template<MinuteField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [year, month, day, hour, minute, timeZone])
+        return format(relative: [year, month, day, hour, minute, timeZone])
     }
 }
 
@@ -25,7 +25,7 @@ public extension CalendarValue where Self: MonthDayHourMinuteSecondFields {
                 minute: Template<MinuteField>,
                 second: Template<SecondField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [month, day, hour, minute, second, timeZone])
+        return format(relative: [month, day, hour, minute, second, timeZone])
     }
 }
 
@@ -36,7 +36,7 @@ public extension CalendarValue where Self: DayHourMinuteSecondNanosecondFields {
                 second: Template<SecondField>,
                 nanosecond: Template<NanosecondField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [day, hour, minute, second, nanosecond, timeZone])
+        return format(relative: [day, hour, minute, second, nanosecond, timeZone])
     }
 }
 
@@ -49,7 +49,7 @@ public extension CalendarValue where Self: YearMonthDayHourMinuteSecondFields {
                 minute: Template<MinuteField>,
                 second: Template<SecondField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [year, month, day, hour, minute, second, timeZone])
+        return format(relative: [year, month, day, hour, minute, second, timeZone])
     }
 }
 
@@ -61,7 +61,7 @@ public extension CalendarValue where Self: MonthDayHourMinuteSecondNanosecondFie
                 second: Template<SecondField>,
                 nanosecond: Template<NanosecondField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [month, day, hour, minute, second, nanosecond, timeZone])
+        return format(relative: [month, day, hour, minute, second, nanosecond, timeZone])
     }
 }
 
@@ -75,6 +75,6 @@ public extension CalendarValue where Self: YearMonthDayHourMinuteSecondNanosecon
                 second: Template<SecondField>,
                 nanosecond: Template<NanosecondField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(floating: [year, month, day, hour, minute, second, nanosecond, timeZone])
+        return format(relative: [year, month, day, hour, minute, second, nanosecond, timeZone])
     }
 }
