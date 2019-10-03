@@ -49,11 +49,11 @@ public extension FieldAdjustment where F: NanosecondField {
 }
 
 
-public func +<C: Anchored>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func +<C: Absolute>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     let adjustment = Adjustment<C, C>.add(value: rhs.value, unit: rhs.unit)
     return lhs.apply(adjustment)
 }
 
-public func -<C: Anchored>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: Absolute>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value, unit: rhs.unit)
 }

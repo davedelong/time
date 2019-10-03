@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Adjustment where I: Anchored, I == O {
+public extension Adjustment where I: Absolute, I == O {
     
     static func add(value: Int, unit: Calendar.Component) -> Adjustment<I, O> {
         return Adjustment {

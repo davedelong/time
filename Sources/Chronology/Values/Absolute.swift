@@ -1,5 +1,5 @@
 //
-//  Anchored.swift
+//  Absolute.swift
 //  ChronologyPackageDescription
 //
 //  Created by Dave DeLong on 10/4/18.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-public protocol Anchored: CalendarValue {
+public protocol Absolute: CalendarValue {
     var range: ClosedRange<Instant> { get }
 }
 
-extension Anchored {
+extension Absolute {
     
     public var range: ClosedRange<Instant> {
-        let date = calendar.date(from: dateComponents).unwrap("Anchored values must always be convertible to a concrete NSDate")
+        let date = calendar.date(from: dateComponents).unwrap("Absolute values must always be convertible to a concrete NSDate")
         let unit = type(of: self).smallestRepresentedComponent
         
         var start = Date()
@@ -37,17 +37,17 @@ extension Anchored {
     }
 }
 
-/// Access the less-precise fields on Anchored values
+/// Access the less-precise fields on Absolute values
 
-public extension Anchored where Self: YearField {
+public extension Absolute where Self: YearField {
     var era: Era { return Era(region: region, dateComponents: dateComponents) }
 }
 
-public extension Anchored where Self: MonthField {
+public extension Absolute where Self: MonthField {
     var year: Year { return Year(region: region, dateComponents: dateComponents) }
 }
 
-public extension Anchored where Self: DayField {
+public extension Absolute where Self: DayField {
     var yearMonth: YearMonth { return YearMonth(region: region, dateComponents: dateComponents) }
     
     var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
@@ -55,18 +55,18 @@ public extension Anchored where Self: DayField {
     var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
 }
 
-public extension Anchored where Self: HourField {
+public extension Absolute where Self: HourField {
     var yearMonthDay: YearMonthDay { return YearMonthDay(region: region, dateComponents: dateComponents) }
 }
 
-public extension Anchored where Self: MinuteField {
+public extension Absolute where Self: MinuteField {
     var yearMonthDayHour: YearMonthDayHour { return YearMonthDayHour(region: region, dateComponents: dateComponents) }
 }
 
-public extension Anchored where Self: SecondField {
+public extension Absolute where Self: SecondField {
     var yearMonthDayHourMinute: YearMonthDayHourMinute { return YearMonthDayHourMinute(region: region, dateComponents: dateComponents) }
 }
 
-public extension Anchored where Self: NanosecondField {
+public extension Absolute where Self: NanosecondField {
     var yearMonthDayHourMinuteSecond: YearMonthDayHourMinuteSecond { return YearMonthDayHourMinuteSecond(region: region, dateComponents: dateComponents)}
 }

@@ -9,7 +9,7 @@ import Foundation
 
 public extension Clock {
     func now() -> Instant { return thisInstant() }
-    func this<C: CalendarValue & Anchored>() -> C { return C.init(instant: thisInstant(), region: region) }
+    func this<C: CalendarValue & Absolute>() -> C { return C.init(instant: thisInstant(), region: region) }
     
     func today() -> YearMonthDay { return this() }
     func tomorrow() -> YearMonthDay { return today() + .days(1) }

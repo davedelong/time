@@ -1,5 +1,5 @@
 //
-//  Era.swift
+//  YearMonthDayHourMinuteSecondNanosecond.swift
 //  Chronology
 //
 //  Created by Dave DeLong on 2/19/18.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct Era: Anchored, EraField {
-    public static var representedComponents: Set<Calendar.Component> = [.era]
+public struct YearMonthDayHourMinuteSecondNanosecond: Absolute, YearMonthDayHourMinuteSecondNanosecondFields {
+    public static var representedComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .nanosecond]
     
     public let region: Region
     public let dateComponents: DateComponents

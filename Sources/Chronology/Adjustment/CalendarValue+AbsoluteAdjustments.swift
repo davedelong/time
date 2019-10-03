@@ -1,5 +1,5 @@
 //
-//  Adjustment+AnchoredConvenience.swift
+//  Adjustment+AbsoluteConvenience.swift
 //  Chronology
 //
 //  Created by Dave DeLong on 2/19/18.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension CalendarValue where Self: Anchored & YearFields {
+public extension CalendarValue where Self: Absolute & YearFields {
     
     func nextYear() -> Self { return adding(years: 1) }
     func previousYear() -> Self { return subtracting(years: 1) }
@@ -17,7 +17,7 @@ public extension CalendarValue where Self: Anchored & YearFields {
     
 }
 
-public extension CalendarValue where Self: Anchored & YearMonthFields {
+public extension CalendarValue where Self: Absolute & YearMonthFields {
     
     func nextMonth() -> Self { return adding(months: 1) }
     func previousMonth() -> Self { return subtracting(months: 1) }
@@ -27,7 +27,7 @@ public extension CalendarValue where Self: Anchored & YearMonthFields {
     
 }
 
-public extension CalendarValue where Self: Anchored & YearMonthDayFields {
+public extension CalendarValue where Self: Absolute & YearMonthDayFields {
     
     func nextDay() -> Self { return adding(days: 1) }
     func previousDay() -> Self { return subtracting(days: 1) }
@@ -37,7 +37,7 @@ public extension CalendarValue where Self: Anchored & YearMonthDayFields {
     
 }
 
-public extension CalendarValue where Self: Anchored & YearMonthDayHourFields {
+public extension CalendarValue where Self: Absolute & YearMonthDayHourFields {
     
     func nextHour() -> Self { return adding(hours: 1) }
     func previousHour() -> Self { return subtracting(hours: 1) }
@@ -47,7 +47,7 @@ public extension CalendarValue where Self: Anchored & YearMonthDayHourFields {
     
 }
 
-public extension CalendarValue where Self: Anchored & YearMonthDayHourMinuteFields {
+public extension CalendarValue where Self: Absolute & YearMonthDayHourMinuteFields {
     
     func nextMinute() -> Self { return adding(minutes: 1) }
     func previousMinute() -> Self { return subtracting(minutes: 1) }
@@ -57,7 +57,7 @@ public extension CalendarValue where Self: Anchored & YearMonthDayHourMinuteFiel
     
 }
 
-public extension CalendarValue where Self: Anchored & YearMonthDayHourMinuteSecondFields {
+public extension CalendarValue where Self: Absolute & YearMonthDayHourMinuteSecondFields {
     
     func nextSecond() -> Self { return adding(seconds: 1) }
     func previousSecond() -> Self { return subtracting(seconds: 1) }
@@ -67,7 +67,7 @@ public extension CalendarValue where Self: Anchored & YearMonthDayHourMinuteSeco
     
 }
 
-public extension CalendarValue where Self: Anchored & YearMonthDayHourMinuteSecondNanosecondFields {
+public extension CalendarValue where Self: Absolute & YearMonthDayHourMinuteSecondNanosecondFields {
     
     func nextNanosecond() -> Self { return adding(nanoseconds: 1) }
     func previousNanosecond() -> Self { return subtracting(nanoseconds: 1) }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct ValueSequence<C: Anchored>: Sequence {
+public struct ValueSequence<C: Absolute>: Sequence {
     
     private let iteratorConstructor: () -> ValueIterator<C>
     
-    public init<P: Anchored>(parent: P) {
+    public init<P: Absolute>(parent: P) {
         iteratorConstructor = { ValueIterator(parent: parent) }
     }
     
@@ -21,13 +21,13 @@ public struct ValueSequence<C: Anchored>: Sequence {
     
 }
 
-public struct ValueIterator<C: Anchored>: IteratorProtocol {
+public struct ValueIterator<C: Absolute>: IteratorProtocol {
     private let region: Region
     private let range: ClosedRange<Instant>
     
     private var nextStartInstant: Instant
     
-    public init<P: Anchored>(parent: P) {
+    public init<P: Absolute>(parent: P) {
         self.region = parent.region
         self.range = parent.range
         nextStartInstant = range.lowerBound

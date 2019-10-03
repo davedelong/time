@@ -8,7 +8,7 @@
 import Foundation
 
 /// A marker protocol for generic constraints.
-/// A value that is not Anchored is Floating.
+/// A value that is not Absolute is Floating.
 public protocol Floating: CalendarValue { }
 
 /// Access the three-unit floating values

@@ -1,5 +1,5 @@
 //
-//  YearMonth.swift
+//  Year.swift
 //  Chronology
 //
 //  Created by Dave DeLong on 2/19/18.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct YearMonth: Anchored, YearMonthFields {
-    public static var representedComponents: Set<Calendar.Component> = [.era, .year, .month]
+public struct Year: Absolute, YearFields {
+    public static var representedComponents: Set<Calendar.Component> = [.era, .year]
     
     public let region: Region
     public let dateComponents: DateComponents
@@ -18,23 +18,27 @@ public struct YearMonth: Anchored, YearMonthFields {
         self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
     
-    public func firstDay() -> YearMonthDay {
-        return YearMonthDay(instant: range.lowerBound, region: region)
+    public func firstMonth() -> YearMonth {
+        return YearMonth(instant: range.lowerBound, region: region)
     }
     
-    public func lastDay() -> YearMonthDay {
-        return YearMonthDay(instant: range.upperBound, region: region)
+    public func lastMonth() -> YearMonth {
+        return YearMonth(instant: range.upperBound, region: region)
     }
     
-    public func nthDay(_ ordinal: Int) throws -> YearMonthDay {
-        let offsetDay = firstDay() + .days(ordinal - 1)
+    public func nthMonth(_ ordinal: Int) throws -> YearMonth {
+        let offsetMonth = firstMonth() + .months(ordinal - 1)
         
-        let monthRange = self.range
-        let dayRange = offsetDay.range
+        let yearRange = self.range
+        let monthRange = offsetMonth.range
         
-        guard monthRange.lowerBound <= dayRange.lowerBound else { throw AdjustmentError() }
-        guard dayRange.upperBound <= monthRange.upperBound else { throw AdjustmentError() }
-        return offsetDay
+        guard yearRange.lowerBound <= monthRange.lowerBound else { throw AdjustmentError() }
+        guard monthRange.upperBound <= yearRange.upperBound else { throw AdjustmentError() }
+        return offsetMonth
+    }
+    
+    public func months() -> ValueSequence<YearMonth> {
+        return ValueSequence(parent: self)
     }
     
     public func days() -> ValueSequence<YearMonthDay> {
