@@ -7,6 +7,7 @@
 
 import Foundation
 
+/*
 public extension Absolute where Self: EraField {
     func format(era: Template<EraField>) -> String {
         return format(absolute: [era])
@@ -94,3 +95,4 @@ public extension Absolute where Self: NanosecondField {
         return format(absolute: [era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
     }
 }
+*/

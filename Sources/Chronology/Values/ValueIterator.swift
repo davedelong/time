@@ -7,6 +7,7 @@
 
 import Foundation
 
+/*
 public struct ValueSequence<C: Absolute>: Sequence {
     
     private let iteratorConstructor: () -> ValueIterator<C>
@@ -40,3 +41,4 @@ public struct ValueIterator<C: Absolute>: IteratorProtocol {
         return value
     }
 }
+*/

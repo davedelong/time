@@ -9,6 +9,7 @@ import Foundation
 
 /// INVALID ADDITION OPERATORS
 
+/*
 @available(*, unavailable, message: "Adding months to a year is invalid")
 public func +(lhs: Year, rhs: FieldAdjustment<Month>) -> Never { invalid() }
 @available(*, unavailable, message: "Adding days to a year is invalid")
@@ -106,3 +107,4 @@ public func -(lhs: YearMonthDayHourMinute, rhs: FieldAdjustment<Nanosecond>) -> 
 
 @available(*, unavailable, message: "Subtracting nanoseconds from a second is invalid")
 public func -(lhs: YearMonthDayHourMinuteSecond, rhs: FieldAdjustment<Nanosecond>) -> Never { invalid() }
+*/

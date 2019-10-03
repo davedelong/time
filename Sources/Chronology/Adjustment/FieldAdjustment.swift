@@ -7,6 +7,7 @@
 
 import Foundation
 
+/*
 
 /// This is a nominal wrapper to an adjust to a single field on a CalendarValue
 /// This wrapper enables syntax like "today + .days(3)"
@@ -48,7 +49,9 @@ public extension FieldAdjustment where F: NanosecondField {
     static func nanoseconds(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .nanosecond) }
 }
 
-
+ */
+ 
+/*
 public func +<C: Absolute>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     let adjustment = Adjustment<C, C>.add(value: rhs.value, unit: rhs.unit)
     return lhs.apply(adjustment)
@@ -57,3 +60,4 @@ public func +<C: Absolute>(lhs: C, rhs: FieldAdjustment<C>) -> C {
 public func -<C: Absolute>(lhs: C, rhs: FieldAdjustment<C>) -> C {
     return lhs + FieldAdjustment(value: -rhs.value, unit: rhs.unit)
 }
+*/

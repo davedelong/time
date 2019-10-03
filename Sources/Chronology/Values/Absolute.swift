@@ -7,11 +7,14 @@
 
 import Foundation
 
-public protocol Absolute: CalendarValue {
-    var range: ClosedRange<Instant> { get }
-}
-
-extension Absolute {
+public struct Absolute<Lower: Unit>: CalendarValue {
+    
+    public static var representedComponents: Set<Calendar.Component> {
+        return componentsFrom(lower: Lower.self, to: Era.self)
+    }
+    
+    public let region: Region
+    public let dateComponents: DateComponents
     
     public var range: ClosedRange<Instant> {
         let date = calendar.date(from: dateComponents).unwrap("Absolute values must always be convertible to a concrete NSDate")
@@ -35,38 +38,9 @@ extension Absolute {
         let midPoint = lower + (duration / 2.0)
         return max(lower, midPoint)
     }
-}
-
-/// Access the less-precise fields on Absolute values
-
-public extension Absolute where Self: YearField {
-    var era: Era { return Era(region: region, dateComponents: dateComponents) }
-}
-
-public extension Absolute where Self: MonthField {
-    var year: Year { return Year(region: region, dateComponents: dateComponents) }
-}
-
-public extension Absolute where Self: DayField {
-    var yearMonth: YearMonth { return YearMonth(region: region, dateComponents: dateComponents) }
     
-    var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
-    var isWeekday: Bool { return !isWeekend }
-    var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
-}
-
-public extension Absolute where Self: HourField {
-    var yearMonthDay: YearMonthDay { return YearMonthDay(region: region, dateComponents: dateComponents) }
-}
-
-public extension Absolute where Self: MinuteField {
-    var yearMonthDayHour: YearMonthDayHour { return YearMonthDayHour(region: region, dateComponents: dateComponents) }
-}
-
-public extension Absolute where Self: SecondField {
-    var yearMonthDayHourMinute: YearMonthDayHourMinute { return YearMonthDayHourMinute(region: region, dateComponents: dateComponents) }
-}
-
-public extension Absolute where Self: NanosecondField {
-    var yearMonthDayHourMinuteSecond: YearMonthDayHourMinuteSecond { return YearMonthDayHourMinuteSecond(region: region, dateComponents: dateComponents)}
+    public init(region: Region, dateComponents: DateComponents) {
+        self.region = region
+        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
+    }
 }

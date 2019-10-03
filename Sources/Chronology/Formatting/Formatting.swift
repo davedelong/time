@@ -42,6 +42,7 @@ extension CalendarValue {
     
 }
 
+/*
 extension CalendarValue where Self: Absolute {
     
     internal func format(absolute: Array<Format?>) -> String {
@@ -49,3 +50,4 @@ extension CalendarValue where Self: Absolute {
     }
     
 }
+*/

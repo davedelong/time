@@ -7,16 +7,14 @@
 
 import Foundation
 
-public protocol CalendarValueField { }
-
-public protocol EraField: CalendarValueField { }
-public protocol YearField: CalendarValueField { }
-public protocol MonthField: CalendarValueField { }
-public protocol DayField: CalendarValueField { }
-public protocol HourField: CalendarValueField { }
-public protocol MinuteField: CalendarValueField { }
-public protocol SecondField: CalendarValueField { }
-public protocol NanosecondField: CalendarValueField { }
+public protocol EraField { }
+public protocol YearField { }
+public protocol MonthField { }
+public protocol DayField { }
+public protocol HourField { }
+public protocol MinuteField { }
+public protocol SecondField { }
+public protocol NanosecondField { }
 
 public typealias YearFields = EraField & YearField
 public typealias YearMonthFields = YearFields & MonthField

@@ -14,12 +14,17 @@ public protocol CalendarValue {
     init(region: Region, dateComponents: DateComponents)
 }
 
+internal extension Calendar.Component {
+    static var order: Array<Calendar.Component> {
+        return [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
+    }
+}
+
 public extension CalendarValue {
     
     static var smallestRepresentedComponent: Calendar.Component {
-        let order: Array<Calendar.Component> = [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
         let represented = self.representedComponents
-        let component = order.first(where: { represented.contains($0) })
+        let component = Calendar.Component.order.first(where: { represented.contains($0) })
         return component.unwrap("\(Self.self) defines impossible represented units: \(represented)")
     }
     
@@ -62,6 +67,7 @@ public extension CalendarValue {
 
 /// Access individual field values
 
+/*
 public extension CalendarValue where Self: EraField {
     var era: Era { return Era(region: region, dateComponents: dateComponents) }
     var eraValue: Int { return dateComponents.era.unwrap("An EraField must have an era value") }
@@ -123,4 +129,5 @@ public extension CalendarValue where Self: MinuteField & SecondField {
 public extension CalendarValue where Self: SecondField & NanosecondField {
     var secondNanosecond: SecondNanosecond { return SecondNanosecond(region: region, dateComponents: dateComponents) }
 }
+ */
 
