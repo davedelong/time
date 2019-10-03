@@ -9,49 +9,70 @@ import Foundation
 
 public extension CalendarValue where Self: Anchored & YearFields {
     
-    func nextYear() -> Self { return self + .years(1) }
-    func previousYear() -> Self { return self - .years(1) }
+    func nextYear() -> Self { return adding(years: 1) }
+    func previousYear() -> Self { return subtracting(years: 1) }
+    
+    func adding(years: Int) -> Self { return self + .years(years) }
+    func subtracting(years: Int) -> Self { return self + .years(-years) }
     
 }
 
 public extension CalendarValue where Self: Anchored & YearMonthFields {
     
-    func nextMonth() -> Self { return self + .months(1) }
-    func previousMonth() -> Self { return self - .months(1) }
+    func nextMonth() -> Self { return adding(months: 1) }
+    func previousMonth() -> Self { return subtracting(months: 1) }
+    
+    func adding(months: Int) -> Self { return self + .months(months) }
+    func subtracting(months: Int) -> Self { return self + .months(-months) }
     
 }
 
 public extension CalendarValue where Self: Anchored & YearMonthDayFields {
     
-    func nextDay() -> Self { return self + .days(1) }
-    func previousDay() -> Self { return self - .days(1) }
+    func nextDay() -> Self { return adding(days: 1) }
+    func previousDay() -> Self { return subtracting(days: 1) }
+    
+    func adding(days: Int) -> Self { return self + .days(days) }
+    func subtracting(days: Int) -> Self { return self + .days(-days) }
     
 }
 
 public extension CalendarValue where Self: Anchored & YearMonthDayHourFields {
     
-    func nextHour() -> Self { return self + .hours(1) }
-    func previousHour() -> Self { return self - .hours(1) }
+    func nextHour() -> Self { return adding(hours: 1) }
+    func previousHour() -> Self { return subtracting(hours: 1) }
+    
+    func adding(hours: Int) -> Self { return self + .hours(hours) }
+    func subtracting(hours: Int) -> Self { return self + .hours(-hours) }
     
 }
 
 public extension CalendarValue where Self: Anchored & YearMonthDayHourMinuteFields {
     
-    func nextMinute() -> Self { return self + .minutes(1) }
-    func previousMinute() -> Self { return self - .minutes(1) }
+    func nextMinute() -> Self { return adding(minutes: 1) }
+    func previousMinute() -> Self { return subtracting(minutes: 1) }
+    
+    func adding(minutes: Int) -> Self { return self + .minutes(minutes) }
+    func subtracting(minutes: Int) -> Self { return self + .minutes(-minutes) }
     
 }
 
 public extension CalendarValue where Self: Anchored & YearMonthDayHourMinuteSecondFields {
     
-    func nextSecond() -> Self { return self + .seconds(1) }
-    func previousSecond() -> Self { return self - .seconds(1) }
+    func nextSecond() -> Self { return adding(seconds: 1) }
+    func previousSecond() -> Self { return subtracting(seconds: 1) }
+    
+    func adding(seconds: Int) -> Self { return self + .seconds(seconds) }
+    func subtracting(seconds: Int) -> Self { return self + .seconds(-seconds) }
     
 }
 
 public extension CalendarValue where Self: Anchored & YearMonthDayHourMinuteSecondNanosecondFields {
     
-    func nextNanosecond() -> Self { return self + .nanoseconds(1) }
-    func previousNanosecond() -> Self { return self - .nanoseconds(1) }
+    func nextNanosecond() -> Self { return adding(nanoseconds: 1) }
+    func previousNanosecond() -> Self { return subtracting(nanoseconds: 1) }
+    
+    func adding(nanoseconds: Int) -> Self { return self + .nanoseconds(nanoseconds) }
+    func subtracting(nanoseconds: Int) -> Self { return self + .nanoseconds(-nanoseconds) }
     
 }
