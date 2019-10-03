@@ -27,6 +27,7 @@ public struct YearMonthDayHour: Absolute, YearMonthDayHourFields {
     }
     
     public func nthMinute(_ ordinal: Int) throws -> YearMonthDayHourMinute {
+        guard ordinal >= 1 else { throw AdjustmentError() }
         let offsetMinute = firstMinute() + .minutes(ordinal - 1)
         
         let hourRange = self.range

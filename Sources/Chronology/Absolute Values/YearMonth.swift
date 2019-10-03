@@ -27,6 +27,7 @@ public struct YearMonth: Absolute, YearMonthFields {
     }
     
     public func nthDay(_ ordinal: Int) throws -> YearMonthDay {
+        guard ordinal >= 1 else { throw AdjustmentError() }
         let offsetDay = firstDay() + .days(ordinal - 1)
         
         let monthRange = self.range

@@ -28,8 +28,8 @@ public extension CalendarValue {
     var locale: Locale { return region.locale }
     
     internal init(date: Date, region: Region) {
-        let dc = region.calendar.dateComponents(in: region.timeZone, from: date)
-        self.init(region: region, dateComponents: dc.requireAndRestrict(to: Self.representedComponents))
+        let dc = region.components(Self.representedComponents, from: date)
+        self.init(region: region, dateComponents: dc)
     }
     
     internal init(instant: Instant, region: Region) {
@@ -39,6 +39,9 @@ public extension CalendarValue {
     func convert(to region: Region) -> Self {
         return Self.init(region: region, dateComponents: dateComponents)
     }
+}
+
+public extension CalendarValue {
     
     func convert(to calendar: Calendar) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
