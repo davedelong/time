@@ -12,8 +12,8 @@ public extension Clock {
     func this<C: Unit>() -> Absolute<C> { return Absolute(instant: thisInstant(), region: region) }
     
     func today() -> Absolute<Day> { return this() }
-//    func tomorrow() -> YearMonthDay { return today() + .days(1) }
-//    func yesterday() -> YearMonthDay { return today() - .days(1) }
+    func tomorrow() -> Absolute<Day> { return today() + .days(1) }
+    func yesterday() -> Absolute<Day> { return today() - .days(1) }
     
     func thisEra() -> Absolute<Era> { return this() }
     func thisYear() -> Absolute<Year> { return this() }
@@ -24,17 +24,17 @@ public extension Clock {
     func thisSecond() -> Absolute<Second> { return this() }
     func thisNanosecond() -> Absolute<Nanosecond> { return this() }
     
-//    func nextYear() -> Year { return this() + .years(1) }
-//    func nextMonth() -> YearMonth { return this() + .months(1) }
-//    func nextDay() -> YearMonthDay { return this() + .days(1) }
-//    func nextHour() -> YearMonthDayHour { return this() + .hours(1) }
-//    func nextMinute() -> YearMonthDayHourMinute { return this() + .minutes(1) }
-//    func nextSecond() -> YearMonthDayHourMinuteSecond { return this() + .seconds(1) }
-//
-//    func previousYear() -> Year { return this() - .years(1) }
-//    func previousMonth() -> YearMonth { return this() - .months(1) }
-//    func previousDay() -> YearMonthDay { return this() - .days(1) }
-//    func previousHour() -> YearMonthDayHour { return this() - .hours(1) }
-//    func previousMinute() -> YearMonthDayHourMinute { return this() - .minutes(1) }
-//    func previousSecond() -> YearMonthDayHourMinuteSecond { return this() - .seconds(1) }
+    func nextYear() -> Absolute<Year> { return this() + .years(1) }
+    func nextMonth() -> Absolute<Month> { return this() + .months(1) }
+    func nextDay() -> Absolute<Day> { return this() + .days(1) }
+    func nextHour() -> Absolute<Hour> { return this() + .hours(1) }
+    func nextMinute() -> Absolute<Minute> { return this() + .minutes(1) }
+    func nextSecond() -> Absolute<Second> { return this() + .seconds(1) }
+
+    func previousYear() -> Absolute<Year> { return this() - .years(1) }
+    func previousMonth() -> Absolute<Month> { return this() - .months(1) }
+    func previousDay() -> Absolute<Day> { return this() - .days(1) }
+    func previousHour() -> Absolute<Hour> { return this() - .hours(1) }
+    func previousMinute() -> Absolute<Minute> { return this() - .minutes(1) }
+    func previousSecond() -> Absolute<Second> { return this() - .seconds(1) }
 }

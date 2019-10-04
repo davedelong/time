@@ -7,19 +7,19 @@
 
 import Foundation
 
-extension Absolute: EraField {
+extension AbsoluteValue where Self: EraField {
     var era: Absolute<Era> { return Absolute<Era>(region: region, dateComponents: dateComponents) }
 }
 
-extension Absolute: YearField where Lower: LessThanEra {
+extension AbsoluteValue where Self: YearField {
     var year: Absolute<Year> { return Absolute<Year>(region: region, dateComponents: dateComponents) }
 }
 
-extension Absolute: MonthField where Lower: LessThanYear {
+extension AbsoluteValue where Self: MonthField {
     var yearMonth: Absolute<Month> { return Absolute<Month>(region: region, dateComponents: dateComponents) }
 }
 
-extension Absolute: DayField where Lower: LessThanMonth {
+extension AbsoluteValue where Self: DayField {
     var yearMonthDay: Absolute<Day> { return Absolute<Day>(region: region, dateComponents: dateComponents) }
     
     var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
@@ -27,16 +27,18 @@ extension Absolute: DayField where Lower: LessThanMonth {
     var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
 }
 
-extension Absolute: HourField where Lower: LessThanDay {
+extension AbsoluteValue where Self: HourField {
     var yearMonthDayHour: Absolute<Hour> { return Absolute<Hour>(region: region, dateComponents: dateComponents) }
 }
 
-extension Absolute: MinuteField where Lower: LessThanHour {
+extension AbsoluteValue where Self: MinuteField {
     var yearMonthDayHourMinute: Absolute<Minute> { return Absolute<Minute>(region: region, dateComponents: dateComponents) }
 }
 
-extension Absolute: SecondField where Lower: LessThanMinute {
+extension AbsoluteValue where Self: SecondField {
     var yearMonthDayHourMinuteSecond: Absolute<Second> { return Absolute<Second>(region: region, dateComponents: dateComponents) }
 }
 
-extension Absolute: NanosecondField where Lower: LessThanSecond { }
+extension AbsoluteValue where Self: NanosecondField {
+    
+}

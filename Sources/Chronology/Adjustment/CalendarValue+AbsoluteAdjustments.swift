@@ -7,8 +7,7 @@
 
 import Foundation
 
-/*
-public extension CalendarValue where Self: Absolute & YearFields {
+public extension AbsoluteValue where Self: YearField {
     
     func nextYear() -> Self { return adding(years: 1) }
     func previousYear() -> Self { return subtracting(years: 1) }
@@ -18,7 +17,7 @@ public extension CalendarValue where Self: Absolute & YearFields {
     
 }
 
-public extension CalendarValue where Self: Absolute & YearMonthFields {
+public extension AbsoluteValue where Self: MonthField {
     
     func nextMonth() -> Self { return adding(months: 1) }
     func previousMonth() -> Self { return subtracting(months: 1) }
@@ -28,7 +27,7 @@ public extension CalendarValue where Self: Absolute & YearMonthFields {
     
 }
 
-public extension CalendarValue where Self: Absolute & YearMonthDayFields {
+public extension AbsoluteValue where Self: DayField {
     
     func nextDay() -> Self { return adding(days: 1) }
     func previousDay() -> Self { return subtracting(days: 1) }
@@ -38,7 +37,7 @@ public extension CalendarValue where Self: Absolute & YearMonthDayFields {
     
 }
 
-public extension CalendarValue where Self: Absolute & YearMonthDayHourFields {
+public extension AbsoluteValue where Self: HourField {
     
     func nextHour() -> Self { return adding(hours: 1) }
     func previousHour() -> Self { return subtracting(hours: 1) }
@@ -48,7 +47,7 @@ public extension CalendarValue where Self: Absolute & YearMonthDayHourFields {
     
 }
 
-public extension CalendarValue where Self: Absolute & YearMonthDayHourMinuteFields {
+public extension AbsoluteValue where Self: MinuteField {
     
     func nextMinute() -> Self { return adding(minutes: 1) }
     func previousMinute() -> Self { return subtracting(minutes: 1) }
@@ -58,7 +57,7 @@ public extension CalendarValue where Self: Absolute & YearMonthDayHourMinuteFiel
     
 }
 
-public extension CalendarValue where Self: Absolute & YearMonthDayHourMinuteSecondFields {
+public extension AbsoluteValue where Self: SecondField {
     
     func nextSecond() -> Self { return adding(seconds: 1) }
     func previousSecond() -> Self { return subtracting(seconds: 1) }
@@ -68,7 +67,7 @@ public extension CalendarValue where Self: Absolute & YearMonthDayHourMinuteSeco
     
 }
 
-public extension CalendarValue where Self: Absolute & YearMonthDayHourMinuteSecondNanosecondFields {
+public extension AbsoluteValue where Self: NanosecondField {
     
     func nextNanosecond() -> Self { return adding(nanoseconds: 1) }
     func previousNanosecond() -> Self { return subtracting(nanoseconds: 1) }
@@ -77,4 +76,3 @@ public extension CalendarValue where Self: Absolute & YearMonthDayHourMinuteSeco
     func subtracting(nanoseconds: Int) -> Self { return self + .nanoseconds(-nanoseconds) }
     
 }
-*/

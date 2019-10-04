@@ -9,48 +9,50 @@ import Foundation
 
 /// This is a nominal wrapper to an adjust to a single field on a CalendarValue
 /// This wrapper enables syntax like "today + .days(3)"
-public struct FieldAdjustment<U: Unit> {
+public struct FieldAdjustment<Input: CalendarValue> {
     public let value: Int
+    public let unit: Calendar.Component
     
-    internal init(value: Int) {
+    internal init(value: Int, unit: Calendar.Component) {
         self.value = value
+        self.unit = unit
     }
 }
 
-public extension FieldAdjustment where U == Year {
-    static func years(_ value: Int) -> FieldAdjustment { return self.init(value: value) }
+public extension FieldAdjustment where Input: YearField {
+    static func years(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .year) }
 }
 
-public extension FieldAdjustment where U == Month {
-    static func months(_ value: Int) -> FieldAdjustment { return self.init(value: value) }
+public extension FieldAdjustment where Input: MonthField {
+    static func months(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .month) }
 }
 
-public extension FieldAdjustment where U == Day {
-    static func days(_ value: Int) -> FieldAdjustment { return self.init(value: value) }
+public extension FieldAdjustment where Input: DayField {
+    static func days(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .day) }
 }
 
-public extension FieldAdjustment where U == Hour {
-    static func hours(_ value: Int) -> FieldAdjustment { return self.init(value: value) }
+public extension FieldAdjustment where Input: HourField {
+    static func hours(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .hour) }
 }
 
-public extension FieldAdjustment where U == Minute {
-    static func minutes(_ value: Int) -> FieldAdjustment { return self.init(value: value) }
+public extension FieldAdjustment where Input: MinuteField {
+    static func minutes(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .minute) }
 }
 
-public extension FieldAdjustment where U == Second {
-    static func seconds(_ value: Int) -> FieldAdjustment { return self.init(value: value) }
+public extension FieldAdjustment where Input: SecondField {
+    static func seconds(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .second) }
 }
 
-public extension FieldAdjustment where U == Nanosecond {
-    static func nanoseconds(_ value: Int) -> FieldAdjustment { return self.init(value: value) }
+public extension FieldAdjustment where Input: NanosecondField {
+    static func nanoseconds(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .nanosecond) }
 }
 
  
-public func +<C: CalendarValue, U: Unit>(lhs: C, rhs: FieldAdjustment<U>) -> C {
-    let adjustment = Adjustment<C, C>.add(value: rhs.value, unit: U.component)
+public func +<C: AbsoluteValue>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+    let adjustment = Adjustment<C, C>.add(value: rhs.value, unit: rhs.unit)
     return lhs.apply(adjustment)
 }
 
-public func -<C: CalendarValue, U: Unit>(lhs: C, rhs: FieldAdjustment<U>) -> C {
-    return lhs + FieldAdjustment<U>(value: -rhs.value)
+public func -<C: AbsoluteValue>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+    return lhs + FieldAdjustment<C>(value: -rhs.value, unit: rhs.unit)
 }
