@@ -7,14 +7,13 @@
 
 import Foundation
 
-/*
-public extension Absolute where Self: EraField {
+public extension AbsoluteValue where Self: EraField {
     func format(era: Template<EraField>) -> String {
         return format(absolute: [era])
     }
 }
 
-public extension Absolute where Self: YearField {
+public extension AbsoluteValue where Self: YearField {
     func format(era: Template<EraField>? = nil,
                 year: Template<YearField>,
                 timeZone: Template<TimeZone>? = nil) -> String {
@@ -22,7 +21,7 @@ public extension Absolute where Self: YearField {
     }
 }
 
-public extension Absolute where Self: MonthField {
+public extension AbsoluteValue where Self: MonthField {
     func format(era: Template<EraField>? = nil,
                 year: Template<YearField>,
                 month: Template<MonthField>,
@@ -31,7 +30,7 @@ public extension Absolute where Self: MonthField {
     }
 }
 
-public extension Absolute where Self: DayField {
+public extension AbsoluteValue where Self: DayField {
     func format(era: Template<EraField>? = nil,
                 year: Template<YearField>,
                 month: Template<MonthField>,
@@ -42,7 +41,7 @@ public extension Absolute where Self: DayField {
     }
 }
 
-public extension Absolute where Self: HourField {
+public extension AbsoluteValue where Self: HourField {
     func format(era: Template<EraField>? = nil,
                 year: Template<YearField>,
                 month: Template<MonthField>,
@@ -54,7 +53,7 @@ public extension Absolute where Self: HourField {
     }
 }
 
-public extension Absolute where Self: MinuteField {
+public extension AbsoluteValue where Self: MinuteField {
     func format(era: Template<EraField>? = nil,
                 year: Template<YearField>,
                 month: Template<MonthField>,
@@ -67,7 +66,7 @@ public extension Absolute where Self: MinuteField {
     }
 }
 
-public extension Absolute where Self: SecondField {
+public extension AbsoluteValue where Self: SecondField {
     func format(era: Template<EraField>? = nil,
                 year: Template<YearField>,
                 month: Template<MonthField>,
@@ -81,7 +80,7 @@ public extension Absolute where Self: SecondField {
     }
 }
 
-public extension Absolute where Self: NanosecondField {
+public extension AbsoluteValue where Self: NanosecondField {
     func format(era: Template<EraField>? = nil,
                 year: Template<YearField>,
                 month: Template<MonthField>,
@@ -95,4 +94,3 @@ public extension Absolute where Self: NanosecondField {
         return format(absolute: [era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
     }
 }
-*/

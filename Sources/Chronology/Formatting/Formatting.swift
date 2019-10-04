@@ -42,12 +42,10 @@ extension CalendarValue {
     
 }
 
-/*
-extension CalendarValue where Self: Absolute {
+extension AbsoluteValue {
     
     internal func format(absolute: Array<Format?>) -> String {
         return format(date: approximateMidPoint.date, using: absolute)
     }
     
 }
-*/
