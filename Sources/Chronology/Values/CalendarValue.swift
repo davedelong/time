@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol CalendarValue {
+public protocol CalendarValue: Field {
     static var representedComponents: Set<Calendar.Component> { get }
     var region: Region { get }
     var dateComponents: DateComponents { get }

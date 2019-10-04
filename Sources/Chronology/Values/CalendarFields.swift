@@ -7,14 +7,15 @@
 
 import Foundation
 
-public protocol EraField { }
-public protocol YearField { }
-public protocol MonthField { }
-public protocol DayField { }
-public protocol HourField { }
-public protocol MinuteField { }
-public protocol SecondField { }
-public protocol NanosecondField { }
+public protocol Field { }
+public protocol EraField: Field { }
+public protocol YearField: Field { }
+public protocol MonthField: Field { }
+public protocol DayField: Field { }
+public protocol HourField: Field { }
+public protocol MinuteField: Field { }
+public protocol SecondField: Field { }
+public protocol NanosecondField: Field { }
 
 public typealias YearFields = EraField & YearField
 public typealias YearMonthFields = YearFields & MonthField

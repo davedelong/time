@@ -7,6 +7,32 @@
 
 import Foundation
 
+/// Access the one-unit relative values
+
+public extension CalendarValue where Self: MonthField {
+    var month: Relative<Month, Year> { return Relative(region: region, dateComponents: dateComponents) }
+}
+
+public extension CalendarValue where Self: DayField {
+    var day: Relative<Day, Month> { return Relative(region: region, dateComponents: dateComponents) }
+}
+
+public extension CalendarValue where Self: HourField {
+    var hour: Relative<Hour, Day> { return Relative(region: region, dateComponents: dateComponents) }
+}
+
+public extension CalendarValue where Self: MinuteField {
+    var minute: Relative<Minute, Hour> { return Relative(region: region, dateComponents: dateComponents) }
+}
+
+public extension CalendarValue where Self: SecondField {
+    var second: Relative<Second, Minute> { return Relative(region: region, dateComponents: dateComponents) }
+}
+
+public extension CalendarValue where Self: NanosecondField {
+    var nanosecond: Relative<Nanosecond, Second> { return Relative(region: region, dateComponents: dateComponents) }
+}
+
 /// Access the two-unit relative values
 
 public extension CalendarValue where Self: MonthDayFields {

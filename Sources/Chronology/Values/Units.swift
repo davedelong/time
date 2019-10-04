@@ -11,52 +11,54 @@ public protocol Unit {
     static var component: Calendar.Component { get }
 }
 
-protocol LessThanOrEqualToEra: Unit { }
-protocol LessThanOrEqualToYear: LessThanOrEqualToEra { }
-protocol LessThanOrEqualToMonth: LessThanOrEqualToYear { }
-protocol LessThanOrEqualToDay: LessThanOrEqualToMonth { }
-protocol LessThanOrEqualToHour: LessThanOrEqualToDay { }
-protocol LessThanOrEqualToMinute: LessThanOrEqualToHour { }
-protocol LessThanOrEqualToSecond: LessThanOrEqualToMinute { }
-protocol LessThanOrEqualToNanosecond: LessThanOrEqualToSecond { }
+protocol LessThanEternity: Unit { }
+protocol LessThanEra: LessThanEternity { }
+protocol LessThanYear: LessThanEra { }
+protocol LessThanMonth: LessThanYear { }
+protocol LessThanDay: LessThanMonth { }
+protocol LessThanHour: LessThanDay { }
+protocol LessThanMinute: LessThanHour { }
+protocol LessThanSecond: LessThanMinute { }
+protocol LessThanNanosecond: LessThanSecond { }
 
-protocol LargerThanNanosecond: Unit { }
-protocol LargerThanSecond: LargerThanNanosecond { }
-protocol LargerThanMinute: LargerThanSecond { }
-protocol LargerThanHour: LargerThanMinute { }
-protocol LargerThanDay: LargerThanHour { }
-protocol LargerThanMonth: LargerThanDay { }
-protocol LargerThanYear: LargerThanMonth { }
+protocol GreaterThanOrEqualToNanosecond: Unit { }
+protocol GreaterThanOrEqualToSecond: GreaterThanOrEqualToNanosecond { }
+protocol GreaterThanOrEqualToMinute: GreaterThanOrEqualToSecond { }
+protocol GreaterThanOrEqualToHour: GreaterThanOrEqualToMinute { }
+protocol GreaterThanOrEqualToDay: GreaterThanOrEqualToHour { }
+protocol GreaterThanOrEqualToMonth: GreaterThanOrEqualToDay { }
+protocol GreaterThanOrEqualToYear: GreaterThanOrEqualToMonth { }
+protocol GreaterThanOrEqualToEra: GreaterThanOrEqualToYear { }
 
-public struct Nanosecond: Unit, LessThanOrEqualToNanosecond {
+public struct Nanosecond: Unit, GreaterThanOrEqualToNanosecond {
     public static let component: Calendar.Component = .nanosecond
 }
 
-public struct Second: Unit, LessThanOrEqualToSecond, LargerThanNanosecond {
+public struct Second: Unit, LessThanMinute, GreaterThanOrEqualToSecond {
     public static let component: Calendar.Component = .second
 }
 
-public struct Minute: Unit, LessThanOrEqualToMinute, LargerThanSecond {
+public struct Minute: Unit, LessThanHour, GreaterThanOrEqualToMinute {
     public static let component: Calendar.Component = .minute
 }
 
-public struct Hour: Unit, LessThanOrEqualToHour, LargerThanMinute {
+public struct Hour: Unit, LessThanDay, GreaterThanOrEqualToHour {
     public static let component: Calendar.Component = .hour
 }
 
-public struct Day: Unit, LessThanOrEqualToDay, LargerThanHour {
+public struct Day: Unit, LessThanMonth, GreaterThanOrEqualToDay {
     public static let component: Calendar.Component = .day
 }
 
-public struct Month: Unit, LessThanOrEqualToMonth, LargerThanDay {
+public struct Month: Unit, LessThanYear, GreaterThanOrEqualToMonth {
     public static let component: Calendar.Component = .month
 }
 
-public struct Year: Unit, LessThanOrEqualToYear, LargerThanMonth {
+public struct Year: Unit, LessThanEra, GreaterThanOrEqualToYear {
     public static let component: Calendar.Component = .year
 }
 
-public struct Era: Unit, LessThanOrEqualToEra, LargerThanYear {
+public struct Era: Unit, LessThanEternity, GreaterThanOrEqualToEra {
     public static let component: Calendar.Component = .era
 }
 
@@ -71,19 +73,19 @@ internal func componentsFrom<L: Unit, U: Unit>(lower: L.Type, to upper: U.Type) 
 }
 
 /*
- extension Hour: LessThanOrEqualToHour, LargerThanMinute {}
- extension Minute: LessThanOrEqualToMinute, LargerThanSecond {}
+ extension Hour: LessThanOrEqualToHour, GreaterThanOrEqualToThanMinute {}
+ extension Minute: LessThanOrEqualToMinute, GreaterThanOrEqualToThanSecond {}
  extension Second: LessThanOrEqualToSecond {}
  ​​
- extension Relative where Smallest: LessThanOrEqualToSecond, Modulo: LargerThanSecond {
+ extension Relative where Smallest: LessThanOrEqualToSecond, Modulo: GreaterThanOrEqualToThanSecond {
  var second: Int { dateComponents.second! }
  }
  ​​
- extension Relative where Smallest: LessThanOrEqualToMinute, Modulo: LargerThanMinute {
+ extension Relative where Smallest: LessThanOrEqualToMinute, Modulo: GreaterThanOrEqualToThanMinute {
  var minute: Int { dateComponents.minute! }
  }
  ​​
- extension Relative where Smallest: LessThanOrEqualToHour, Modulo: LargerThanHour {
+ extension Relative where Smallest: LessThanOrEqualToHour, Modulo: GreaterThanOrEqualToThanHour {
  var hour: Int { dateComponents.hour! }
  }
  

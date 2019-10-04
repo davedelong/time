@@ -4,8 +4,10 @@ import XCTest
 class ChronologyTests: XCTestCase {
     func testExample() {
         
-//        let c = Clock.system
-//        let this = c.thisMonth()
+        let c = Clock.system
+        let this = c.thisEra()()
+        
+        print(this)
 //
 //        let minutes = this.hours()
 //        print(Array(minutes))
