@@ -7,30 +7,48 @@
 
 import Foundation
 
+/// Access the one-unit absolute values
+
+public extension CalendarValue where Self: EraField {
+    var era: Absolute<Era> { return Absolute(region: region, dateComponents: dateComponents) }
+    var eraValue: Int { return dateComponents.era.unwrap("An EraField must have an era value") }
+}
+
+public extension CalendarValue where Self: YearField {
+    var year: Absolute<Year> { return Absolute(region: region, dateComponents: dateComponents) }
+    var yearValue: Int { return dateComponents.year.unwrap("A YearField must have a year value") }
+}
+
 /// Access the one-unit relative values
 
 public extension CalendarValue where Self: MonthField {
     var month: Relative<Month, Year> { return Relative(region: region, dateComponents: dateComponents) }
+    var monthValue: Int { return dateComponents.month.unwrap("A MonthField must have a month value") }
 }
 
 public extension CalendarValue where Self: DayField {
     var day: Relative<Day, Month> { return Relative(region: region, dateComponents: dateComponents) }
+    var dayValue: Int { return dateComponents.day.unwrap("A DayField must have a day value") }
 }
 
 public extension CalendarValue where Self: HourField {
     var hour: Relative<Hour, Day> { return Relative(region: region, dateComponents: dateComponents) }
+    var hourValue: Int { return dateComponents.hour.unwrap("An HourField must have an hour value") }
 }
 
 public extension CalendarValue where Self: MinuteField {
     var minute: Relative<Minute, Hour> { return Relative(region: region, dateComponents: dateComponents) }
+    var minuteValue: Int { return dateComponents.minute.unwrap("A MinuteField must have a minute value") }
 }
 
 public extension CalendarValue where Self: SecondField {
     var second: Relative<Second, Minute> { return Relative(region: region, dateComponents: dateComponents) }
+    var secondValue: Int { return dateComponents.second.unwrap("A SecondField must have a second value") }
 }
 
 public extension CalendarValue where Self: NanosecondField {
     var nanosecond: Relative<Nanosecond, Second> { return Relative(region: region, dateComponents: dateComponents) }
+    var nanosecondValue: Int { return dateComponents.nanosecond.unwrap("A NanosecondField must have a nanosecond value") }
 }
 
 /// Access the two-unit relative values

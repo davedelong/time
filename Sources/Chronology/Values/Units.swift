@@ -72,21 +72,3 @@ internal func componentsFrom<L: Unit, U: Unit>(lower: L.Type, to upper: U.Type) 
     return Set(components)
 }
 
-/*
- extension Hour: LessThanOrEqualToHour, GreaterThanOrEqualToThanMinute {}
- extension Minute: LessThanOrEqualToMinute, GreaterThanOrEqualToThanSecond {}
- extension Second: LessThanOrEqualToSecond {}
- ​​
- extension Relative where Smallest: LessThanOrEqualToSecond, Modulo: GreaterThanOrEqualToThanSecond {
- var second: Int { dateComponents.second! }
- }
- ​​
- extension Relative where Smallest: LessThanOrEqualToMinute, Modulo: GreaterThanOrEqualToThanMinute {
- var minute: Int { dateComponents.minute! }
- }
- ​​
- extension Relative where Smallest: LessThanOrEqualToHour, Modulo: GreaterThanOrEqualToThanHour {
- var hour: Int { dateComponents.hour! }
- }
- 
- */

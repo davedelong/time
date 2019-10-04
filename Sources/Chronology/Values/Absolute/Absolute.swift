@@ -51,6 +51,26 @@ public struct Absolute<Lower: Unit>: AbsoluteValue {
         self.region = region
         self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
     }
+    
+    internal func first<U: Unit>() -> Absolute<U> {
+        return Absolute<U>(instant: range.lowerBound, region: region)
+    }
+    
+    internal func last<U: Unit>() -> Absolute<U> {
+        return Absolute<U>(instant: range.upperBound, region: region)
+    }
+    
+    internal func nth<U: Unit>(_ ordinal: Int) throws -> Absolute<U> {
+        guard ordinal >= 1 else { throw AdjustmentError() }
+        let offset: Absolute<U> = first() + FieldAdjustment<Absolute<U>>(value: ordinal - 1, unit: U.component)
+        
+        let parentRange = self.range
+        let childRange = offset.range
+        
+        guard parentRange.lowerBound <= childRange.lowerBound else { throw AdjustmentError() }
+        guard childRange.upperBound <= parentRange.upperBound else { throw AdjustmentError() }
+        return offset
+    }
 }
 
 extension Absolute: EraField { }

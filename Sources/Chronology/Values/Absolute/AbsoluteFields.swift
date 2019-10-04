@@ -39,6 +39,4 @@ extension AbsoluteValue where Self: SecondField {
     var yearMonthDayHourMinuteSecond: Absolute<Second> { return Absolute<Second>(region: region, dateComponents: dateComponents) }
 }
 
-extension AbsoluteValue where Self: NanosecondField {
-    
-}
+extension AbsoluteValue where Self: NanosecondField { }
