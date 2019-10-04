@@ -24,9 +24,9 @@ public struct Relative<Lower: Unit, Upper: Unit>: CalendarValue {
     
 }
 
-extension Relative: NanosecondField where Lower: LessThanSecond, Upper: GreaterThanOrEqualToNanosecond { }
-extension Relative: SecondField where Lower: LessThanMinute, Upper: GreaterThanOrEqualToSecond { }
-extension Relative: MinuteField where Lower: LessThanHour, Upper: GreaterThanOrEqualToMinute { }
-extension Relative: HourField where Lower: LessThanDay, Upper: GreaterThanOrEqualToHour { }
-extension Relative: DayField where Lower: LessThanMonth, Upper: GreaterThanOrEqualToDay { }
-extension Relative: MonthField where Lower: LessThanYear, Upper: GreaterThanOrEqualToMonth { }
+extension Relative: NanosecondField where Lower: LessThanSecond { }
+extension Relative: SecondField where Lower: LessThanMinute, Upper: GreaterThanSecond { }
+extension Relative: MinuteField where Lower: LessThanHour, Upper: GreaterThanMinute { }
+extension Relative: HourField where Lower: LessThanDay, Upper: GreaterThanHour { }
+extension Relative: DayField where Lower: LessThanMonth, Upper: GreaterThanDay { }
+extension Relative: MonthField where Lower: LessThanYear, Upper: GreaterThanMonth { }
