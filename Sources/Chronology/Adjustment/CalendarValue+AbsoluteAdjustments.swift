@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension CalendarValue where Smallest: LTOEYear, Largest: GTOEEra {
+public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
     
     func nextYear() -> Self { return adding(years: 1) }
     func previousYear() -> Self { return subtracting(years: 1) }
@@ -17,7 +17,7 @@ public extension CalendarValue where Smallest: LTOEYear, Largest: GTOEEra {
     
 }
 
-public extension CalendarValue where Smallest: LTOEMonth, Largest: GTOEEra {
+public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
     
     func nextMonth() -> Self { return adding(months: 1) }
     func previousMonth() -> Self { return subtracting(months: 1) }
@@ -27,7 +27,7 @@ public extension CalendarValue where Smallest: LTOEMonth, Largest: GTOEEra {
     
 }
 
-public extension CalendarValue where Smallest: LTOEDay, Largest: GTOEEra {
+public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
     
     func nextDay() -> Self { return adding(days: 1) }
     func previousDay() -> Self { return subtracting(days: 1) }
@@ -37,7 +37,7 @@ public extension CalendarValue where Smallest: LTOEDay, Largest: GTOEEra {
     
 }
 
-public extension CalendarValue where Smallest: LTOEHour, Largest: GTOEEra {
+public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
     
     func nextHour() -> Self { return adding(hours: 1) }
     func previousHour() -> Self { return subtracting(hours: 1) }
@@ -47,7 +47,7 @@ public extension CalendarValue where Smallest: LTOEHour, Largest: GTOEEra {
     
 }
 
-public extension CalendarValue where Smallest: LTOEMinute, Largest: GTOEEra {
+public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
     
     func nextMinute() -> Self { return adding(minutes: 1) }
     func previousMinute() -> Self { return subtracting(minutes: 1) }
@@ -57,7 +57,7 @@ public extension CalendarValue where Smallest: LTOEMinute, Largest: GTOEEra {
     
 }
 
-public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEEra {
+public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
     
     func nextSecond() -> Self { return adding(seconds: 1) }
     func previousSecond() -> Self { return subtracting(seconds: 1) }
@@ -67,7 +67,7 @@ public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEEra {
     
 }
 
-public extension CalendarValue where Smallest: LTOENanosecond, Largest: GTOEEra {
+public extension Value where Smallest: LTOENanosecond, Largest: GTOEEra {
     
     func nextNanosecond() -> Self { return adding(nanoseconds: 1) }
     func previousNanosecond() -> Self { return subtracting(nanoseconds: 1) }

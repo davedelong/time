@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension CalendarValue where Smallest: LTOEMonth, Largest: GTOEYear {
+public extension Value where Smallest: LTOEMonth, Largest: GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 timeZone: Template<TimeZone>? = nil) -> String {
@@ -15,7 +15,7 @@ public extension CalendarValue where Smallest: LTOEMonth, Largest: GTOEYear {
     }
 }
 
-public extension CalendarValue where Smallest: LTOEDay, Largest: GTOEMonth {
+public extension Value where Smallest: LTOEDay, Largest: GTOEMonth {
     func format(month: Template<Month>,
                 day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
@@ -24,7 +24,7 @@ public extension CalendarValue where Smallest: LTOEDay, Largest: GTOEMonth {
     }
 }
 
-public extension CalendarValue where Smallest: LTOEHour, Largest: GTOEDay {
+public extension Value where Smallest: LTOEHour, Largest: GTOEDay {
     func format(day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
                 hour: Template<Hour>,
@@ -33,7 +33,7 @@ public extension CalendarValue where Smallest: LTOEHour, Largest: GTOEDay {
     }
 }
 
-public extension CalendarValue where Smallest: LTOEMinute, Largest: GTOEHour {
+public extension Value where Smallest: LTOEMinute, Largest: GTOEHour {
     func format(hour: Template<Hour>,
                 minute: Template<Minute>,
                 timeZone: Template<TimeZone>? = nil) -> String {
@@ -41,7 +41,7 @@ public extension CalendarValue where Smallest: LTOEMinute, Largest: GTOEHour {
     }
 }
 
-public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEMinute {
+public extension Value where Smallest: LTOESecond, Largest: GTOEMinute {
     func format(minute: Template<Minute>,
                 second: Template<Second>,
                 timeZone: Template<TimeZone>? = nil) -> String {
@@ -49,7 +49,7 @@ public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEMinute {
     }
 }
 
-public extension CalendarValue where Smallest: LTOENanosecond, Largest: GTOESecond {
+public extension Value where Smallest: LTOENanosecond, Largest: GTOESecond {
     func format(second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) -> String {

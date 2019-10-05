@@ -7,7 +7,9 @@
 
 import Foundation
 
-extension CalendarValue where Largest: GTOEEra {
+public typealias Absolute<U: Unit> = Value<U, Era>
+
+extension Value where Largest: GTOEEra {
     
     public var range: ClosedRange<Instant> {
         let date = calendar.date(from: dateComponents).unwrap("Absolute values must always be convertible to a concrete NSDate")
@@ -50,7 +52,7 @@ extension CalendarValue where Largest: GTOEEra {
     
     internal func nth<U: Unit>(_ ordinal: Int) throws -> Absolute<U> {
         guard ordinal >= 1 else { throw AdjustmentError() }
-        let offset: Absolute<U> = first() + FieldAdjustment<Absolute<U>>(value: ordinal - 1, unit: U.component)
+        let offset: Absolute<U> = first() + FieldAdjustment<U, Era>(value: ordinal - 1, unit: U.component)
         
         let parentRange = self.range
         let childRange = offset.range
@@ -58,21 +60,6 @@ extension CalendarValue where Largest: GTOEEra {
         guard parentRange.lowerBound <= childRange.lowerBound else { throw AdjustmentError() }
         guard childRange.upperBound <= parentRange.upperBound else { throw AdjustmentError() }
         return offset
-    }
-    
-}
-
-public struct Absolute<Lower: Unit>: CalendarValue {
-    
-    public typealias Smallest = Lower
-    public typealias Largest = Era
-    
-    public let region: Region
-    public let dateComponents: DateComponents
-    
-    public init(region: Region, dateComponents: DateComponents) {
-        self.region = region
-        self.dateComponents = type(of: self).restrict(dateComponents: dateComponents)
     }
     
 }

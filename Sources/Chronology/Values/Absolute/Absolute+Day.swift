@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Absolute where Lower == Day {
+public extension Absolute where Smallest == Day, Largest == Era {
     
     func firstHour() -> Absolute<Hour> { return first() }
     

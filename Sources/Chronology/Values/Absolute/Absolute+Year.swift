@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Absolute where Lower == Year {
+public extension Absolute where Smallest == Year, Largest == Era {
     
     func firstMonth() -> Absolute<Month> { return first() }
     

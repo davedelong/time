@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Absolute where Lower == Month {
+public extension Absolute where Smallest == Month, Largest == Era {
     
     func firstDay() -> Absolute<Day> { return first() }
     
@@ -16,11 +16,11 @@ public extension Absolute where Lower == Month {
     func nthDay(_ ordinal: Int) throws -> Absolute<Day> { return try nth(ordinal) }
     
     func days() -> AbsoluteValueSequence<Day> {
-        return AbsoluteValueSequence(parent: self)
+        return AbsoluteValueSequence<Day>(parent: self)
     }
     
     func hours() -> AbsoluteValueSequence<Hour> {
-        return AbsoluteValueSequence(parent: self)
+        return AbsoluteValueSequence<Hour>(parent: self)
     }
     
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension CalendarValue where Smallest: LTOEMinute, Largest: GTOEYear {
+public extension Value where Smallest: LTOEMinute, Largest: GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 day: Template<Day>,
@@ -18,7 +18,7 @@ public extension CalendarValue where Smallest: LTOEMinute, Largest: GTOEYear {
     }
 }
 
-public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEMonth {
+public extension Value where Smallest: LTOESecond, Largest: GTOEMonth {
     func format(month: Template<Month>,
                 day: Template<Day>,
                 hour: Template<Hour>,
@@ -29,7 +29,7 @@ public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEMonth {
     }
 }
 
-public extension CalendarValue where Smallest: LTOENanosecond, Largest: GTOEDay {
+public extension Value where Smallest: LTOENanosecond, Largest: GTOEDay {
     func format(day: Template<Day>,
                 hour: Template<Hour>,
                 minute: Template<Minute>,
@@ -41,7 +41,7 @@ public extension CalendarValue where Smallest: LTOENanosecond, Largest: GTOEDay 
 }
 
 
-public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEYear {
+public extension Value where Smallest: LTOESecond, Largest: GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 day: Template<Day>,
@@ -53,7 +53,7 @@ public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEYear {
     }
 }
 
-public extension CalendarValue where Smallest: LTOENanosecond, Largest: GTOEMonth {
+public extension Value where Smallest: LTOENanosecond, Largest: GTOEMonth {
     func format(month: Template<Month>,
                 day: Template<Day>,
                 hour: Template<Hour>,
@@ -66,7 +66,7 @@ public extension CalendarValue where Smallest: LTOENanosecond, Largest: GTOEMont
 }
 
 
-public extension CalendarValue where Smallest: LTOENanosecond, Largest: GTOEYear {
+public extension Value where Smallest: LTOENanosecond, Largest: GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 day: Template<Day>,
