@@ -9,11 +9,6 @@ import Foundation
 
 public extension Absolute where Lower == Year {
     
-    init(region: Region, era: Int? = nil, year: Int) throws {
-        let dc = DateComponents(era: era, year: year)
-        let start = Clock(region: region).thisYear()
-    }
-    
     func firstMonth() -> Absolute<Month> { return first() }
     
     func lastMonth() -> Absolute<Month> { return last() }

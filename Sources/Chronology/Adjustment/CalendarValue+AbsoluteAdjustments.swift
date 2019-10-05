@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension AbsoluteValue where Self: YearField {
+public extension CalendarValue where Smallest: LTOEYear, Largest: GTOEEra {
     
     func nextYear() -> Self { return adding(years: 1) }
     func previousYear() -> Self { return subtracting(years: 1) }
@@ -17,7 +17,7 @@ public extension AbsoluteValue where Self: YearField {
     
 }
 
-public extension AbsoluteValue where Self: MonthField {
+public extension CalendarValue where Smallest: LTOEMonth, Largest: GTOEEra {
     
     func nextMonth() -> Self { return adding(months: 1) }
     func previousMonth() -> Self { return subtracting(months: 1) }
@@ -27,7 +27,7 @@ public extension AbsoluteValue where Self: MonthField {
     
 }
 
-public extension AbsoluteValue where Self: DayField {
+public extension CalendarValue where Smallest: LTOEDay, Largest: GTOEEra {
     
     func nextDay() -> Self { return adding(days: 1) }
     func previousDay() -> Self { return subtracting(days: 1) }
@@ -37,7 +37,7 @@ public extension AbsoluteValue where Self: DayField {
     
 }
 
-public extension AbsoluteValue where Self: HourField {
+public extension CalendarValue where Smallest: LTOEHour, Largest: GTOEEra {
     
     func nextHour() -> Self { return adding(hours: 1) }
     func previousHour() -> Self { return subtracting(hours: 1) }
@@ -47,7 +47,7 @@ public extension AbsoluteValue where Self: HourField {
     
 }
 
-public extension AbsoluteValue where Self: MinuteField {
+public extension CalendarValue where Smallest: LTOEMinute, Largest: GTOEEra {
     
     func nextMinute() -> Self { return adding(minutes: 1) }
     func previousMinute() -> Self { return subtracting(minutes: 1) }
@@ -57,7 +57,7 @@ public extension AbsoluteValue where Self: MinuteField {
     
 }
 
-public extension AbsoluteValue where Self: SecondField {
+public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEEra {
     
     func nextSecond() -> Self { return adding(seconds: 1) }
     func previousSecond() -> Self { return subtracting(seconds: 1) }
@@ -67,7 +67,7 @@ public extension AbsoluteValue where Self: SecondField {
     
 }
 
-public extension AbsoluteValue where Self: NanosecondField {
+public extension CalendarValue where Smallest: LTOENanosecond, Largest: GTOEEra {
     
     func nextNanosecond() -> Self { return adding(nanoseconds: 1) }
     func previousNanosecond() -> Self { return subtracting(nanoseconds: 1) }

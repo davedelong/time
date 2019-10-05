@@ -9,23 +9,15 @@ import Foundation
 
 public struct Relative<Lower: Unit, Upper: Unit>: CalendarValue {
     
-    public static var representedComponents: Set<Calendar.Component> {
-        return componentsFrom(lower: Lower.self, to: Upper.self)
-    }
+    public typealias Smallest = Lower
+    public typealias Largest = Upper
     
     public let region: Region
     public let dateComponents: DateComponents
     
-    internal init(region: Region, dateComponents: DateComponents) {
+    public init(region: Region, dateComponents: DateComponents) {
         self.region = region
         self.dateComponents = type(of: self).restrict(dateComponents: dateComponents)
     }
     
 }
-
-extension Relative: NanosecondField where Lower: LessThanSecond { }
-extension Relative: SecondField where Lower: LessThanMinute, Upper: GreaterThanSecond { }
-extension Relative: MinuteField where Lower: LessThanHour, Upper: GreaterThanMinute { }
-extension Relative: HourField where Lower: LessThanDay, Upper: GreaterThanHour { }
-extension Relative: DayField where Lower: LessThanMonth, Upper: GreaterThanDay { }
-extension Relative: MonthField where Lower: LessThanYear, Upper: GreaterThanMonth { }

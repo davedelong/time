@@ -11,66 +11,66 @@ public protocol Unit {
     static var component: Calendar.Component { get }
 }
 
-internal protocol LessThanEternity: Unit { }
-internal protocol LessThanEra: LessThanEternity { }
-internal protocol LessThanYear: LessThanEra { }
-internal protocol LessThanMonth: LessThanYear { }
-internal protocol LessThanDay: LessThanMonth { }
-internal protocol LessThanHour: LessThanDay { }
-internal protocol LessThanMinute: LessThanHour { }
-internal protocol LessThanSecond: LessThanMinute { }
-internal protocol LessThanNanosecond: LessThanSecond { }
+public protocol LTOEEra: Unit { }
+public protocol LTOEYear: LTOEEra { }
+public protocol LTOEMonth: LTOEYear { }
+public protocol LTOEDay: LTOEMonth { }
+public protocol LTOEHour: LTOEDay { }
+public protocol LTOEMinute: LTOEHour { }
+public protocol LTOESecond: LTOEMinute { }
+public protocol LTOENanosecond: LTOESecond { }
 
-internal protocol GreaterThanNanosecond: Unit { }
-internal protocol GreaterThanSecond: GreaterThanNanosecond { }
-internal protocol GreaterThanMinute: GreaterThanSecond { }
-internal protocol GreaterThanHour: GreaterThanMinute { }
-internal protocol GreaterThanDay: GreaterThanHour { }
-internal protocol GreaterThanMonth: GreaterThanDay { }
-internal protocol GreaterThanYear: GreaterThanMonth { }
+public protocol GTOENanosecond: Unit { }
+public protocol GTOESecond: GTOENanosecond { }
+public protocol GTOEMinute: GTOESecond { }
+public protocol GTOEHour: GTOEMinute { }
+public protocol GTOEDay: GTOEHour { }
+public protocol GTOEMonth: GTOEDay { }
+public protocol GTOEYear: GTOEMonth { }
+public protocol GTOEEra: GTOEYear { }
 
-public struct Nanosecond: Unit, LessThanSecond {
+public struct Nanosecond: Unit, LTOENanosecond, GTOENanosecond {
     public static let component: Calendar.Component = .nanosecond
     private init() { }
 }
 
-public struct Second: Unit, LessThanMinute, GreaterThanNanosecond {
+public struct Second: Unit, LTOESecond, GTOESecond {
     public static let component: Calendar.Component = .second
     private init() { }
 }
 
-public struct Minute: Unit, LessThanHour, GreaterThanSecond {
+public struct Minute: Unit, LTOEMinute, GTOEMinute {
     public static let component: Calendar.Component = .minute
     private init() { }
 }
 
-public struct Hour: Unit, LessThanDay, GreaterThanMinute {
+public struct Hour: Unit, LTOEHour, GTOEHour {
     public static let component: Calendar.Component = .hour
     private init() { }
 }
 
-public struct Day: Unit, LessThanMonth, GreaterThanHour {
+public struct Day: Unit, LTOEDay, GTOEDay {
     public static let component: Calendar.Component = .day
     private init() { }
 }
 
-public struct Month: Unit, LessThanYear, GreaterThanDay {
+public struct Month: Unit, LTOEMonth, GTOEMonth {
     public static let component: Calendar.Component = .month
     private init() { }
 }
 
-public struct Year: Unit, LessThanEra, GreaterThanMonth {
+public struct Year: Unit, LTOEYear, GTOEYear {
     public static let component: Calendar.Component = .year
     private init() { }
 }
 
-public struct Era: Unit, LessThanEternity, GreaterThanYear {
+public struct Era: Unit, LTOEEra, GTOEEra {
     public static let component: Calendar.Component = .era
     private init() { }
 }
 
 internal func componentsFrom<L: Unit, U: Unit>(lower: L.Type, to upper: U.Type) -> Set<Calendar.Component> {
-    let order = Calendar.Component.order
+    let order = [Calendar.Component.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
     guard let lowerIndex = order.firstIndex(of: L.component) else { return [] }
     guard let upperIndex = order.firstIndex(of: U.component) else { return [] }
     guard lowerIndex <= upperIndex else { return [] }

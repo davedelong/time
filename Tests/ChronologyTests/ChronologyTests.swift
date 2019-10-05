@@ -10,10 +10,8 @@ class ChronologyTests: XCTestCase {
         
         
         
-        let recurringHoliday: Relative<Second, Day>
-        
-        let d = this.day
-        d.dayValue
+        let d = this.absoluteDay
+        print(d.day)
 //        print(Array(s))
 //
 //        let minutes = this.hours()

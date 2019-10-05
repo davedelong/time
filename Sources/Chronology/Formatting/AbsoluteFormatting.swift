@@ -7,89 +7,89 @@
 
 import Foundation
 
-public extension AbsoluteValue where Self: EraField {
-    func format(era: Template<EraField>) -> String {
+public extension CalendarValue where Smallest: LTOEEra, Largest: GTOEEra {
+    func format(era: Template<Era>) -> String {
         return format(absolute: [era])
     }
 }
 
-public extension AbsoluteValue where Self: YearField {
-    func format(era: Template<EraField>? = nil,
-                year: Template<YearField>,
+public extension CalendarValue where Smallest: LTOEYear, Largest: GTOEEra {
+    func format(era: Template<Era>? = nil,
+                year: Template<Year>,
                 timeZone: Template<TimeZone>? = nil) -> String {
         return format(absolute: [era, year, timeZone])
     }
 }
 
-public extension AbsoluteValue where Self: MonthField {
-    func format(era: Template<EraField>? = nil,
-                year: Template<YearField>,
-                month: Template<MonthField>,
+public extension CalendarValue where Smallest: LTOEMonth, Largest: GTOEEra {
+    func format(era: Template<Era>? = nil,
+                year: Template<Year>,
+                month: Template<Month>,
                 timeZone: Template<TimeZone>? = nil) -> String {
         return format(absolute: [era, year, month, timeZone])
     }
 }
 
-public extension AbsoluteValue where Self: DayField {
-    func format(era: Template<EraField>? = nil,
-                year: Template<YearField>,
-                month: Template<MonthField>,
-                day: Template<DayField>,
+public extension CalendarValue where Smallest: LTOEDay, Largest: GTOEEra {
+    func format(era: Template<Era>? = nil,
+                year: Template<Year>,
+                month: Template<Month>,
+                day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
                 timeZone: Template<TimeZone>? = nil) -> String {
         return format(absolute: [era, year, month, day, weekday, timeZone])
     }
 }
 
-public extension AbsoluteValue where Self: HourField {
-    func format(era: Template<EraField>? = nil,
-                year: Template<YearField>,
-                month: Template<MonthField>,
-                day: Template<DayField>,
+public extension CalendarValue where Smallest: LTOEHour, Largest: GTOEEra {
+    func format(era: Template<Era>? = nil,
+                year: Template<Year>,
+                month: Template<Month>,
+                day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
-                hour: Template<HourField>,
+                hour: Template<Hour>,
                 timeZone: Template<TimeZone>? = nil) -> String {
         return format(absolute: [era, year, month, day, weekday, hour, timeZone])
     }
 }
 
-public extension AbsoluteValue where Self: MinuteField {
-    func format(era: Template<EraField>? = nil,
-                year: Template<YearField>,
-                month: Template<MonthField>,
-                day: Template<DayField>,
+public extension CalendarValue where Smallest: LTOEMinute, Largest: GTOEEra {
+    func format(era: Template<Era>? = nil,
+                year: Template<Year>,
+                month: Template<Month>,
+                day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
-                hour: Template<HourField>,
-                minute: Template<MinuteField>,
+                hour: Template<Hour>,
+                minute: Template<Minute>,
                 timeZone: Template<TimeZone>? = nil) -> String {
         return format(absolute: [era, year, month, day, weekday, hour, minute, timeZone])
     }
 }
 
-public extension AbsoluteValue where Self: SecondField {
-    func format(era: Template<EraField>? = nil,
-                year: Template<YearField>,
-                month: Template<MonthField>,
-                day: Template<DayField>,
+public extension CalendarValue where Smallest: LTOESecond, Largest: GTOEEra {
+    func format(era: Template<Era>? = nil,
+                year: Template<Year>,
+                month: Template<Month>,
+                day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
-                hour: Template<HourField>,
-                minute: Template<MinuteField>,
-                second: Template<SecondField>,
+                hour: Template<Hour>,
+                minute: Template<Minute>,
+                second: Template<Second>,
                 timeZone: Template<TimeZone>? = nil) -> String {
         return format(absolute: [era, year, month, day, weekday, hour, minute, second, timeZone])
     }
 }
 
-public extension AbsoluteValue where Self: NanosecondField {
-    func format(era: Template<EraField>? = nil,
-                year: Template<YearField>,
-                month: Template<MonthField>,
-                day: Template<DayField>,
+public extension CalendarValue where Smallest: LTOENanosecond, Largest: GTOEEra {
+    func format(era: Template<Era>? = nil,
+                year: Template<Year>,
+                month: Template<Month>,
+                day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
-                hour: Template<HourField>,
-                minute: Template<MinuteField>,
-                second: Template<SecondField>,
-                nanosecond: Template<NanosecondField>,
+                hour: Template<Hour>,
+                minute: Template<Minute>,
+                second: Template<Second>,
+                nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) -> String {
         return format(absolute: [era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
     }

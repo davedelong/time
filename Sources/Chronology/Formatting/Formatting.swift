@@ -42,7 +42,7 @@ extension CalendarValue {
     
 }
 
-extension AbsoluteValue {
+extension CalendarValue where Largest: GTOEEra {
     
     internal func format(absolute: Array<Format?>) -> String {
         return format(date: approximateMidPoint.date, using: absolute)

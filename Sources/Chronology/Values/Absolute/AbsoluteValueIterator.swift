@@ -11,7 +11,7 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     
     private let iteratorConstructor: () -> AbsoluteValueIterator<U>
     
-    public init<P: AbsoluteValue>(parent: P) {
+    public init<V: CalendarValue>(parent: V) where V.Largest: GTOEEra {
         iteratorConstructor = { AbsoluteValueIterator<U>(parent: parent) }
     }
     
@@ -27,7 +27,7 @@ public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
     
     private var nextStartInstant: Instant
     
-    public init<P: AbsoluteValue>(parent: P) {
+    public init<V: CalendarValue>(parent: V) where V.Largest: GTOEEra {
         self.region = parent.region
         self.range = parent.range
         nextStartInstant = range.lowerBound
@@ -35,7 +35,7 @@ public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
     
     public mutating func next() -> Absolute<U>? {
         guard range.contains(nextStartInstant) else { return nil }
-        let value = Absolute<U>.init(instant: nextStartInstant, region: region)
+        let value = Absolute<U>.init(region: region, instant: nextStartInstant)
         nextStartInstant = value.range.upperBound + 0.5
         return value
     }

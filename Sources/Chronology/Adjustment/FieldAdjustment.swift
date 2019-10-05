@@ -19,40 +19,49 @@ public struct FieldAdjustment<Input: CalendarValue> {
     }
 }
 
-public extension FieldAdjustment where Input: YearField {
+public extension FieldAdjustment where Input.Smallest: LTOEYear, Input.Largest: GTOEYear {
     static func years(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .year) }
 }
 
-public extension FieldAdjustment where Input: MonthField {
+public extension FieldAdjustment where Input.Smallest: LTOEMonth, Input.Largest: GTOEMonth {
     static func months(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .month) }
 }
 
-public extension FieldAdjustment where Input: DayField {
+public extension FieldAdjustment where Input.Smallest: LTOEDay, Input.Largest: GTOEDay {
     static func days(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .day) }
 }
 
-public extension FieldAdjustment where Input: HourField {
+public extension FieldAdjustment where Input.Smallest: LTOEHour, Input.Largest: GTOEHour {
     static func hours(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .hour) }
 }
 
-public extension FieldAdjustment where Input: MinuteField {
+public extension FieldAdjustment where Input.Smallest: LTOEMinute, Input.Largest: GTOEMinute {
     static func minutes(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .minute) }
 }
 
-public extension FieldAdjustment where Input: SecondField {
+public extension FieldAdjustment where Input.Smallest: LTOESecond, Input.Largest: GTOESecond {
     static func seconds(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .second) }
 }
 
-public extension FieldAdjustment where Input: NanosecondField {
+public extension FieldAdjustment where Input.Smallest: LTOENanosecond, Input.Largest: GTOENanosecond {
     static func nanoseconds(_ value: Int) -> FieldAdjustment { return self.init(value: value, unit: .nanosecond) }
 }
 
- 
-public func +<C: AbsoluteValue>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+// absolute adjustment
+public func +<C: CalendarValue>(lhs: C, rhs: FieldAdjustment<C>) -> C where C.Largest: GTOEEra {
     let adjustment = Adjustment<C, C>.add(value: rhs.value, unit: rhs.unit)
     return lhs.apply(adjustment)
 }
 
-public func -<C: AbsoluteValue>(lhs: C, rhs: FieldAdjustment<C>) -> C {
+public func -<C: CalendarValue>(lhs: C, rhs: FieldAdjustment<C>) -> C where C.Largest: GTOEEra {
+    return lhs + FieldAdjustment<C>(value: -rhs.value, unit: rhs.unit)
+}
+
+// relative adjustment
+public func +<C: CalendarValue>(lhs: C, rhs: FieldAdjustment<C>) -> C where C.Largest: LTOEYear {
+    fatalError("Unimplemented")
+}
+
+public func -<C: CalendarValue>(lhs: C, rhs: FieldAdjustment<C>) -> C where C.Largest: LTOEYear {
     return lhs + FieldAdjustment<C>(value: -rhs.value, unit: rhs.unit)
 }

@@ -7,36 +7,14 @@
 
 import Foundation
 
-internal protocol AbsoluteValue: CalendarValue {
-    var range: ClosedRange<Instant> { get }
-}
-
-public struct Absolute<Lower: Unit>: AbsoluteValue {
-    
-    public static var representedComponents: Set<Calendar.Component> {
-        return componentsFrom(lower: Lower.self, to: Era.self)
-    }
-    
-    public let region: Region
-    public let dateComponents: DateComponents
-    
-    internal init(region: Region, instant: Instant) {
-        self.region = region
-        self.dateComponents = region.components(type(of: self).representedComponents, from: instant.date)
-    }
-    
-    internal init(region: Region, dateComponents: DateComponents) {
-        self.region = region
-        self.dateComponents = type(of: self).restrict(dateComponents: dateComponents)
-    }
+extension CalendarValue where Largest: GTOEEra {
     
     public var range: ClosedRange<Instant> {
         let date = calendar.date(from: dateComponents).unwrap("Absolute values must always be convertible to a concrete NSDate")
-        let unit = type(of: self).smallestRepresentedComponent
         
         var start = Date()
         var length: TimeInterval = 0
-        let succeeded = calendar.dateInterval(of: unit, start: &start, interval: &length, for: date)
+        let succeeded = calendar.dateInterval(of: Smallest.component, start: &start, interval: &length, for: date)
         require(succeeded, "We should always be able to get the range of a calendar component")
         
         let startInsant = Instant(date: start)
@@ -44,18 +22,57 @@ public struct Absolute<Lower: Unit>: AbsoluteValue {
         return startInsant...endInstant
     }
     
-    public init(instant: Instant, region: Region) {
-        self.region = region
-        self.dateComponents = region.components(type(of: self).representedComponents, from: instant.date)
+    internal var approximateMidPoint: Instant {
+        let r = self.range
+        let lower = r.lowerBound
+        let upper = r.upperBound.converting(to: lower.epoch)
+        let duration = upper.intervalSinceEpoch - lower.intervalSinceEpoch
+        let midPoint = lower + (duration / 2.0)
+        return max(lower, midPoint)
+    }
+    
+    internal init(region: Region, instant: Instant) {
+        self.init(region: region, date: instant.date)
+    }
+    
+    internal init(region: Region, date: Date) {
+        let dc = region.components(Self.representedComponents, from: date)
+        self.init(region: region, dateComponents: dc)
+    }
+    
+    internal func first<U: Unit>() -> Absolute<U> {
+        return Absolute<U>(region: region, instant: range.lowerBound)
+    }
+    
+    internal func last<U: Unit>() -> Absolute<U> {
+        return Absolute<U>(region: region, instant: range.upperBound)
+    }
+    
+    internal func nth<U: Unit>(_ ordinal: Int) throws -> Absolute<U> {
+        guard ordinal >= 1 else { throw AdjustmentError() }
+        let offset: Absolute<U> = first() + FieldAdjustment<Absolute<U>>(value: ordinal - 1, unit: U.component)
+        
+        let parentRange = self.range
+        let childRange = offset.range
+        
+        guard parentRange.lowerBound <= childRange.lowerBound else { throw AdjustmentError() }
+        guard childRange.upperBound <= parentRange.upperBound else { throw AdjustmentError() }
+        return offset
     }
     
 }
 
-extension Absolute: EraField { }
-extension Absolute: YearField where Lower: LessThanEra { }
-extension Absolute: MonthField where Lower: LessThanYear { }
-extension Absolute: DayField where Lower: LessThanMonth { }
-extension Absolute: HourField where Lower: LessThanDay { }
-extension Absolute: MinuteField where Lower: LessThanHour { }
-extension Absolute: SecondField where Lower: LessThanMinute { }
-extension Absolute: NanosecondField where Lower: LessThanSecond { }
+public struct Absolute<Lower: Unit>: CalendarValue {
+    
+    public typealias Smallest = Lower
+    public typealias Largest = Era
+    
+    public let region: Region
+    public let dateComponents: DateComponents
+    
+    public init(region: Region, dateComponents: DateComponents) {
+        self.region = region
+        self.dateComponents = type(of: self).restrict(dateComponents: dateComponents)
+    }
+    
+}

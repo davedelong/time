@@ -7,8 +7,10 @@
 
 import Foundation
 
-internal protocol CalendarValue: Field {
-    static var representedComponents: Set<Calendar.Component> { get }
+public protocol CalendarValue {
+    associatedtype Smallest: Unit
+    associatedtype Largest: Unit
+        
     var region: Region { get }
     var dateComponents: DateComponents { get }
     
@@ -24,18 +26,10 @@ internal extension CalendarValue {
     
 }
 
-internal extension Calendar.Component {
-    static var order: Array<Calendar.Component> {
-        return [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
-    }
-}
-
 extension CalendarValue {
     
-    public static var smallestRepresentedComponent: Calendar.Component {
-        let represented = self.representedComponents
-        let component = Calendar.Component.order.first(where: { represented.contains($0) })
-        return component.unwrap("\(Self.self) defines impossible represented units: \(represented)")
+    public static var representedComponents: Set<Calendar.Component> {
+        return componentsFrom(lower: Smallest.self, to: Largest.self)
     }
     
     public var calendar: Calendar { return region.calendar }
