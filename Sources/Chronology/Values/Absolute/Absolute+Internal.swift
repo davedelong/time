@@ -7,22 +7,7 @@
 
 import Foundation
 
-public typealias Absolute<U: Unit> = Value<U, Era>
-
 extension Value where Largest: GTOEEra {
-    
-    public var range: ClosedRange<Instant> {
-        let date = calendar.date(from: dateComponents).unwrap("Absolute values must always be convertible to a concrete NSDate")
-        
-        var start = Date()
-        var length: TimeInterval = 0
-        let succeeded = calendar.dateInterval(of: Smallest.component, start: &start, interval: &length, for: date)
-        require(succeeded, "We should always be able to get the range of a calendar component")
-        
-        let startInsant = Instant(date: start)
-        let endInstant = Instant(date: start.addingTimeInterval(length))
-        return startInsant...endInstant
-    }
     
     internal var approximateMidPoint: Instant {
         let r = self.range
@@ -52,7 +37,7 @@ extension Value where Largest: GTOEEra {
     
     internal func nth<U: Unit>(_ ordinal: Int) throws -> Absolute<U> {
         guard ordinal >= 1 else { throw AdjustmentError() }
-        let offset: Absolute<U> = first() + FieldAdjustment<U, Era>(value: ordinal - 1, unit: U.component)
+        let offset: Absolute<U> = first() + RelativeAdjustment<U, Era>(value: ordinal - 1, unit: U.component)
         
         let parentRange = self.range
         let childRange = offset.range
