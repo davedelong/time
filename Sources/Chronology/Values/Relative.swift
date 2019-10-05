@@ -16,10 +16,9 @@ public struct Relative<Lower: Unit, Upper: Unit>: CalendarValue {
     public let region: Region
     public let dateComponents: DateComponents
     
-    
-    public init(region: Region, dateComponents: DateComponents) {
+    internal init(region: Region, dateComponents: DateComponents) {
         self.region = region
-        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
+        self.dateComponents = type(of: self).restrict(dateComponents: dateComponents)
     }
     
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol AbsoluteValue: CalendarValue {
+internal protocol AbsoluteValue: CalendarValue {
     var range: ClosedRange<Instant> { get }
 }
 
@@ -19,6 +19,16 @@ public struct Absolute<Lower: Unit>: AbsoluteValue {
     
     public let region: Region
     public let dateComponents: DateComponents
+    
+    internal init(region: Region, instant: Instant) {
+        self.region = region
+        self.dateComponents = region.components(type(of: self).representedComponents, from: instant.date)
+    }
+    
+    internal init(region: Region, dateComponents: DateComponents) {
+        self.region = region
+        self.dateComponents = type(of: self).restrict(dateComponents: dateComponents)
+    }
     
     public var range: ClosedRange<Instant> {
         let date = calendar.date(from: dateComponents).unwrap("Absolute values must always be convertible to a concrete NSDate")
@@ -34,9 +44,9 @@ public struct Absolute<Lower: Unit>: AbsoluteValue {
         return startInsant...endInstant
     }
     
-    public init(region: Region, dateComponents: DateComponents) {
+    public init(instant: Instant, region: Region) {
         self.region = region
-        self.dateComponents = dateComponents.requireAndRestrict(to: type(of: self).representedComponents)
+        self.dateComponents = region.components(type(of: self).representedComponents, from: instant.date)
     }
     
 }
