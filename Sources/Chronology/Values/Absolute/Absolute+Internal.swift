@@ -37,7 +37,7 @@ extension Value where Largest: GTOEEra {
     
     internal func nth<U: Unit>(_ ordinal: Int) throws -> Absolute<U> {
         guard ordinal >= 1 else { throw AdjustmentError() }
-        let offset: Absolute<U> = first() + RelativeAdjustment<U, Era>(value: ordinal - 1, unit: U.component)
+        let offset: Absolute<U> = first() + Delta<U, Era>(value: ordinal - 1, unit: U.component)
         
         let parentRange = self.range
         let childRange = offset.range

@@ -8,8 +8,6 @@
 import Foundation
 
 public typealias Absolute<U: Unit> = Value<U, Era>
-public typealias AbsoluteValueSequence<U: Unit> = ValueSequence<U, Era>
-public typealias AbsoluteValueIterator<U: Unit> = ValueIterator<U, Era>
 
 public struct Value<Smallest: Unit, Largest: Unit> {
     

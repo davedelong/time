@@ -8,10 +8,12 @@ class ChronologyTests: XCTestCase {
         let this = c.thisMinute()
 //        let s = this.months()
         
-        let e = c.thisEra()
-        print(e.era)
-        let n = e + .init(value: 1, unit: .era)
-        print(n.era)
+        let e = c.thisYear()
+        
+        let days = AbsoluteValueSequence<Minute>.init(parent: c.thisHour(), stride: DateComponents(minute: 5))
+        for d in days {
+            print(d.format(year: .full, month: .fullName, day: .full, hour: .full(), minute: .full, timeZone: .shortSpecific))
+        }
         
         
         let d = this.absoluteDay

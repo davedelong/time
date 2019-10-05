@@ -9,6 +9,11 @@ import Foundation
 
 internal extension DateComponents {
     
+    init(value: Int, component: Calendar.Component) {
+        self.init()
+        self.setValue(value, for: component)
+    }
+    
     func requireAndRestrict(to components: Set<Calendar.Component>, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) -> DateComponents {
         var final = DateComponents()
         for component in components {

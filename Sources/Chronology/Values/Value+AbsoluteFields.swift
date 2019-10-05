@@ -22,6 +22,9 @@ extension Value where Largest: GTOEEra {
         return startInsant...endInstant
     }
     
+    public var firstInstant: Instant { return range.lowerBound }
+    public var lastInstant: Instant { return range.upperBound }
+    
 }
 
 extension Value where Largest: GTOEEra {
