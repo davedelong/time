@@ -10,9 +10,7 @@ import Foundation
 public extension Absolute where Smallest == Hour, Largest == Era {
     
     func firstMinute() -> Absolute<Minute> { return first() }
-    
     func lastMinute() -> Absolute<Minute> { return last() }
-    
     func nthMinute(_ ordinal: Int) throws -> Absolute<Minute> { return try nth(ordinal) }
     
     func minutes() -> AbsoluteValueSequence<Minute> {

@@ -25,37 +25,33 @@ extension Value where Largest: GTOEEra {
 }
 
 extension Value where Largest: GTOEEra {
-    var absoluteEra: Absolute<Era> { subComponents() }
+    public var absoluteEra: Absolute<Era> { subComponents() }
 }
 
 extension Value where Smallest: LTOEYear, Largest: GTOEEra {
-    var absoluteYear: Absolute<Year> { subComponents() }
+    public var absoluteYear: Absolute<Year> { subComponents() }
 }
 
 extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
-    var absoluteMonth: Absolute<Month> { subComponents() }
+    public var absoluteMonth: Absolute<Month> { subComponents() }
 }
 
 extension Value where Smallest: LTOEDay, Largest: GTOEEra {
-    var absoluteDay: Absolute<Day> { subComponents() }
-}
- 
-/*
-extension CalendarValue where Smallest: LessThanMonth, Largest: GreaterThanHour {
+    public var absoluteDay: Absolute<Day> { subComponents() }
+    
     var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
     var isWeekday: Bool { return !isWeekend }
     var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
 }
-*/
 
 extension Value where Smallest: LTOEHour, Largest: GTOEEra {
-    var absoluteHour: Absolute<Hour> { subComponents() }
+    public var absoluteHour: Absolute<Hour> { subComponents() }
 }
 
 extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
-    var absoluteMinute: Absolute<Minute> { subComponents() }
+    public var absoluteMinute: Absolute<Minute> { subComponents() }
 }
 
 extension Value where Smallest: LTOESecond, Largest: GTOEEra {
-    var absoluteSecond: Absolute<Second> { subComponents() }
+    public var absoluteSecond: Absolute<Second> { subComponents() }
 }
