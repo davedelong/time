@@ -11,7 +11,7 @@ internal protocol Format {
     var template: String { get }
 }
 
-extension CalendarValue {
+extension Value {
     
     internal func format(date: Date, using: Array<Format?>) -> String {
         let template = using.compactMap { $0?.template }.joined()
@@ -42,7 +42,7 @@ extension CalendarValue {
     
 }
 
-extension CalendarValue where Self: Absolute {
+extension Value where Largest: GTOEEra {
     
     internal func format(absolute: Array<Format?>) -> String {
         return format(date: approximateMidPoint.date, using: absolute)

@@ -22,6 +22,13 @@ public extension Calendar {
     
 }
 
+internal extension Calendar.Component {
+    
+    static var ascendingOrder: Array<Calendar.Component> { return [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era] }
+    static var descendingOrder: Array<Calendar.Component> { return [.era, .year, .month, .day, .hour, .minute, .second, .nanosecond] }
+    
+}
+
 
 /***
  

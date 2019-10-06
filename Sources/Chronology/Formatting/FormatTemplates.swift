@@ -7,20 +7,20 @@
 
 import Foundation
 
-public struct Template<Field>: Format {
+public struct Template<F>: Format {
     internal let template: String
     internal init(_ template: String) {
         self.template = template
     }
 }
 
-public extension Template where Field == EraField {
+public extension Template where F == Era {
     static let narrow = Template("GGGGG")
     static let abbreviated = Template("G")
     static let wide = Template("GGGG")
 }
 
-public extension Template where Field == YearField {
+public extension Template where F == Year {
     static let full = Template("y")
     static let twoDigits = digits(paddedToLength: 2)
     static func digits(paddedToLength: Int) -> Template {
@@ -30,7 +30,7 @@ public extension Template where Field == YearField {
     }
 }
 
-public extension Template where Field == MonthField {
+public extension Template where F == Month {
     static let fullDigits = Template("M")
     static let twoDigits = Template("MM")
     static let abbreviated = Template("MMM")
@@ -39,7 +39,7 @@ public extension Template where Field == MonthField {
 }
 
 public enum Standalone<Field> { }
-public extension Template where Field == Standalone<MonthField> {
+public extension Template where F == Standalone<Month> {
     static let fullDigits = Template("L")
     static let twoDigits = Template("LL")
     static let abbreviated = Template("LLL")
@@ -47,13 +47,13 @@ public extension Template where Field == Standalone<MonthField> {
     static let narrow = Template("LLLLL")
 }
 
-public extension Template where Field == DayField {
+public extension Template where F == Day {
     static let full = Template("d")
     static let twoDigits = Template("dd")
 }
 
 public enum Weekday { }
-public extension Template where Field == Weekday {
+public extension Template where F == Weekday {
     static let fullDigits = Template("e")
     static let twoDigits = Template("ee")
     static let abbreviated = Template("eee")
@@ -62,7 +62,7 @@ public extension Template where Field == Weekday {
     static let short = Template("eeeeee")
 }
 
-public extension Template where Field == Standalone<Weekday> {
+public extension Template where F == Standalone<Weekday> {
     static let fullDigits = Template("c")
     static let twoDigits = Template("cc")
     static let abbreviated = Template("ccc")
@@ -72,13 +72,13 @@ public extension Template where Field == Standalone<Weekday> {
 }
 
 public enum DayPeriod { }
-public extension Template where Field == DayPeriod {
+public extension Template where F == DayPeriod {
     static let abbreviated = Template("a")
     static let wide = Template("aaaa")
     static let narrow = Template("aaaaa")
 }
 
-public extension Template where Field == HourField {
+public extension Template where F == Hour {
     static let full = Template.full(with: nil)
     static let twoDigits = Template.twoDigits(with: nil)
     
@@ -108,17 +108,17 @@ public extension Template where Field == HourField {
     
 }
 
-public extension Template where Field == MinuteField {
+public extension Template where F == Minute {
     static let full = Template("m")
     static let twoDigits = Template("mm")
 }
 
-public extension Template where Field == SecondField {
+public extension Template where F == Second {
     static let full = Template("s")
     static let twoDigits = Template("ss")
 }
 
-public extension Template where Field == NanosecondField {
+public extension Template where F == Nanosecond {
     static func digits(_ length: Int) -> Template {
         guard length > 0 else { fatalError("Cannot pad to a length less than 1") }
         let template = String(repeating: "S", count: length)
@@ -126,7 +126,7 @@ public extension Template where Field == NanosecondField {
     }
 }
 
-public extension Template where Field == TimeZone {
+public extension Template where F == TimeZone {
     static let shortSpecific = Template("z")
     static let longSpecific = Template("zzzz")
     
