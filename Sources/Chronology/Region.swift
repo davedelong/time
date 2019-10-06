@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Region {
+public struct Region: Hashable {
     
     public static let current = Region(calendar: .current, timeZone: .current, locale: .current)
     public static let currentUTC = Region(calendar: .current, timeZone: TimeZone(secondsFromGMT: 0)!, locale: .current)

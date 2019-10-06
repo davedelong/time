@@ -21,7 +21,12 @@ public struct Value<Smallest: Unit, Largest: Unit> {
     }
         
     public let region: Region
-    public let dateComponents: DateComponents
+    
+    public var representedComponents: Set<Calendar.Component> {
+        return type(of: self).representedComponents
+    }
+    
+    internal let dateComponents: DateComponents
     
     public var calendar: Calendar { return region.calendar }
     public var timeZone: TimeZone { return region.timeZone }
@@ -40,8 +45,16 @@ public struct Value<Smallest: Unit, Largest: Unit> {
 // absolute conversion
 extension Value where Largest: GTOEEra {
     
-    public func convert(to region: Region) -> Self {
-        return Self.init(region: region, dateComponents: dateComponents)
+    public func convert(to newRegion: Region) -> Self {
+        if newRegion == self.region { return self }
+        
+        if newRegion.calendar != region.calendar || newRegion.timeZone != region.timeZone {
+            // changing calendar or timezone means generating new date components
+            return Self.init(region: newRegion, instant: approximateMidPoint)
+        } else {
+            // changing locale does not affect the underlying date components
+            return Self.init(region: newRegion, dateComponents: dateComponents)
+        }
     }
     
     public func convert(to calendar: Calendar) -> Self {

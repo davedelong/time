@@ -11,8 +11,20 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     
     private let constructor: () -> AbsoluteValueIterator<U>
     
-    internal init<PS>(parent: Value<PS, Era>, stride: DateComponents = DateComponents(value: 1, component: U.component)) {
-        constructor = { AbsoluteValueIterator(parent: parent, stride: stride) }
+    public init<S>(range: Range<Absolute<S>>, stride: Delta<U, Era>) {
+        let lower = range.lowerBound
+        let upper = range.upperBound.convert(to: lower.region)
+        constructor = { AbsoluteValueIterator(region: lower.region, range: lower.firstInstant ..< upper.firstInstant, stride: stride) }
+    }
+    
+    public init<S>(range: ClosedRange<Absolute<S>>, stride: Delta<U, Era>) {
+        let lower = range.lowerBound
+        let upper = range.upperBound.convert(to: lower.region)
+        constructor = { AbsoluteValueIterator(region: lower.region, range: lower.firstInstant ... upper.firstInstant, stride: stride) }
+    }
+    
+    internal init<S>(parent: Absolute<S>, stride: Delta<U, Era> = Delta(value: 1, unit: U.component)) {
+        constructor = { AbsoluteValueIterator(region: parent.region, range: parent.range, stride: stride) }
     }
     
     public __consuming func makeIterator() -> AbsoluteValueIterator<U> {
@@ -24,22 +36,24 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
 public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
     private let region: Region
     
-    private let range: ClosedRange<Instant>
+    private let keepGoing: (Absolute<U>) -> Bool
     private let start: Absolute<U>
     
     private var scale = 0
     private let stride: DateComponents
     
-    public init(region: Region, range: ClosedRange<Instant>, stride: DateComponents) {
-        print("Striding from \(range.lowerBound.date) ..< \(range.upperBound.date) by \(stride)")
+    public init(region: Region, range: Range<Instant>, stride: Delta<U, Era>) {
         self.region = region
-        self.range = range
+        self.keepGoing = { range.contains($0.lastInstant) }
         self.start = Absolute<U>(region: region, instant: range.lowerBound)
-        self.stride = stride
+        self.stride = stride.dateComponents
     }
     
-    public init<P: Unit>(parent: Absolute<P>, stride: DateComponents) {
-        self.init(region: parent.region, range: parent.range, stride: stride)
+    public init(region: Region, range: ClosedRange<Instant>, stride: Delta<U, Era>) {
+        self.region = region
+        self.keepGoing = { range.overlaps($0.range) }
+        self.start = Absolute<U>(region: region, instant: range.lowerBound)
+        self.stride = stride.dateComponents
     }
     
     public mutating func next() -> Absolute<U>? {
@@ -48,7 +62,7 @@ public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
         
         let delta = Delta<U, Era>(next)
         let n = start + delta
-        guard range.contains(n.lastInstant) else { return nil }
+        guard keepGoing(n) else { return nil }
         
         return n
     }
