@@ -23,7 +23,7 @@ public struct Value<Smallest: Unit, Largest: Unit> {
     public let region: Region
     
     public var representedComponents: Set<Calendar.Component> {
-        return type(of: self).representedComponents
+        return Value<Smallest, Largest>.representedComponents
     }
     
     internal let dateComponents: DateComponents
@@ -34,7 +34,7 @@ public struct Value<Smallest: Unit, Largest: Unit> {
     
     internal init(region: Region, dateComponents: DateComponents) {
         self.region = region
-        self.dateComponents = type(of: self).restrict(dateComponents: dateComponents)
+        self.dateComponents = Value.restrict(dateComponents: dateComponents)
     }
     
     internal func subComponents<S: Unit, L: Unit>() -> Value<S, L> {

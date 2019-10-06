@@ -35,3 +35,11 @@ extension Value: Comparable {
     }
     
 }
+
+extension Value: CustomStringConvertible {
+    
+    public var description: String {
+        return formatFull()
+    }
+    
+}

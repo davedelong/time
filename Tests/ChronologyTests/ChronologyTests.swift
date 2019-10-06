@@ -28,16 +28,8 @@ class ChronologyTests: XCTestCase {
         let seq = AbsoluteValueSequence<Minute>(range: start...end, stride: .minutes(3))
         
         for c in seq {
-            print(c.format(year: .full, month: .fullName, day: .full, hour: .full(), minute: .full, timeZone: .shortSpecific))
+            print("\(c)")
         }
-        
-        
-        let d = this.absoluteDay
-        print(d.day)
-//        print(Array(s))
-//
-//        let minutes = this.hours()
-//        print(Array(minutes))
     }
 
 
