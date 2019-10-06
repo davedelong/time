@@ -12,6 +12,7 @@ public extension Absolute where Smallest == Day, Largest == Era {
     func firstHour() -> Absolute<Hour> { return first() }
     func lastHour() -> Absolute<Hour> { return last() }
     func nthHour(_ ordinal: Int) throws -> Absolute<Hour> { return try nth(ordinal) }
+    func hour(_ number: Int) -> Absolute<Hour>? { return numbered(number) }
     
     func hours() -> AbsoluteValueSequence<Hour> {
         return AbsoluteValueSequence(parent: self)

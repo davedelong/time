@@ -27,6 +27,11 @@ extension Value where Largest: GTOEEra {
         self.init(region: region, dateComponents: dc)
     }
     
+    internal func value<U: Unit>(for unit: U.Type) -> Int? {
+        guard representedComponents.contains(U.component) else { return nil }
+        return dateComponents.value(for: U.component)
+    }
+    
     internal func first<U: Unit>() -> Absolute<U> {
         return Absolute<U>(region: region, instant: range.lowerBound)
     }
@@ -45,6 +50,30 @@ extension Value where Largest: GTOEEra {
         guard parentRange.lowerBound <= childRange.lowerBound else { throw AdjustmentError() }
         guard childRange.upperBound <= parentRange.upperBound else { throw AdjustmentError() }
         return offset
+    }
+    
+    internal func numbered<U: Unit>(_ number: Int) -> Absolute<U>? {
+        guard let potential: Absolute<U> = try? nth(number - 1) else { return nil }
+        guard let value = potential.value(for: U.self) else { return nil }
+        if value == number { return potential }
+        
+        let incrementing = (value < number)
+        
+        let delta = Delta<U, Era>(value: incrementing ? 1 : -1, unit: U.component)
+        let tooFar: (Absolute<U>) -> Bool = {
+            let value = $0.value(for: U.self)!
+            if incrementing { return value > number }
+            return value < number
+        }
+        
+        var current = potential
+        while true {
+            let next = current.applying(delta: delta)
+            if next.value(for: U.self) == number { return next }
+            if tooFar(next) { break }
+            current = next
+        }
+        return nil
     }
     
 }

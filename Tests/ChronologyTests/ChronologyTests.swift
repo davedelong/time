@@ -13,6 +13,17 @@ class ChronologyTests: XCTestCase {
         
         let now = c.thisInstant()
         
+        let isClock = c.converting(to: Calendar(identifier: .hebrew))
+        let isYear = isClock.thisYear()
+        for m in isYear.months() {
+            print("\(m)")
+        }
+        
+        let y = c.thisYear()
+        let feb = y.month(2)!
+        let last = feb.day(28)
+        print("\(y) -> \(feb) -> \(last)")
+        
         let mon = c.today().relativeMonthDay
         print("\(mon)")
         
