@@ -7,6 +7,24 @@
 
 import Foundation
 
+public extension Value where Smallest: LTOEDay, Largest: GTOEYear {
+    func format(dateStyle: DateFormatter.Style) -> String {
+        return formatUsing(dateStyle: dateStyle, timeStyle: .none)
+    }
+}
+
+public extension Value where Smallest: LTOESecond, Largest: GTOEHour {
+    func format(timeStyle: DateFormatter.Style) -> String {
+        return formatUsing(dateStyle: .none, timeStyle: timeStyle)
+    }
+}
+
+public extension Value where Smallest: LTOESecond, Largest: GTOEYear {
+    func format(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style) -> String {
+        return formatUsing(dateStyle: dateStyle, timeStyle: timeStyle)
+    }
+}
+
 public extension Value where Smallest: LTOEMinute, Largest: GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
@@ -14,7 +32,7 @@ public extension Value where Smallest: LTOEMinute, Largest: GTOEYear {
                 hour: Template<Hour>,
                 minute: Template<Minute>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [year, month, day, hour, minute, timeZone])
+        return format([year, month, day, hour, minute, timeZone])
     }
 }
 
@@ -25,7 +43,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEMonth {
                 minute: Template<Minute>,
                 second: Template<Second>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [month, day, hour, minute, second, timeZone])
+        return format([month, day, hour, minute, second, timeZone])
     }
 }
 
@@ -36,7 +54,7 @@ public extension Value where Smallest: LTOENanosecond, Largest: GTOEDay {
                 second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [day, hour, minute, second, nanosecond, timeZone])
+        return format([day, hour, minute, second, nanosecond, timeZone])
     }
 }
 
@@ -49,7 +67,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEYear {
                 minute: Template<Minute>,
                 second: Template<Second>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [year, month, day, hour, minute, second, timeZone])
+        return format([year, month, day, hour, minute, second, timeZone])
     }
 }
 
@@ -61,7 +79,7 @@ public extension Value where Smallest: LTOENanosecond, Largest: GTOEMonth {
                 second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [month, day, hour, minute, second, nanosecond, timeZone])
+        return format([month, day, hour, minute, second, nanosecond, timeZone])
     }
 }
 
@@ -75,6 +93,6 @@ public extension Value where Smallest: LTOENanosecond, Largest: GTOEYear {
                 second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [year, month, day, hour, minute, second, nanosecond, timeZone])
+        return format([year, month, day, hour, minute, second, nanosecond, timeZone])
     }
 }

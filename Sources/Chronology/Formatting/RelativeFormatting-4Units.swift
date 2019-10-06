@@ -13,7 +13,7 @@ public extension Value where Smallest: LTOEHour, Largest: GTOEYear {
                 day: Template<Day>,
                 hour: Template<Hour>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [year, month, day, hour, timeZone])
+        return format([year, month, day, hour, timeZone])
     }
 }
 
@@ -23,7 +23,7 @@ public extension Value where Smallest: LTOEMinute, Largest: GTOEMonth {
                 hour: Template<Hour>,
                 minute: Template<Minute>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [month, day, hour, minute, timeZone])
+        return format([month, day, hour, minute, timeZone])
     }
 }
 
@@ -33,7 +33,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEDay {
                 minute: Template<Minute>,
                 second: Template<Second>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [day, hour, minute, second, timeZone])
+        return format([day, hour, minute, second, timeZone])
     }
 }
 
@@ -43,6 +43,6 @@ public extension Value where Smallest: LTOENanosecond, Largest: GTOEHour {
                 second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [hour, minute, second, nanosecond, timeZone])
+        return format([hour, minute, second, nanosecond, timeZone])
     }
 }

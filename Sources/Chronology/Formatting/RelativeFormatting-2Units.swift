@@ -11,7 +11,7 @@ public extension Value where Smallest: LTOEMonth, Largest: GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [year, month, timeZone])
+        return format([year, month, timeZone])
     }
 }
 
@@ -20,7 +20,7 @@ public extension Value where Smallest: LTOEDay, Largest: GTOEMonth {
                 day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [month, day, weekday, timeZone])
+        return format([month, day, weekday, timeZone])
     }
 }
 
@@ -29,7 +29,7 @@ public extension Value where Smallest: LTOEHour, Largest: GTOEDay {
                 weekday: Template<Weekday>? = nil,
                 hour: Template<Hour>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [day, weekday, hour, timeZone])
+        return format([day, weekday, hour, timeZone])
     }
 }
 
@@ -37,7 +37,7 @@ public extension Value where Smallest: LTOEMinute, Largest: GTOEHour {
     func format(hour: Template<Hour>,
                 minute: Template<Minute>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [hour, minute, timeZone])
+        return format([hour, minute, timeZone])
     }
 }
 
@@ -45,7 +45,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEMinute {
     func format(minute: Template<Minute>,
                 second: Template<Second>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [minute, second, timeZone])
+        return format([minute, second, timeZone])
     }
 }
 
@@ -53,6 +53,6 @@ public extension Value where Smallest: LTOENanosecond, Largest: GTOESecond {
     func format(second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(relative: [second, nanosecond, timeZone])
+        return format([second, nanosecond, timeZone])
     }
 }

@@ -43,24 +43,7 @@ extension Value {
         return f
     }
     
-    internal func formatFull() -> String {
-        return format(relative: Value.fullFormats(in: calendar))
-    }
-    
-    internal func format(date: Date, using: Array<Format?>) -> String {
-        let template = using.compactMap { $0?.template }.joined()
-        let localizedFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: locale)
-        
-        let formatter = DateFormatter()
-        formatter.calendar = calendar
-        formatter.timeZone = timeZone
-        formatter.locale = locale
-        formatter.dateFormat = localizedFormat
-        
-        return formatter.string(from: date)
-    }
-    
-    internal func format(relative: Array<Format?>) -> String {
+    internal func dateForFormatting() -> Date {
         let date: Date
         if let potential = calendar.date(from: dateComponents) {
             date = potential
@@ -71,16 +54,30 @@ extension Value {
         } else {
             fatalError("Unable to construct date matching \(dateComponents)")
         }
+        return date
+    }
+    
+    internal func formatFull() -> String {
+        return format(Value.fullFormats(in: calendar))
+    }
         
-        return format(date: date, using: relative)
+    internal func format(_ formats: Array<Format?>) -> String {
+        let template = formats.compactMap { $0?.template }.joined()
+        let df = DateFormatterCache.shared.formatter(for: template, region: region)
+        return df.string(from: dateForFormatting())
+    }
+    
+    internal func formatUsing(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style) -> String {
+        let df = DateFormatterCache.shared.formatter(for: dateStyle, timeStyle: timeStyle, region: region)
+        return df.string(from: dateForFormatting())
     }
     
 }
 
 extension Value where Largest: GTOEEra {
     
-    internal func format(absolute: Array<Format?>) -> String {
-        return format(date: approximateMidPoint.date, using: absolute)
+    internal func dateForFormatting() -> Date {
+        return approximateMidPoint.date
     }
     
 }

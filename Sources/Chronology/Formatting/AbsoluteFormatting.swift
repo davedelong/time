@@ -9,7 +9,7 @@ import Foundation
 
 public extension Value where Smallest: LTOEEra, Largest: GTOEEra {
     func format(era: Template<Era>) -> String {
-        return format(absolute: [era])
+        return format([era])
     }
 }
 
@@ -17,7 +17,7 @@ public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(absolute: [era, year, timeZone])
+        return format([era, year, timeZone])
     }
 }
 
@@ -26,7 +26,7 @@ public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
                 year: Template<Year>,
                 month: Template<Month>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(absolute: [era, year, month, timeZone])
+        return format([era, year, month, timeZone])
     }
 }
 
@@ -37,7 +37,7 @@ public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
                 day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(absolute: [era, year, month, day, weekday, timeZone])
+        return format([era, year, month, day, weekday, timeZone])
     }
 }
 
@@ -49,7 +49,7 @@ public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
                 weekday: Template<Weekday>? = nil,
                 hour: Template<Hour>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(absolute: [era, year, month, day, weekday, hour, timeZone])
+        return format([era, year, month, day, weekday, hour, timeZone])
     }
 }
 
@@ -62,7 +62,7 @@ public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
                 hour: Template<Hour>,
                 minute: Template<Minute>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(absolute: [era, year, month, day, weekday, hour, minute, timeZone])
+        return format([era, year, month, day, weekday, hour, minute, timeZone])
     }
 }
 
@@ -76,7 +76,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
                 minute: Template<Minute>,
                 second: Template<Second>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(absolute: [era, year, month, day, weekday, hour, minute, second, timeZone])
+        return format([era, year, month, day, weekday, hour, minute, second, timeZone])
     }
 }
 
@@ -91,6 +91,6 @@ public extension Value where Smallest: LTOENanosecond, Largest: GTOEEra {
                 second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) -> String {
-        return format(absolute: [era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
+        return format([era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
     }
 }
