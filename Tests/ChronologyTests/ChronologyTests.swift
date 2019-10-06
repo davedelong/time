@@ -19,17 +19,17 @@ class ChronologyTests: XCTestCase {
             print("\(m)")
         }
         
-        let y = c.thisYear()
-        let feb = y.month(2)!
-        let last = feb.day(28)
-        print("\(y) -> \(feb) -> \(last)")
+        let t = c.today()
+        let f = t.firstHour()
+        let s = try! t.nthHour(2)
+        let two = t.hour(2)!
+        print("\(f) -> \(s) -> \(two)")
         
         let mon = c.today().relativeMonthDay
         print("\(mon)")
         
         print(df.string(from: now.date))
         
-        let t = c.today()
         let otherToday = t.converting(to: .init(identifier: .japanese))
         print("\(otherToday.calendar)")
         print("Converted: \(otherToday)")
