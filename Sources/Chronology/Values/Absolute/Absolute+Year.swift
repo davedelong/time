@@ -22,4 +22,8 @@ public extension Absolute where Smallest == Year, Largest == Era {
         return AbsoluteValueSequence(parent: self)
     }
     
+    func contains<U: LTOEMonth>(_ value: Absolute<U>) -> Bool {
+        return containsValue(value)
+    }
+    
 }

@@ -17,4 +17,8 @@ public extension Absolute where Smallest == Minute, Largest == Era {
     func seconds() -> AbsoluteValueSequence<Second> {
         return AbsoluteValueSequence(parent: self)
     }
+    
+    func contains<U: LTOESecond>(_ value: Absolute<U>) -> Bool {
+        return containsValue(value)
+    }
 }

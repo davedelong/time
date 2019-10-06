@@ -32,6 +32,12 @@ extension Value where Largest: GTOEEra {
         return dateComponents.value(for: U.component)
     }
     
+    internal func containsValue<U: Unit>(_ other: Absolute<U>) -> Bool {
+        let thisRange = self.range
+        let valueRange = other.range
+        return thisRange.contains(valueRange.lowerBound) && thisRange.contains(valueRange.upperBound)
+    }
+    
     internal func first<U: Unit>() -> Absolute<U> {
         return Absolute<U>(region: region, instant: range.lowerBound)
     }
