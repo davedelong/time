@@ -20,6 +20,13 @@ public extension Calendar {
     /// because those are all defined relative to SI Seconds
     var SISecondsPerSecond: Double { return 1.0 }
     
+    /// For most calendars, the Era is not very relevant. For example "2019" is unambiguously
+    /// understood to be "2019 CE", not "2019 BCE". However, there are some calendars
+    /// (most notably the Japanese calendar) for which the era is extremely relevant.
+    /// The relevancy of the era is taken into account when doing default formatting
+    /// of calendar Values.
+    var isEraRelevant: Bool { return identifier == .japanese }
+    
 }
 
 internal extension Calendar.Component {

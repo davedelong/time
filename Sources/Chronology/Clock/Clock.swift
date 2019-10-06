@@ -48,8 +48,7 @@ public struct Clock {
     ///   - rate: The rate at which time progresses in the clock, relative to the supplied calendar.
     ///           1.0 (the default) means one second on the system clock correlates to a second passing in the clock.
     ///           2.0 would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
-    ///   - timeZone: The TimeZone in which instants are produced
-    ///   - calendar: The Calendar relative to which the rate is calculated
+    ///   - region: The Region in which calendar Values are produced
     public init(startingFrom referenceInstant: Instant, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
         guard rate > 0.0 else { fatalError("Clocks can only count forwards") }
         
@@ -65,7 +64,7 @@ public struct Clock {
     ///   - rate: The rate at which time progresses in the clock.
     ///           1.0 (the default) means one second on the system clock correlates to a second passing in the clock.
     ///           2.0 would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
-    ///   - timeZone: The TimeZone in which instants are produced
+    ///   - region: The Region in which calendar Values are produced           
     public init(startingFrom referenceEpoch: Epoch, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
         let referenceInstant = Instant(interval: 0, since: referenceEpoch)
         self.init(startingFrom: referenceInstant, rate: rate, region: region)

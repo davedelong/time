@@ -56,12 +56,11 @@ public extension Delta where Smallest: LTOENanosecond, Largest: GTOENanosecond {
 
 // absolute adjustment
 public func +<S, L>(lhs: Value<S, L>, rhs: Delta<S, L>) -> Value<S, L> where L: GTOEEra {
-    let adjustment = Adjustment<S, L, S, L>(delta: rhs)
-    return lhs.apply(adjustment)
+    return lhs.applying(delta: rhs)
 }
 
 public func -<S, L>(lhs: Value<S, L>, rhs: Delta<S, L>) -> Value<S, L> where L: GTOEEra {
-    return lhs + rhs.negated()
+    return lhs.applying(delta: rhs.negated())
 }
 
 // relative adjustment

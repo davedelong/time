@@ -42,9 +42,9 @@ extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
 extension Value where Smallest: LTOEDay, Largest: GTOEEra {
     public var absoluteDay: Absolute<Day> { subComponents() }
     
-    var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
-    var isWeekday: Bool { return !isWeekend }
-    var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
+    public var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
+    public var isWeekday: Bool { return !isWeekend }
+    public var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
 }
 
 extension Value where Smallest: LTOEHour, Largest: GTOEEra {

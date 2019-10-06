@@ -5,25 +5,26 @@ class ChronologyTests: XCTestCase {
     func testExample() {
         
         let c = Clock.system
-        let this = c.thisMinute()
-//        let s = this.months()
         
         let df = DateFormatter()
-        df.calendar = Calendar(identifier: .islamic)
-        df.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMMd", options: 0, locale: .current)
+        df.calendar = Calendar(identifier: .japanese)
+        df.dateFormat = DateFormatter.dateFormat(fromTemplate: "GyMMMMd", options: 0, locale: .current)
         df.timeZone = .current
         
         let now = c.thisInstant()
         
+        let mon = c.today().relativeMonthDay
+        print("\(mon)")
+        
         print(df.string(from: now.date))
         
         let t = c.today()
-        let otherToday = t.convert(to: .init(identifier: .japanese))
+        let otherToday = t.converting(to: .init(identifier: .japanese))
+        print("\(otherToday.calendar)")
         print("Converted: \(otherToday)")
-        print(otherToday.format(era: .abbreviated, year: .full, month: .fullName, day: .full))
         
         let start = c.thisMinute()
-        let end = start.nextHour()
+        let end = start.adding(hours: 1)
         
         let seq = AbsoluteValueSequence<Minute>(range: start...end, stride: .minutes(3))
         

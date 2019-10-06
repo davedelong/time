@@ -45,7 +45,7 @@ public struct Value<Smallest: Unit, Largest: Unit> {
 // absolute conversion
 extension Value where Largest: GTOEEra {
     
-    public func convert(to newRegion: Region) -> Self {
+    public func converting(to newRegion: Region) -> Self {
         if newRegion == self.region { return self }
         
         if newRegion.calendar != region.calendar || newRegion.timeZone != region.timeZone {
@@ -57,19 +57,19 @@ extension Value where Largest: GTOEEra {
         }
     }
     
-    public func convert(to calendar: Calendar) -> Self {
+    public func converting(to calendar: Calendar) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return self.convert(to: newRegion)
+        return self.converting(to: newRegion)
     }
     
-    public func convert(to timeZone: TimeZone) -> Self {
+    public func converting(to timeZone: TimeZone) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return self.convert(to: newRegion)
+        return self.converting(to: newRegion)
     }
     
-    public func convert(to locale: Locale) -> Self {
+    public func converting(to locale: Locale) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return self.convert(to: newRegion)
+        return self.converting(to: newRegion)
     }
     
 }

@@ -13,7 +13,7 @@ internal protocol Format {
 
 extension Value {
     
-    static func fullFormats() -> Array<Format?> {
+    static func fullFormats(in calendar: Calendar) -> Array<Format?> {
         var f = Array<Format?>()
         
         let order = Calendar.Component.descendingOrder
@@ -24,7 +24,8 @@ extension Value {
         for unit in order {
             guard represented.contains(unit) else { continue }
             switch unit {
-                case .era: f.append(Template<Era>.abbreviated)
+                case .era:
+                    if calendar.isEraRelevant { f.append(Template<Era>.abbreviated) }
                 case .year: f.append(Template<Year>.full)
                 case .month: f.append(Template<Month>.fullName)
                 case .day:
@@ -37,18 +38,19 @@ extension Value {
                 default: continue
             }
         }
-        f.append(Template<TimeZone>.shortSpecific)
+        if isAbsolute { f.append(Template<TimeZone>.shortSpecific) }
         
         return f
     }
     
     internal func formatFull() -> String {
-        return format(relative: Value.fullFormats())
+        return format(relative: Value.fullFormats(in: calendar))
     }
     
     internal func format(date: Date, using: Array<Format?>) -> String {
         let template = using.compactMap { $0?.template }.joined()
         let localizedFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: locale)
+        
         let formatter = DateFormatter()
         formatter.calendar = calendar
         formatter.timeZone = timeZone

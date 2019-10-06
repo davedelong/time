@@ -13,13 +13,13 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     
     public init<S>(range: Range<Absolute<S>>, stride: Delta<U, Era>) {
         let lower = range.lowerBound
-        let upper = range.upperBound.convert(to: lower.region)
+        let upper = range.upperBound.converting(to: lower.region)
         constructor = { AbsoluteValueIterator(region: lower.region, range: lower.firstInstant ..< upper.firstInstant, stride: stride) }
     }
     
     public init<S>(range: ClosedRange<Absolute<S>>, stride: Delta<U, Era>) {
         let lower = range.lowerBound
-        let upper = range.upperBound.convert(to: lower.region)
+        let upper = range.upperBound.converting(to: lower.region)
         constructor = { AbsoluteValueIterator(region: lower.region, range: lower.firstInstant ... upper.firstInstant, stride: stride) }
     }
     

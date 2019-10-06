@@ -40,11 +40,11 @@ public struct AdjustmentError: Error {
 
 public extension Value {
     
-    func apply<OS: Unit, OL: Unit>(_ adjustment: Adjustment<Smallest, Largest, OS, OL>) -> Value<OS, OL> {
+    func applying<OS: Unit, OL: Unit>(_ adjustment: Adjustment<Smallest, Largest, OS, OL>) -> Value<OS, OL> {
         return adjustment.adjust(self)
     }
     
-    func apply<OS: Unit, OL: Unit>(_ adjustment: UnsafeAdjustment<Smallest, Largest, OS, OL>) throws -> Value<OS, OL> {
+    func applying<OS: Unit, OL: Unit>(_ adjustment: UnsafeAdjustment<Smallest, Largest, OS, OL>) throws -> Value<OS, OL> {
         return try adjustment.adjust(self)
     }
     
