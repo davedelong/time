@@ -9,7 +9,7 @@ import Foundation
 
 extension Value where Largest: GTOEEra {
     
-    public var range: ClosedRange<Instant> {
+    public var range: Range<Instant> {
         let date = calendar.date(from: dateComponents).unwrap("Absolute values must always be convertible to a concrete NSDate")
         
         var start = Date()
@@ -19,11 +19,10 @@ extension Value where Largest: GTOEEra {
         
         let startInsant = Instant(date: start)
         let endInstant = Instant(date: start.addingTimeInterval(length))
-        return startInsant...endInstant
+        return startInsant..<endInstant
     }
     
     public var firstInstant: Instant { return range.lowerBound }
-    public var lastInstant: Instant { return range.upperBound }
     
 }
 

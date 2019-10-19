@@ -40,6 +40,10 @@ public struct Clock {
         self.init(implementation: SystemClock(), region: region)
     }
     
+    public init(calendar: Calendar = .autoupdatingCurrent, timeZone: TimeZone = .autoupdatingCurrent, locale: Locale = .autoupdatingCurrent) {
+        let region = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        self.init(region: region)
+    }
     
     /// Create a clock with a custom start time and flow rate
     ///

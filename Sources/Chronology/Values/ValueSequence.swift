@@ -44,7 +44,10 @@ public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
     
     public init(region: Region, range: Range<Instant>, stride: Delta<U, Era>) {
         self.region = region
-        self.keepGoing = { range.contains($0.lastInstant) }
+        self.keepGoing = {
+            let thisRange = $0.range
+            return range.lowerBound <= thisRange.lowerBound && thisRange.upperBound <= range.upperBound
+        }
         self.start = Absolute<U>(region: region, instant: range.lowerBound)
         self.stride = stride.dateComponents
     }
