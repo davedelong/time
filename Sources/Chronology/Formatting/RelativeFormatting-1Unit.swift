@@ -7,6 +7,12 @@
 
 import Foundation
 
+public extension Value {
+    func format(timeZone: Template<TimeZone>) -> String {
+        return format([timeZone])
+    }
+}
+
 public extension Value where Smallest: LTOEYear, Largest: GTOEYear {
     func format(year: Template<Year>,
                 timeZone: Template<TimeZone>? = nil) -> String {
