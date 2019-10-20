@@ -18,15 +18,6 @@ extension Value where Largest: GTOEEra {
         return max(lower, midPoint)
     }
     
-    internal init(region: Region, instant: Instant) {
-        self.init(region: region, date: instant.date)
-    }
-    
-    internal init(region: Region, date: Date) {
-        let dc = region.components(Self.representedComponents, from: date)
-        self.init(region: region, dateComponents: dc)
-    }
-    
     internal func value<U: Unit>(for unit: U.Type) -> Int? {
         guard representedComponents.contains(U.component) else { return nil }
         return dateComponents.value(for: U.component)
