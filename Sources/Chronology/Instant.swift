@@ -36,7 +36,7 @@ public struct Instant: Hashable, Comparable {
     public let intervalSinceEpoch: SISeconds
     
     private let intervalSinceReferenceEpoch: SISeconds
-    internal var date: Foundation.Date { return Date(timeIntervalSinceReferenceDate: intervalSinceReferenceEpoch.value) }
+    internal var date: Foundation.Date { return Date(timeIntervalSinceReferenceDate: intervalSinceReferenceEpoch.rawValue) }
     
     public init(interval: SISeconds, since epoch: Epoch) {
         self.epoch = epoch

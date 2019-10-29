@@ -10,7 +10,6 @@ import Foundation
 public struct Region: Hashable {
     
     public static let current = Region(calendar: .current, timeZone: .current, locale: .current)
-    public static let currentUTC = Region(calendar: .current, timeZone: TimeZone(secondsFromGMT: 0)!, locale: .current)
     
     public static let posix = Region(calendar: Calendar(identifier: .gregorian), timeZone: TimeZone(secondsFromGMT: 0)!, locale: Locale(identifier: "en_US_POSIX"))
     

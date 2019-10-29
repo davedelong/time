@@ -20,7 +20,7 @@ public struct Clock {
     /// The system clock
     public static let system = Clock()
     
-    public static let UTC = Clock(region: .currentUTC)
+    public static let posix = Clock(region: .posix)
     
     private let impl: ClockImplementation
     

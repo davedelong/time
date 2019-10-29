@@ -7,30 +7,34 @@
 
 import Foundation
 
-public struct SISeconds: Hashable, Comparable, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
+public struct SISeconds: RawRepresentable, Hashable, Comparable, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
     
     internal static let secondsBetweenUnixAndReferenceEpochs = SISeconds(Date.timeIntervalBetween1970AndReferenceDate)
     
-    public static func ==(lhs: SISeconds, rhs: SISeconds) -> Bool { return lhs.value == rhs.value }
-    public static func <(lhs: SISeconds, rhs: SISeconds) -> Bool { return lhs.value < rhs.value }
+    public static func ==(lhs: SISeconds, rhs: SISeconds) -> Bool { return lhs.rawValue == rhs.rawValue }
+    public static func <(lhs: SISeconds, rhs: SISeconds) -> Bool { return lhs.rawValue < rhs.rawValue }
     public static func +(lhs: SISeconds, rhs: SISeconds) -> SISeconds {
-        return SISeconds(lhs.value + rhs.value)
+        return SISeconds(lhs.rawValue + rhs.rawValue)
     }
     public static func -(lhs: SISeconds, rhs: SISeconds) -> SISeconds {
-        return SISeconds(lhs.value - rhs.value)
+        return SISeconds(lhs.rawValue - rhs.rawValue)
     }
     public static func *(lhs: SISeconds, rhs: Double) -> SISeconds {
-        return SISeconds(lhs.value * rhs)
+        return SISeconds(lhs.rawValue * rhs)
     }
     public static func /(lhs: SISeconds, rhs: Double) -> SISeconds {
-        return SISeconds(lhs.value / rhs)
+        return SISeconds(lhs.rawValue / rhs)
     }
-    public static prefix func -(rhs: SISeconds) -> SISeconds { return SISeconds(-rhs.value) }
+    public static prefix func -(rhs: SISeconds) -> SISeconds { return SISeconds(-rhs.rawValue) }
     
-    internal let value: Double
+    public let rawValue: Double
+    
+    public init(rawValue: Double) {
+        self.rawValue = rawValue
+    }
     
     public init(_ value: Double) {
-        self.value = value
+        self.rawValue = value
     }
     
     public init(floatLiteral value: Double) {
@@ -42,6 +46,6 @@ public struct SISeconds: Hashable, Comparable, ExpressibleByIntegerLiteral, Expr
     }
     
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(value)
+        hasher.combine(rawValue)
     }
 }
