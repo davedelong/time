@@ -44,6 +44,8 @@ extension Value where Smallest: LTOEDay, Largest: GTOEEra {
     public var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
     public var isWeekday: Bool { return !isWeekend }
     public var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
+    public var dayOfMonth: Int { return day }
+    public var dayOfYear: Int { return calendar.ordinality(of: .day, in: .year, for: approximateMidPoint.date)! }
     public var weekdayOrdinal: Int { return calendar.component(.weekdayOrdinal, from: approximateMidPoint.date) }
 }
 
