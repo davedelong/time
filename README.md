@@ -28,6 +28,8 @@ These are the things I would like to get done before a 1.0 launch
 - [ ] safe relative value adjustment
 - [ ] unsafe absolute value adjustment
 - [ ] unsafe relative value adjustment
+- [ ] initializing absolute values from a `Foundation.Date`
+- [ ] initializing relative values from a `Foundation.Date`
 - [ ] initializing absolute values from components
 - [ ] initializing relative values from components
 - [ ] differences between absolute values
@@ -48,6 +50,8 @@ These are the things I would like to get done before a 1.0 launch
 
 - robust adjustment and recurrence API
 - celestial event calculations
+- Figure out what I'd need in order to turn `Calendar` into a protocol
+- abstract out the need for Foundation
 
 ## Working Notes
 
