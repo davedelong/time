@@ -34,10 +34,6 @@ public struct UnsafeAdjustment<IS: Unit, IL: Unit, OS: Unit, OL: Unit> {
     
 }
 
-public struct AdjustmentError: Error {
-    internal init() { }
-}
-
 public extension Value {
     
     func applying<OS: Unit, OL: Unit>(_ adjustment: Adjustment<Smallest, Largest, OS, OL>) -> Value<OS, OL> {

@@ -73,4 +73,29 @@ internal extension DateComponents {
         return isLessThan(other: other) == false && (self != other)
     }
     
+    func setting(era: Int? = nil, year: Int? = nil, month: Int? = nil, day: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil, nanosecond: Int? = nil) -> DateComponents {
+        var copy = self
+        if let e = era { copy.era = e }
+        if let y = year { copy.year = y }
+        if let m = month { copy.month = m }
+        if let d = day { copy.day = d }
+        if let h = hour { copy.hour = h }
+        if let m = minute { copy.minute = m }
+        if let s = second { copy.second = s }
+        if let n = nanosecond { copy.nanosecond = n }
+        return copy
+    }
+    
+    func relationTo(_ other: DateComponents) -> Calendar.SearchDirection? {
+        let units = Calendar.Component.descendingOrder
+        for unit in units {
+            guard let lUnit = self.value(for: unit) else { return .forward }
+            guard let rUnit = other.value(for: unit) else { return .backward }
+            
+            if lUnit > rUnit { return .forward }
+            if lUnit < rUnit { return .backward }
+        }
+        return nil
+    }
+    
 }

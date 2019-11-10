@@ -26,7 +26,7 @@ These are the things I would like to get done before a 1.0 launch
 - [x] formatting relative values
 - [x] safe absolute value adjustment
 - [ ] safe relative value adjustment
-- [ ] unsafe absolute value adjustment
+- [x] unsafe absolute value adjustment
 - [ ] unsafe relative value adjustment
 - [x] initializing absolute values from a `Foundation.Date`
 - [x] initializing relative values from a `Foundation.Date`
