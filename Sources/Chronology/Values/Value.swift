@@ -41,6 +41,7 @@ public struct Value<Smallest: Unit, Largest: Unit> {
         return try dateComponents.requireAndRestrict(to: representedComponents)
     }
     
+    /// The set of `Calendar.Components` represented by this particular `Value`
     public static var representedComponents: Set<Calendar.Component> {
         return componentsFrom(lower: Smallest.self, to: Largest.self)
     }

@@ -8,33 +8,49 @@
 import Foundation
 
 public extension Value where Largest: GTOEEra {
-    var era: Int { return dateComponents.era.unwrap("An EraField must have an era value") }
+    
+    /// Retrieve the numeric era of an absolute calendrical value
+    var era: Int { return dateComponents.era.unwrap("An Absolute<\(Smallest.self), \(Largest.self)> must have an era value") }
 }
 
 public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
-    var year: Int { return dateComponents.year.unwrap("A YearField must have a year value") }
+    
+    /// Retrieve the numeric year of an absolute calendrical value
+    var year: Int { return dateComponents.year.unwrap("A Absolute<\(Smallest.self), \(Largest.self)> must have a year value") }
 }
 
 public extension Value where Smallest: LTOEMonth, Largest: GTOEMonth {
-    var month: Int { return dateComponents.month.unwrap("A MonthField must have a month value") }
+    
+    /// Retrieve the numeric month of an absolute calendrical value
+    var month: Int { return dateComponents.month.unwrap("A Absolute<\(Smallest.self), \(Largest.self)> must have a month value") }
 }
 
 public extension Value where Smallest: LTOEDay, Largest: GTOEDay {
-    var day: Int { return dateComponents.day.unwrap("A DayField must have a day value") }
+    
+    /// Retrieve the numeric day of an absolute calendrical value
+    var day: Int { return dateComponents.day.unwrap("A Absolute<\(Smallest.self), \(Largest.self)> must have a day value") }
 }
 
 public extension Value where Smallest: LTOEHour, Largest: GTOEHour {
-    var hour: Int { return dateComponents.hour.unwrap("An HourField must have an hour value") }
+    
+    /// Retrieve the numeric hour of an absolute calendrical value
+    var hour: Int { return dateComponents.hour.unwrap("An Absolute<\(Smallest.self), \(Largest.self)> must have an hour value") }
 }
 
 public extension Value where Smallest: LTOEMinute, Largest: GTOEMinute {
-    var minute: Int { return dateComponents.minute.unwrap("A MinuteField must have a minute value") }
+    
+    /// Retrieve the numeric minute of an absolute calendrical value
+    var minute: Int { return dateComponents.minute.unwrap("A Absolute<\(Smallest.self), \(Largest.self)> must have a minute value") }
 }
 
 public extension Value where Smallest: LTOESecond, Largest: GTOESecond {
-    var second: Int { return dateComponents.second.unwrap("A SecondField must have a second value") }
+    
+    /// Retrieve the numeric second of an absolute calendrical value
+    var second: Int { return dateComponents.second.unwrap("A Absolute<\(Smallest.self), \(Largest.self)> must have a second value") }
 }
 
 public extension Value where Smallest: LTOENanosecond, Largest: GTOENanosecond {
-    var nanosecond: Int { return dateComponents.nanosecond.unwrap("A NanosecondField must have a nanosecond value") }
+    
+    /// Retrieve the numeric nanosecond of an absolute calendrical value
+    var nanosecond: Int { return dateComponents.nanosecond.unwrap("A Absolute<\(Smallest.self), \(Largest.self)> must have a nanosecond value") }
 }

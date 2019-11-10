@@ -207,7 +207,6 @@ extension Value where Smallest == Year, Largest: GTOEEra {
     
     func setting(month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Value<Nanosecond, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond)))
-        
     }
 }
 
@@ -231,7 +230,6 @@ extension Value where Smallest == Month, Largest: GTOEEra {
     
     func setting(day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Value<Nanosecond, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond)))
-        
     }
 }
 
@@ -251,7 +249,6 @@ extension Value where Smallest == Day, Largest: GTOEEra {
     
     func setting(hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Value<Nanosecond, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(hour: hour, minute: minute, second: second, nanosecond: nanosecond)))
-        
     }
 }
 
@@ -267,7 +264,6 @@ extension Value where Smallest == Hour, Largest: GTOEEra {
     
     func setting(minute: Int, second: Int, nanosecond: Int) throws -> Value<Nanosecond, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(minute: minute, second: second, nanosecond: nanosecond)))
-        
     }
 }
 
@@ -279,7 +275,6 @@ extension Value where Smallest == Minute, Largest: GTOEEra {
     
     func setting(second: Int, nanosecond: Int) throws -> Value<Nanosecond, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(second: second, nanosecond: nanosecond)))
-        
     }
 }
 
@@ -287,6 +282,5 @@ extension Value where Smallest == Second, Largest: GTOEEra {
     
     func setting(nanosecond: Int) throws -> Value<Nanosecond, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(nanosecond: nanosecond)))
-        
     }
 }

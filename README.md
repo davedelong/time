@@ -38,6 +38,8 @@ These are the things I would like to get done before a 1.0 launch
 - [ ] enumerating relative values
 - [ ] parsing absolute values from strings
 - [ ] parsing relative values from strings
+- [ ] rounding absolute values
+- [ ] rounding relative values
 - [ ] documentation
 - [ ] unit tests (😣)
 
