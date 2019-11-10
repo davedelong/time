@@ -64,6 +64,15 @@ public struct Value<Smallest: Unit, Largest: Unit> {
     
     /// The `Locale` used in computing this `Value`'s components.
     public var locale: Locale { return region.locale }
+
+    public init(region: Region, instant: Instant) {
+        self.init(region: region, date: instant.date)
+    }
+
+    public init(region: Region, date: Date) {
+        let dc = region.components(Self.representedComponents, from: date)
+        self.init(region: region, dateComponents: dc)
+    }
     
     internal init(region: Region, dateComponents: DateComponents) {
         self.region = region
