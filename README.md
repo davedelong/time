@@ -30,7 +30,7 @@ These are the things I would like to get done before a 1.0 launch
 - [ ] unsafe relative value adjustment
 - [x] initializing absolute values from a `Foundation.Date`
 - [x] initializing relative values from a `Foundation.Date`
-- [ ] initializing absolute values from components
+- [x] initializing absolute values from components
 - [ ] initializing relative values from components
 - [ ] differences between absolute values
 - [ ] differences between relative values

@@ -14,7 +14,7 @@ public struct Delta<Smallest: Unit, Largest: Unit> {
     
     internal init(_ dateComponents: DateComponents) {
         let allowed = componentsFrom(lower: Smallest.self, to: Largest.self)
-        self.dateComponents = dateComponents.requireAndRestrict(to: allowed)
+        self.dateComponents = try! dateComponents.requireAndRestrict(to: allowed)
     }
     
     internal init(value: Int, unit: Calendar.Component) {

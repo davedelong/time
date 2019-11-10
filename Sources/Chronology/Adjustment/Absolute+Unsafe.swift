@@ -15,7 +15,7 @@ extension UnsafeAdjustment where IL: GTOEEra, IS == OS, IL == OL {
             let mid = old.approximateMidPoint.date
             let proposed = old.calendar.nextDate(after: mid, matching: setting, matchingPolicy: .strict, repeatedTimePolicy: .first, direction: direction)
             guard let new = proposed else {
-                throw AdjustmentError(unsafeAdjustment: setting)
+                throw AdjustmentError.invalidDateComponents(setting)
             }
             return Value<OS, OL>.init(region: old.region, date: new)
         }
@@ -30,13 +30,13 @@ extension UnsafeAdjustment where IL: GTOEEra, OL: GTOEEra {
             guard let direction = old.dateComponents.relationTo(setting) else {
                 // the date components are equal, but the input and output types are not
                 // something is decidedly wrong
-                throw AdjustmentError(unsafeAdjustment: setting)
+                throw AdjustmentError.invalidDateComponents(setting)
             }
             
             let mid = old.approximateMidPoint.date
             let proposed = old.calendar.nextDate(after: mid, matching: setting, matchingPolicy: .strict, repeatedTimePolicy: .first, direction: direction)
             guard let new = proposed else {
-                throw AdjustmentError(unsafeAdjustment: setting)
+                throw AdjustmentError.invalidDateComponents(setting)
             }
             return Value<OS, OL>.init(region: old.region, date: new)
         }

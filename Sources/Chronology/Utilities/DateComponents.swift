@@ -14,11 +14,11 @@ internal extension DateComponents {
         self.setValue(value, for: component)
     }
     
-    func requireAndRestrict(to components: Set<Calendar.Component>, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) -> DateComponents {
+    func requireAndRestrict(to components: Set<Calendar.Component>) throws -> DateComponents {
         var final = DateComponents()
         for component in components {
             guard let value = self.value(for: component) else {
-                fatalError("Unable to retrieve \(component) value in \(function)", file: file, line: line)
+                throw AdjustmentError.missingValueForUnit(component)
             }
             final.setValue(value, for: component)
         }

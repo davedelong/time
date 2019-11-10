@@ -37,9 +37,8 @@ public typealias Absolute<U: Unit> = Value<U, Era>
 /// locale used in computing the underlying component values.
 public struct Value<Smallest: Unit, Largest: Unit> {
     
-    internal static func restrict(dateComponents: DateComponents, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) -> DateComponents {
-        return dateComponents.requireAndRestrict(to: representedComponents,
-                                                 file: file, line: line, function: function)
+    internal static func restrict(dateComponents: DateComponents) throws -> DateComponents {
+        return try dateComponents.requireAndRestrict(to: representedComponents)
     }
     
     public static var representedComponents: Set<Calendar.Component> {
@@ -64,23 +63,14 @@ public struct Value<Smallest: Unit, Largest: Unit> {
     
     /// The `Locale` used in computing this `Value`'s components.
     public var locale: Locale { return region.locale }
-
-    public init(region: Region, instant: Instant) {
-        self.init(region: region, date: instant.date)
-    }
-
-    public init(region: Region, date: Date) {
-        let dc = region.components(Self.representedComponents, from: date)
-        self.init(region: region, dateComponents: dc)
-    }
     
-    internal init(region: Region, dateComponents: DateComponents) {
+    internal init(region: Region, dateComponents: DateComponents) throws {
         self.region = region
-        self.dateComponents = Value.restrict(dateComponents: dateComponents)
+        self.dateComponents = try Value.restrict(dateComponents: dateComponents)
     }
     
     internal func subComponents<S: Unit, L: Unit>() -> Value<S, L> {
-        return Value<S, L>.init(region: region, dateComponents: dateComponents)
+        return try! Value<S, L>.init(region: region, dateComponents: dateComponents)
     }
 }
 
@@ -96,7 +86,7 @@ extension Value where Largest: GTOEEra {
             return Self.init(region: newRegion, instant: approximateMidPoint)
         } else {
             // changing locale does not affect the underlying date components
-            return Self.init(region: newRegion, dateComponents: dateComponents)
+            return try! Self.init(region: newRegion, dateComponents: dateComponents)
         }
     }
     

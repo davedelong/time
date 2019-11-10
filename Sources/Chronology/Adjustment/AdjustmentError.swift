@@ -7,12 +7,9 @@
 
 import Foundation
 
-public struct AdjustmentError: Error {
+public enum AdjustmentError: Error {
     
-    public let proposedDateComponents: DateComponents
-    
-    internal init(unsafeAdjustment: DateComponents) {
-        proposedDateComponents = unsafeAdjustment
-    }
+    case invalidDateComponents(DateComponents)
+    case missingValueForUnit(Calendar.Component)
     
 }

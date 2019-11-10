@@ -31,7 +31,7 @@ public struct Region: Hashable {
     
     internal func components(_ components: Set<Calendar.Component>, from date: Date) -> DateComponents {
         let dc = calendar.dateComponents(in: timeZone, from: date)
-        return dc.requireAndRestrict(to: components)
+        return try! dc.requireAndRestrict(to: components)
     }
     
 }
