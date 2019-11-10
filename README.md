@@ -17,16 +17,64 @@ For more information, please see the wiki:
 - `Value` has a whole bunch of methods to perform "adjustments", such as finding the next largest/smallest value, etc
 - `Value` also has methods to do type-safe formatting.
 
-## Calculating Holidays
+### General 1.0 Goals
 
-There are various kinds of holiday calculations. In general order of complexity, they are:
+These are the things I would like to get done before a 1.0 launch
+
+- [x] defining relative and absolute values
+- [x] formatting absolute values
+- [x] formatting relative values
+- [x] safe absolute value adjustment
+- [ ] safe relative value adjustment
+- [ ] unsafe absolute value adjustment
+- [ ] unsafe relative value adjustment
+- [ ] initializing absolute values from components
+- [ ] initializing relative values from components
+- [ ] differences between absolute values
+- [ ] differences between relative values
+- [x] enumerating absolute values
+- [ ] enumerating relative values
+- [ ] parsing absolute values from strings
+- [ ] parsing relative values from strings
+- [ ] documentation
+- [ ] unit tests (😣)
+
+### Short-term Goals
+
+- [ ] Second library with system shims (`Timer`, GCD, UIKit, UserNotifications, etc)
+- [ ] pseudo-units (`Week` and `Quarter`)
+
+### Long-term Goals
+
+- robust adjustment and recurrence API
+- celestial event calculations
+
+## Working Notes
+
+### Pseudo-Units
+
+- Weeks and Quarters are "pseudo units", because they're not intrinsic to the definition of a calendar. They're a level of information that's layered on top of the base calendar.
+
+### Adjustments
+
+- When adjusting values, you either:
+1. stay at the same unit ("the day after this day")
+2. go to the next-most-specific unit ("the *nth* day of this month")
+3. go to the next-less-specific unit ("the month containing this day")
+
+### Calculating Holidays
+
+There are various kinds of holiday calculations. In rough order of complexity (least to most), they are:
 
 - A known day in a known month ("December 25th")
 - An ordinal weekday in a known month ("fourth Thursday of November")
+- An ordinal day of a year ("The 256th day of the year")
 - A day before/after a known day ("the day after Cyber Monday", "The day before Canadian Thanksgiving")
 - A weekday before/after a known day ("the monday after Thanksgiving")
 - A weekday of a specific week ("tuesday of the first full week of May")
-- An ordinal day of a day ("The 256th day of the year")
 - A weekday before/after a relative event ("the monday after the DST jump")
 - A weekday before/after a celestial event ("the friday before the vernal equinox")
 - Easter ("the sunday following the Paschal full moon, on or after March 21")
+
+Questions...
+- Should any `Holiday` type be calendar-specific? "Christmas" is only ever interpreted relative to the Gregorian calendar.
