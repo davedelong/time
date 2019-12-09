@@ -66,7 +66,7 @@ internal extension DateComponents {
                     continue
             }
         }
-        return true
+        return false
     }
     
     func isGreaterThan(other: DateComponents) -> Bool {
