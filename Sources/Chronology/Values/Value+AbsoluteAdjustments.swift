@@ -63,6 +63,18 @@ public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
 
 public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
     
+    /// Adjust the date to the beginning of the calendar's week
+    func startOfWeek() -> Self {
+        var s = self
+        let targetWeekday = region.calendar.firstWeekday
+        
+        // TODO: this is O(n). Could this be done in O(1) by pre-computing the number of days to move backwards?
+        while s.dayOfWeek != targetWeekday {
+            s = s.previousDay()
+        }
+        return s
+    }
+    
     /// Create a new `Value` by moving forward one day
     func nextDay() -> Self { return adding(days: 1) }
     
