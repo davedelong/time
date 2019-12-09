@@ -11,6 +11,10 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     
     private let constructor: () -> AbsoluteValueIterator<U>
     
+    public init(start: Absolute<U>, stride: Delta<U, Era>, while keepGoing: @escaping (Absolute<U>) -> Bool) {
+        constructor = { AbsoluteValueIterator(region: start.region, start: start, stride: stride, keepGoing: keepGoing)}
+    }
+    
     public init<S>(range: Range<Absolute<S>>, stride: Delta<U, Era>) {
         let lower = range.lowerBound
         let upper = range.upperBound.converting(to: lower.region)
@@ -41,6 +45,13 @@ public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
     
     private var scale = 0
     private let stride: DateComponents
+    
+    public init(region: Region, start: Absolute<U>, stride: Delta<U, Era>, keepGoing: @escaping (Absolute<U>) -> Bool) {
+        self.region = region
+        self.start = start
+        self.stride = stride.dateComponents
+        self.keepGoing = keepGoing
+    }
     
     public init(region: Region, range: Range<Instant>, stride: Delta<U, Era>) {
         self.region = region
