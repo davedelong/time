@@ -1,23 +1,39 @@
-# Chronology
+# Time
 
-*Chronology* is an attempt to build a better date and time API for Swift on top of the constructs provided by Foundation.
+`Time` is a Swift package that makes dealing with calendar values a natural and straight-forward process.
 
-For more information, please see the wiki:
+Working with calendars can be extremely complicated and error-prone. `Time` solves these problems by clarifying concepts and restricting improper usage through type-safe APIs.
 
-- [Motivation](https://github.com/davedelong/chronology/wiki/Foundation's-API)
+## Installing
+
+`Time` can be installed like any other Swift package. Add this to the `dependencies` section of your Package.swift:
+
+```swift
+.package(url: "https://github.com/davedelong/time", from: "1.0.0")
+```
+
+## The Basics
+
+Here's the TL;DR of the documentation:
+
+- If you want to know what time it is, you need a `Clock`. You can get the device's clock by using `Clock.current`.
+
+- A `Clock` can tell you the current time via some functions. For example, `.today()` will give you the current calendar day. `.thisMinute()` will give you the current time, accurate down to the _minute_ level.
+
+- Each of these returned values has methods to retrieve more- and less- precise values. For example, `today.hours()` will give you a sequence of all the "Hour" values in the day.
+
+- These values also are how you _format_ them into human-readable strings (via the `.format(...)` method)
+
+## Detailed Information
+
+For more information, please see the following documents:
+
+- [Motivation](Documentation/Motivation.md)
 - [Inspiration](https://github.com/davedelong/chronology/wiki/Inspiration)
 - [Goals](https://github.com/davedelong/chronology/wiki/Goals)
 - [Implementation](https://github.com/davedelong/chronology/wiki/Implementation)
 
-## General Overview
-
-- An `Instant` represents a singular point in time, independent of any calendaring system.
-- A `Clock` lets you get the current `Instant`, but can also give you calendrical representations.
-- A `Value<...>` represents a calendrical value, such as "October 6, 2019".
-- `Value` has a whole bunch of methods to perform "adjustments", such as finding the next largest/smallest value, etc
-- `Value` also has methods to do type-safe formatting.
-
-### General 1.0 Goals
+### Version 1.0 Goals
 
 These are the things I would like to get done before a 1.0 launch
 
@@ -25,26 +41,26 @@ These are the things I would like to get done before a 1.0 launch
 - [x] formatting absolute values
 - [x] formatting relative values
 - [x] safe absolute value adjustment
-- [ ] safe relative value adjustment
 - [x] unsafe absolute value adjustment
-- [ ] unsafe relative value adjustment
 - [x] initializing absolute values from a `Foundation.Date`
 - [x] initializing relative values from a `Foundation.Date`
 - [x] initializing absolute values from components
 - [ ] initializing relative values from components
 - [ ] differences between absolute values
-- [ ] differences between relative values
 - [x] enumerating absolute values
-- [ ] enumerating relative values
 - [ ] parsing absolute values from strings
-- [ ] parsing relative values from strings
 - [ ] rounding absolute values
-- [ ] rounding relative values
 - [ ] documentation
 - [ ] unit tests (😣)
 
 ### Short-term Goals
 
+- [ ] safe relative value adjustment
+- [ ] unsafe relative value adjustment
+- [ ] differences between relative values
+- [ ] enumerating relative values
+- [ ] parsing relative values from strings
+- [ ] rounding relative values
 - [ ] Second library with system shims (`Timer`, GCD, UIKit, UserNotifications, etc)
 - [ ] pseudo-units (`Week` and `Quarter`)
 
@@ -53,7 +69,7 @@ These are the things I would like to get done before a 1.0 launch
 - robust adjustment and recurrence API
 - celestial event calculations
 - Figure out what I'd need in order to turn `Calendar` into a protocol
-- abstract out the need for Foundation
+- Linux support
 
 ## Working Notes
 
