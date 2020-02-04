@@ -1,6 +1,6 @@
 import XCTest
-@testable import ChronologyTests
+@testable import TimeTests
 
 XCTMain([
-    testCase(ChronologyTests.allTests),
+    testCase(TimeTests.allTests),
 ])
