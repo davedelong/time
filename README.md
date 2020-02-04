@@ -35,40 +35,46 @@ For more information, please see the following documents:
 
 ### Version 1.0 Goals
 
-These are the things I would like to get done before a 1.0 launch
+1.0 will focus on properly using `Absolute` values:
 
 - [x] defining relative and absolute values
 - [x] formatting absolute values
-- [x] formatting relative values
 - [x] safe absolute value adjustment
 - [x] unsafe absolute value adjustment
 - [x] initializing absolute values from a `Foundation.Date`
-- [x] initializing relative values from a `Foundation.Date`
 - [x] initializing absolute values from components
-- [ ] initializing relative values from components
 - [ ] differences between absolute values
 - [x] enumerating absolute values
 - [ ] parsing absolute values from strings
 - [ ] rounding absolute values
 - [ ] documentation
 - [ ] unit tests (😣)
+- [ ] Rename `Value` → `Components`? `TimeSlice`?
 
 ### Short-term Goals
 
+1.x will focus on properly using `Relative` values:
+
+- [x] formatting relative values
+- [x] initializing relative values from a `Foundation.Date`
+- [ ] initializing relative values from components
 - [ ] safe relative value adjustment
 - [ ] unsafe relative value adjustment
 - [ ] differences between relative values
 - [ ] enumerating relative values
 - [ ] parsing relative values from strings
 - [ ] rounding relative values
-- [ ] Second library with system shims (`Timer`, GCD, UIKit, UserNotifications, etc)
+- [ ] library with system shims (`Timer`, GCD, UIKit, UserNotifications, etc)
 - [ ] pseudo-units (`Week` and `Quarter`)
+- [ ] library with an NTP `Clock` using [`TrueTime.swift`](https://github.com/instacart/TrueTime.swift/issues/82)
 
 ### Long-term Goals
 
 - robust adjustment and recurrence API
-- celestial event calculations
+- Celestial event calculations
+    - useful in certain kinds of calculations
 - Figure out what I'd need in order to turn `Calendar` into a protocol
+    - The ISO8601 ("year for week of year") calendar should ideally be a separate calendar
 - Linux support
 
 ## Working Notes
