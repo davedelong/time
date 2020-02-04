@@ -29,9 +29,8 @@ Here's the TL;DR of the documentation:
 For more information, please see the following documents:
 
 - [Motivation](Documentation/Motivation.md)
-- [Inspiration](https://github.com/davedelong/chronology/wiki/Inspiration)
-- [Goals](https://github.com/davedelong/chronology/wiki/Goals)
-- [Implementation](https://github.com/davedelong/chronology/wiki/Implementation)
+- [Inspiration](Documentation/Inspiration.md)
+- [Goals](Documentation/Goals.md)
 
 ### Version 1.0 Goals
 
@@ -43,13 +42,14 @@ For more information, please see the following documents:
 - [x] unsafe absolute value adjustment
 - [x] initializing absolute values from a `Foundation.Date`
 - [x] initializing absolute values from components
-- [ ] differences between absolute values
+- [x] differences between absolute values
 - [x] enumerating absolute values
-- [ ] parsing absolute values from strings
+- [x] parsing absolute values from strings
 - [ ] rounding absolute values
 - [ ] documentation
 - [ ] unit tests (😣)
 - [ ] Rename `Value` → `Components`? `TimeSlice`?
+- [ ] Rename `Delta` → `Interval`?
 - [ ] Format `Delta` values using `DateComponentsFormatter`
 
 ### Short-term Goals
