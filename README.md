@@ -50,6 +50,7 @@ For more information, please see the following documents:
 - [ ] documentation
 - [ ] unit tests (😣)
 - [ ] Rename `Value` → `Components`? `TimeSlice`?
+- [ ] Format `Delta` values using `DateComponentsFormatter`
 
 ### Short-term Goals
 
@@ -70,7 +71,10 @@ For more information, please see the following documents:
 
 ### Long-term Goals
 
+- lenient parsing
+    - Ex: provide "January 31st", without any format information, and have it figure it out
 - robust adjustment and recurrence API
+    - including serialized representations
 - Celestial event calculations
     - useful in certain kinds of calculations
 - Figure out what I'd need in order to turn `Calendar` into a protocol

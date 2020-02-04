@@ -33,18 +33,18 @@ public extension Template where F == Year {
 public extension Template where F == Month {
     static let fullDigits = Template("M")
     static let twoDigits = Template("MM")
-    static let abbreviated = Template("MMM")
+    static let abbreviatedName = Template("MMM")
     static let fullName = Template("MMMM")
-    static let narrow = Template("MMMMM")
+    static let narrowName = Template("MMMMM")
 }
 
 public enum Standalone<Field> { }
 public extension Template where F == Standalone<Month> {
     static let fullDigits = Template("L")
     static let twoDigits = Template("LL")
-    static let abbreviated = Template("LLL")
+    static let abbreviatedName = Template("LLL")
     static let fullName = Template("LLLL")
-    static let narrow = Template("LLLLL")
+    static let narrowName = Template("LLLLL")
 }
 
 public extension Template where F == Day {
@@ -56,19 +56,19 @@ public enum Weekday { }
 public extension Template where F == Weekday {
     static let fullDigits = Template("e")
     static let twoDigits = Template("ee")
-    static let abbreviated = Template("eee")
+    static let abbreviatedName = Template("eee")
     static let fullName = Template("eeee")
-    static let narrow = Template("eeeee")
-    static let short = Template("eeeeee")
+    static let narrowName = Template("eeeee")
+    static let shortName = Template("eeeeee")
 }
 
 public extension Template where F == Standalone<Weekday> {
     static let fullDigits = Template("c")
     static let twoDigits = Template("cc")
-    static let abbreviated = Template("ccc")
+    static let abbreviatedName = Template("ccc")
     static let fullName = Template("cccc")
-    static let narrow = Template("ccccc")
-    static let short = Template("cccccc")
+    static let narrowName = Template("ccccc")
+    static let shortName = Template("cccccc")
 }
 
 public enum DayPeriod { }
