@@ -11,23 +11,23 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     
     private let constructor: () -> AbsoluteValueIterator<U>
     
-    public init(start: Absolute<U>, stride: Delta<U, Era>, while keepGoing: @escaping (Absolute<U>) -> Bool) {
+    public init(start: Absolute<U>, stride: Difference<U, Era>, while keepGoing: @escaping (Absolute<U>) -> Bool) {
         constructor = { AbsoluteValueIterator(region: start.region, start: start, stride: stride, keepGoing: keepGoing)}
     }
     
-    public init<S>(range: Range<Absolute<S>>, stride: Delta<U, Era>) {
+    public init<S>(range: Range<Absolute<S>>, stride: Difference<U, Era>) {
         let lower = range.lowerBound
         let upper = range.upperBound.converting(to: lower.region)
         constructor = { AbsoluteValueIterator(region: lower.region, range: lower.firstInstant ..< upper.firstInstant, stride: stride) }
     }
     
-    public init<S>(range: ClosedRange<Absolute<S>>, stride: Delta<U, Era>) {
+    public init<S>(range: ClosedRange<Absolute<S>>, stride: Difference<U, Era>) {
         let lower = range.lowerBound
         let upper = range.upperBound.converting(to: lower.region)
         constructor = { AbsoluteValueIterator(region: lower.region, range: lower.firstInstant ... upper.firstInstant, stride: stride) }
     }
     
-    internal init<S>(parent: Absolute<S>, stride: Delta<U, Era> = Delta(value: 1, unit: U.component)) {
+    internal init<S>(parent: Absolute<S>, stride: Difference<U, Era> = Difference(value: 1, unit: U.component)) {
         constructor = { AbsoluteValueIterator(region: parent.region, range: parent.range, stride: stride) }
     }
     
@@ -46,14 +46,14 @@ public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
     private var scale = 0
     private let stride: DateComponents
     
-    public init(region: Region, start: Absolute<U>, stride: Delta<U, Era>, keepGoing: @escaping (Absolute<U>) -> Bool) {
+    public init(region: Region, start: Absolute<U>, stride: Difference<U, Era>, keepGoing: @escaping (Absolute<U>) -> Bool) {
         self.region = region
         self.start = start
         self.stride = stride.dateComponents
         self.keepGoing = keepGoing
     }
     
-    public init(region: Region, range: Range<Instant>, stride: Delta<U, Era>) {
+    public init(region: Region, range: Range<Instant>, stride: Difference<U, Era>) {
         self.region = region
         self.keepGoing = {
             let thisRange = $0.range
@@ -63,7 +63,7 @@ public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
         self.stride = stride.dateComponents
     }
     
-    public init(region: Region, range: ClosedRange<Instant>, stride: Delta<U, Era>) {
+    public init(region: Region, range: ClosedRange<Instant>, stride: Difference<U, Era>) {
         self.region = region
         self.keepGoing = { range.overlaps($0.range) }
         self.start = Absolute<U>(region: region, instant: range.lowerBound)
@@ -74,7 +74,7 @@ public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
         let next = stride.scale(by: scale)
         scale += 1
         
-        let delta = Delta<U, Era>(next)
+        let delta = Difference<U, Era>(next)
         let n = start + delta
         guard keepGoing(n) else { return nil }
         

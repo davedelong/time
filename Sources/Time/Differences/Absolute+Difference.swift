@@ -7,150 +7,80 @@
 
 import Foundation
 
+extension Value where Largest: GTOEEra {
+    
+    func computeDifference<S: Unit, L: Unit>(to other: Value<Smallest, Largest>) -> Difference<S, L> {
+        
+        let thisMid = self.approximateMidPoint.date
+        let otherMid = other.approximateMidPoint.date
+        
+        let units = componentsFrom(lower: S.self, to: L.self)
+        let difference = calendar.dateComponents(units, from: thisMid, to: otherMid)
+        return Difference(difference)
+    }
+    
+}
+
 public extension Value where Largest: GTOEEra {
     
-    func interval(to other: Value<Smallest, Largest>) -> Delta<Smallest, Largest> {
-        return computeInterval(to: other)
+    func difference(to other: Value<Smallest, Largest>) -> Difference<Smallest, Largest> {
+        return computeDifference(to: other)
     }
     
 }
 
 public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
     
-    func intervalInYears(to other: Value<Smallest, Largest>) -> Delta<Year, Year> {
-        return computeInterval(to: other)
+    func differenceInYears(to other: Value<Smallest, Largest>) -> Difference<Year, Year> {
+        return computeDifference(to: other)
     }
     
 }
 
 public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
     
-    func intervalInMonths(to other: Value<Smallest, Largest>) -> Delta<Month, Month> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInMonthsAndYears(to other: Value<Smallest, Largest>) -> Delta<Month, Year> {
-        return computeInterval(to: other)
+    func differenceInMonths(to other: Value<Smallest, Largest>) -> Difference<Month, Month> {
+        return computeDifference(to: other)
     }
     
 }
 
 public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
     
-    func intervalInDays(to other: Value<Smallest, Largest>) -> Delta<Day, Day> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInDaysAndMonths(to other: Value<Smallest, Largest>) -> Delta<Day, Month> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInDaysMonthsAndYears(to other: Value<Smallest, Largest>) -> Delta<Day, Year> {
-        return computeInterval(to: other)
+    func differenceInDays(to other: Value<Smallest, Largest>) -> Difference<Day, Day> {
+        return computeDifference(to: other)
     }
     
 }
 
 public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
     
-    func intervalInHours(to other: Value<Smallest, Largest>) -> Delta<Hour, Hour> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInHoursAndDays(to other: Value<Smallest, Largest>) -> Delta<Hour, Day> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInHoursDaysAndMonths(to other: Value<Smallest, Largest>) -> Delta<Hour, Month> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInHoursDaysMonthsAndYears(to other: Value<Smallest, Largest>) -> Delta<Hour, Year> {
-        return computeInterval(to: other)
+    func differenceInHours(to other: Value<Smallest, Largest>) -> Difference<Hour, Hour> {
+        return computeDifference(to: other)
     }
     
 }
 
 public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
     
-    func intervalInMinutes(to other: Value<Smallest, Largest>) -> Delta<Minute, Minute> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInMinutesAndHours(to other: Value<Smallest, Largest>) -> Delta<Minute, Hour> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInMinutesHoursAndDays(to other: Value<Smallest, Largest>) -> Delta<Minute, Day> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInMinutesHoursDaysAndMonths(to other: Value<Smallest, Largest>) -> Delta<Minute, Month> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInMinutesHoursDaysMonthsAndYears(to other: Value<Smallest, Largest>) -> Delta<Minute, Year> {
-        return computeInterval(to: other)
+    func differenceInMinutes(to other: Value<Smallest, Largest>) -> Difference<Minute, Minute> {
+        return computeDifference(to: other)
     }
     
 }
 
 public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
     
-    func intervalInSeconds(to other: Value<Smallest, Largest>) -> Delta<Second, Second> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInSecondsAndMinutes(to other: Value<Smallest, Largest>) -> Delta<Second, Minute> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInSecondsMinutesAndHours(to other: Value<Smallest, Largest>) -> Delta<Second, Hour> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInSecondsMinutesHoursAndDays(to other: Value<Smallest, Largest>) -> Delta<Second, Day> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInSecondsMinutesHoursDaysAndMonths(to other: Value<Smallest, Largest>) -> Delta<Second, Month> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInSecondsMinutesHoursDaysMonthsAndYears(to other: Value<Smallest, Largest>) -> Delta<Second, Year> {
-        return computeInterval(to: other)
+    func differenceInSeconds(to other: Value<Smallest, Largest>) -> Difference<Second, Second> {
+        return computeDifference(to: other)
     }
     
 }
 
 public extension Value where Smallest: LTOENanosecond, Largest: GTOEEra {
     
-    func intervalInNanoseconds(to other: Value<Smallest, Largest>) -> Delta<Nanosecond, Nanosecond> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInNanosecondsAndSeconds(to other: Value<Smallest, Largest>) -> Delta<Nanosecond, Second> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInNanosecondsSecondsMinutes(to other: Value<Smallest, Largest>) -> Delta<Nanosecond, Minute> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInNanosecondsSecondsMinutesAndHours(to other: Value<Smallest, Largest>) -> Delta<Nanosecond, Hour> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInNanosecondsSecondsMinutesHoursAndDays(to other: Value<Smallest, Largest>) -> Delta<Nanosecond, Day> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInNanosecondsSecondsMinutesHoursDaysAndMonths(to other: Value<Smallest, Largest>) -> Delta<Nanosecond, Month> {
-        return computeInterval(to: other)
-    }
-    
-    func intervalInNanosecondsSecondsMinutesHoursDaysMonthsAndYears(to other: Value<Smallest, Largest>) -> Delta<Nanosecond, Year> {
-        return computeInterval(to: other)
+    func differenceInNanoseconds(to other: Value<Smallest, Largest>) -> Difference<Nanosecond, Nanosecond> {
+        return computeDifference(to: other)
     }
     
 }

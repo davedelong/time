@@ -27,7 +27,7 @@ public extension Value where Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEEra, Largest: GTOEEra {
+public extension Value where Smallest == Era, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>) throws {
     
@@ -35,7 +35,7 @@ public extension Value where Smallest: LTOEEra, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
+public extension Value where Smallest == Year, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -45,7 +45,7 @@ public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
+public extension Value where Smallest == Month, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -56,7 +56,7 @@ public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
+public extension Value where Smallest == Day, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -69,7 +69,7 @@ public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
+public extension Value where Smallest == Hour, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -83,7 +83,7 @@ public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
+public extension Value where Smallest == Minute, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -98,7 +98,7 @@ public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
+public extension Value where Smallest == Second, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -114,7 +114,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOENanosecond, Largest: GTOEEra {
+public extension Value where Smallest == Nanosecond, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,

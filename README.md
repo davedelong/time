@@ -16,7 +16,7 @@ Working with calendars can be extremely complicated and error-prone. `Time` solv
 
 Here's the TL;DR of the documentation:
 
-- If you want to know what time it is, you need a `Clock`. You can get the device's clock by using `Clock.current`.
+- If you want to know what time it is, you need a `Clock`. You can get the device's clock by using `Clock.system`.
 
 - A `Clock` can tell you the current time via some functions. For example, `.today()` will give you the current calendar day. `.thisMinute()` will give you the current time, accurate down to the _minute_ level.
 
@@ -45,17 +45,19 @@ For more information, please see the following documents:
 - [x] differences between absolute values
 - [x] enumerating absolute values
 - [x] parsing absolute values from strings
+- [ ] simple relative comparisons (`isBefore`, `isAfter`, etc)
 - [ ] rounding absolute values
 - [ ] documentation
 - [ ] unit tests (😣)
 - [ ] Rename `Value` → `Components`? `TimeSlice`?
-- [ ] Rename `Delta` → `Interval`?
+- [x] Rename `Delta` → ~`Interval`~ `Difference`?
 - [ ] Format `Delta` values using `DateComponentsFormatter`
 
 ### Short-term Goals
 
 1.x will focus on properly using `Relative` values:
 
+- [ ] public adjustment api (currently internal)
 - [x] formatting relative values
 - [x] initializing relative values from a `Foundation.Date`
 - [ ] initializing relative values from components

@@ -11,9 +11,9 @@ public extension Value where Largest: GTOEEra {
     
     /// Adjust an absolute value by applying a temporal delta value
     ///
-    /// - Parameter delta: The `Delta` that describes the difference between the receiver
+    /// - Parameter delta: The `Difference` that describes the difference between the receiver
     ///    and the produced value.
-    func applying(delta: Delta<Smallest, Largest>) -> Value<Smallest, Largest> {
+    func applying(delta: Difference<Smallest, Largest>) -> Value<Smallest, Largest> {
         let adjuster = Adjustment<Smallest, Largest, Smallest, Largest> {
             let d = $0.range.lowerBound.date
             let diff = delta.dateComponents

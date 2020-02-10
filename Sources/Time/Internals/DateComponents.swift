@@ -86,7 +86,7 @@ internal extension DateComponents {
         return copy
     }
     
-    func relationTo(_ other: DateComponents) -> Calendar.SearchDirection? {
+    func searchDirection(to other: DateComponents) -> Calendar.SearchDirection? {
         let units = Calendar.Component.descendingOrder
         for unit in units {
             guard let lUnit = self.value(for: unit) else { return .forward }

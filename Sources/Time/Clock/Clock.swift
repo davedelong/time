@@ -9,7 +9,7 @@ import Foundation
 
 
 /// A `Clock` is how you know what "now" is.
-public struct Clock {
+public class Clock {
     
     /**
      Implementation details:
@@ -35,12 +35,12 @@ public struct Clock {
     }
     
     
-    /// Create a clock that reflects the current system time
-    public init(region: Region = .autoupdatingCurrent) {
+    /// Create a clock that reflects the current system time localized to a particular Region
+    public convenience init(region: Region) {
         self.init(implementation: SystemClock(), region: region)
     }
     
-    public init(calendar: Calendar = .autoupdatingCurrent, timeZone: TimeZone = .autoupdatingCurrent, locale: Locale = .autoupdatingCurrent) {
+    public convenience init(calendar: Calendar = .autoupdatingCurrent, timeZone: TimeZone = .autoupdatingCurrent, locale: Locale = .autoupdatingCurrent) {
         let region = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         self.init(region: region)
     }
@@ -53,7 +53,7 @@ public struct Clock {
     ///           1.0 (the default) means one second on the system clock correlates to a second passing in the clock.
     ///           2.0 would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
     ///   - region: The Region in which calendar Values are produced
-    public init(startingFrom referenceInstant: Instant, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
+    public convenience init(startingFrom referenceInstant: Instant, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
         guard rate > 0.0 else { fatalError("Clocks can only count forwards") }
         
         let implementation = CustomClock(referenceInstant: referenceInstant, rate: rate, calendar: region.calendar)
@@ -69,7 +69,7 @@ public struct Clock {
     ///           1.0 (the default) means one second on the system clock correlates to a second passing in the clock.
     ///           2.0 would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
     ///   - region: The Region in which calendar Values are produced           
-    public init(startingFrom referenceEpoch: Epoch, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
+    public convenience init(startingFrom referenceEpoch: Epoch, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
         let referenceInstant = Instant(interval: 0, since: referenceEpoch)
         self.init(startingFrom: referenceInstant, rate: rate, region: region)
     }

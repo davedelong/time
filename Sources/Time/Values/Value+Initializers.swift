@@ -47,7 +47,7 @@ extension Value where Largest: GTOEEra {
     public init(region: Region, unsafeDateComponents: DateComponents) throws {
         let now = Date()
         let base = region.calendar.dateComponents(Self.representedComponents, from: now)
-        guard let direction = base.relationTo(unsafeDateComponents) else {
+        guard let direction = base.searchDirection(to: unsafeDateComponents) else {
             throw AdjustmentError.invalidDateComponents(base)
         }
         let proposed = region.calendar.nextDate(after: now, matching: unsafeDateComponents, matchingPolicy: .strict, repeatedTimePolicy: .first, direction: direction)

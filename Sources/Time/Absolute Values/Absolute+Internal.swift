@@ -40,7 +40,7 @@ extension Value where Largest: GTOEEra {
     internal func nth<U: Unit>(_ ordinal: Int) throws -> Absolute<U> {
         let target = DateComponents(value: ordinal, component: U.component)
         guard ordinal >= 1 else { throw AdjustmentError.invalidDateComponents(target) }
-        let offset: Absolute<U> = first() + Delta<U, Era>(value: ordinal - 1, unit: U.component)
+        let offset: Absolute<U> = first() + Difference<U, Era>(value: ordinal - 1, unit: U.component)
         
         let parentRange = self.range
         let childRange = offset.range
@@ -57,7 +57,7 @@ extension Value where Largest: GTOEEra {
         
         let incrementing = (value < number)
         
-        let delta = Delta<U, Era>(value: incrementing ? 1 : -1, unit: U.component)
+        let delta = Difference<U, Era>(value: incrementing ? 1 : -1, unit: U.component)
         let tooFar: (Absolute<U>) -> Bool = {
             let value = $0.value(for: U.self)!
             if incrementing { return value > number }
