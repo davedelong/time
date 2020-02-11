@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Calendar {
+internal extension Calendar {
     
     /// Different calendars may have different definitions of what a "second" is.
     /// For example, on Earth, calendars all have the convention that one calendar-second
@@ -36,16 +36,3 @@ internal extension Calendar.Component {
     
 }
 
-
-/***
- 
- Calendar methods used so far:
- 
- - SISecondsPerSecond
- - date(from:) -> Date?
- - dateInterval(of:start:interval:for:) -> Bool
- - date(byAdding:to:wrappingComponents:) -> Date?
- - dateComponents(_:from:) -> DateComponents
- - isDateInWeekend(_:) -> Bool
- 
- ***/
