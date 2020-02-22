@@ -45,18 +45,18 @@ For more information, please see the following documents:
 - [x] differences between absolute values
 - [x] enumerating absolute values
 - [x] parsing absolute values from strings
-- [ ] simple relative comparisons (`isBefore`, `isAfter`, etc)
-- [ ] rounding absolute values
 - [ ] documentation
-- [ ] unit tests (😣)
 - [ ] Rename `Value` → `Components`? `TimeSlice`?
+- [ ] Project organization
 - [x] Rename `Delta` → ~`Interval`~ `Difference`?
-- [ ] Format `Delta` values using `DateComponentsFormatter`
 
 ### Short-term Goals
 
-1.x will focus on properly using `Relative` values:
+1.x will focus on filling out base functionality and properly using `Relative` values:
 
+- [ ] Format `Difference` values using `DateComponentsFormatter`
+- [ ] simple relative comparisons (`isBefore`, `isAfter`, etc)
+- [ ] rounding absolute values
 - [ ] public adjustment api (currently internal)
 - [x] formatting relative values
 - [x] initializing relative values from a `Foundation.Date`
@@ -69,7 +69,8 @@ For more information, please see the following documents:
 - [ ] rounding relative values
 - [ ] library with system shims (`Timer`, GCD, UIKit, UserNotifications, etc)
 - [ ] pseudo-units (`Week` and `Quarter`)
-- [ ] library with an NTP `Clock` using [`TrueTime.swift`](https://github.com/instacart/TrueTime.swift/issues/82)
+- [ ] library with an NTP `Clock` using [`TrueTime.swift`](https://github.com/instacart/TrueTime.swift/issues/82) or [`Kronos`](https://github.com/Lyft/Kronos)
+- [ ] unit tests (😣 - Unit tests have been a secondary concern because so far this all just wraps Foundation)
 
 ### Long-term Goals
 

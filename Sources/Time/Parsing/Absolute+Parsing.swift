@@ -14,7 +14,7 @@ public enum FormatError: Error {
     
 }
 
-public extension Value where Largest: GTOEEra {
+public extension Absolute {
     
     init(stringValue: String, format: String, region: Region) throws {
         let df = DateFormatterCache.shared.formatter(for: format, region: region)

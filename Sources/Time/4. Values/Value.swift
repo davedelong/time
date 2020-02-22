@@ -75,38 +75,62 @@ public struct Value<Smallest: Unit, Largest: Unit> {
     }
 }
 
-// absolute conversion
-extension Value where Largest: GTOEEra {
+extension Value: Equatable {
     
-    /// Construct a new `Value` by converting the receiver to a new `Region`.
-    public func converting(to newRegion: Region) -> Self {
-        if newRegion == self.region { return self }
-        
-        if newRegion.calendar != region.calendar || newRegion.timeZone != region.timeZone {
-            // changing calendar or timezone means generating new date components
-            return Self.init(region: newRegion, instant: approximateMidPoint)
-        } else {
-            // changing locale does not affect the underlying date components
-            return try! Self.init(region: newRegion, dateComponents: dateComponents)
-        }
+    /// Determine if two `Values` are equal.
+    ///
+    /// Two `Values` are equal if they have the same `Region` and represent the same calendrical components
+    /// - Parameter lhs: a `Value`
+    /// - Parameter rhs: a `Value`
+    public static func ==(lhs: Value, rhs: Value) -> Bool {
+        return lhs.region == rhs.region && lhs.dateComponents == rhs.dateComponents
     }
     
-    /// Construct a new `Value` by converting the receiver to a new `Calendar`.
-    public func converting(to calendar: Calendar) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return self.converting(to: newRegion)
+}
+
+extension Value: Hashable {
+    
+    /// Compute the hash of a `Value`
+    ///
+    /// - Parameter hasher: a `Hasher`
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(region)
+        hasher.combine(dateComponents)
     }
     
-    /// Construct a new `Value` by converting the receiver to a new `TimeZone`.
-    public func converting(to timeZone: TimeZone) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return self.converting(to: newRegion)
+}
+
+extension Value: Comparable {
+    
+    /// Determine if one `Value` is greater than another `Value`.
+    ///
+    /// A `Value` is greater than another if they have the same `Region`, and the first's
+    /// calendrical components come *after* the other's components.
+    /// - Parameter lhs: a `Value`
+    /// - Parameter rhs: a `Value`
+    public static func > (lhs: Value, rhs: Value) -> Bool {
+        return lhs.region == rhs.region && lhs.dateComponents.isGreaterThan(other: rhs.dateComponents)
     }
     
-    /// Construct a new `Value` by converting the receiver to a new `Locale`.
-    public func converting(to locale: Locale) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return self.converting(to: newRegion)
+    /// Determine if one `Value` is less than another `Value`.
+    ///
+    /// A `Value` is less than another if they have the same `Region`, and the first's
+    /// calendrical components come *before* the other's components.
+    /// - Parameter lhs: a `Value`
+    /// - Parameter rhs: a `Value`
+    public static func < (lhs: Value, rhs: Value) -> Bool {
+        return lhs.region == rhs.region && lhs.dateComponents.isLessThan(other: rhs.dateComponents)
+    }
+    
+}
+
+extension Value: CustomStringConvertible {
+    
+    /// Provide a description of the `Value`.
+    ///
+    /// The description is a localized "full" formatting of the calendar value.
+    public var description: String {
+        return formatFull()
     }
     
 }

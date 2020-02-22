@@ -7,13 +7,13 @@
 
 import Foundation
 
-public extension Value where Smallest: LTOEEra, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEEra {
     func format(era: Template<Era>) -> String {
         return format([era])
     }
 }
 
-public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEYear {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 timeZone: Template<TimeZone>? = nil) -> String {
@@ -21,7 +21,7 @@ public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEMonth {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -30,7 +30,7 @@ public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEDay {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -41,7 +41,7 @@ public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEHour {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -53,7 +53,7 @@ public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEMinute {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -66,7 +66,7 @@ public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOESecond {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -80,7 +80,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest: LTOENanosecond, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOENanosecond {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,

@@ -74,7 +74,7 @@ extension Value {
     
 }
 
-extension Value where Largest: GTOEEra {
+extension Absolute where Largest == Era {
     
     internal func dateForFormatting() -> Date {
         return approximateMidPoint.date

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Value where Largest: GTOEEra {
+extension Absolute {
     
     internal var approximateMidPoint: Instant {
         let r = self.range

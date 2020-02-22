@@ -28,7 +28,7 @@ extension Value {
 
 // Absolute initializers
 
-extension Value where Largest: GTOEEra {
+extension Absolute {
     
     /// Construct an absolute `Value` from a set of `DateComponents`.
     ///
@@ -59,58 +59,65 @@ extension Value where Largest: GTOEEra {
     
 }
 
-extension Value where Smallest == Year, Largest: GTOEEra {
+extension Value where Smallest == Year, Largest == Era {
     
     public init(region: Region, era: Int? = nil, year: Int) throws {
-        try self.init(region: region, unsafeDateComponents: DateComponents(era: era, year: year))
+        let components = DateComponents(era: era, year: year)
+        try self.init(region: region, unsafeDateComponents: components)
     }
     
 }
 
-extension Value where Smallest == Month, Largest: GTOEEra {
+extension Value where Smallest == Month, Largest == Era {
     
     public init(region: Region, era: Int? = nil, year: Int, month: Int) throws {
-        try self.init(region: region, unsafeDateComponents: DateComponents(era: era, year: year, month: month))
+        let components = DateComponents(era: era, year: year, month: month)
+        try self.init(region: region, unsafeDateComponents: components)
     }
     
 }
 
-extension Value where Smallest == Day, Largest: GTOEEra {
+extension Value where Smallest == Day, Largest == Era {
     
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int) throws {
-        try self.init(region: region, unsafeDateComponents: DateComponents(era: era, year: year, month: month, day: day))
+        let components = DateComponents(era: era, year: year, month: month, day: day)
+        try self.init(region: region, unsafeDateComponents: components)
     }
     
 }
 
-extension Value where Smallest == Hour, Largest: GTOEEra {
+extension Value where Smallest == Hour, Largest == Era {
     
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int) throws {
-        try self.init(region: region, unsafeDateComponents: DateComponents(era: era, year: year, month: month, day: day, hour: hour))
+        let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour)
+        try self.init(region: region, unsafeDateComponents: components)
     }
     
 }
 
-extension Value where Smallest == Minute, Largest: GTOEEra {
+extension Value where Smallest == Minute, Largest == Era {
     
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int) throws {
-        try self.init(region: region, unsafeDateComponents: DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute))
+        let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute)
+        try self.init(region: region, unsafeDateComponents: components)
     }
     
 }
 
-extension Value where Smallest == Second, Largest: GTOEEra {
+extension Value where Smallest == Second, Largest == Era {
     
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) throws {
-        try self.init(region: region, unsafeDateComponents: DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute, second: second))
+        let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute, second: second)
+        try self.init(region: region, unsafeDateComponents: components)
     }
     
 }
 
-extension Value where Smallest == Nanosecond, Largest: GTOEEra {
+extension Value where Smallest == Nanosecond, Largest == Era {
     
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws {
-        try self.init(region: region, unsafeDateComponents: DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond))
+        let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond)
+        try self.init(region: region, unsafeDateComponents: components)
     }
     
 }

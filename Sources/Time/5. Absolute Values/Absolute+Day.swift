@@ -26,3 +26,39 @@ public extension Absolute where Smallest == Day, Largest == Era {
         return containsValue(value)
     }
 }
+
+public extension Absolute where Smallest: LTOEDay, Largest == Era {
+    
+    /// Returns `true` if the receiver is known to occur during the weekend.
+    ///
+    /// The definition of a "weekend" is supplied by the `Region`'s `Calendar`.
+    var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
+    
+    /// Returns `true` if the receiver is known to *not* occur during the weekend.
+    ///
+    /// The definition of a "weekend" is supplied by the `Region`'s `Calendar`.
+    var isWeekday: Bool { return !isWeekend }
+    
+    /// Returns the numerical representation of the receiver's day of the week.
+    ///
+    /// For the gregorian calendar, 1 = Sunday, 2 = Monday, ... 7 = Saturday
+    var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
+    
+    /// Returns the day of the month on which the receiver occurs.
+    ///
+    /// For example, given a value that represents "Halloween" (October 31st) on the gregorian calendar,
+    /// this property returns "31"
+    var dayOfMonth: Int { return day }
+    
+    /// Returns the day of the year on which the receiver occurs
+    ///
+    /// For example, given a value that represents the first of February on the gregorian calendar,
+    /// this property returns "32"
+    var dayOfYear: Int { return calendar.ordinality(of: .day, in: .year, for: approximateMidPoint.date)! }
+    
+    /// Returns the ordinal of the receiver's weekday within its month.
+    ///
+    /// For example, if the receiver falls on the second "Friday" of a month on the gregorian calendar,
+    /// then `dayOfWeek` returns `6` ("Friday"), and this property returns `2` (the second friday).
+    var dayOfWeekOrdinal: Int { return calendar.component(.weekdayOrdinal, from: approximateMidPoint.date) }
+}

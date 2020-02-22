@@ -44,7 +44,7 @@ extension UnsafeAdjustment where IL: GTOEEra, OL: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEYear, Largest == Era {
     
     func setting(year: Int) throws -> Self {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(year: year)))
@@ -52,7 +52,7 @@ public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEMonth, Largest == Era {
     
     func setting(year: Int, month: Int) throws -> Self {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(year: year, month: month)))
@@ -64,7 +64,7 @@ public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEDay, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int) throws -> Self {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(year: year, month: month, day: day)))
@@ -80,7 +80,7 @@ public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEHour, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int, hour: Int) throws -> Self {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(year: year, month: month, day: day, hour: hour)))
@@ -100,7 +100,7 @@ public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEMinute, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int) throws -> Self {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute)))
@@ -124,7 +124,7 @@ public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOESecond, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) throws -> Self {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute, second: second)))
@@ -152,7 +152,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOENanosecond, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOENanosecond, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Self {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond)))
@@ -183,7 +183,7 @@ public extension Value where Smallest: LTOENanosecond, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Year, Largest: GTOEEra {
+public extension Value where Smallest == Year, Largest == Era {
     
     func setting(month: Int) throws -> Value<Month, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(month: month)))
@@ -210,7 +210,7 @@ public extension Value where Smallest == Year, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Month, Largest: GTOEEra {
+public extension Value where Smallest == Month, Largest == Era {
     
     func setting(day: Int) throws -> Value<Day, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(day: day)))
@@ -233,7 +233,7 @@ public extension Value where Smallest == Month, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Day, Largest: GTOEEra {
+public extension Value where Smallest == Day, Largest == Era {
     
     func setting(hour: Int) throws -> Value<Hour, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(hour: hour)))
@@ -252,7 +252,7 @@ public extension Value where Smallest == Day, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Hour, Largest: GTOEEra {
+public extension Value where Smallest == Hour, Largest == Era {
     
     func setting(minute: Int) throws -> Value<Minute, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(minute: minute)))
@@ -267,7 +267,7 @@ public extension Value where Smallest == Hour, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Minute, Largest: GTOEEra {
+public extension Value where Smallest == Minute, Largest == Era {
     
     func setting(second: Int) throws -> Value<Second, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(second: second)))
@@ -278,7 +278,7 @@ public extension Value where Smallest == Minute, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Second, Largest: GTOEEra {
+public extension Value where Smallest == Second, Largest == Era {
     
     func setting(nanosecond: Int) throws -> Value<Nanosecond, Era> {
         return try applying(UnsafeAdjustment(setting: dateComponents.setting(nanosecond: nanosecond)))

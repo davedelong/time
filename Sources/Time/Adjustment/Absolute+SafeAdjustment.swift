@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Value where Largest: GTOEEra {
+public extension Absolute {
     
     /// Adjust an absolute value by applying a temporal delta value
     ///
@@ -25,7 +25,7 @@ public extension Value where Largest: GTOEEra {
 
 }
 
-public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEYear, Largest == Era {
     
     /// Create a new `Value` by moving forward one year
     func nextYear() -> Self { return adding(years: 1) }
@@ -43,7 +43,7 @@ public extension Value where Smallest: LTOEYear, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEMonth, Largest == Era {
     
     /// Create a new `Value` by moving forward one month
     func nextMonth() -> Self { return adding(months: 1) }
@@ -61,7 +61,7 @@ public extension Value where Smallest: LTOEMonth, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEDay, Largest == Era {
     
     /// Adjust the date to the beginning of the calendar's week
     func startOfWeek() -> Self {
@@ -91,7 +91,7 @@ public extension Value where Smallest: LTOEDay, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEHour, Largest == Era {
     
     /// Create a new `Value` by moving forward one hour
     func nextHour() -> Self { return adding(hours: 1) }
@@ -109,7 +109,7 @@ public extension Value where Smallest: LTOEHour, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOEMinute, Largest == Era {
     
     /// Create a new `Value` by moving forward one minute
     func nextMinute() -> Self { return adding(minutes: 1) }
@@ -127,7 +127,7 @@ public extension Value where Smallest: LTOEMinute, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOESecond, Largest == Era {
     
     /// Create a new `Value` by moving forward one second
     func nextSecond() -> Self { return adding(seconds: 1) }
@@ -145,7 +145,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEEra {
     
 }
 
-public extension Value where Smallest: LTOENanosecond, Largest: GTOEEra {
+public extension Absolute where Smallest: LTOENanosecond, Largest == Era {
     
     /// Create a new `Value` by moving forward one nanosecond
     func nextNanosecond() -> Self { return adding(nanoseconds: 1) }

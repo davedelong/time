@@ -7,26 +7,53 @@
 
 import Foundation
 
-public struct SISeconds: RawRepresentable, Hashable, Comparable, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
+/// A representation of a temporal interval, as measured in seconds.
+///
+/// An `SISeconds` represents a temporal interval, independent of any calendaring system.
+/// It supports fractional seconds, up to the precision allowed by `Double`.
+///
+/// This type exists to ensure a proper distinction between "seconds as used in physics calculations"
+/// and "seconds as represented by a calendar". On Earth, there is typically a 1:1 correspondance between
+/// SI seconds and calendrical seconds. However, this correspondance is not *required*, and so a separate
+/// of representation is needed.
+///
+/// - SeeAlso: [https://en.wikipedia.org/wiki/SI_base_unit](https://en.wikipedia.org/wiki/SI_base_unit)
+public struct SISeconds: RawRepresentable, Hashable, Comparable {
     
     internal static let secondsBetweenUnixAndReferenceEpochs = SISeconds(Date.timeIntervalBetween1970AndReferenceDate)
     
+    /// Determine if two `SISeconds` values are equivalent.
     public static func ==(lhs: SISeconds, rhs: SISeconds) -> Bool { return lhs.rawValue == rhs.rawValue }
+    
+    /// Determine if an `SISeconds` value is smaller than another.
     public static func <(lhs: SISeconds, rhs: SISeconds) -> Bool { return lhs.rawValue < rhs.rawValue }
+    
+    /// Add two `SISeconds` values.
     public static func +(lhs: SISeconds, rhs: SISeconds) -> SISeconds {
         return SISeconds(lhs.rawValue + rhs.rawValue)
     }
+    
+    /// Determine the difference between two `SISeconds` values.
     public static func -(lhs: SISeconds, rhs: SISeconds) -> SISeconds {
         return SISeconds(lhs.rawValue - rhs.rawValue)
     }
+    
+    /// Scale up an `SISeconds` value.
     public static func *(lhs: SISeconds, rhs: Double) -> SISeconds {
         return SISeconds(lhs.rawValue * rhs)
     }
+    
+    /// Scale down an `SISeconds` value.
     public static func /(lhs: SISeconds, rhs: Double) -> SISeconds {
         return SISeconds(lhs.rawValue / rhs)
     }
+    
+    /// Negate an `SISeconds` value.
     public static prefix func -(rhs: SISeconds) -> SISeconds { return SISeconds(-rhs.rawValue) }
     
+    /// The underlying `Double` representation of an `SISeconds` value.
+    ///
+    /// This value is analogous to `Foundation.TimeInterval`.
     public let rawValue: Double
     
     public init(rawValue: Double) {
@@ -37,15 +64,19 @@ public struct SISeconds: RawRepresentable, Hashable, Comparable, ExpressibleByIn
         self.rawValue = value
     }
     
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawValue)
+    }
+    
+}
+
+extension SISeconds: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
+    
     public init(floatLiteral value: Double) {
         self.init(value)
     }
     
     public init(integerLiteral value: Double) {
         self.init(value)
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(rawValue)
     }
 }
