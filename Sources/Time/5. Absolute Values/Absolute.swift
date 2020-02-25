@@ -24,12 +24,15 @@ extension Absolute {
         let succeeded = calendar.dateInterval(of: Smallest.component, start: &start, interval: &length, for: date)
         require(succeeded, "We should always be able to get the range of a calendar component")
         
-        let startInsant = Instant(date: start)
+        let startInstant = Instant(date: start)
         let endInstant = Instant(date: start.addingTimeInterval(length))
-        return startInsant..<endInstant
+        return startInstant..<endInstant
     }
     
     /// Retrieve the first `Instant` known to occur within this `Value`
     public var firstInstant: Instant { return range.lowerBound }
+    
+    @available(*, unavailable, message: "It's impossible to know the last instant of a calendar value, just like it's impossible to know the last number before 1.0")
+    public var lastInstant: Instant { fatalError() }
     
 }

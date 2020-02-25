@@ -19,9 +19,7 @@ class ClockTests: XCTestCase {
     }
     
     func testExplicit() {
-        let c = Clock(calendar: Calendar(identifier: .gregorian),
-                      timeZone: TimeZone(secondsFromGMT: 0)!,
-                      locale: Locale(identifier: "en_US_POSIX"))
+        let c = Clock.posix
         
         let now = c.now()
         XCTAssertEqual(now.intervalSinceEpoch.rawValue, Date.timeIntervalSinceReferenceDate, accuracy: 0.001)

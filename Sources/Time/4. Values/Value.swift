@@ -56,13 +56,13 @@ public struct Value<Smallest: Unit, Largest: Unit> {
     
     internal let dateComponents: DateComponents
     
-    /// The `Calendar` used in computing this `Value`'s components.
+    /// The `Calendar` used in computing this `Value`'s components, as defined by its `Region`.
     public var calendar: Calendar { return region.calendar }
     
-    /// The `TimeZone` used in computing this `Value`'s components.
+    /// The `TimeZone` used in computing this `Value`'s components, as defined by its `Region`.
     public var timeZone: TimeZone { return region.timeZone }
     
-    /// The `Locale` used in computing this `Value`'s components.
+    /// The `Locale` used in computing this `Value`'s components, as defined by its `Region`.
     public var locale: Locale { return region.locale }
     
     internal init(region: Region, dateComponents: DateComponents) throws {

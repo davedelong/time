@@ -11,22 +11,24 @@ import Foundation
 /// A `Clock` is how you know what "now" is.
 public class Clock {
     
-    /**
-     Implementation details:
-     - This uses an internal "ClockImplementation" to simplify the distinction between a custom clock and a system clock
-     - If you specify a custom flow-rate of time, it must be greater than zero. You can't stop or reverse time. Sorry.
-     **/
-    
-    /// The system clock
+    /// The system clock. This `Clock` uses the current `Region` and follows the current device time.
     public static let system = Clock()
     
+    /// A POSIX clock. This `Clock` uses the POSIX `Region` and follows the current device time.
     public static let posix = Clock(region: .posix)
     
     private let impl: ClockImplementation
     
+    /// The `Clock`'s `Region`.
     public let region: Region
+    
+    /// The `Calendar` used by the `Clock`, as defined by its `region`.
     public var calendar: Calendar { return region.calendar }
+    
+    /// The `TimeZone` used by the `Clock`, as defined by its `region`.
     public var timeZone: TimeZone { return region.timeZone }
+    
+    /// The `Locale` used by the `Clock`, as defined by its `region`.
     public var locale: Locale { return region.locale }
     
     private init(implementation: ClockImplementation, region: Region) {
@@ -34,15 +36,9 @@ public class Clock {
         self.region = region
     }
     
-    
-    /// Create a clock that reflects the current system time localized to a particular Region
-    public convenience init(region: Region) {
+    /// Create a `Clock` that reflects the current system time localized to a particular `Region`.
+    public convenience init(region: Region = .autoupdatingCurrent) {
         self.init(implementation: SystemClock(), region: region)
-    }
-    
-    public convenience init(calendar: Calendar = .autoupdatingCurrent, timeZone: TimeZone = .autoupdatingCurrent, locale: Locale = .autoupdatingCurrent) {
-        let region = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        self.init(region: region)
     }
     
     /// Create a clock with a custom start time and flow rate
@@ -50,8 +46,8 @@ public class Clock {
     /// - Parameters:
     ///   - referenceDate: The instanteous "now" from which the clock will start counting
     ///   - rate: The rate at which time progresses in the clock, relative to the supplied calendar.
-    ///           1.0 (the default) means one second on the system clock correlates to a second passing in the clock.
-    ///           2.0 would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
+    ///     - `1.0` (the default) means one second on the system clock correlates to a second passing in the clock.
+    ///     - `2.0` would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
     ///   - region: The Region in which calendar Values are produced
     public convenience init(startingFrom referenceInstant: Instant, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
         guard rate > 0.0 else { fatalError("Clocks can only count forwards") }
@@ -66,8 +62,8 @@ public class Clock {
     /// - Parameters:
     ///   - referenceEpoch: The instanteous "now" from which the clock will start counting
     ///   - rate: The rate at which time progresses in the clock.
-    ///           1.0 (the default) means one second on the system clock correlates to a second passing in the clock.
-    ///           2.0 would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
+    ///     - `1.0` (the default) means one second on the system clock correlates to a second passing in the clock.
+    ///     - `2.0` would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast)
     ///   - region: The Region in which calendar Values are produced           
     public convenience init(startingFrom referenceEpoch: Epoch, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
         let referenceInstant = Instant(interval: 0, since: referenceEpoch)
