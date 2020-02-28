@@ -1,6 +1,6 @@
 # Goals
 
-The goals of *Time* include:
+The goals of *Time* focus on:
 
 - easier date/time arithmetic: doing "proper" arithmetic via the Foundation API requires a fair amount of domain knowledge. The goal here is to enable things like:
 
@@ -9,10 +9,10 @@ The goals of *Time* include:
   let tomorrow = today + .days(1)
   ```
   
-- better names: for example, `NSDate`/`Date` is incorrectly named
-- more extensibility: Foundation does not allow you to provide your own calendar implementation
-- better separation of responsibilities: `NSDateComponents` should not be used for both calendrical components and calendrical intervals
-- better conveyance of time zone information
+- better/clearer names
+- more extensibility
+- better separation of responsibilities
+- better conveyance of time zone/locale/calendar information
 - better ISO8601 support
 - easier formatting
 - support for the Julian calendar
@@ -38,6 +38,8 @@ enum GregorianMonth {
 ```
 
 However, this sort of enumeration explosion becomes quickly tedious as you consider the lengths to which this might extend. Should this enumerations include the days of the week? What about the eras? If it includes the eras, how do we handle yet-to-be-created eras for the Japanese calendar? etc.
+
+It is possible that a far future version of `Time` would include these enumerations to increase expressivity, but there are no plans to consider this anytime soon. 
 
 ### An English-like API
 

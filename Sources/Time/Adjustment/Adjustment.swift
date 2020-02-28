@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// An Adjustment is a way to mutate a CalendarValue in a calendrically safe way.
+/// An Adjustment is a way to mutate a Value in a calendrically safe way.
 /// Adjustments of this sort are typically "relative" adjustments, like adding or subtracting offsets,
 /// or finding the next or previous occurence of a particular event.
 internal struct Adjustment<IS: Unit, IL: Unit, OS: Unit, OL: Unit> {
@@ -20,7 +20,7 @@ internal struct Adjustment<IS: Unit, IL: Unit, OS: Unit, OL: Unit> {
     
 }
 
-/// An UnsafeAdjustment is a mutation to a CalendarValue that may result in a non-existant value.
+/// An UnsafeAdjustment is a mutation to a Value that may result in a non-existant value.
 /// For example, any attempt to *set* the value of a particular field is unsafe,
 /// because there is no guarantee that the specified value calendrically exists.
 /// A trivial demonstration would be attempting to set the day of February to 31; this should throw.

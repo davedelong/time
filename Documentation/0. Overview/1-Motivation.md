@@ -28,7 +28,7 @@ extension Date {
 }
 ```
 
-This is as incorrect as attempting to extend `CLLocationCoordinate2D` to have a `city: String` property.
+This is as incorrect as attempting to extend `CLLocationCoordinate2D` to have a `var city: String` property.
 
 ### Ambiguous Types
 
@@ -45,6 +45,8 @@ Because Foundation's primary API is `NSDate`, it is very difficult to have an AP
 So for any developer who's wanting to see if "does this calendar value fall within a particular month", they're left with a decent amount of manual calculations they need to perform. Foundation lacks the ability to describe these values in a way that makes sense to users.
 
 ### Ambiguous Algorithms
+
+February + 3 seconds
 
 ### Formatting is Hard
 

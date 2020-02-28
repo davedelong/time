@@ -45,15 +45,7 @@ extension Absolute {
     /// - Parameter region: The `Region` in which to interpret the date components
     /// - Parameter unsafeDateComponents: The `DateComponents` describing the desired calendrical date
     public init(region: Region, unsafeDateComponents: DateComponents) throws {
-        let now = Date()
-        let base = region.calendar.dateComponents(Self.representedComponents, from: now)
-        guard let direction = base.searchDirection(to: unsafeDateComponents) else {
-            throw AdjustmentError.invalidDateComponents(base)
-        }
-        let proposed = region.calendar.nextDate(after: now, matching: unsafeDateComponents, matchingPolicy: .strict, repeatedTimePolicy: .first, direction: direction)
-        guard let next = proposed else {
-            throw AdjustmentError.invalidDateComponents(unsafeDateComponents)
-        }
+        let next = try region.calendar.exactDate(from: unsafeDateComponents, matching: Self.representedComponents)
         self.init(region: region, date: next)
     }
     

@@ -11,37 +11,24 @@ extension UnsafeAdjustment where IL: GTOEEra, IS == OS, IL == OL {
     
     fileprivate init(setting: DateComponents) {
         self.init { old -> Value<OS, OL> in
-            guard let direction = old.dateComponents.searchDirection(to: setting) else { return old }
-            let mid = old.approximateMidPoint.date
-            let proposed = old.calendar.nextDate(after: mid, matching: setting, matchingPolicy: .strict, repeatedTimePolicy: .first, direction: direction)
-            guard let new = proposed else {
-                throw AdjustmentError.invalidDateComponents(setting)
-            }
-            return Value<OS, OL>.init(region: old.region, date: new)
+            let proposed = old.dateComponents.merging(setting)
+            let adjusted = try old.calendar.exactDate(from: proposed, matching: Value<OS, OL>.representedComponents)
+            return Value<OS, OL>.init(region: old.region, date: adjusted)
         }
     }
     
 }
 
 extension UnsafeAdjustment where IL: GTOEEra, OL: GTOEEra {
-    
+
     fileprivate init(setting: DateComponents) {
         self.init { old -> Value<OS, OL> in
-            guard let direction = old.dateComponents.searchDirection(to: setting) else {
-                // the date components are equal, but the input and output types are not
-                // something is decidedly wrong
-                throw AdjustmentError.invalidDateComponents(setting)
-            }
-            
-            let mid = old.approximateMidPoint.date
-            let proposed = old.calendar.nextDate(after: mid, matching: setting, matchingPolicy: .strict, repeatedTimePolicy: .first, direction: direction)
-            guard let new = proposed else {
-                throw AdjustmentError.invalidDateComponents(setting)
-            }
-            return Value<OS, OL>.init(region: old.region, date: new)
+            let proposed = old.dateComponents.merging(setting)
+            let adjusted = try old.calendar.exactDate(from: proposed, matching: Value<OS, OL>.representedComponents)
+            return Value<OS, OL>.init(region: old.region, date: adjusted)
         }
     }
-    
+
 }
 
 public extension Absolute where Smallest: LTOEYear, Largest == Era {

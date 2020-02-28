@@ -27,6 +27,22 @@ internal extension Calendar {
     /// of calendar Values.
     var isEraRelevant: Bool { return identifier == .japanese }
     
+    func exactDate(from components: DateComponents, matching: Set<Calendar.Component>) throws -> Date {
+        let restricted = try components.requireAndRestrict(to: matching)
+        
+        guard let proposed = self.date(from: restricted) else {
+            throw AdjustmentError.invalidDateComponents(restricted)
+        }
+        
+        let proposedComponents = self.dateComponents(matching, from: proposed)
+        
+        guard proposedComponents == restricted else {
+            throw AdjustmentError.invalidDateComponents(restricted)
+        }
+        
+        return proposed
+    }
+    
 }
 
 internal extension Calendar.Component {

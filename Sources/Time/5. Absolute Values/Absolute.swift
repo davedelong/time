@@ -17,7 +17,7 @@ extension Absolute {
     /// - is this calendar value contained within this other calendar value?
     /// - etc
     public var range: Range<Instant> {
-        let date = calendar.date(from: dateComponents).unwrap("Absolute values must always be convertible to a concrete NSDate")
+        let date = approximateMidPoint.date
         
         var start = Date()
         var length: TimeInterval = 0
