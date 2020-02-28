@@ -27,9 +27,9 @@
     - `Quantum`
     - `Quantity`
 - [ ] documentation
-- [ ] Project organization
+- [x] Project organization
 
-## Short-term Goals
+## Short-term Features
 
 Fill out base functionality and fully implement `Relative` values:
 
@@ -50,7 +50,7 @@ Fill out base functionality and fully implement `Relative` values:
 - [ ] pseudo-units (`Week` and `Quarter`)
 - [ ] library with an NTP `Clock` using [`TrueTime.swift`](https://github.com/instacart/TrueTime.swift/issues/82) or [`Kronos`](https://github.com/Lyft/Kronos)
 
-## Long-term Goals
+## Long-term Features
 
 - lenient parsing
     - Ex: provide "January 31st", without any format information, and have it figure it out
