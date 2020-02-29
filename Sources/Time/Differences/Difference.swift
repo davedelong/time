@@ -108,11 +108,11 @@ public extension Difference where Smallest: LTOENanosecond, Largest: GTOENanosec
 
 // absolute adjustment
 public func +<S, L>(lhs: Value<S, L>, rhs: Difference<S, L>) -> Value<S, L> where L: GTOEEra {
-    return lhs.applying(delta: rhs)
+    return lhs.applying(difference: rhs)
 }
 
 public func -<S, L>(lhs: Value<S, L>, rhs: Difference<S, L>) -> Value<S, L> where L: GTOEEra {
-    return lhs.applying(delta: rhs.negated())
+    return lhs.applying(difference: rhs.negated())
 }
 
 // relative adjustment

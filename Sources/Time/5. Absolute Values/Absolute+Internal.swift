@@ -66,7 +66,7 @@ extension Absolute {
         
         var current = potential
         while true {
-            let next = current.applying(delta: delta)
+            let next = current.applying(difference: delta)
             if next.value(for: U.self) == number { return next }
             if tooFar(next) { break }
             current = next

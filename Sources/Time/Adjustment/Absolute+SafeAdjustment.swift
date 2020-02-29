@@ -35,11 +35,11 @@ public extension Absolute where Smallest: LTOEYear, Largest == Era {
     
     /// Create a new `Value` by moving forward some number of years
     /// - Parameter years: The number of years by which to move forward
-    func adding(years: Int) -> Self { return applying(delta: .years(years)) }
+    func adding(years: Int) -> Self { return applying(difference: .years(years)) }
     
     /// Create a new `Value` by moving backward some number of years
     /// - Parameter years: The number of years by which to move backward
-    func subtracting(years: Int) -> Self { return applying(delta: .years(-years)) }
+    func subtracting(years: Int) -> Self { return applying(difference: .years(-years)) }
     
 }
 
@@ -53,11 +53,11 @@ public extension Absolute where Smallest: LTOEMonth, Largest == Era {
     
     /// Create a new `Value` by moving forwward some number of months
     /// - Parameter months: The number of months by which to move forward
-    func adding(months: Int) -> Self { return applying(delta: .months(months)) }
+    func adding(months: Int) -> Self { return applying(difference: .months(months)) }
     
     /// Create a new `Value` by moving backward some number of months
     /// - Parameter months: The number of months by which to move backward
-    func subtracting(months: Int) -> Self { return applying(delta: .months(-months)) }
+    func subtracting(months: Int) -> Self { return applying(difference: .months(-months)) }
     
 }
 
@@ -83,11 +83,11 @@ public extension Absolute where Smallest: LTOEDay, Largest == Era {
     
     /// Create a new `Value` by moving forwward some number of days
     /// - Parameter days: The number of days by which to move forward
-    func adding(days: Int) -> Self { return applying(delta: .days(days)) }
+    func adding(days: Int) -> Self { return applying(difference: .days(days)) }
     
     /// Create a new `Value` by moving backward some number of days
     /// - Parameter days: The number of days by which to move backward
-    func subtracting(days: Int) -> Self { return applying(delta: .days(-days)) }
+    func subtracting(days: Int) -> Self { return applying(difference: .days(-days)) }
     
 }
 
@@ -101,11 +101,11 @@ public extension Absolute where Smallest: LTOEHour, Largest == Era {
     
     /// Create a new `Value` by moving forwward some number of hours
     /// - Parameter hours: The number of hours by which to move forward
-    func adding(hours: Int) -> Self { return applying(delta: .hours(hours)) }
+    func adding(hours: Int) -> Self { return applying(difference: .hours(hours)) }
     
     /// Create a new `Value` by moving backward some number of hours
     /// - Parameter hours: The number of hours by which to move backward
-    func subtracting(hours: Int) -> Self { return applying(delta: .hours(-hours)) }
+    func subtracting(hours: Int) -> Self { return applying(difference: .hours(-hours)) }
     
 }
 
@@ -119,11 +119,11 @@ public extension Absolute where Smallest: LTOEMinute, Largest == Era {
     
     /// Create a new `Value` by moving forwward some number of minutes
     /// - Parameter minutes: The number of minutes by which to move forward
-    func adding(minutes: Int) -> Self { return applying(delta: .minutes(minutes)) }
+    func adding(minutes: Int) -> Self { return applying(difference: .minutes(minutes)) }
     
     /// Create a new `Value` by moving backward some number of minutes
     /// - Parameter minutes: The number of minutes by which to move backward
-    func subtracting(minutes: Int) -> Self { return applying(delta: .minutes(-minutes)) }
+    func subtracting(minutes: Int) -> Self { return applying(difference: .minutes(-minutes)) }
     
 }
 
@@ -137,11 +137,11 @@ public extension Absolute where Smallest: LTOESecond, Largest == Era {
     
     /// Create a new `Value` by moving forwward some number of seconds
     /// - Parameter seconds: The number of seconds by which to move forward
-    func adding(seconds: Int) -> Self { return applying(delta: .seconds(seconds)) }
+    func adding(seconds: Int) -> Self { return applying(difference: .seconds(seconds)) }
     
     /// Create a new `Value` by moving backward some number of seconds
     /// - Parameter seconds: The number of seconds by which to move backward
-    func subtracting(seconds: Int) -> Self { return applying(delta: .seconds(-seconds)) }
+    func subtracting(seconds: Int) -> Self { return applying(difference: .seconds(-seconds)) }
     
 }
 
@@ -155,10 +155,10 @@ public extension Absolute where Smallest: LTOENanosecond, Largest == Era {
     
     /// Create a new `Value` by moving forwward some number of nanoseconds
     /// - Parameter nanoseconds: The number of nanoseconds by which to move forward
-    func adding(nanoseconds: Int) -> Self { return applying(delta: .nanoseconds(nanoseconds)) }
+    func adding(nanoseconds: Int) -> Self { return applying(difference: .nanoseconds(nanoseconds)) }
     
     /// Create a new `Value` by moving backward some number of nanoseconds
     /// - Parameter nanoseconds: The number of nanoseconds by which to move backward
-    func subtracting(nanoseconds: Int) -> Self { return applying(delta: .nanoseconds(-nanoseconds)) }
+    func subtracting(nanoseconds: Int) -> Self { return applying(difference: .nanoseconds(-nanoseconds)) }
     
 }

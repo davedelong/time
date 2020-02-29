@@ -7,6 +7,22 @@
 
 import Foundation
 
+public extension Absolute where Smallest: LTOEDay {
+    func format(date dateStyle: DateFormatter.Style) -> String {
+        return formatUsing(dateStyle: dateStyle, timeStyle: .none)
+    }
+}
+
+public extension Absolute where Smallest: LTOESecond {
+    func format(date dateStyle: DateFormatter.Style, time timeStyle: DateFormatter.Style) -> String {
+        return formatUsing(dateStyle: dateStyle, timeStyle: timeStyle)
+    }
+    
+    func format(time timeStyle: DateFormatter.Style) -> String {
+        return formatUsing(dateStyle: .none, timeStyle: timeStyle)
+    }
+}
+
 public extension Absolute where Smallest: LTOEEra {
     func format(era: Template<Era>) -> String {
         return format([era])
