@@ -52,6 +52,18 @@ February + 3 seconds
 
 `y` vs `Y` vs `yyyy`.
 
+### Creating Dates
+
+`Date()` is bad
+
+### Awkward Pluralization
+
+When using an `NSDateComponents` to represent the parts of a calendar date, the name for retrieving its month value whould be `month`. However, when using an `NSDateComponents` to represent the *difference* between two dates, the name for retrieving the number of months from the components should be `months`.
+
+However, since `NSDateComponents` is used for two different purposes, it's awkward to have *both* `var month: Int` and `var months: Int` properties on the same object.
+
+In other words, the Foundation API surrounding `NSDateComponents` decreases expressivity and fluency.
+
 ## Why do we need this?
 
 These problems (and others) are why `Time` was created. `Time` solves all of these problems. It uses precise naming, to avoid confusion. It enforces correct algorithms through type safety. It simplifies formatting. 
