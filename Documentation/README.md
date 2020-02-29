@@ -24,13 +24,13 @@ The documentation is divided into three main sections:
 
 ## Usage
 
-1. [Concepts](2-Usage/1-Concepts.md)
-2. [Clock](2-Usage/2-Clock.md)
-3. [Value](2-Usage/3-Value.md)
-4. [Adjusting](2-Usage/4-Adjusting.md)
-5. [Differences](2-Usage/5-Differences.md)
-6. [Iteration](2-Usage/6-Iteration.md)
-7. [Formatting](2-Usage/7-Formatting.md)
+1. [Core Concepts](2-Usage/1-Concepts.md)
+2. [The `Clock` Type](2-Usage/2-Clock.md)
+3. [The `Value` Type](2-Usage/3-Value.md)
+4. [Adjusting `Values`](2-Usage/4-Adjusting.md)
+5. [Finding Differences Between `Values`](2-Usage/5-Differences.md)
+6. [Iterating over `Values`](2-Usage/6-Iteration.md)
+7. [Formatting `Values`](2-Usage/7-Formatting.md)
 
 ## Gotchas
 
