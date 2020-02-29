@@ -29,6 +29,14 @@ Inherent in every calendar value are three pieces of information:
 
 Thus, a person in London who looks at "February 28th, 2020" will interpret that value to mean a *different range of contained instants* than someone who looks at that value, but is located in Los Angeles. Meanwhile, a person in certain portions of the Middle East may not understand the date at all, because their calendaring system has no notion of "February".
 
+## Calendar values represent ranges of *units*
+
+If you have a value that has a "month" and a "day", then you *cannot* create a calendrically significant value that "skips" other units. 
+
+In other words, there is no such thing as a calendar value that represents a "month, day, and second", without *also* representing "hour" (the unit between a day and a second).
+
+A valid calendar value *always* contains contiguous ranges of units.
+
 ---
 
 Most of the issues that programmers have with date and time calculations come from misunderstanding these fundamental concepts. This package aims to simplify these problems by encoding these representations and ideas into the fundamental types presented in its API.

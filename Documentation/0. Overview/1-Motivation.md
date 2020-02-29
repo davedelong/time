@@ -46,7 +46,9 @@ So for any developer who's wanting to see if "does this calendar value fall with
 
 ### Ambiguous Algorithms
 
-February + 3 seconds
+- February + 3 seconds
+- Create  a value of `{month: 2, day: 28, minute: 13}`. Where is the `hour`? Where is the `year`?
+
 
 ### Formatting is Hard
 
