@@ -1,0 +1,41 @@
+name: tests
+
+on:
+  - push
+  - pull_request
+
+jobs:
+
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        image: 
+          - "swift:5.0"
+          - "swift:5.1"
+    name: Linux
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.image }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Swift Version
+      run: swift --version
+    - name: Debug Build
+      run: swift build -v -c debug
+    - name: Debug Test
+      run: swift test -v -c debug
+
+  macos:
+    name: MacOS
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Swift Version
+      run: swift --version
+    - name: Debug Build
+      run: swift build -v -c debug
+    - name: Debug Test
+      run: swift test -v -c debug
