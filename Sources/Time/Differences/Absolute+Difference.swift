@@ -84,3 +84,13 @@ public extension Absolute where Smallest: LTOENanosecond {
     }
     
 }
+
+// Absolute differences
+
+public func - <S>(lhs: Value<S, Era>, rhs: Value<S, Era>) -> Difference<S, Era> {
+    return lhs.difference(to: rhs)
+}
+
+public func - <IS, OS, OL>(lhs: Value<IS, Era>, rhs: Value<IS, Era>) -> Difference<OS, OL> {
+    return lhs.computeDifference(to: rhs)
+}

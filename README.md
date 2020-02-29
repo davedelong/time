@@ -9,7 +9,7 @@ Working with calendars can be extremely complicated and error-prone. `Time` solv
 `Time` can be installed like any other Swift package. Add this to the `dependencies` section of your Package.swift:
 
 ```swift
-.package(url: "https://github.com/davedelong/time", from: "1.0.0")
+.package(url: "https://github.com/davedelong/time", from: "0.9.0")
 ```
 
 ## The Basics
@@ -26,38 +26,4 @@ Here's the TL;DR of the documentation:
 
 ## Detailed Information
 
-For more information, please see the following documents:
-
-- [Motivation](Documentation/Motivation.md)
-- [Inspiration](Documentation/Inspiration.md)
-- [Goals](Documentation/Goals.md)
-
-## Working Notes
-
-### Pseudo-Units
-
-- Weeks and Quarters are "pseudo units", because they're not intrinsic to the definition of a calendar. They're a level of information that's layered on top of the base calendar.
-
-### Adjustments
-
-- When adjusting values, you either:
-1. stay at the same unit ("the day after this day")
-2. go to the next-most-specific unit ("the *nth* day of this month")
-3. go to the next-less-specific unit ("the month containing this day")
-
-### Calculating Holidays
-
-There are various kinds of holiday calculations. In rough order of complexity (least to most), they are:
-
-- A known day in a known month ("December 25th")
-- An ordinal weekday in a known month ("fourth Thursday of November")
-- An ordinal day of a year ("The 256th day of the year")
-- A day before/after a known day ("the day after Cyber Monday", "The day before Canadian Thanksgiving")
-- A weekday before/after a known day ("the monday after Thanksgiving")
-- A weekday of a specific week ("tuesday of the first full week of May")
-- A weekday before/after a relative event ("the monday after the DST jump")
-- A weekday before/after a celestial event ("the friday before the vernal equinox")
-- Easter ("the sunday following the Paschal full moon, on or after March 21")
-
-Questions...
-- Should any `Holiday` type be calendar-specific? "Christmas" is only ever interpreted relative to the Gregorian calendar.
+For more information, [please see the documentation](Documentation).
