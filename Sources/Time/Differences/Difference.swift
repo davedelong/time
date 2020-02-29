@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// This is a nominal wrapper to an adjust to a single field on a CalendarValue
+/// This is a nominal wrapper to an adjust to a Value
 /// This wrapper enables syntax like "today + .days(3)"
 public struct Difference<Smallest: Unit, Largest: Unit> {
     internal let dateComponents: DateComponents

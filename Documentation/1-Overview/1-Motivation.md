@@ -46,17 +46,27 @@ So for any developer who's wanting to see if "does this calendar value fall with
 
 ### Ambiguous Algorithms
 
-- February + 3 seconds
-- Create  a value of `{month: 2, day: 28, minute: 13}`. Where is the `hour`? Where is the `year`?
+The Foundation API also technically allows for some non-sensical and ambiguous calculations.
 
+For example, if you have an `NSDateComponents` of `{month: 2, day: 28, minute: 13}` (note: missing `year` and `hour`) and attempt to turn it into an `NSDate`, *you can*. However, the answer will be ambiguous. It will *probably* use the current year, but which hour will it pick? In my opinion, this level of ambiguity is undesireable and introduces too much confusion.
+
+`Time` solves this by using type safety to guarantee that all the information necessary to construct a date is provided up-front, and `throwing` an error for the cases where that can't be guaranteed, and the provided information is insufficient.
 
 ### Formatting is Hard
 
-`y` vs `Y` vs `yyyy`.
+Correctly formatting dates can be quite difficult, as we get `M` and `m` mixed up (or `s` vs `S`). But by far the biggest culprit is `y` and `Y`. `y` is used to format "the year according to the specified calendar". On the other hand, `Y` means "the year according to the ISO8601 calendar", which has slightly different semantics around New Years.
+
+The other big issue that most developers think they are safe to use `yyyy` (a four-digit year). For many calendars, they likely would be. But there are other calendars (such as the Japanese calendar or the Republic of China calendar) where this would result in zero-padded year values. 
+
+The complexities around properly building a format string are many. `Time` makes this easier by removing formatting strings entirely, and instead [building the proper string for you](../2-Usage/7-Formatting.md).
 
 ### Creating Dates
 
-`Date()` is bad
+The Foundation API has you create dates directly using the empty initializer: `Date()` or `[NSDate new]`. This is certainly *convenient* but it relies on hidden global state and fails the [idempotence](https://en.wikipedia.org/wiki/Pure_function) test of well-built initializers.
+
+Additionally, using this initializer means that it is incredibly difficult to override time construction in an app, which can be vital for unit testing or advanced masquerading features.
+
+`Time` solves this problem by eliminating the direct initializer and requiring you to construct calendar values [via a `Clock`](../2-Usage/2-Clock.md).
 
 ### Awkward Pluralization
 
@@ -66,6 +76,8 @@ However, since `NSDateComponents` is used for two different purposes, it's awkwa
 
 In other words, the Foundation API surrounding `NSDateComponents` decreases expressivity and fluency.
 
-## Why do we need this?
+`Time` solves this by having properly pluralized properties on `Difference` values, and unpluralized properties on `Values`.
 
-These problems (and others) are why `Time` was created. `Time` solves all of these problems. It uses precise naming, to avoid confusion. It enforces correct algorithms through type safety. It simplifies formatting. 
+## What should we do about this?
+
+These problems (and others) are why `Time` was created. `Time` solves all of these problems. It uses precise naming, to avoid confusion. It enforces correct and unambiguous algorithms through type safety. It simplifies formatting. 
