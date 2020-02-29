@@ -58,3 +58,18 @@ let today: Absolute<Day> = myClock.today()
 let hour = today.hour
 ```
 
+## Adjusting Values
+
+`Values` can be mutated to form new values using the [adjustment API](3-Adjusting.md).
+
+## Differences
+
+You can find the difference between two values using the [difference API](4-Differences.md).
+
+## Iteration
+
+You can iterate over sub-values using the [iteration API](5-Iteration.md).
+
+## Formatting
+
+You can turn a `Value` into a human-readable string using the [formatting API](6-Formatting.md).
