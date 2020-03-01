@@ -37,7 +37,7 @@ If an app is using `Date()` or `[NSDate new]` as the mechanism for know what tim
 
 By instead relying on a `Clock`, altering the current notion of "time" becomes much simpler. Simply provide a `Clock` instance to the parts of your app that determine behavior, and then you have a way to *change the clock*. Just like you can walk over to a clock on the wall and manually change where its hands are pointing, you can do the same to a `Clock` instance.
 
-`Clock` provides several methods for constructing new or derivitive clocks with altered time:
+`Clock` provides several methods for constructing new or derivative clocks with altered time:
 
 ```swift
 // this creates a Clock that is always 42 seconds ahead of the system clock

@@ -79,7 +79,7 @@ extension Value: Equatable {
     
     /// Determine if two `Values` are equal.
     ///
-    /// Two `Values` are equal if they have the same `Region` and represent the same calendrical components
+    /// Two `Values` are equal if they have the same `Region` and represent the same calendrical components.
     /// - Parameter lhs: a `Value`
     /// - Parameter rhs: a `Value`
     public static func ==(lhs: Value, rhs: Value) -> Bool {

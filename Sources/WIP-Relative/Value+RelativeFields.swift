@@ -1,5 +1,5 @@
 //
-//  ValueFields.swift
+//  Value+RelativeFields.swift
 //  
 //
 //  Created by Dave DeLong on 10/3/19.

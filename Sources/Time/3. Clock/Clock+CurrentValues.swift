@@ -9,7 +9,7 @@ import Foundation
 
 public extension Clock {
     
-    /// Retrieve the current `Instant` shown on the `Clock`
+    /// Retrieve the current `Instant` shown on the `Clock`.
     func now() -> Instant { return thisInstant() }
     
     /// Retrieve the current `Absolute` calendrical value, accurate down to the specified unit.
@@ -20,28 +20,28 @@ public extension Clock {
     func tomorrow() -> Absolute<Day> { return this().adding(days: 1) }
     func yesterday() -> Absolute<Day> { return this().subtracting(days: 1) }
     
-    /// Retrieve the current calendar era of the `Clock`
+    /// Retrieve the current calendar era of the `Clock`.
     func thisEra() -> Absolute<Era> { return this() }
     
-    /// Retrieve the current calendar year of the `Clock`
+    /// Retrieve the current calendar year of the `Clock`.
     func thisYear() -> Absolute<Year> { return this() }
     
-    /// Retrieve the current calendar month of the `Clock`
+    /// Retrieve the current calendar month of the `Clock`.
     func thisMonth() -> Absolute<Month> { return this() }
     
-    /// Retrieve the current calendar day of the `Clock`
+    /// Retrieve the current calendar day of the `Clock`.
     func thisDay() -> Absolute<Day> { return this() }
     
-    /// Retrieve the current calendar hour of the `Clock`
+    /// Retrieve the current calendar hour of the `Clock`.
     func thisHour() -> Absolute<Hour> { return this() }
     
-    /// Retrieve the current calendar minute of the `Clock`
+    /// Retrieve the current calendar minute of the `Clock`.
     func thisMinute() -> Absolute<Minute> { return this() }
     
-    /// Retrieve the current calendar second of the `Clock`
+    /// Retrieve the current calendar second of the `Clock`.
     func thisSecond() -> Absolute<Second> { return this() }
     
-    /// Retrieve the current calendar nanosecond of the `Clock`
+    /// Retrieve the current calendar nanosecond of the `Clock`.
     func thisNanosecond() -> Absolute<Nanosecond> { return this() }
     
     func nextYear() -> Absolute<Year> { return this().adding(years: 1) }

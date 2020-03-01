@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  AdjustmentError.swift
 //  
 //
 //  Created by Dave DeLong on 11/9/19.

@@ -4,7 +4,7 @@
 
 A more colloquial definition might be: "If you can point to it on a calendar or clock, it's a `Value`".
 
-In order to accomplish this, `Value` defines two generic parameters, called `Smallest` and `Largest`. These parameters must be `Unit`-conforming types, of which there are current 8: `Era`, `Year`, `Month`, `Day`, `Hour`, `Minute`, `Second`, `Nanosecond`.
+In order to accomplish this, `Value` defines two generic parameters, called `Smallest` and `Largest`. These parameters must be `Unit`-conforming types, of which there are currently 8: `Era`, `Year`, `Month`, `Day`, `Hour`, `Minute`, `Second`, `Nanosecond`.
 
 For example, a `Value<Day, Era>` is value that represents *all calendar components* in the `Day ... Era` range, namely `Day`, `Month`, `Year`, and `Era`.
 
