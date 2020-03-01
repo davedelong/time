@@ -4,7 +4,7 @@ The fundamental entry point for retrieving calendrical values is via a `Clock`. 
 
 The simplest way to retrieve a `Clock` in the package is to ask for the `system` clock:
 
-```
+```swift
 let clock = Clock.system
 ```
 
