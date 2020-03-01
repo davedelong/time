@@ -29,7 +29,7 @@ extension Absolute {
         return startInstant..<endInstant
     }
     
-    /// Retrieve the first `Instant` known to occur within this `Value`
+    /// Retrieve the first `Instant` known to occur within this `Value`.
     public var firstInstant: Instant { return range.lowerBound }
     
     @available(*, unavailable, message: "It's impossible to know the last instant of a calendar value, just like it's impossible to know the last number before 1.0")

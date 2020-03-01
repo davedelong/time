@@ -7,8 +7,8 @@
 
 import Foundation
 
-/// This is a nominal wrapper to an adjust to a Value
-/// This wrapper enables syntax like "today + .days(3)"
+/// This is a nominal wrapper to an adjust to a Value.
+/// This wrapper enables syntax like "today + .days(3)".
 public struct Difference<Smallest: Unit, Largest: Unit> {
     internal let dateComponents: DateComponents
     
@@ -29,7 +29,7 @@ public struct Difference<Smallest: Unit, Largest: Unit> {
 public extension Difference where Smallest: LTOEYear, Largest: GTOEYear {
     static func eras(_ value: Int) -> Difference { return self.init(value: value, unit: .era) }
 
-    /// Retrieve the number of eras in a calendrical difference
+    /// Retrieve the number of eras in a calendrical difference.
     var eras: Int {
         return dateComponents.era
             .unwrap("A Difference<\(Smallest.self), \(Largest.self)> must have an era value")
@@ -39,7 +39,7 @@ public extension Difference where Smallest: LTOEYear, Largest: GTOEYear {
 public extension Difference where Smallest: LTOEYear, Largest: GTOEYear {
     static func years(_ value: Int) -> Difference { return self.init(value: value, unit: .year) }
     
-    /// Retrieve the number of years in a calendrical difference
+    /// Retrieve the number of years in a calendrical difference.
     var years: Int {
         return dateComponents.year
             .unwrap("A Difference<\(Smallest.self), \(Largest.self)> must have a year value")
@@ -49,7 +49,7 @@ public extension Difference where Smallest: LTOEYear, Largest: GTOEYear {
 public extension Difference where Smallest: LTOEMonth, Largest: GTOEMonth {
     static func months(_ value: Int) -> Difference { return self.init(value: value, unit: .month) }
     
-    /// Retrieve the number of months in a calendrical difference
+    /// Retrieve the number of months in a calendrical difference.
     var months: Int {
         return dateComponents.month
             .unwrap("A Difference<\(Smallest.self), \(Largest.self)> must have a month value")
@@ -59,7 +59,7 @@ public extension Difference where Smallest: LTOEMonth, Largest: GTOEMonth {
 public extension Difference where Smallest: LTOEDay, Largest: GTOEDay {
     static func days(_ value: Int) -> Difference { return self.init(value: value, unit: .day) }
     
-    /// Retrieve the number of days in a calendrical difference
+    /// Retrieve the number of days in a calendrical difference.
     var days: Int
     {
         return dateComponents.day.unwrap("A Difference<\(Smallest.self), \(Largest.self)> must have a day value")
@@ -69,7 +69,7 @@ public extension Difference where Smallest: LTOEDay, Largest: GTOEDay {
 public extension Difference where Smallest: LTOEHour, Largest: GTOEHour {
     static func hours(_ value: Int) -> Difference { return self.init(value: value, unit: .hour) }
     
-    /// Retrieve the number of hours in a calendrical difference
+    /// Retrieve the number of hours in a calendrical difference.
     var hours: Int {
         return dateComponents.hour
             .unwrap("A Difference<\(Smallest.self), \(Largest.self)> must have an hour value")
@@ -79,7 +79,7 @@ public extension Difference where Smallest: LTOEHour, Largest: GTOEHour {
 public extension Difference where Smallest: LTOEMinute, Largest: GTOEMinute {
     static func minutes(_ value: Int) -> Difference { return self.init(value: value, unit: .minute) }
     
-    /// Retrieve the number of minutes in a calendrical difference
+    /// Retrieve the number of minutes in a calendrical difference.
     var minutes: Int {
         return dateComponents.minute
             .unwrap("A Difference<\(Smallest.self), \(Largest.self)> must have a minute value")
@@ -89,7 +89,7 @@ public extension Difference where Smallest: LTOEMinute, Largest: GTOEMinute {
 public extension Difference where Smallest: LTOESecond, Largest: GTOESecond {
     static func seconds(_ value: Int) -> Difference { return self.init(value: value, unit: .second) }
     
-    /// Retrieve the number of seconds in a calendrical difference
+    /// Retrieve the number of seconds in a calendrical difference.
     var seconds: Int {
         return dateComponents.second
             .unwrap("A Difference<\(Smallest.self), \(Largest.self)> must have a second value")
@@ -99,7 +99,7 @@ public extension Difference where Smallest: LTOESecond, Largest: GTOESecond {
 public extension Difference where Smallest: LTOENanosecond, Largest: GTOENanosecond {
     static func nanoseconds(_ value: Int) -> Difference { return self.init(value: value, unit: .nanosecond) }
     
-    /// Retrieve the number of nanoseconds in a calendrical difference
+    /// Retrieve the number of nanoseconds in a calendrical difference.
     var nanoseconds: Int {
         return dateComponents.nanosecond
             .unwrap("A Difference<\(Smallest.self), \(Largest.self)> must have a nanosecond value")

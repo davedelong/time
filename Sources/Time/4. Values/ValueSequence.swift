@@ -7,15 +7,15 @@
 
 import Foundation
 
-/// A `Sequence` of `Absolute` calendar values
+/// A `Sequence` of `Absolute` calendar values.
 public struct AbsoluteValueSequence<U: Unit>: Sequence {
     
     private let constructor: () -> AbsoluteValueIterator<U>
     
     /// Construct a sequence of `Absolute` calendar values starting from a specific value.
     /// - Parameters:
-    ///   - start: The starting `Absolute` calendar value
-    ///   - stride: The difference between subsequent calendar values
+    ///   - start: The starting `Absolute` calendar value.
+    ///   - stride: The difference between subsequent calendar values.
     ///   - keepGoing: A closure that is invoked to indicate whether the sequence should continue. This closure is invoked *before* the next value is generated.
     public init(start: Absolute<U>, stride: Difference<U, Era>, while keepGoing: @escaping (Absolute<U>) -> Bool) {
         constructor = { AbsoluteValueIterator(start: start, stride: stride, keepGoing: keepGoing)}
@@ -37,7 +37,7 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     ///
     /// - Note: This sequence iterates through values *up to and including* the upper bound of the range.
     /// - Parameters:
-    ///   - range: The `ClosedRange` of `Absolute` calendar values to iterate through
+    ///   - range: The `ClosedRange` of `Absolute` calendar values to iterate through.
     ///   - stride: The difference between subsequent calendar values.
     public init<S>(range: ClosedRange<Absolute<S>>, stride: Difference<U, Era>) {
         let lower = range.lowerBound
@@ -55,7 +55,7 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     
 }
 
-/// An iterator of `Absolute` calendar values
+/// An iterator of `Absolute` calendar values.
 public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
     private let region: Region
     

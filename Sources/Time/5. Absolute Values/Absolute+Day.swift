@@ -47,13 +47,13 @@ public extension Absolute where Smallest: LTOEDay, Largest == Era {
     /// Returns the day of the month on which the receiver occurs.
     ///
     /// For example, given a value that represents "Halloween" (October 31st) on the gregorian calendar,
-    /// this property returns "31"
+    /// this property returns "31".
     var dayOfMonth: Int { return day }
     
-    /// Returns the day of the year on which the receiver occurs
+    /// Returns the day of the year on which the receiver occurs.
     ///
     /// For example, given a value that represents the first of February on the gregorian calendar,
-    /// this property returns "32"
+    /// this property returns "32".
     var dayOfYear: Int { return calendar.ordinality(of: .day, in: .year, for: approximateMidPoint.date)! }
     
     /// Returns the ordinal of the receiver's weekday within its month.
