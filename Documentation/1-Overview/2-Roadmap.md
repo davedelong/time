@@ -46,8 +46,9 @@ Fill out base functionality and fully implement `Relative` values:
 - [ ] enumerating relative values
 - [ ] parsing relative values from strings
 - [ ] rounding relative values
-- [ ] library with system shims (`Timer`, GCD, UIKit, UserNotifications, etc)
 - [ ] pseudo-units (`Week` and `Quarter`)
+    - one thing to think about: let's say we have an `Absolute<Week>` that spans over a new year. Since weeks are independent of years, what would the `.year` and `.month` of the value be?
+- [ ] library with system shims (`Timer`, GCD, UIKit, UserNotifications, etc)
 - [ ] library with an NTP `Clock` using [`TrueTime.swift`](https://github.com/instacart/TrueTime.swift/issues/82) or [`Kronos`](https://github.com/Lyft/Kronos)
 
 ## Long-term Features
@@ -58,11 +59,16 @@ Fill out base functionality and fully implement `Relative` values:
     - including serialized representations
 - Celestial event calculations
     - useful in certain kinds of calculations
+    - ex: "given this location, find the time of the next full moon"
+        - https://en.wikipedia.org/wiki/Full_moon#Formula
+    - ex: "given this location, find the time of the next sunrise" (and then accounting for different sunrise definitions)
+        - https://en.wikipedia.org/wiki/Sunrise_equation
 - Turn `Calendar` into a protocol
     - The ISO8601 ("year for week of year") calendar should ideally be a separate calendar
     - This would enable:
         - extraterrestrial calendars, such as the [Darian calendar](https://en.wikipedia.org/wiki/Darian_calendar)
-        - [specialized historical calendars](https://en.wikipedia.org/wiki/Maya_calendar)
+        - [special-purpose calendars](https://en.wikipedia.org/wiki/International_Fixed_Calendar)
+        - [historical calendars](https://en.wikipedia.org/wiki/Maya_calendar)
         - [fictional calendars](https://en.wikipedia.org/wiki/Stardate)
 - Linux support
 
