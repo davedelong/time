@@ -17,7 +17,7 @@ extension Absolute {
     /// - is this calendar value contained within this other calendar value?
     /// - etc
     public var range: Range<Instant> {
-        let date = approximateMidPoint.date
+        let date = calendar.date(from: dateComponents).unwrap("We should always be able to convert absolute components into a date")
         
         var start = Date()
         var length: TimeInterval = 0
