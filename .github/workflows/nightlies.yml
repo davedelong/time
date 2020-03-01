@@ -1,0 +1,30 @@
+
+name: nightlies
+
+on:
+  schedule:
+    - cron: '0 0 * * * '
+
+jobs:
+
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [
+          "swift:nightly-5.2",
+          "swift:nightly"
+        ]
+    name: Linux
+    runs-on: ubuntu-latest
+    container:
+      image: swiftlang/${{ matrix.image }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Swift Version
+      run: swift --version
+    - name: Debug Build
+      run: swift build -v -c debug
+    - name: Debug Test
+      run: swift test -v -c debug
