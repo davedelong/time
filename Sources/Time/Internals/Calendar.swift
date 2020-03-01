@@ -14,7 +14,7 @@ internal extension Calendar {
     /// is the same as one SI Second. However, on Mars, the days are slightly longer,
     /// which means that dividing the slightly-longer day in to 86,400 slices results
     /// in "seconds" that are slightly longer than Earth seconds.
-    /// Therefore, to accomodate this, the calendar needs to define how many
+    /// Therefore, to accommodate this, the calendar needs to define how many
     /// SI Seconds are in each calendar-second.
     /// note: This does NOT affect how physics calculations are done (or velocities, etc)
     /// because those are all defined relative to SI Seconds

@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A `Region` contains all of the information necessary to refer to a user's preferences for expression calendrical values.
+/// A `Region` contains all of the information necessary to refer to a user's preferences for expressing calendrical values.
 ///
 /// It contains:
 /// - a `Calendar` value, which describes their preferred system for measuring time
