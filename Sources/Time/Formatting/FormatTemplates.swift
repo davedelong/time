@@ -1,5 +1,5 @@
 //
-//  Formats.swift
+//  FormatTemplates.swift
 //  Time
 //
 //  Created by Dave DeLong on 5/17/18.

@@ -1,5 +1,5 @@
 //
-//  Adjustment+AbsoluteConvenience.swift
+//  Absolute+SafeAdjustment.swift
 //  Time
 //
 //  Created by Dave DeLong on 2/19/18.
