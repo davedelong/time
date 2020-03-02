@@ -70,7 +70,7 @@ Additionally, using this initializer means that it is incredibly difficult to ov
 
 ### Awkward Pluralization
 
-When using an `NSDateComponents` to represent the parts of a calendar date, the name for retrieving its month value whould be `month`. However, when using an `NSDateComponents` to represent the *difference* between two dates, the name for retrieving the number of months from the components should be `months`.
+When using an `NSDateComponents` to represent the parts of a calendar date, the name for retrieving its month value would be `month`. However, when using an `NSDateComponents` to represent the *difference* between two dates, the name for retrieving the number of months from the components should be `months`.
 
 However, since `NSDateComponents` is used for two different purposes, it's awkward to have *both* `var month: Int` and `var months: Int` properties on the same object.
 
