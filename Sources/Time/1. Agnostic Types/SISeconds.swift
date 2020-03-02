@@ -33,9 +33,19 @@ public struct SISeconds: RawRepresentable, Hashable, Comparable {
         return SISeconds(lhs.rawValue + rhs.rawValue)
     }
     
+    /// Add and assign two `SISeconds` values.
+    public static func +=(lhs: inout SISeconds, rhs: SISeconds) {
+        lhs = lhs + rhs
+    }
+    
     /// Determine the difference between two `SISeconds` values.
     public static func -(lhs: SISeconds, rhs: SISeconds) -> SISeconds {
         return SISeconds(lhs.rawValue - rhs.rawValue)
+    }
+
+    /// Assign the difference between two `SISeconds` values.
+    public static func -=(lhs: inout SISeconds, rhs: SISeconds) {
+        lhs = lhs - rhs
     }
     
     /// Scale up an `SISeconds` value.
@@ -43,9 +53,19 @@ public struct SISeconds: RawRepresentable, Hashable, Comparable {
         return SISeconds(lhs.rawValue * rhs)
     }
     
+    /// Scale up and assign to an `SISeconds` value.
+    public static func *=(lhs: inout SISeconds, rhs: Double) {
+        lhs = lhs * rhs
+    }
+    
     /// Scale down an `SISeconds` value.
     public static func /(lhs: SISeconds, rhs: Double) -> SISeconds {
         return SISeconds(lhs.rawValue / rhs)
+    }
+
+    /// Scale down and assign to an `SISeconds` value.
+    public static func /=(lhs: inout SISeconds, rhs: Double) {
+        lhs = lhs / rhs
     }
     
     /// Negate an `SISeconds` value.
