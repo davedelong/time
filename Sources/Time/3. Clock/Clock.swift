@@ -111,6 +111,14 @@ public class Clock {
         // TODO: if the new calendar defines a different scaling of SI Seconds... ?
         return Clock(implementation: impl, region: newRegion)
     }
+    
+    
+    /// Retrieve the `Instant` of the next daylight saving time transition.
+    ///
+    /// - Parameter after: The `Instant` after which to find the next daylight saving time transition. If omitted, it will be assumed to be the current instant.
+    /// - Returns: The `Instant` of the next daylight saving time transition, or `nil` if the time zone does not currently observe daylight saving time.
+    public func nextDaylightSavingTimeTransition(after instant: Instant? = nil) -> Instant? {
+        let afterInstant = instant ?? now()
+        return timeZone.nextDaylightSavingTimeTransition(after: afterInstant.date).map(Instant.init)
+    }
 }
-
-
