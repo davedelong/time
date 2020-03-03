@@ -48,7 +48,7 @@ So for any developer who's wanting to see if "does this calendar value fall with
 
 The Foundation API also technically allows for some non-sensical and ambiguous calculations.
 
-For example, if you have an `NSDateComponents` of `{month: 2, day: 28, minute: 13}` (note: missing `year` and `hour`) and attempt to turn it into an `NSDate`, *you can*. However, the answer will be ambiguous. It will *probably* use the current year, but which hour will it pick? In my opinion, this level of ambiguity is undesireable and introduces too much confusion.
+For example, if you have an `NSDateComponents` of `{month: 2, day: 28, minute: 13}` (note: missing `year` and `hour`) and attempt to turn it into an `NSDate`, *you can*. However, the answer will be ambiguous. It will *probably* use the current year, but which hour will it pick? In my opinion, this level of ambiguity is undesirable and introduces too much confusion.
 
 `Time` solves this by using type safety to guarantee that all the information necessary to construct a date is provided up-front, and `throwing` an error for the cases where that can't be guaranteed, and the provided information is insufficient.
 

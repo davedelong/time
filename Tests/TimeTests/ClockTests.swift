@@ -79,5 +79,78 @@ class ClockTests: XCTestCase {
         
         XCTAssertEqual(elapsedTime.rawValue, 0.1, accuracy: 0.01) // 10% margin for error
     }
+}
+
+// MARK: - Next Daylight Saving Time Transition
+
+extension ClockTests {
+    
+    func testNextDSTTransitionForTimeZoneWithDST() {
+        let timeZone = TimeZone(identifier: "Europe/London")!
+        
+        let region = Region(
+            calendar: .autoupdatingCurrent,
+            timeZone: timeZone,
+            locale: .autoupdatingCurrent)
+        
+        let clock = Clock(region: region)
+        
+        let instant = clock.nextDaylightSavingTimeTransition()
+        XCTAssertNotNil(instant)
+        XCTAssertEqual(
+            instant?.intervalSinceEpoch.rawValue,
+            timeZone.nextDaylightSavingTimeTransition?.timeIntervalSinceReferenceDate)
+    }
+    
+    func testNextDSTTransitionNextYearForTimeZoneWithDST() {
+        let timeZone = TimeZone(identifier: "Europe/London")!
+        
+        let region = Region(
+            calendar: .autoupdatingCurrent,
+            timeZone: timeZone,
+            locale: .autoupdatingCurrent)
+        
+        let clock = Clock(region: region)
+        let instantNextYear = (clock.thisDay() + .years(1)).firstInstant
+        
+        let nextDSTSeconds = clock
+            .nextDaylightSavingTimeTransition(after: instantNextYear)?.intervalSinceEpoch.rawValue
+        
+        let expectedDSTSeconds = timeZone
+            .nextDaylightSavingTimeTransition(after: instantNextYear.date)?.timeIntervalSinceReferenceDate
+        
+        XCTAssertNotNil(nextDSTSeconds)
+        XCTAssertEqual(nextDSTSeconds, expectedDSTSeconds)
+    }
+    
+    func testNextDSTTransitionForTimeZoneWithoutDST() {
+        let timeZone = TimeZone(identifier: "Europe/Moscow")!
+
+        let region = Region(
+            calendar: .autoupdatingCurrent,
+            timeZone: timeZone,
+            locale: .autoupdatingCurrent)
+
+        let clock = Clock(region: region)
+        
+        XCTAssertNil(clock.nextDaylightSavingTimeTransition())
+    }
+    
+    func testNextDSTTransitionNextYearForTimeZoneWithoutDST() {
+        let timeZone = TimeZone(identifier: "Europe/Moscow")!
+
+        let region = Region(
+            calendar: .autoupdatingCurrent,
+            timeZone: timeZone,
+            locale: .autoupdatingCurrent)
+
+        let clock = Clock(region: region)
+        let instantNextYear = (clock.thisDay() + .years(1)).firstInstant
+        
+        let nextDSTSeconds = clock
+            .nextDaylightSavingTimeTransition(after: instantNextYear)?.intervalSinceEpoch.rawValue
+        
+        XCTAssertNil(nextDSTSeconds)
+    }
     
 }

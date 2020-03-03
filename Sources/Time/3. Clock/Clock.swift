@@ -44,7 +44,7 @@ public class Clock {
     /// Create a clock with a custom start time and flow rate.
     ///
     /// - Parameters:
-    ///   - referenceDate: The instanteous "now" from which the clock will start counting.
+    ///   - referenceDate: The instantaneous "now" from which the clock will start counting.
     ///   - rate: The rate at which time progresses in the clock, relative to the supplied calendar.
     ///     - `1.0` (the default) means one second on the system clock correlates to a second passing in the clock.
     ///     - `2.0` would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast).
@@ -60,7 +60,7 @@ public class Clock {
     /// Create a clock with a custom start time and flow rate.
     ///
     /// - Parameters:
-    ///   - referenceEpoch: The instanteous "now" from which the clock will start counting.
+    ///   - referenceEpoch: The instantaneous "now" from which the clock will start counting.
     ///   - rate: The rate at which time progresses in the clock.
     ///     - `1.0` (the default) means one second on the system clock correlates to a second passing in the clock.
     ///     - `2.0` would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast).
@@ -81,7 +81,7 @@ public class Clock {
     
     /// Offset a clock.
     ///
-    /// - Parameter by: A `TimeInterval` by which to create an offseted clock.
+    /// - Parameter by: A `TimeInterval` by which to create an offset clock.
     /// - Returns: A new `Clock` that is offset by the specified `TimeInterval` from the receiver.
     public func offset(by: TimeInterval) -> Clock {
         let offset = OffsetClock(offset: by, from: impl)
@@ -111,6 +111,14 @@ public class Clock {
         // TODO: if the new calendar defines a different scaling of SI Seconds... ?
         return Clock(implementation: impl, region: newRegion)
     }
+    
+    
+    /// Retrieve the `Instant` of the next daylight saving time transition.
+    ///
+    /// - Parameter after: The `Instant` after which to find the next daylight saving time transition. If omitted, it will be assumed to be the current instant.
+    /// - Returns: The `Instant` of the next daylight saving time transition, or `nil` if the time zone does not currently observe daylight saving time.
+    public func nextDaylightSavingTimeTransition(after instant: Instant? = nil) -> Instant? {
+        let afterInstant = instant ?? now()
+        return timeZone.nextDaylightSavingTimeTransition(after: afterInstant.date).map(Instant.init)
+    }
 }
-
-
