@@ -13,8 +13,8 @@ import Foundation
 /// It supports fractional seconds, up to the precision allowed by `Double`.
 ///
 /// This type exists to ensure a proper distinction between "seconds as used in physics calculations"
-/// and "seconds as represented by a calendar". On Earth, there is typically a 1:1 correspondance between
-/// SI seconds and calendrical seconds. However, this correspondance is not *required*, and so a separate
+/// and "seconds as represented by a calendar". On Earth, there is typically a 1:1 correspondence between
+/// SI seconds and calendrical seconds. However, this correspondence is not *required*, and so a separate
 /// of representation is needed.
 ///
 /// - SeeAlso: [https://en.wikipedia.org/wiki/SI_base_unit](https://en.wikipedia.org/wiki/SI_base_unit)

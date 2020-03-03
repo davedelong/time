@@ -15,7 +15,7 @@ There are two fundamental categories of adjustments: Safe adjustments, and Unsaf
 
 Safe adjustments are *relative* adjustments. This means they typically involve starting with a known value, and then applying a relative difference. The example above is one such adjustment.
 
-These adjustments are "safe", because there is no reasonable way in which they will fail. For example, if I have a value representing a "day", then it will always be possible to find the preceeding or succeeding day.
+These adjustments are "safe", because there is no reasonable way in which they will fail. For example, if I have a value representing a "day", then it will always be possible to find the preceding or succeeding day.
 
 `Value` includes methods for performing safe adjustments (the `.adding(...)` and `.subtracting(...)` methods). As a convenience, it also includes overrides of the `+` and `-` operator for a more expressive syntax:
 

@@ -35,7 +35,7 @@ Fill out base functionality and fully implement `Relative` values:
 
 - [ ] Format `Difference` values using `DateComponentsFormatter`
 - [ ] simple relative comparisons (`isBefore`, `isAfter`, etc)
-- [ ] rounding absolute values (adjust to the nearst 7 minutes, for example)
+- [ ] rounding absolute values (adjust to the nearest 7 minutes, for example)
 - [ ] public adjustment api (currently internal)
 - [x] formatting relative values
 - [x] initializing relative values from a `Foundation.Date`
@@ -95,11 +95,11 @@ There are various kinds of holiday calculations. In rough order of complexity (l
 - An ordinal weekday in a known month ("fourth Thursday of November")
 - An ordinal day of a year ("The 256th day of the year")
 - A day before/after a known day ("the day after Cyber Monday", "The day before Canadian Thanksgiving")
-- A weekday before/after a known day ("the monday after Thanksgiving")
-- A weekday of a specific week ("tuesday of the first full week of May")
-- A weekday before/after a relative event ("the monday after the DST jump")
-- A weekday before/after a celestial event ("the friday before the vernal equinox")
-- Easter ("the sunday following the Paschal full moon, on or after March 21")
+- A weekday before/after a known day ("the Monday after Thanksgiving")
+- A weekday of a specific week ("Tuesday of the first full week of May")
+- A weekday before/after a relative event ("the Monday after the DST jump")
+- A weekday before/after a celestial event ("the Friday before the vernal equinox")
+- Easter ("the Sunday following the Paschal full moon, on or after March 21")
 
 Questions...
 - Should any `Holiday` type be calendar-specific? "Christmas" is only ever interpreted relative to the Gregorian calendar.

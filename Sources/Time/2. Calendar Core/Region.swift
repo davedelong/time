@@ -21,7 +21,7 @@ public struct Region: Hashable {
     /// The POSIX region: the Gregorian calendar in the UTC time zone, using the `en_US_POSIX` locale.
     public static let posix = Region(calendar: Calendar(identifier: .gregorian), timeZone: TimeZone(secondsFromGMT: 0)!, locale: Locale(identifier: "en_US_POSIX"))
     
-    /// The "autoupdating" current region. This Region will automatically track changes to the user's selected timeZone, calendar, and locale.
+    /// The "autoupdating" current region. This Region will automatically track changes to the user's selected time zone, calendar, and locale.
     public static let autoupdatingCurrent = Region(calendar: .autoupdatingCurrent, timeZone: .autoupdatingCurrent, locale: .autoupdatingCurrent)
     
     /// The `Calendar` used in this `Region`.

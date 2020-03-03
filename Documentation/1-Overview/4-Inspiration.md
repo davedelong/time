@@ -53,7 +53,7 @@ There are myriads of date/time convenience methods available on Github. *Time* d
     - Contains the definition of timezones, etc.
     - Probably not necessary, since there isn't an obvious need to replace `Foundation.TimeZone`
 - [`java.time.format`](https://docs.oracle.com/javase/8/docs/api/java/time/format/package-summary.html)
-    - Formating temporal objects into human-readable forms
+    - Formatting temporal objects into human-readable forms
     - Probably not necessary, since the Foundation-provided formatters are excellent in-and-of themselves
 
 ## Recurrence, Parsing, etc

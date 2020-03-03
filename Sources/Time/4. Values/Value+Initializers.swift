@@ -53,7 +53,7 @@ extension Absolute {
 
 extension Value where Smallest == Year, Largest == Era {
     
-    /// Construct an `Aboslute<Year>` from the specified numeric components.
+    /// Construct an `Absolute<Year>` from the specified numeric components.
     /// - Parameters:
     ///   - region: The `Region` in which the components will be interpreted.
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.
@@ -68,7 +68,7 @@ extension Value where Smallest == Year, Largest == Era {
 
 extension Value where Smallest == Month, Largest == Era {
     
-    /// Construct an `Aboslute<Month>` from the specified numeric components.
+    /// Construct an `Absolute<Month>` from the specified numeric components.
     /// - Parameters:
     ///   - region: The `Region` in which the components will be interpreted.
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.
@@ -84,7 +84,7 @@ extension Value where Smallest == Month, Largest == Era {
 
 extension Value where Smallest == Day, Largest == Era {
     
-    /// Construct an `Aboslute<Day>` from the specified numeric components.
+    /// Construct an `Absolute<Day>` from the specified numeric components.
     /// - Parameters:
     ///   - region: The `Region` in which the components will be interpreted.
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.
@@ -101,7 +101,7 @@ extension Value where Smallest == Day, Largest == Era {
 
 extension Value where Smallest == Hour, Largest == Era {
     
-    /// Construct an `Aboslute<Hour>` from the specified numeric components.
+    /// Construct an `Absolute<Hour>` from the specified numeric components.
     /// - Parameters:
     ///   - region: The `Region` in which the components will be interpreted.
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.
@@ -119,7 +119,7 @@ extension Value where Smallest == Hour, Largest == Era {
 
 extension Value where Smallest == Minute, Largest == Era {
     
-    /// Construct an `Aboslute<Minute>` from the specified numeric components.
+    /// Construct an `Absolute<Minute>` from the specified numeric components.
     /// - Parameters:
     ///   - region: The `Region` in which the components will be interpreted.
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.
@@ -138,7 +138,7 @@ extension Value where Smallest == Minute, Largest == Era {
 
 extension Value where Smallest == Second, Largest == Era {
     
-    /// Construct an `Aboslute<Second>` from the specified numeric components.
+    /// Construct an `Absolute<Second>` from the specified numeric components.
     /// - Parameters:
     ///   - region: The `Region` in which the components will be interpreted.
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.
@@ -158,7 +158,7 @@ extension Value where Smallest == Second, Largest == Era {
 
 extension Value where Smallest == Nanosecond, Largest == Era {
     
-    /// Construct an `Aboslute<Nanosecond>` from the specified numeric components.
+    /// Construct an `Absolute<Nanosecond>` from the specified numeric components.
     /// - Parameters:
     ///   - region: The `Region` in which the components will be interpreted.
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.

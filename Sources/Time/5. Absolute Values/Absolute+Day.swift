@@ -41,24 +41,24 @@ public extension Absolute where Smallest: LTOEDay, Largest == Era {
     
     /// Returns the numerical representation of the receiver's day of the week.
     ///
-    /// For the gregorian calendar, 1 = Sunday, 2 = Monday, ... 7 = Saturday
+    /// For the Gregorian calendar, 1 = Sunday, 2 = Monday, ... 7 = Saturday
     var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
     
     /// Returns the day of the month on which the receiver occurs.
     ///
-    /// For example, given a value that represents "Halloween" (October 31st) on the gregorian calendar,
+    /// For example, given a value that represents "Halloween" (October 31st) on the Gregorian calendar,
     /// this property returns "31".
     var dayOfMonth: Int { return day }
     
     /// Returns the day of the year on which the receiver occurs.
     ///
-    /// For example, given a value that represents the first of February on the gregorian calendar,
+    /// For example, given a value that represents the first of February on the Gregorian calendar,
     /// this property returns "32".
     var dayOfYear: Int { return calendar.ordinality(of: .day, in: .year, for: approximateMidPoint.date)! }
     
     /// Returns the ordinal of the receiver's weekday within its month.
     ///
-    /// For example, if the receiver falls on the second "Friday" of a month on the gregorian calendar,
-    /// then `dayOfWeek` returns `6` ("Friday"), and this property returns `2` (the second friday).
+    /// For example, if the receiver falls on the second "Friday" of a month on the Gregorian calendar,
+    /// then `dayOfWeek` returns `6` ("Friday"), and this property returns `2` (the second Friday).
     var dayOfWeekOrdinal: Int { return calendar.component(.weekdayOrdinal, from: approximateMidPoint.date) }
 }
