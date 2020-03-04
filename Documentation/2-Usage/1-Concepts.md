@@ -4,7 +4,7 @@ In order to properly use this package, it's helpful to understand some underlyin
 
 ## There is only a single unit of time
 
-When it comes to the physical world around us, there is one (and only one) measurement of "physical" time, and that is the [SI Second](https://en.wikipedia.org/wiki/SI_base_unit), which is represented in this package via the `SISecond` class. An SI Second is defined a "the length of time it takes for a particular kind of atom to perform a specific number of state transitions."
+When it comes to the physical world around us, there is one (and only one) measurement of "physical" time, and that is the [SI Second](https://en.wikipedia.org/wiki/SI_base_unit), which is represented in this package via the `SISecond` type. An SI Second is defined a "the length of time it takes for a particular kind of atom to perform a specific number of state transitions."
 
 All other measurements of time (calendrical seconds, minutes, days, years, etc) are completely arbitrary and made up. They are often *based* on naturally occurring periods (such as "how long it takes the moon to orbit the earth" or "how long it takes the earth to orbit the sun"), but there is not a strict relationship between those "natural" periods and the calendar units with which we're familiar.
 
@@ -33,7 +33,7 @@ Thus, a person in London who looks at "February 28th, 2020" will interpret that 
 
 If you have a value that has a "month" and a "day", then you *cannot* create a calendrically significant value that "skips" other units. 
 
-In other words, there is no such thing as a calendar value that represents a "month, day, and second", without *also* representing "hour" (the unit between a day and a second).
+In other words, there is no such thing as a calendar value that represents a "month, day, and second", without *also* representing "hours" and "minutes" (the units between a day and a second).
 
 A valid calendar value *always* contains contiguous ranges of units.
 

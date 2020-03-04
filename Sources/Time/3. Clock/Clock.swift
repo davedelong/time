@@ -74,7 +74,7 @@ public class Clock {
     /// Retrieve the current instant.
     ///
     /// - Returns: An `Instant` representing the current time on the clock.
-    public func thisInstant() -> Instant {
+    public func now() -> Instant {
         return impl.now()
     }
     

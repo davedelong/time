@@ -16,8 +16,13 @@ public enum FormatError: Error {
 
 public extension Absolute {
     
+    @available(*, deprecated, renamed: "init(stringValue:rawFormat:region:)")
     init(stringValue: String, format: String, region: Region) throws {
-        let df = DateFormatterCache.shared.formatter(for: format, region: region)
+        try self.init(stringValue: stringValue, rawFormat: format, region: region)
+    }
+    
+    init(stringValue: String, rawFormat: String, region: Region) throws {
+        let df = DateFormatterCache.shared.formatter(forFormat: rawFormat, region: region)
         if let date = df.date(from: stringValue) {
             self.init(region: region, date: date)
         } else {

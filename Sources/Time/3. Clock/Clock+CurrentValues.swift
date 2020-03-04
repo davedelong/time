@@ -10,7 +10,7 @@ import Foundation
 public extension Clock {
     
     /// Retrieve the current `Instant` shown on the `Clock`.
-    func now() -> Instant { return thisInstant() }
+    func thisInstant() -> Instant { return now() }
     
     /// Retrieve the current `Absolute` calendrical value, accurate down to the specified unit.
     func this<C: Unit>() -> Absolute<C> { return Absolute(region: region, instant: thisInstant()) }

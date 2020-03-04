@@ -26,7 +26,7 @@ let tomorrow = today + .days(1)
 
 ## Unsafe Adjustments
 
-Unsafe adjustments are ones where we cannot guarantee ahead of time that the result will be calendrically valid. For example, if I have a value that refers to "February 2020", we cannot guarantee that attempting to find a specific day will succeed:
+Unsafe adjustments are ones where we cannot guarantee at compile time that the operation will be calendrically correct. For example, if I have a value that refers to "February 2020", we cannot guarantee that attempting to find a specific day will succeed:
 
 ```swift
 let february: Absolute<Month> = ...

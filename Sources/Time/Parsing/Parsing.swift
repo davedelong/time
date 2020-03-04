@@ -11,7 +11,7 @@ extension Value {
     
     internal init(stringValue: String, region: Region, formats: Array<Format?>) throws {
         let template = formats.compactMap { $0?.template }.joined()
-        let df = DateFormatterCache.shared.formatter(for: template, region: region)
+        let df = DateFormatterCache.shared.formatter(forTemplate: template, region: region)
         if let date = df.date(from: stringValue) {
             self.init(region: region, date: date)
         } else {

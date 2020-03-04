@@ -14,6 +14,7 @@ internal class DateFormatterCache {
     private struct Key: Hashable {
         enum Configuration: Hashable {
             case template(String)
+            case raw(String)
             case styles(DateFormatter.Style, DateFormatter.Style)
         }
         let configuration: Configuration
@@ -58,6 +59,8 @@ internal class DateFormatterCache {
         switch key.configuration {
             case .template(let template):
                 formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: key.region.locale)
+            case .raw(let format):
+                formatter.dateFormat = format
             case .styles(let date, let time):
                 formatter.dateStyle = date
                 formatter.timeStyle = time
@@ -77,6 +80,8 @@ internal class DateFormatterCache {
         switch key.configuration {
             case .template(let template):
                 formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: key.region.locale)
+            case .raw(let format):
+                formatter.dateFormat = format
             case .styles(let date, let time):
                 formatter.dateStyle = date
                 formatter.timeStyle = time
@@ -96,8 +101,13 @@ internal class DateFormatterCache {
         }
     }
     
-    func formatter(for template: String, region: Region) -> DateFormatter {
+    func formatter(forTemplate template: String, region: Region) -> DateFormatter {
         let key = Key(configuration: .template(template), region: region)
+        return formatter(for: key)
+    }
+    
+    func formatter(forFormat format: String, region: Region) -> DateFormatter {
+        let key = Key(configuration: .raw(format), region: region)
         return formatter(for: key)
     }
     

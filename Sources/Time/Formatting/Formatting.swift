@@ -63,7 +63,7 @@ extension Value {
         
     internal func format(_ formats: Array<Format?>) -> String {
         let template = formats.compactMap { $0?.template }.joined()
-        let df = DateFormatterCache.shared.formatter(for: template, region: region)
+        let df = DateFormatterCache.shared.formatter(forTemplate: template, region: region)
         return df.string(from: dateForFormatting())
     }
     
