@@ -34,7 +34,7 @@ extension Absolute {
     }
     
     internal func last<U: Unit>() -> Absolute<U> {
-        return Absolute<U>(region: region, instant: range.upperBound)
+        return Absolute<U>(region: region, instant: range.upperBound) - Difference(value: 1, unit: U.component)
     }
     
     internal func nth<U: Unit>(_ ordinal: Int) throws -> Absolute<U> {
