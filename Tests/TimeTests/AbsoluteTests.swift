@@ -2,6 +2,26 @@ import XCTest
 @testable import Time
 
 class AbsoluteTests: XCTestCase {
+    
+    func testInitializingGregorianDateWithoutEraSucceeds() {
+        XCTAssertNoThrow(try Absolute<Day>(region: .posix, year: 1970, month: 4, day: 1))
+    }
+    
+    func testInitializingGregorianDateWithEraSucceeds() {
+        XCTAssertNoThrow(try Absolute<Day>(region: .posix, era: 1, year: 1970, month: 4, day: 1))
+    }
+    
+    func testInitializingJapaneseDateWithoutEraFails() {
+        let japaneseRegion = Region(calendar: Calendar(identifier: .japanese), timeZone: Region.posix.timeZone, locale: Region.posix.locale)
+        XCTAssertThrowsError(try Absolute<Day>(region: japaneseRegion, year: 2, month: 3, day: 6))
+    }
+    
+    func testInitializingJapaneseDateWithEraSucceeds() {
+        let japaneseRegion = Region(calendar: Calendar(identifier: .japanese), timeZone: Region.posix.timeZone, locale: Region.posix.locale)
+        // March 6, Reiwa 2
+        XCTAssertNoThrow(try Absolute<Day>(region: japaneseRegion, era: 236, year: 2, month: 3, day: 6))
+    }
+    
     func testLastMonthOfYear() {
         
         let year = try! Absolute<Year>(region: .posix, era: 1, year: 2020)
