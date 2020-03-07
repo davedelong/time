@@ -90,6 +90,125 @@ class RelationTests: XCTestCase {
         XCTAssertEqual(bToA, .equal)
     }
     
+    func testRangeBeforeAndAfter() {
+        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        
+        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 2, day: 1)
+        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 2, day: 2)
+        
+        let a = a1 ..< a2
+        let b = b1 ..< b2
+        
+        let aToB = a.relation(to: b)
+        XCTAssertEqual(aToB, .before)
+        
+        let bToA = b.relation(to: a)
+        XCTAssertEqual(bToA, .after)
+    }
+    
+    func testRangeMeetsAndIsMetBy() {
+        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        
+        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 3)
+        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 4)
+        
+        let a = a1 ..< a2
+        let b = b1 ..< b2
+        
+        let aToB = a.relation(to: b)
+        XCTAssertEqual(aToB, .meets)
+        
+        let bToA = b.relation(to: a)
+        XCTAssertEqual(bToA, .isMetBy)
+    }
+    
+    func testRangeOverlapsAndIsOverlappedBy() {
+        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 10)
+        
+        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 15)
+        
+        let a = a1 ..< a2
+        let b = b1 ..< b2
+        
+        let aToB = a.relation(to: b)
+        XCTAssertEqual(aToB, .overlaps)
+        
+        let bToA = b.relation(to: a)
+        XCTAssertEqual(bToA, .isOverlappedBy)
+    }
+    
+    func testRangeStartsAndIsStartedBy() {
+        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        
+        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        
+        let a = a1 ..< a2
+        let b = b1 ..< b2
+        
+        let aToB = a.relation(to: b)
+        XCTAssertEqual(aToB, .starts)
+        
+        let bToA = b.relation(to: a)
+        XCTAssertEqual(bToA, .isStartedBy)
+    }
+    
+    func testRangeDuringAndContains() {
+        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 3)
+        
+        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        
+        let a = a1 ..< a2
+        let b = b1 ..< b2
+        
+        let aToB = a.relation(to: b)
+        XCTAssertEqual(aToB, .during)
+        
+        let bToA = b.relation(to: a)
+        XCTAssertEqual(bToA, .contains)
+    }
+    
+    func testRangeFinishesAndIsFinishedBy() {
+        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 4)
+        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        
+        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        
+        let a = a1 ..< a2
+        let b = b1 ..< b2
+        
+        let aToB = a.relation(to: b)
+        XCTAssertEqual(aToB, .finishes)
+        
+        let bToA = b.relation(to: a)
+        XCTAssertEqual(bToA, .isFinishedBy)
+    }
+    
+    func testRangeEqual() {
+        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 10)
+        
+        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 10)
+        
+        let a = a1 ..< a2
+        let b = b1 ..< b2
+        
+        let aToB = a.relation(to: b)
+        XCTAssertEqual(aToB, .equal)
+        
+        let bToA = b.relation(to: a)
+        XCTAssertEqual(bToA, .equal)
+    }
+    
     static var allTests = [
         ("testBeforeAndAfter", testBeforeAndAfter),
         ("testMeetsAndIsMetBy", testMeetsAndIsMetBy),
@@ -98,5 +217,13 @@ class RelationTests: XCTestCase {
         ("testDuringAndContains", testDuringAndContains),
         ("testFinishesAndIsFinishedBy", testFinishesAndIsFinishedBy),
         ("testEqual", testEqual),
+        
+        ("testRangeBeforeAndAfter", testRangeBeforeAndAfter),
+        ("testRangeMeetsAndIsMetBy", testRangeMeetsAndIsMetBy),
+        ("testRangeOverlapsAndIsOverlappedBy", testRangeOverlapsAndIsOverlappedBy),
+        ("testRangeStartsAndIsStartedBy", testRangeStartsAndIsStartedBy),
+        ("testRangeDuringAndContains", testRangeDuringAndContains),
+        ("testRangeFinishesAndIsFinishedBy", testRangeFinishesAndIsFinishedBy),
+        ("testRangeEqual", testRangeEqual),
     ]
 }

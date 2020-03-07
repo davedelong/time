@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Relations.swift
 //  
 //
 //  Created by Dave DeLong on 3/7/20.
@@ -148,35 +148,5 @@ public enum Relation: Hashable, CaseIterable {
     
     /// Returns `true` if the relation describes equality
     public var isEqual: Bool { self == .equal }
-    
-}
-
-public extension Absolute {
-    
-    /// Find the relationship between any two `Absolute` values.
-    ///
-    /// - Parameter other: Any other `Absolute` value
-    func relation<OS>(to other: Absolute<OS>) -> Relation {
-        let thisRange = self.range
-        let thatRange = other.range
-        
-        if thisRange.lowerBound < thatRange.lowerBound {
-            if thisRange.upperBound < thatRange.lowerBound { return .before }
-            if thisRange.upperBound == thatRange.lowerBound { return .meets }
-            if thisRange.upperBound < thatRange.upperBound { return .overlaps }
-            if thisRange.upperBound == thatRange.upperBound { return .isFinishedBy }
-            /* thisRange.upperBound > thatRange.upperBound */ return .contains
-        } else if thisRange.lowerBound == thatRange.lowerBound {
-            if thisRange.upperBound < thatRange.upperBound { return .starts }
-            if thisRange.upperBound == thatRange.upperBound { return .equal }
-            /* thisRange.upperBound > thatRange.upperBound */ return .isStartedBy
-        } else /* thisRange.lowerBound > thatRange.lowerBound */ {
-            if thisRange.lowerBound > thatRange.upperBound { return .after }
-            if thisRange.lowerBound == thatRange.upperBound { return .isMetBy }
-            if thisRange.upperBound < thatRange.upperBound { return .during }
-            if thisRange.upperBound == thatRange.upperBound { return .finishes }
-            /* thisRange.upperBound > thatRange.upperBound */ return .isOverlappedBy
-        }
-    }
     
 }
