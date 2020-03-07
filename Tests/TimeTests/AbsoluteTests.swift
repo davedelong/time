@@ -68,6 +68,10 @@ class AbsoluteTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testInitializingGregorianDateWithoutEraSucceeds", testInitializingGregorianDateWithoutEraSucceeds),
+        ("testInitializingGregorianDateWithEraSucceeds", testInitializingGregorianDateWithEraSucceeds),
+        ("testInitializingJapaneseDateWithoutEraFails", testInitializingJapaneseDateWithoutEraFails),
+        ("testInitializingJapaneseDateWithEraSucceeds", testInitializingJapaneseDateWithEraSucceeds),
         ("testLastMonthOfYear", testLastMonthOfYear),
         ("testLastDayOfMonth", testLastDayOfMonth),
         ("testLastHourOfDay", testLastHourOfDay),
