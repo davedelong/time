@@ -24,8 +24,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` is before range `B`:
     /// ````
-    /// --A--
-    ///          --B--
+    /// ●--A--○
+    ///          ●--B--○
     /// ````
     case before
     
@@ -33,8 +33,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` is after range `B`:
     /// ````
-    /// --B--
-    ///          --A--
+    /// ●--B--○
+    ///          ●--A--○
     /// ````
     case after
     
@@ -42,8 +42,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` meets range `B`:
     /// ````
-    /// --A--
-    ///      --B--
+    /// ●--A--○
+    ///       ●--B--○
     /// ````
     case meets
     
@@ -51,8 +51,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `B` is met by range `A`:
     /// ````
-    /// --B--
-    ///      --A--
+    /// ●--B--○
+    ///       ●--A--○
     /// ````
     case isMetBy
     
@@ -60,17 +60,17 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` overlaps range `B`:
     /// ````
-    /// --A--
-    ///    --B--
+    /// ●--A--○
+    ///     ●--B--○
     /// ````
     case overlaps
     
-    /// The first range starts before the second range ends, and ends after the second range ends
+    /// The first range starts after the second range starts, and ends after the second range ends
     ///
     /// - Example: Range `B` is overlapped by range `A`:
     /// ````
-    /// --B--
-    ///    --A--
+    /// ●--B--○
+    ///     ●--A--○
     /// ````
     case isOverlappedBy
     
@@ -78,8 +78,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` starts range `B`:
     /// ````
-    /// --A--
-    /// ----B----
+    /// ●--A--○
+    /// ●----B----○
     /// ````
     case starts
     
@@ -87,8 +87,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` is started by range `B`:
     /// ````
-    /// --B--
-    /// ----A----
+    /// ●--B--○
+    /// ●----A----○
     /// ````
     case isStartedBy
     
@@ -96,8 +96,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` is during range `B`:
     /// ````
-    ///   --A--
-    /// ----B----
+    ///   ●--A--○
+    /// ●----B----○
     /// ````
     case during
     
@@ -105,8 +105,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` contains range `B`:
     /// ````
-    ///   --B--
-    /// ----A----
+    ///   ●--B--○
+    /// ●----A----○
     /// ````
     case contains
     
@@ -114,8 +114,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` finishes range `B`:
     /// ````
-    ///     --A--
-    /// ----B----
+    ///     ●--A--○
+    /// ●----B----○
     /// ````
     case finishes
     
@@ -123,8 +123,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` is finished by range `B`:
     /// ````
-    ///     --B--
-    /// ----A----
+    ///     ●--B--○
+    /// ●----A----○
     /// ````
     case isFinishedBy
     
@@ -132,8 +132,8 @@ public enum Relation: Hashable, CaseIterable {
     ///
     /// - Example: Range `A` equals range `B`:
     /// ````
-    /// ----A----
-    /// ----B----
+    /// ●----A----○
+    /// ●----B----○
     /// ````
     case equal
     
