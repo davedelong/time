@@ -49,7 +49,7 @@ public enum Relation: Hashable, CaseIterable {
     
     /// The first range starts where the second range ends
     ///
-    /// - Example: Range `B` is met by range `A`:
+    /// - Example: Range `A` is met by range `B`:
     /// ````
     /// ●--B--○
     ///       ●--A--○
@@ -67,7 +67,7 @@ public enum Relation: Hashable, CaseIterable {
     
     /// The first range starts after the second range starts, and ends after the second range ends
     ///
-    /// - Example: Range `B` is overlapped by range `A`:
+    /// - Example: Range `A` is overlapped by range `B`:
     /// ````
     /// ●--B--○
     ///     ●--A--○
