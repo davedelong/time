@@ -44,4 +44,18 @@ public struct Region: Hashable {
         self.locale = locale
     }
     
+    public func converting(to timeZone: TimeZone) -> Region {
+        if timeZone == self.timeZone { return self }
+        return Region(calendar: self.calendar, timeZone: timeZone, locale: self.locale)
+    }
+    
+    public func converting(to calendar: Calendar) -> Region {
+        if calendar == self.calendar { return self }
+        return Region(calendar: calendar, timeZone: self.timeZone, locale: self.locale)
+    }
+    
+    public func converting(to locale: Locale) -> Region {
+        if locale == self.locale { return self }
+        return Region(calendar: self.calendar, timeZone: self.timeZone, locale: locale)
+    }
 }

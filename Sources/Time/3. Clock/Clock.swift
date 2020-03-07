@@ -95,14 +95,20 @@ public class Clock {
     /// - Returns: A new `Clock` that reports values in the specified `TimeZone`.
     public func converting(to timeZone: TimeZone) -> Clock {
         if timeZone == self.timeZone { return self }
-        let newRegion = Region(calendar: region.calendar, timeZone: timeZone, locale: region.locale)
+        let newRegion = self.region.converting(to: timeZone)
         return self.converting(to: newRegion)
     }
     
     public func converting(to calendar: Calendar) -> Clock {
         if calendar == self.calendar { return self }
         // TODO: if the new calendar defines a different scaling of SI Seconds... ?
-        let newRegion = Region(calendar: calendar, timeZone: region.timeZone, locale: region.locale)
+        let newRegion = self.region.converting(to: calendar)
+        return self.converting(to: newRegion)
+    }
+    
+    public func converting(to locale: Locale) -> Clock {
+        if locale == self.locale { return self }
+        let newRegion = self.region.converting(to: locale)
         return self.converting(to: newRegion)
     }
     

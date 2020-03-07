@@ -22,6 +22,17 @@ public extension Absolute {
         }
         return applying(adjuster)
     }
+    
+    func offset(by count: Int) -> Value<Smallest, Largest> {
+        guard count != 0 else { return self }
+        
+        let difference = Difference<Smallest, Largest>(value: count, unit: Smallest.component)
+        return applying(difference: difference)
+    }
+    
+    func next() -> Value<Smallest, Largest> { offset(by: 1) }
+    
+    func previous() -> Value<Smallest, Largest> { offset(by: -1) }
 
 }
 
