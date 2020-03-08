@@ -34,7 +34,7 @@ let dayValue = Absolute<Day>(region: .current, date: aDate)
 ```swift
 let components: DateComponents = ...
 
-let dayValue = try Absolute<Day>(region: .current, unsafeDateComponents: components)
+let dayValue = try Absolute<Day>(region: .current, strictDateComponents: components)
 ```
 
 This sort of initialization performs a *strict* initialization. If it is passed `DateComponents` of `{year: 2020, month: 2, day: 31}`, it will throw an error indicating the date components do not represent a "real" calendar value.

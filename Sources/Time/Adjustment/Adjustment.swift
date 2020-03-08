@@ -20,11 +20,11 @@ internal struct Adjustment<IS: Unit, IL: Unit, OS: Unit, OL: Unit> {
     
 }
 
-/// An UnsafeAdjustment is a mutation to a Value that may result in a non-existent value.
+/// A StrictAdjustment is a mutation to a Value that may result in a non-existent value.
 /// For example, any attempt to *set* the value of a particular field is unsafe,
 /// because there is no guarantee that the specified value calendrically exists.
 /// A trivial demonstration would be attempting to set the day of February to 31; this should throw.
-internal struct UnsafeAdjustment<IS: Unit, IL: Unit, OS: Unit, OL: Unit> {
+internal struct StrictAdjustment<IS: Unit, IL: Unit, OS: Unit, OL: Unit> {
     
     fileprivate let adjust: (Value<IS, IL>) throws -> Value<OS, OL>
     
@@ -40,7 +40,7 @@ internal extension Value {
         return adjustment.adjust(self)
     }
     
-    func applying<OS: Unit, OL: Unit>(_ adjustment: UnsafeAdjustment<Smallest, Largest, OS, OL>) throws -> Value<OS, OL> {
+    func applying<OS: Unit, OL: Unit>(_ adjustment: StrictAdjustment<Smallest, Largest, OS, OL>) throws -> Value<OS, OL> {
         return try adjustment.adjust(self)
     }
     

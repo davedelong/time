@@ -9,7 +9,7 @@
 - [x] defining relative and absolute values
 - [x] formatting absolute values
 - [x] safe absolute value adjustment
-- [x] unsafe absolute value adjustment
+- [x] strict absolute value adjustment
 - [x] initializing absolute values from a `Foundation.Date`
 - [x] initializing absolute values from components
 - [x] differences between absolute values
@@ -41,7 +41,7 @@ Fill out base functionality and fully implement `Relative` values:
 - [x] initializing relative values from a `Foundation.Date`
 - [ ] initializing relative values from components
 - [ ] safe relative value adjustment
-- [ ] unsafe relative value adjustment
+- [ ] strict relative value adjustment
 - [ ] differences between relative values
 - [ ] enumerating relative values
 - [ ] parsing relative values from strings
