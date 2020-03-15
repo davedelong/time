@@ -1,5 +1,8 @@
 .DS_Store
 /.build
+build/
+Carthage
 /Packages
 /*.xcodeproj
 .swiftpm
+*.framework.zip
