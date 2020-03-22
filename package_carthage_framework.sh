@@ -152,8 +152,8 @@ function create_carthage_artefacts {
         local carthage_build_path=${CARTHAGE_ROOT}/Build/${platform}
 
         mkdir -p ${carthage_build_path}
-        cp -rL ${product_build_path}/${FRAMEWORK_PATH} ${carthage_build_path}
-        cp -rL ${product_build_path}/${FRAMEWORK_PATH}.dSYM ${carthage_build_path}
+        cp -RL ${product_build_path}/${FRAMEWORK_PATH} ${carthage_build_path}
+        cp -RL ${product_build_path}/${FRAMEWORK_PATH}.dSYM ${carthage_build_path}
     done
 
     zip -r -X ${CARTHAGE_FRAMEWORK}.zip ${CARTHAGE_ROOT}
