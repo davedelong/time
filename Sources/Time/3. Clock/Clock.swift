@@ -19,6 +19,11 @@ public class Clock {
     
     private let impl: ClockImplementation
     
+    /// How many seconds the `Clock` measures per actual second elapsed.
+    ///
+    /// This value is 1.0, unless otherwise specified in the initializer.
+    public var rate: Double { impl.SISecondsPerActualSecond }
+    
     /// The `Clock`'s `Region`.
     public let region: Region
     
