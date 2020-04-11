@@ -7,6 +7,14 @@
 
 import Foundation
 
+public extension TimePeriod {
+    
+    func value(for unit: Calendar.Component) -> Int {
+        return dateComponents.value(for: unit).unwrap("A TimePeriod<\(Smallest.self), \(Largest.self)> does not contain a represented \(unit)")
+    }
+    
+}
+
 public extension Absolute where Smallest: LTOEEra, Largest: GTOEEra {
     
     /// Retrieve the numeric era of an absolute calendrical value.
