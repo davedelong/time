@@ -44,4 +44,10 @@ public struct Region: Hashable {
         self.locale = locale
     }
     
+    /// Indicates whether time values in this region will be formatted using 12-hour ("1:00 PM") or 24-hour ("13:00") time.
+    public var wants24HourTime: Bool {
+        let formatString = DateFormatter.dateFormat(fromTemplate: "J", options: 0, locale: locale)
+        return formatString?.contains("H") == true
+    }
+    
 }
