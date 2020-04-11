@@ -7,9 +7,6 @@
 
 import Foundation
 
-@available(*, deprecated, renamed: "AbsoluteTimePeriodSequence")
-public typealias AbsoluteValueSequence = AbsoluteTimePeriodSequence
-
 /// A `Sequence` of `Absolute` calendar values.
 public struct AbsoluteTimePeriodSequence<U: Unit>: Sequence {
     
@@ -57,9 +54,6 @@ public struct AbsoluteTimePeriodSequence<U: Unit>: Sequence {
     }
     
 }
-
-@available(*, deprecated, renamed: "AbsoluteTimePeriodIterator")
-public typealias AbsoluteValueIterator = AbsoluteTimePeriodIterator
 
 /// An iterator of `Absolute` calendar values.
 public struct AbsoluteTimePeriodIterator<U: Unit>: IteratorProtocol {

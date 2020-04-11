@@ -21,9 +21,6 @@ import Foundation
 /// the `Era` unit.
 public typealias Absolute<U: Unit> = TimePeriod<U, Era>
 
-@available(*, deprecated, renamed: "TimePeriod", message: "Value has been renamed to 'TimePeriod'")
-public typealias Value = TimePeriod
-
 /// `TimePeriod` is the fundamental type used to represent a calendrical value.
 ///
 /// `TimePeriod` has two generic parameters, called `Smallest` and `Largest`. These

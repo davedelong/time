@@ -48,14 +48,6 @@ extension Absolute {
         let next = try region.calendar.exactDate(from: strictDateComponents, matching: Self.representedComponents)
         self.init(region: region, date: next)
     }
-    
-    @available(*, deprecated,
-                  renamed: "init(region:strictDateComponents:)", 
-                  message: "Usages of 'Unsafe' have been renamed to 'Strict'. This method will disappear in 1.0")
-    public init(region: Region, unsafeDateComponents: DateComponents) throws {
-        try self.init(region: region, strictDateComponents: unsafeDateComponents)
-    }
-    
 }
 
 extension TimePeriod where Smallest == Year, Largest == Era {
