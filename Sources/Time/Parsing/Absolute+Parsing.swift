@@ -7,13 +7,6 @@
 
 import Foundation
 
-public enum FormatError: Error {
-    
-    case cannotParseString(String)
-    case cannotLocateUnit(Calendar.Component)
-    
-}
-
 public extension Absolute {
     
     @available(*, deprecated, renamed: "init(stringValue:rawFormat:region:)")
@@ -26,7 +19,7 @@ public extension Absolute {
         if let date = df.date(from: stringValue) {
             self.init(region: region, date: date)
         } else {
-            throw FormatError.cannotParseString(stringValue)
+            throw TimeError.cannotParseString(stringValue, in: region)
         }
     }
     

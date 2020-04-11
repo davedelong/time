@@ -53,4 +53,4 @@ let today: Absolute<Day> = ...
 let todayAt3PM = try today.setting(hour: 15, minute: 0)
 ```
 
-When a strict adjustment fails, it throws an `AdjustmentError`.
+When a strict adjustment fails, it throws a `TimeError`.

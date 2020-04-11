@@ -18,7 +18,7 @@ internal extension DateComponents {
         var final = DateComponents()
         for component in components {
             guard let value = self.value(for: component) else {
-                throw AdjustmentError.missingValueForUnit(component)
+                throw TimeError.missingCalendarComponent(component)
             }
             final.setValue(value, for: component)
         }

@@ -78,6 +78,6 @@ internal func deduceAbsoluteFormat(string: String, region: Region, units: Set<Ca
         }
     }
     
-    throw FormatError.cannotParseString(string)
+    throw TimeError.cannotParseString(string, in: region)
     
 }

@@ -31,7 +31,8 @@ internal extension Calendar {
         var restricted = try components.requireAndRestrict(to: matching)
         
         guard let proposed = self.date(from: restricted) else {
-            throw AdjustmentError.invalidDateComponents(restricted)
+            let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)
+            throw TimeError.invalidDateComponents(restricted, in: r)
         }
         
         let proposedComponents = self.dateComponents(matching, from: proposed)
@@ -41,7 +42,8 @@ internal extension Calendar {
         }
         
         guard proposedComponents == restricted else {
-            throw AdjustmentError.invalidDateComponents(restricted)
+            let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)
+            throw TimeError.invalidDateComponents(restricted, in: r)
         }
         
         return proposed

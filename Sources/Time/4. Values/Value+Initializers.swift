@@ -34,13 +34,13 @@ extension Absolute {
     ///
     /// This method is "strict" because it is fairly easy for it to produce an error.
     /// For example, if you are attempting to construct an `Absolute<Month>` but only provide
-    /// a `year` value in the `DateComponents`, then this will throw an `AdjustmentError`.
+    /// a `year` value in the `DateComponents`, then this will throw a `TimeError`.
     ///
     /// If you are attempting to construct a calendrically impossible date, such as "February 30th",
-    /// then this will throw an `AdjustmentError`.
+    /// then this will throw a `TimeError`.
     ///
     /// The matching done on the `DateComponents` is a *strict* match; the returned `Value` will
-    /// either exactly match the provided components, or this will throw an `AdjustmentError`.
+    /// either exactly match the provided components, or this will throw a `TimeError`.
     ///
     /// - Parameter region: The `Region` in which to interpret the date components
     /// - Parameter strictDateComponents: The `DateComponents` describing the desired calendrical date
@@ -65,7 +65,7 @@ extension Value where Smallest == Year, Largest == Era {
     ///   - region: The `Region` in which the components will be interpreted.
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.
     ///   - year: The numeric `Year` value.
-    /// - Throws: An `AdjustmentError` if the specified components cannot be converted into a calendar value.
+    /// - Throws: A `TimeError` if the specified components cannot be converted into a calendar value.
     public init(region: Region, era: Int? = nil, year: Int) throws {
         let components = DateComponents(era: era, year: year)
         try self.init(region: region, strictDateComponents: components)
@@ -81,7 +81,7 @@ extension Value where Smallest == Month, Largest == Era {
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.
     ///   - year: The numeric `Year` value.
     ///   - month: The numeric `Month` value.
-    /// - Throws: An `AdjustmentError` error if the specified components cannot be converted into a calendar value.
+    /// - Throws: A `TimeError` error if the specified components cannot be converted into a calendar value.
     public init(region: Region, era: Int? = nil, year: Int, month: Int) throws {
         let components = DateComponents(era: era, year: year, month: month)
         try self.init(region: region, strictDateComponents: components)
@@ -98,7 +98,7 @@ extension Value where Smallest == Day, Largest == Era {
     ///   - year: The numeric `Year` value.
     ///   - month: The numeric `Month` value.
     ///   - day: the numeric `Day` value.
-    /// - Throws: An `AdjustmentError` error if the specified components cannot be converted into a calendar value.
+    /// - Throws: A `TimeError` error if the specified components cannot be converted into a calendar value.
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int) throws {
         let components = DateComponents(era: era, year: year, month: month, day: day)
         try self.init(region: region, strictDateComponents: components)
@@ -116,7 +116,7 @@ extension Value where Smallest == Hour, Largest == Era {
     ///   - month: The numeric `Month` value.
     ///   - day: the numeric `Day` value.
     ///   - hour: the numeric `Hour` value.
-    /// - Throws: An `AdjustmentError` error if the specified components cannot be converted into a calendar value.
+    /// - Throws: A `TimeError` error if the specified components cannot be converted into a calendar value.
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int) throws {
         let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour)
         try self.init(region: region, strictDateComponents: components)
@@ -135,7 +135,7 @@ extension Value where Smallest == Minute, Largest == Era {
     ///   - day: the numeric `Day` value.
     ///   - hour: the numeric `Hour` value.
     ///   - minute: the numeric `Minute` value.
-    /// - Throws: An `AdjustmentError` error if the specified components cannot be converted into a calendar value.
+    /// - Throws: A `TimeError` error if the specified components cannot be converted into a calendar value.
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int) throws {
         let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute)
         try self.init(region: region, strictDateComponents: components)
@@ -155,7 +155,7 @@ extension Value where Smallest == Second, Largest == Era {
     ///   - hour: the numeric `Hour` value.
     ///   - minute: the numeric `Minute` value.
     ///   - second: the numeric `Second` value.
-    /// - Throws: An `AdjustmentError` error if the specified components cannot be converted into a calendar value.
+    /// - Throws: A `TimeError` error if the specified components cannot be converted into a calendar value.
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) throws {
         let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute, second: second)
         try self.init(region: region, strictDateComponents: components)
@@ -176,7 +176,7 @@ extension Value where Smallest == Nanosecond, Largest == Era {
     ///   - minute: the numeric `Minute` value.
     ///   - second: the numeric `Second` value.
     ///   - nanosecond: the numeric `Nanosecond` value.
-    /// - Throws: An `AdjustmentError` error if the specified components cannot be converted into a calendar value.
+    /// - Throws: A `TimeError` error if the specified components cannot be converted into a calendar value.
     public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws {
         let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond)
         try self.init(region: region, strictDateComponents: components)
