@@ -66,7 +66,7 @@ let month = today.month // Ex: 2
 let day = today.day // Ex: 28
 ```
 
-More information in ["Value"](Documentation/2-Usage/3-Value.md).
+More information in ["TimePeriod"](Documentation/2-Usage/3-TimePeriod.md).
 
 #### Calculating Differences
 
@@ -83,7 +83,7 @@ let daysDifference = day1.differenceInDays(to: day2)
 
 More information in ["Differences"](Documentation/2-Usage/5-Differences.md).
 
-#### Iterating Over Values
+#### Iterating Over TimePeriods
 
 ```swift
 let thisMonth = Clock.system.thisMonth()
@@ -94,9 +94,9 @@ for day in daysInThisMonth {
 }
 ```
 
-More information in ["Iterating Over Values"](Documentation/2-Usage/6-Iteration.md).
+More information in ["Iterating Over TimePeriods"](Documentation/2-Usage/6-Iteration.md).
 
-#### Formatting Values
+#### Formatting TimePeriods
 
 ```swift
 let today: Absolute<Day> = ...
@@ -105,7 +105,7 @@ let fullYearString = today.format(date: .full) // Ex: February 28, 2020
 let shortYearString = today.format(year: .twoDigits, month: .full) // Ex: February '20
 ```
 
-More information in ["Formatting Values"](Documentation/2-Usage/7-Formatting.md).
+More information in ["Formatting TimePeriods"](Documentation/2-Usage/7-Formatting.md).
 
 ## Detailed Information
 

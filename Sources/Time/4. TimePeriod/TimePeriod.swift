@@ -35,7 +35,7 @@ public typealias Value = TimePeriod
 /// is technically possible to define a `TimePeriod<Hour, Second>`, it is impossible
 /// to actually construct one, as it would contain no underlying component values.
 ///
-/// All `Values` have a `Region`, which defines the calendar, timezone, and
+/// All `TimePeriods` have a `Region`, which defines the calendar, timezone, and
 /// locale used in computing the underlying component values.
 public struct TimePeriod<Smallest: Unit, Largest: Unit> {
     
@@ -43,28 +43,28 @@ public struct TimePeriod<Smallest: Unit, Largest: Unit> {
         return try dateComponents.requireAndRestrict(to: representedComponents)
     }
     
-    /// The set of `Calendar.Components` represented by this particular `Value`
+    /// The set of `Calendar.Components` represented by this particular `TimePeriod`
     public static var representedComponents: Set<Calendar.Component> {
         return componentsFrom(lower: Smallest.self, to: Largest.self)
     }
         
-    /// The `Region` value used in computing this `Value`'s components.
+    /// The `Region` value used in computing this `TimePeriod`'s components.
     public let region: Region
     
-    /// The set of calendar components represented by this `Value`.
+    /// The set of calendar components represented by this `TimePeriod`.
     public var representedComponents: Set<Calendar.Component> {
         return TimePeriod<Smallest, Largest>.representedComponents
     }
     
     internal let dateComponents: DateComponents
     
-    /// The `Calendar` used in computing this `Value`'s components, as defined by its `Region`.
+    /// The `Calendar` used in computing this `TimePeriod`'s components, as defined by its `Region`.
     public var calendar: Calendar { return region.calendar }
     
-    /// The `TimeZone` used in computing this `Value`'s components, as defined by its `Region`.
+    /// The `TimeZone` used in computing this `TimePeriod`'s components, as defined by its `Region`.
     public var timeZone: TimeZone { return region.timeZone }
     
-    /// The `Locale` used in computing this `Value`'s components, as defined by its `Region`.
+    /// The `Locale` used in computing this `TimePeriod`'s components, as defined by its `Region`.
     public var locale: Locale { return region.locale }
     
     internal init(region: Region, dateComponents: DateComponents) throws {
@@ -79,9 +79,9 @@ public struct TimePeriod<Smallest: Unit, Largest: Unit> {
 
 extension TimePeriod: Equatable {
     
-    /// Determine if two `Values` are equal.
+    /// Determine if two `TimePeriods` are equal.
     ///
-    /// Two `Values` are equal if they have the same `Region` and represent the same calendrical components.
+    /// Two `TimePeriods` are equal if they have the same `Region` and represent the same calendrical components.
     /// - Parameter lhs: a `TimePeriod`
     /// - Parameter rhs: a `TimePeriod`
     public static func ==(lhs: TimePeriod, rhs: TimePeriod) -> Bool {
@@ -114,7 +114,7 @@ extension TimePeriod: Comparable {
         return lhs.region == rhs.region && lhs.dateComponents.isGreaterThan(other: rhs.dateComponents)
     }
     
-    /// Determine if one `Value` is less than another `TimePeriod`.
+    /// Determine if one `TimePeriod` is less than another `TimePeriod`.
     ///
     /// A `TimePeriod` is less than another if they have the same `Region`, and the first's
     /// calendrical components come *before* the other's components.
@@ -128,7 +128,7 @@ extension TimePeriod: Comparable {
 
 extension TimePeriod: CustomStringConvertible {
     
-    /// Provide a description of the `Value`.
+    /// Provide a description of the `TimePeriod`.
     ///
     /// The description is a localized "full" formatting of the calendar value.
     public var description: String {

@@ -1,6 +1,6 @@
 # Differences
 
-In `Time`, the calendrical interval between two `Values` is expressed via the `Difference` type. Like `Value`, it also has two generic parameters that define the range of represented units. The generic parameters *usually* match the parameters of the two `Values`, but you can explicitly request different kinds of differences.
+In `Time`, the calendrical interval between two `TimePeriods` is expressed via the `Difference` type. Like `TimePeriod`, it also has two generic parameters that define the range of represented units. The generic parameters *usually* match the parameters of the two `TimePeriods`, but you can explicitly request different kinds of differences.
 
 ```swift
 

@@ -18,7 +18,7 @@
 - [x] Rename `Delta`. Possible candidates:
     - `Difference` (This was chosen)
     - `Interval`
-- [ ] Rename `Value`. Possible candidates:
+- [x] Rename `Value`. Possible candidates:
     - `TimeSlice`
     - `Period`
     - `TemporalRange`
@@ -26,6 +26,7 @@
     - `Measurement`
     - `Quantum`
     - `Quantity`
+    - `TimePeriod` (chosen)
 - [ ] documentation
 - [x] Project organization
 

@@ -11,7 +11,7 @@ for day in daysInThisMonth {
 }
 ```
 
-By default, all absolute `Values` provide convenience methods for iterating over subcomponents:
+By default, all absolute `TimePeriods` provide convenience methods for iterating over subcomponents:
 
 - An `Absolute<Year>` provides `months()` and `days()` to iterate over the months in the year and the days in the year
 - An `Absolute<Month>` provides `days()` and `hours()` to iterate over the days or hours in the month

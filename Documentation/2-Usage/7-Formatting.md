@@ -1,6 +1,6 @@
-# Formatting Values
+# Formatting TimePeriods
 
-Formatting is the process of taking a `Value` and turning it into a human-readable form. `Time` offers a rich set of APIs for formatting values according to the user's localized preferences.
+Formatting is the process of taking a `TimePeriod` and turning it into a human-readable form. `Time` offers a rich set of APIs for formatting values according to the user's localized preferences.
 
 ```swift
 let today: Absolute<Day> = ...

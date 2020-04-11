@@ -1,6 +1,6 @@
-# Adjusting Values
+# Adjusting TimePeriods
 
-"Adjusting" is the process of mutating a `Value` to form a new value. Simple adjustments would be things like:
+"Adjusting" is the process of mutating a `TimePeriod` to form a new value. Simple adjustments would be things like:
 
 ```swift
 let today: Absolute<Day> = ...
@@ -17,7 +17,7 @@ Safe adjustments are *relative* adjustments. This means they typically involve s
 
 These adjustments are "safe", because there is no reasonable way in which they will fail. For example, if I have a value representing a "day", then it will always be possible to find the preceding or succeeding day.
 
-`Value` includes many methods for performing safe adjustments (such as the `.adding(...)` and `.subtracting(...)` methods). As a convenience, it also includes overrides of the `+` and `-` operator for a more expressive syntax:
+`TimePeriod` includes many methods for performing safe adjustments (such as the `.adding(...)` and `.subtracting(...)` methods). As a convenience, it also includes overrides of the `+` and `-` operator for a more expressive syntax:
 
 ```swift
 let today: Absolute<Day> = ...

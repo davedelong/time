@@ -76,7 +76,7 @@ However, since `NSDateComponents` is used for two different purposes, it's awkwa
 
 In other words, the Foundation API surrounding `NSDateComponents` decreases expressivity and fluency.
 
-`Time` solves this by having properly pluralized properties on `Difference` values, and unpluralized properties on `Values`.
+`Time` solves this by having properly pluralized properties on `Difference` values, and unpluralized properties on `TimePeriods`.
 
 ## What should we do about this?
 
