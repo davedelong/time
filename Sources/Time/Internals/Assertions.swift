@@ -7,17 +7,17 @@
 
 import Foundation
 
-internal func require(_ condition: @autoclosure () -> Bool, _ why: String, file: StaticString = #file, line: UInt = #line) {
+internal func require(_ condition: @autoclosure () -> Bool, _ why: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
     guard condition() == true else {
-        fatalError(why, file: file, line: line)
+        fatalError(why(), file: file, line: line)
     }
 }
 
 internal extension Optional {
     
-    func unwrap(_ why: String, file: StaticString = #file, line: UInt = #line) -> Wrapped {
+    func unwrap(_ why: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) -> Wrapped {
         guard let value = self else {
-            fatalError(why, file: file, line: line)
+            fatalError(why(), file: file, line: line)
         }
         return value
     }
