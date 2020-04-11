@@ -14,12 +14,12 @@ public extension Absolute where Smallest == Hour, Largest == Era {
     func nthMinute(_ ordinal: Int) throws -> Absolute<Minute> { return try nth(ordinal) }
     func minute(_ number: Int) -> Absolute<Minute>? { return numbered(number) }
     
-    func minutes() -> AbsoluteValueSequence<Minute> {
-        return AbsoluteValueSequence(parent: self)
+    func minutes() -> AbsoluteTimePeriodSequence<Minute> {
+        return AbsoluteTimePeriodSequence(parent: self)
     }
     
-    func seconds() -> AbsoluteValueSequence<Second> {
-        return AbsoluteValueSequence(parent: self)
+    func seconds() -> AbsoluteTimePeriodSequence<Second> {
+        return AbsoluteTimePeriodSequence(parent: self)
     }
     
     func contains<U: LTOEMinute>(_ value: Absolute<U>) -> Bool {

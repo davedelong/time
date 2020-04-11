@@ -7,10 +7,13 @@
 
 import Foundation
 
+@available(*, deprecated, renamed: "AbsoluteTimePeriodSequence")
+public typealias AbsoluteValueSequence = AbsoluteTimePeriodSequence
+
 /// A `Sequence` of `Absolute` calendar values.
-public struct AbsoluteValueSequence<U: Unit>: Sequence {
+public struct AbsoluteTimePeriodSequence<U: Unit>: Sequence {
     
-    private let constructor: () -> AbsoluteValueIterator<U>
+    private let constructor: () -> AbsoluteTimePeriodIterator<U>
     
     /// Construct a sequence of `Absolute` calendar values starting from a specific value.
     /// - Parameters:
@@ -18,7 +21,7 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     ///   - stride: The difference between subsequent calendar values.
     ///   - keepGoing: A closure that is invoked to indicate whether the sequence should continue. This closure is invoked *before* the next value is generated.
     public init(start: Absolute<U>, stride: Difference<U, Era>, while keepGoing: @escaping (Absolute<U>) -> Bool) {
-        constructor = { AbsoluteValueIterator(start: start, stride: stride, keepGoing: keepGoing)}
+        constructor = { AbsoluteTimePeriodIterator(start: start, stride: stride, keepGoing: keepGoing)}
     }
     
     /// Construct a sequence of `Absolute` calendar values that iterates through a definite range of values.
@@ -30,7 +33,7 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     public init<S>(range: Range<Absolute<S>>, stride: Difference<U, Era>) {
         let lower = range.lowerBound
         let upper = range.upperBound.converting(to: lower.region)
-        constructor = { AbsoluteValueIterator(region: lower.region, range: lower.firstInstant ..< upper.firstInstant, stride: stride) }
+        constructor = { AbsoluteTimePeriodIterator(region: lower.region, range: lower.firstInstant ..< upper.firstInstant, stride: stride) }
     }
     
     /// Construct a sequence of `Absolute` calendar values that iterates through a closed range of values.
@@ -42,21 +45,24 @@ public struct AbsoluteValueSequence<U: Unit>: Sequence {
     public init<S>(range: ClosedRange<Absolute<S>>, stride: Difference<U, Era>) {
         let lower = range.lowerBound
         let upper = range.upperBound.converting(to: lower.region)
-        constructor = { AbsoluteValueIterator(region: lower.region, range: lower.firstInstant ... upper.firstInstant, stride: stride) }
+        constructor = { AbsoluteTimePeriodIterator(region: lower.region, range: lower.firstInstant ... upper.firstInstant, stride: stride) }
     }
     
     internal init<S>(parent: Absolute<S>, stride: Difference<U, Era> = Difference(value: 1, unit: U.component)) {
-        constructor = { AbsoluteValueIterator(region: parent.region, range: parent.range, stride: stride) }
+        constructor = { AbsoluteTimePeriodIterator(region: parent.region, range: parent.range, stride: stride) }
     }
     
-    public __consuming func makeIterator() -> AbsoluteValueIterator<U> {
+    public __consuming func makeIterator() -> AbsoluteTimePeriodIterator<U> {
         return constructor()
     }
     
 }
 
+@available(*, deprecated, renamed: "AbsoluteTimePeriodIterator")
+public typealias AbsoluteValueIterator = AbsoluteTimePeriodIterator
+
 /// An iterator of `Absolute` calendar values.
-public struct AbsoluteValueIterator<U: Unit>: IteratorProtocol {
+public struct AbsoluteTimePeriodIterator<U: Unit>: IteratorProtocol {
     private let region: Region
     
     private let keepGoing: (Absolute<U>) -> Bool
