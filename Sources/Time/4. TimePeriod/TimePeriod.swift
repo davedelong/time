@@ -1,5 +1,5 @@
 //
-//  Value.swift
+//  TimePeriod.swift
 //  
 //
 //  Created by Dave DeLong on 10/5/19.
@@ -13,29 +13,31 @@ import Foundation
 /// on a physical calendar. For example, there is only one "October 2019 CE"
 /// on the Gregorian calendar.
 ///
-/// By contrast, a non-absolute `Value` (eg: "October") can represent *many*
+/// By contrast, a non-absolute `TimePeriod` (eg: "October") can represent *many*
 /// possible values on a physical calendar (October 2019, October 2020, etc).
 ///
 /// The defining characteristic of `Absolute<U>` values is that they contain
 /// all calendar components starting from their lower unit up-to-and-including
 /// the `Era` unit.
-public typealias Absolute<U: Unit> = Value<U, Era>
+public typealias Absolute<U: Unit> = TimePeriod<U, Era>
 
+@available(*, deprecated, renamed: "TimePeriod", message: "Value has been renamed to 'TimePeriod'")
+public typealias Value = TimePeriod
 
-/// `Value` is the fundamental type used to represent a calendrical value.
+/// `TimePeriod` is the fundamental type used to represent a calendrical value.
 ///
-/// `Value` has two generic parameters, called `Smallest` and `Largest`. These
+/// `TimePeriod` has two generic parameters, called `Smallest` and `Largest`. These
 /// generic types are used to define the upper and lower bounds of the units
 /// represented by the value.
 ///
-/// For example, a `Value<Second, Hour>` contains components for seconds, minutes,
-/// and hours. A `Value<Minute, Minute>` contains only a minute components. While it
-/// is technically possible to define a `Value<Hour, Second>`, it is impossible
+/// For example, a `TimePeriod<Second, Hour>` contains components for seconds, minutes,
+/// and hours. A `TimePeriod<Minute, Minute>` contains only a minute components. While it
+/// is technically possible to define a `TimePeriod<Hour, Second>`, it is impossible
 /// to actually construct one, as it would contain no underlying component values.
 ///
 /// All `Values` have a `Region`, which defines the calendar, timezone, and
 /// locale used in computing the underlying component values.
-public struct Value<Smallest: Unit, Largest: Unit> {
+public struct TimePeriod<Smallest: Unit, Largest: Unit> {
     
     internal static func restrict(dateComponents: DateComponents) throws -> DateComponents {
         return try dateComponents.requireAndRestrict(to: representedComponents)
@@ -51,7 +53,7 @@ public struct Value<Smallest: Unit, Largest: Unit> {
     
     /// The set of calendar components represented by this `Value`.
     public var representedComponents: Set<Calendar.Component> {
-        return Value<Smallest, Largest>.representedComponents
+        return TimePeriod<Smallest, Largest>.representedComponents
     }
     
     internal let dateComponents: DateComponents
@@ -67,30 +69,30 @@ public struct Value<Smallest: Unit, Largest: Unit> {
     
     internal init(region: Region, dateComponents: DateComponents) throws {
         self.region = region
-        self.dateComponents = try Value.restrict(dateComponents: dateComponents)
+        self.dateComponents = try TimePeriod.restrict(dateComponents: dateComponents)
     }
     
-    internal func subComponents<S: Unit, L: Unit>() -> Value<S, L> {
-        return try! Value<S, L>.init(region: region, dateComponents: dateComponents)
+    internal func subComponents<S: Unit, L: Unit>() -> TimePeriod<S, L> {
+        return try! TimePeriod<S, L>.init(region: region, dateComponents: dateComponents)
     }
 }
 
-extension Value: Equatable {
+extension TimePeriod: Equatable {
     
     /// Determine if two `Values` are equal.
     ///
     /// Two `Values` are equal if they have the same `Region` and represent the same calendrical components.
-    /// - Parameter lhs: a `Value`
-    /// - Parameter rhs: a `Value`
-    public static func ==(lhs: Value, rhs: Value) -> Bool {
+    /// - Parameter lhs: a `TimePeriod`
+    /// - Parameter rhs: a `TimePeriod`
+    public static func ==(lhs: TimePeriod, rhs: TimePeriod) -> Bool {
         return lhs.region == rhs.region && lhs.dateComponents == rhs.dateComponents
     }
     
 }
 
-extension Value: Hashable {
+extension TimePeriod: Hashable {
     
-    /// Compute the hash of a `Value`
+    /// Compute the hash of a `TimePeriod`
     ///
     /// - Parameter hasher: a `Hasher`
     public func hash(into hasher: inout Hasher) {
@@ -100,31 +102,31 @@ extension Value: Hashable {
     
 }
 
-extension Value: Comparable {
+extension TimePeriod: Comparable {
     
-    /// Determine if one `Value` is greater than another `Value`.
+    /// Determine if one `TimePeriod` is greater than another `TimePeriod`.
     ///
-    /// A `Value` is greater than another if they have the same `Region`, and the first's
+    /// A `TimePeriod` is greater than another if they have the same `Region`, and the first's
     /// calendrical components come *after* the other's components.
-    /// - Parameter lhs: a `Value`
-    /// - Parameter rhs: a `Value`
-    public static func > (lhs: Value, rhs: Value) -> Bool {
+    /// - Parameter lhs: a `TimePeriod`
+    /// - Parameter rhs: a `TimePeriod`
+    public static func > (lhs: TimePeriod, rhs: TimePeriod) -> Bool {
         return lhs.region == rhs.region && lhs.dateComponents.isGreaterThan(other: rhs.dateComponents)
     }
     
-    /// Determine if one `Value` is less than another `Value`.
+    /// Determine if one `Value` is less than another `TimePeriod`.
     ///
-    /// A `Value` is less than another if they have the same `Region`, and the first's
+    /// A `TimePeriod` is less than another if they have the same `Region`, and the first's
     /// calendrical components come *before* the other's components.
-    /// - Parameter lhs: a `Value`
-    /// - Parameter rhs: a `Value`
-    public static func < (lhs: Value, rhs: Value) -> Bool {
+    /// - Parameter lhs: a `TimePeriod`
+    /// - Parameter rhs: a `TimePeriod`
+    public static func < (lhs: TimePeriod, rhs: TimePeriod) -> Bool {
         return lhs.region == rhs.region && lhs.dateComponents.isLessThan(other: rhs.dateComponents)
     }
     
 }
 
-extension Value: CustomStringConvertible {
+extension TimePeriod: CustomStringConvertible {
     
     /// Provide a description of the `Value`.
     ///

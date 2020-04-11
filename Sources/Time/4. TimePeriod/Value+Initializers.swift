@@ -1,5 +1,5 @@
 //
-//  Value+Initializers.swift
+//  TimePeriod+Initializers.swift
 //  
 //
 //  Created by Dave DeLong on 11/9/19.
@@ -7,18 +7,18 @@
 
 import Foundation
 
-extension Value {
+extension TimePeriod {
 
-    /// Construct a `Value` from an instantaneous point in time.
+    /// Construct a `TimePeriod` from an instantaneous point in time.
     /// - Parameter region: The `Region` in which to interpret the point in time
-    /// - Parameter instant: The `Instant` that is contained by the constructed `Value`
+    /// - Parameter instant: The `Instant` that is contained by the constructed `TimePeriod`
     public init(region: Region, instant: Instant) {
         self.init(region: region, date: instant.date)
     }
     
-    /// Construct a `Value` from an instantaneous point in time.
+    /// Construct a `TimePeriod` from an instantaneous point in time.
     /// - Parameter region: The `Region` in which to interpret the point in time
-    /// - Parameter instant: The `Date` that is contained by the constructed `Value`
+    /// - Parameter instant: The `Date` that is contained by the constructed `TimePeriod`
     public init(region: Region, date: Date) {
         let components = region.calendar.dateComponents(in: region.timeZone, from: date)
         try! self.init(region: region, dateComponents: components)
@@ -30,7 +30,7 @@ extension Value {
 
 extension Absolute {
     
-    /// Construct an absolute `Value` from a set of `DateComponents`.
+    /// Construct an absolute `TimePeriod` from a set of `DateComponents`.
     ///
     /// This method is "strict" because it is fairly easy for it to produce an error.
     /// For example, if you are attempting to construct an `Absolute<Month>` but only provide
@@ -39,7 +39,7 @@ extension Absolute {
     /// If you are attempting to construct a calendrically impossible date, such as "February 30th",
     /// then this will throw a `TimeError`.
     ///
-    /// The matching done on the `DateComponents` is a *strict* match; the returned `Value` will
+    /// The matching done on the `DateComponents` is a *strict* match; the returned `TimePeriod` will
     /// either exactly match the provided components, or this will throw a `TimeError`.
     ///
     /// - Parameter region: The `Region` in which to interpret the date components
@@ -58,7 +58,7 @@ extension Absolute {
     
 }
 
-extension Value where Smallest == Year, Largest == Era {
+extension TimePeriod where Smallest == Year, Largest == Era {
     
     /// Construct an `Absolute<Year>` from the specified numeric components.
     /// - Parameters:
@@ -73,7 +73,7 @@ extension Value where Smallest == Year, Largest == Era {
     
 }
 
-extension Value where Smallest == Month, Largest == Era {
+extension TimePeriod where Smallest == Month, Largest == Era {
     
     /// Construct an `Absolute<Month>` from the specified numeric components.
     /// - Parameters:
@@ -89,7 +89,7 @@ extension Value where Smallest == Month, Largest == Era {
     
 }
 
-extension Value where Smallest == Day, Largest == Era {
+extension TimePeriod where Smallest == Day, Largest == Era {
     
     /// Construct an `Absolute<Day>` from the specified numeric components.
     /// - Parameters:
@@ -106,7 +106,7 @@ extension Value where Smallest == Day, Largest == Era {
     
 }
 
-extension Value where Smallest == Hour, Largest == Era {
+extension TimePeriod where Smallest == Hour, Largest == Era {
     
     /// Construct an `Absolute<Hour>` from the specified numeric components.
     /// - Parameters:
@@ -124,7 +124,7 @@ extension Value where Smallest == Hour, Largest == Era {
     
 }
 
-extension Value where Smallest == Minute, Largest == Era {
+extension TimePeriod where Smallest == Minute, Largest == Era {
     
     /// Construct an `Absolute<Minute>` from the specified numeric components.
     /// - Parameters:
@@ -143,7 +143,7 @@ extension Value where Smallest == Minute, Largest == Era {
     
 }
 
-extension Value where Smallest == Second, Largest == Era {
+extension TimePeriod where Smallest == Second, Largest == Era {
     
     /// Construct an `Absolute<Second>` from the specified numeric components.
     /// - Parameters:
@@ -163,7 +163,7 @@ extension Value where Smallest == Second, Largest == Era {
     
 }
 
-extension Value where Smallest == Nanosecond, Largest == Era {
+extension TimePeriod where Smallest == Nanosecond, Largest == Era {
     
     /// Construct an `Absolute<Nanosecond>` from the specified numeric components.
     /// - Parameters:

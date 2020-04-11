@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Value where Smallest: LTOEHour, Largest: GTOEYear {
+public extension TimePeriod where Smallest: LTOEHour, Largest: GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 day: Template<Day>,
@@ -17,7 +17,7 @@ public extension Value where Smallest: LTOEHour, Largest: GTOEYear {
     }
 }
 
-public extension Value where Smallest: LTOEMinute, Largest: GTOEMonth {
+public extension TimePeriod where Smallest: LTOEMinute, Largest: GTOEMonth {
     func format(month: Template<Month>,
                 day: Template<Day>,
                 hour: Template<Hour>,
@@ -27,7 +27,7 @@ public extension Value where Smallest: LTOEMinute, Largest: GTOEMonth {
     }
 }
 
-public extension Value where Smallest: LTOESecond, Largest: GTOEDay {
+public extension TimePeriod where Smallest: LTOESecond, Largest: GTOEDay {
     func format(day: Template<Day>,
                 hour: Template<Hour>,
                 minute: Template<Minute>,
@@ -37,7 +37,7 @@ public extension Value where Smallest: LTOESecond, Largest: GTOEDay {
     }
 }
 
-public extension Value where Smallest: LTOENanosecond, Largest: GTOEHour {
+public extension TimePeriod where Smallest: LTOENanosecond, Largest: GTOEHour {
     func format(hour: Template<Hour>,
                 minute: Template<Minute>,
                 second: Template<Second>,

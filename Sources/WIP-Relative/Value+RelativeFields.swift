@@ -1,5 +1,5 @@
 //
-//  Value+RelativeFields.swift
+//  TimePeriod+RelativeFields.swift
 //  
 //
 //  Created by Dave DeLong on 10/3/19.

@@ -11,7 +11,7 @@ internal protocol Format {
     var template: String { get }
 }
 
-extension Value {
+extension TimePeriod {
     
     static func fullFormats(in calendar: Calendar) -> Array<Format?> {
         var f = Array<Format?>()
@@ -58,7 +58,7 @@ extension Value {
     }
     
     internal func formatFull() -> String {
-        return format(Value.fullFormats(in: calendar))
+        return format(TimePeriod.fullFormats(in: calendar))
     }
         
     internal func format(_ formats: Array<Format?>) -> String {

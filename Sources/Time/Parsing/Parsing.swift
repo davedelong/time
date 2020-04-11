@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Value {
+extension TimePeriod {
     
     internal init(stringValue: String, region: Region, formats: Array<Format?>) throws {
         let template = formats.compactMap { $0?.template }.joined()

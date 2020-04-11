@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// This is a nominal wrapper to an adjust to a Value.
+/// This is a nominal wrapper to an adjust to a TimePeriod.
 /// This wrapper enables syntax like "today + .days(3)".
 public struct Difference<Smallest: Unit, Largest: Unit> {
     internal let dateComponents: DateComponents
@@ -107,19 +107,19 @@ public extension Difference where Smallest: LTOENanosecond, Largest: GTOENanosec
 }
 
 // absolute adjustment
-public func +<S, L>(lhs: Value<S, L>, rhs: Difference<S, L>) -> Value<S, L> where L: GTOEEra {
+public func +<S, L>(lhs: TimePeriod<S, L>, rhs: Difference<S, L>) -> TimePeriod<S, L> where L: GTOEEra {
     return lhs.applying(difference: rhs)
 }
 
-public func -<S, L>(lhs: Value<S, L>, rhs: Difference<S, L>) -> Value<S, L> where L: GTOEEra {
+public func -<S, L>(lhs: TimePeriod<S, L>, rhs: Difference<S, L>) -> TimePeriod<S, L> where L: GTOEEra {
     return lhs.applying(difference: rhs.negated())
 }
 
 // relative adjustment
-internal func +<S, L>(lhs: Value<S, L>, rhs: Difference<S, L>) -> Value<S, L> where L: LTOEYear {
+internal func +<S, L>(lhs: TimePeriod<S, L>, rhs: Difference<S, L>) -> TimePeriod<S, L> where L: LTOEYear {
     fatalError("Unimplemented")
 }
 
-internal func -<S, L>(lhs: Value<S, L>, rhs: Difference<S, L>) -> Value<S, L> where L: LTOEYear {
+internal func -<S, L>(lhs: TimePeriod<S, L>, rhs: Difference<S, L>) -> TimePeriod<S, L> where L: LTOEYear {
     return lhs + rhs.negated()
 }
