@@ -22,6 +22,7 @@ final class ClockChimeTests: XCTestCase {
         ("testIntervalChimeOnce", testIntervalChimeOnce),
         ("testIntervalChimeAfterDelay", testIntervalChimeAfterDelay),
         ("testIntervalChimeCancel", testIntervalChimeCancel),
+        ("testPredicateChime", testPredicateChime),
     ]
     
     var clock: Clock!
@@ -249,16 +250,44 @@ final class ClockChimeTests: XCTestCase {
     }
     
     func testIntervalChimeCancel() {
-        let second = Difference<Nanosecond, Era>.nanoseconds(1_000_000_000 / 12)
+        let blueMoon = Difference<Nanosecond, Era>.nanoseconds(1_000_000_000 / 12)
         let bellOfStJohn = expectation(description: "The bell rings twelve times")
         bellOfStJohn.expectedFulfillmentCount = 12
-        let chime = clock.chime(every: second).sink { (result) in
+        let chime = clock.chime(every: blueMoon).sink { (result) in
             bellOfStJohn.fulfill()
         }
         
         wait(for: [bellOfStJohn], timeout: 2)
         // We get here after the 12th chime. This should halt our listener, and the expectation won't assert.
         chime.cancel()
+    }
+    
+    func testPredicateChime() {
+        // Set to the top of the hour
+        let topOfNextHour = clock.nextHour().firstMinute().firstSecond().subtracting(seconds: 1)
+        let minutesToTop = clock.thisMinute().firstSecond().difference(to: topOfNextHour)
+        let secondsToTop = Double(minutesToTop.seconds)
+        let fastClock = Clock(startingFrom: clock.now() + .init(secondsToTop),
+                              rate: 3600) // an hour per second!
+        
+        let chimes = expectation(description: "Clock chimes five times in an hour")
+        var expectedMins = [0, 13, 26, 39, 52]
+        chimes.expectedFulfillmentCount = expectedMins.count
+        // This should prove the example in the documentation.
+        var observation: AnyCancellable? = fastClock
+            .chime(when: { (time: Absolute<Minute>) in time.minute % 13 == 0 })
+            .sink { (result) in
+                let expected = expectedMins.removeFirst()
+                let actual = result.minute
+                XCTAssertEqual(actual, expected,
+                               "Chime at *:\(actual) is \(actual - expected)m late (early if negative).")
+                chimes.fulfill()
+            }
+        
+        wait(for: [chimes], timeout: 2)
+        if observation != nil {
+            observation = nil
+        }
     }
     
 }
