@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Absolute {
+extension Absolute where Largest == Era {
     
     internal var approximateMidPoint: Instant {
         let r = self.range
@@ -23,30 +23,24 @@ extension Absolute {
         return dateComponents.value(for: U.component)
     }
     
-    internal func containsValue<U: Unit>(_ other: Absolute<U>) -> Bool {
-        let thisRange = self.range
-        let valueRange = other.range
-        return thisRange.contains(valueRange.lowerBound) && thisRange.contains(valueRange.upperBound)
-    }
-    
     internal func first<U: Unit>() -> Absolute<U> {
         return Absolute<U>(region: region, instant: range.lowerBound)
     }
     
     internal func last<U: Unit>() -> Absolute<U> {
-        return Absolute<U>(region: region, instant: range.upperBound) - Difference(value: 1, unit: U.component)
+        return Absolute<U>(region: region, instant: range.upperBound) - TimeDifference(value: 1, unit: U.component)
     }
     
     internal func nth<U: Unit>(_ ordinal: Int) throws -> Absolute<U> {
         let target = DateComponents(value: ordinal, component: U.component)
-        guard ordinal >= 1 else { throw AdjustmentError.invalidDateComponents(target) }
-        let offset: Absolute<U> = first() + Difference<U, Era>(value: ordinal - 1, unit: U.component)
+        guard ordinal >= 1 else { throw TimeError.invalidDateComponents(target, in: region) }
+        let offset: Absolute<U> = first() + TimeDifference<U, Era>(value: ordinal - 1, unit: U.component)
         
         let parentRange = self.range
         let childRange = offset.range
         
-        guard parentRange.lowerBound <= childRange.lowerBound else { throw AdjustmentError.invalidDateComponents(target) }
-        guard childRange.upperBound <= parentRange.upperBound else { throw AdjustmentError.invalidDateComponents(target) }
+        guard parentRange.lowerBound <= childRange.lowerBound else { throw TimeError.invalidDateComponents(target, in: region) }
+        guard childRange.upperBound <= parentRange.upperBound else { throw TimeError.invalidDateComponents(target, in: region) }
         return offset
     }
     
@@ -57,7 +51,7 @@ extension Absolute {
         
         let incrementing = (value < number)
         
-        let delta = Difference<U, Era>(value: incrementing ? 1 : -1, unit: U.component)
+        let delta = TimeDifference<U, Era>(value: incrementing ? 1 : -1, unit: U.component)
         let tooFar: (Absolute<U>) -> Bool = {
             let value = $0.value(for: U.self)!
             if incrementing { return value > number }

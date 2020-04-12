@@ -11,13 +11,13 @@ for day in daysInThisMonth {
 }
 ```
 
-By default, all absolute `Values` provide convenience methods for iterating over subcomponents:
+By default, all absolute `TimePeriods` provide convenience methods for iterating over subcomponents:
 
 - An `Absolute<Year>` provides `months()` and `days()` to iterate over the months in the year and the days in the year
 - An `Absolute<Month>` provides `days()` and `hours()` to iterate over the days or hours in the month
 - etc
 
-However, you can *also* create your own value sequence, by using the `AbsoluteValueSequence` provided by `Time`:
+However, you can *also* create your own value sequence, by using the `AbsoluteTimePeriodSequence` provided by `Time`:
 
 ```swift
 let day1: Absolute<Day> = ...
@@ -25,10 +25,10 @@ let day2: Absolute<Day> = ...
 
 let dayRange = day1 ..< day2
 
-let everyOtherDay = AbsoluteValueSequence(range: dayRange, stride: .days(2))
+let everyOtherDay = AbsoluteTimePeriodSequence(range: dayRange, stride: .days(2))
 for day in everyOtherDay {
     // ...
 }
 ```
 
-The `AbsoluteValueSequence` type provides several convenience constructors for performing different kinds of iterations.
+The `AbsoluteTimePeriodSequence` type provides several convenience constructors for performing different kinds of iterations.

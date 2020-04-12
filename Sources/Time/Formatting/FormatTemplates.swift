@@ -63,12 +63,13 @@ public extension Template where F == Weekday {
 }
 
 public extension Template where F == Standalone<Weekday> {
-    static let fullDigits = Template("c")
-    static let twoDigits = Template("cc")
-    static let abbreviatedName = Template("ccc")
+// these don't appear to be working correctly. Until I figure out what's going on, let's leave them out
+//    static let fullDigits = Template("c")
+//    static let twoDigits = Template("cc")
     static let fullName = Template("cccc")
-    static let narrowName = Template("ccccc")
+    static let abbreviatedName = Template("ccc")
     static let shortName = Template("cccccc")
+    static let narrowName = Template("ccccc")
 }
 
 public enum DayPeriod { }

@@ -11,7 +11,7 @@ internal protocol Format {
     var template: String { get }
 }
 
-extension Value {
+extension TimePeriod {
     
     static func fullFormats(in calendar: Calendar) -> Array<Format?> {
         var f = Array<Format?>()
@@ -58,18 +58,23 @@ extension Value {
     }
     
     internal func formatFull() -> String {
-        return format(Value.fullFormats(in: calendar))
+        return format(TimePeriod.fullFormats(in: calendar))
     }
         
-    internal func format(_ formats: Array<Format?>) -> String {
+    internal func format(_ formats: Array<Format?>, using date: Date? = nil) -> String {
         let template = formats.compactMap { $0?.template }.joined()
         let df = DateFormatterCache.shared.formatter(forTemplate: template, region: region)
-        return df.string(from: dateForFormatting())
+        return df.string(from: date ?? dateForFormatting())
     }
     
-    internal func formatUsing(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style) -> String {
+    internal func formatUsing(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style, using date: Date? = nil) -> String {
         let df = DateFormatterCache.shared.formatter(for: dateStyle, timeStyle: timeStyle, region: region)
-        return df.string(from: dateForFormatting())
+        return df.string(from: date ?? dateForFormatting())
+    }
+    
+    internal func formatRaw(_ format: String, using date: Date? = nil) -> String {
+        let df = DateFormatterCache.shared.formatter(forFormat: format, region: region)
+        return df.string(from: date ?? dateForFormatting())
     }
     
 }

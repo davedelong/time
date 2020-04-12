@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Value {
+extension TimePeriod {
     
     internal init(stringValue: String, region: Region, formats: Array<Format?>) throws {
         let template = formats.compactMap { $0?.template }.joined()
@@ -15,7 +15,7 @@ extension Value {
         if let date = df.date(from: stringValue) {
             self.init(region: region, date: date)
         } else {
-            throw FormatError.cannotParseString(stringValue)
+            throw TimeError.cannotParseString(stringValue, in: region)
         }
     }
     

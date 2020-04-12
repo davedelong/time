@@ -16,9 +16,9 @@
 - [x] enumerating absolute values
 - [x] parsing absolute values from strings
 - [x] Rename `Delta`. Possible candidates:
-    - `Difference` (This was chosen)
+    - `Difference` (This was chosen, then renamed again to `TimeDifference`)
     - `Interval`
-- [ ] Rename `Value`. Possible candidates:
+- [x] Rename `Value`. Possible candidates:
     - `TimeSlice`
     - `Period`
     - `TemporalRange`
@@ -26,6 +26,7 @@
     - `Measurement`
     - `Quantum`
     - `Quantity`
+    - `TimePeriod` (chosen)
 - [ ] documentation
 - [x] Project organization
 
@@ -33,7 +34,7 @@
 
 Fill out base functionality and fully implement `Relative` values:
 
-- [ ] Format `Difference` values using `DateComponentsFormatter`
+- [ ] Format `TimeDifference` values using `DateComponentsFormatter`
 - [ ] simple relative comparisons (`isBefore`, `isAfter`, etc)
 - [ ] rounding absolute values (adjust to the nearest 7 minutes, for example)
 - [ ] public adjustment api (currently internal)

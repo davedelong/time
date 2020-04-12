@@ -9,21 +9,17 @@ import Foundation
 
 public extension Absolute where Smallest == Month, Largest == Era {
     
-    func firstDay() -> Absolute<Day> { return first() }
-    func lastDay() -> Absolute<Day> { return last() }
+    var firstDay: Absolute<Day> { return first() }
+    var lastDay: Absolute<Day> { return last() }
     func nthDay(_ ordinal: Int) throws -> Absolute<Day> { return try nth(ordinal) }
     func day(_ number: Int) -> Absolute<Day>? { return numbered(number) }
     
-    func days() -> AbsoluteValueSequence<Day> {
-        return AbsoluteValueSequence<Day>(parent: self)
+    var days: AbsoluteTimePeriodSequence<Day> {
+        return AbsoluteTimePeriodSequence<Day>(parent: self)
     }
     
-    func hours() -> AbsoluteValueSequence<Hour> {
-        return AbsoluteValueSequence<Hour>(parent: self)
-    }
-    
-    func contains<U: LTOEDay>(_ value: Absolute<U>) -> Bool {
-        return containsValue(value)
+    var hours: AbsoluteTimePeriodSequence<Hour> {
+        return AbsoluteTimePeriodSequence<Hour>(parent: self)
     }
     
 }

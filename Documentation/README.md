@@ -26,11 +26,11 @@ The documentation is divided into three main sections:
 
 1. [Core Concepts](2-Usage/1-Concepts.md)
 2. [The `Clock` Type](2-Usage/2-Clock.md)
-3. [The `Value` Type](2-Usage/3-Value.md)
-4. [Adjusting `Values`](2-Usage/4-Adjusting.md)
-5. [Finding Differences Between `Values`](2-Usage/5-Differences.md)
-6. [Iterating over `Values`](2-Usage/6-Iteration.md)
-7. [Formatting `Values`](2-Usage/7-Formatting.md)
+3. [The `TimePeriod` Type](2-Usage/3-TimePeriod.md)
+4. [Adjusting `TimePeriods`](2-Usage/4-Adjusting.md)
+5. [Finding Differences Between `TimePeriods`](2-Usage/5-Differences.md)
+6. [Iterating over `TimePeriods`](2-Usage/6-Iteration.md)
+7. [Formatting `TimePeriods`](2-Usage/7-Formatting.md)
 
 ## Gotchas
 

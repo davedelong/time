@@ -16,11 +16,16 @@ internal extension DateComponents {
     
     func requireAndRestrict(to components: Set<Calendar.Component>) throws -> DateComponents {
         var final = DateComponents()
+        var missing = Set<Calendar.Component>()
         for component in components {
-            guard let value = self.value(for: component) else {
-                throw AdjustmentError.missingValueForUnit(component)
+            if let value = self.value(for: component) {
+                final.setValue(value, for: component)
+            } else {
+                missing.insert(component)
             }
-            final.setValue(value, for: component)
+        }
+        if missing.isEmpty == false {
+            throw TimeError.missingCalendarComponents(missing)
         }
         return final
     }

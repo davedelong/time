@@ -7,32 +7,20 @@
 
 import Foundation
 
-public enum FormatError: Error {
-    
-    case cannotParseString(String)
-    case cannotLocateUnit(Calendar.Component)
-    
-}
-
-public extension Absolute {
-    
-    @available(*, deprecated, renamed: "init(stringValue:rawFormat:region:)")
-    init(stringValue: String, format: String, region: Region) throws {
-        try self.init(stringValue: stringValue, rawFormat: format, region: region)
-    }
+public extension Absolute where Largest == Era {
     
     init(stringValue: String, rawFormat: String, region: Region) throws {
         let df = DateFormatterCache.shared.formatter(forFormat: rawFormat, region: region)
         if let date = df.date(from: stringValue) {
             self.init(region: region, date: date)
         } else {
-            throw FormatError.cannotParseString(stringValue)
+            throw TimeError.cannotParseString(stringValue, in: region)
         }
     }
     
 }
 
-public extension Value where Smallest == Era, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Era, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>) throws {
     
@@ -40,7 +28,7 @@ public extension Value where Smallest == Era, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Year, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Year, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -50,7 +38,7 @@ public extension Value where Smallest == Year, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Month, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Month, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -61,7 +49,7 @@ public extension Value where Smallest == Month, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Day, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Day, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -74,7 +62,7 @@ public extension Value where Smallest == Day, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Hour, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Hour, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -88,7 +76,7 @@ public extension Value where Smallest == Hour, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Minute, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Minute, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -103,7 +91,7 @@ public extension Value where Smallest == Minute, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Second, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Second, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -119,7 +107,7 @@ public extension Value where Smallest == Second, Largest: GTOEEra {
     }
 }
 
-public extension Value where Smallest == Nanosecond, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Nanosecond, Largest: GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
