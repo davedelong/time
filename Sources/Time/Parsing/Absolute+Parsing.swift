@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Absolute {
+public extension Absolute where Largest == Era {
     
     init(stringValue: String, rawFormat: String, region: Region) throws {
         let df = DateFormatterCache.shared.formatter(forFormat: rawFormat, region: region)

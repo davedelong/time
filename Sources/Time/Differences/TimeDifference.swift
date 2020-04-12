@@ -107,11 +107,11 @@ public extension TimeDifference where Smallest: LTOENanosecond, Largest: GTOENan
 }
 
 // absolute adjustment
-public func +<S, L>(lhs: TimePeriod<S, L>, rhs: TimeDifference<S, L>) -> TimePeriod<S, L> where L: GTOEEra {
+public func +<S>(lhs: TimePeriod<S, Era>, rhs: TimeDifference<S, Era>) -> TimePeriod<S, Era> {
     return lhs.applying(difference: rhs)
 }
 
-public func -<S, L>(lhs: TimePeriod<S, L>, rhs: TimeDifference<S, L>) -> TimePeriod<S, L> where L: GTOEEra {
+public func -<S>(lhs: TimePeriod<S, Era>, rhs: TimeDifference<S, Era>) -> TimePeriod<S, Era> {
     return lhs.applying(difference: rhs.negated())
 }
 

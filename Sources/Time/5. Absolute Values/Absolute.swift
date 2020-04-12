@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Absolute {
+extension Absolute where Largest == Era {
     
     /// Retrieve the `Range` of `Instants` described by this absolute `Value`.
     ///

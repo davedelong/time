@@ -28,7 +28,7 @@ extension TimePeriod {
 
 // Absolute initializers
 
-extension Absolute {
+extension Absolute where Largest == Era {
     
     /// Construct an absolute `TimePeriod` from a set of `DateComponents`.
     ///

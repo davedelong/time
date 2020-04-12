@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Absolute {
+extension Absolute where Largest == Era {
     
     internal var approximateMidPoint: Instant {
         let r = self.range
@@ -21,12 +21,6 @@ extension Absolute {
     internal func value<U: Unit>(for unit: U.Type) -> Int? {
         guard representedComponents.contains(U.component) else { return nil }
         return dateComponents.value(for: U.component)
-    }
-    
-    internal func containsValue<U: Unit>(_ other: Absolute<U>) -> Bool {
-        let thisRange = self.range
-        let valueRange = other.range
-        return thisRange.contains(valueRange.lowerBound) && thisRange.contains(valueRange.upperBound)
     }
     
     internal func first<U: Unit>() -> Absolute<U> {

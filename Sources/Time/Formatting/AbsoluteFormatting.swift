@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Absolute {
+public extension Absolute where Largest == Era {
     
     /// Format an Absolute value using hard-coded format string.
     ///

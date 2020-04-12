@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Absolute {
+public extension Absolute where Largest == Era {
     
     /// Adjust an absolute value by applying a temporal delta value.
     ///

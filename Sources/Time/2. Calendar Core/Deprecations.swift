@@ -32,7 +32,7 @@ public typealias AbsoluteValueIterator = AbsoluteTimePeriodIterator
 public typealias Difference = TimeDifference
 
 
-extension Absolute {
+extension Absolute where Largest == Era {
     @available(*, deprecated,
                 renamed: "init(region:strictDateComponents:)",
                 message: "Usages of 'Unsafe' have been renamed to 'Strict'. This method will disappear in 1.0")

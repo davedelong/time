@@ -8,7 +8,7 @@
 import Foundation
 
 // absolute conversion
-extension Absolute {
+extension Absolute where Largest == Era {
     
     /// Construct a new `TimePeriod` by converting the receiver to a new `Region`.
     public func converting(to newRegion: Region) -> Self {

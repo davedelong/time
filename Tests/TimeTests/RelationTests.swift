@@ -27,9 +27,11 @@ class RelationTests: XCTestCase {
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .before)
+        XCTAssertTrue(a.isBefore(b))
         
         let bToA = b.relation(to: a)
         XCTAssertEqual(bToA, .after)
+        XCTAssertTrue(b.isAfter(a))
     }
     
     func testMeetsAndIsMetBy() {
@@ -38,9 +40,12 @@ class RelationTests: XCTestCase {
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .meets)
+        XCTAssertTrue(a.isBefore(b))
         
         let bToA = b.relation(to: a)
         XCTAssertEqual(bToA, .isMetBy)
+        XCTAssertTrue(b.isAfter(a))
+        
     }
     
     func testOverlapsAndIsOverlappedBy() {
@@ -59,9 +64,11 @@ class RelationTests: XCTestCase {
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .overlaps)
+        XCTAssertTrue(a.overlaps(b))
         
         let bToA = b.relation(to: a)
         XCTAssertEqual(bToA, .isOverlappedBy)
+        XCTAssertTrue(b.overlaps(a))
     }
     
     func testStartsAndIsStartedBy() {
@@ -70,9 +77,13 @@ class RelationTests: XCTestCase {
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .starts)
+        XCTAssertTrue(a.isDuring(b))
+        XCTAssertFalse(b.isDuring(a))
         
         let bToA = b.relation(to: a)
         XCTAssertEqual(bToA, .isStartedBy)
+        XCTAssertTrue(b.contains(a))
+        XCTAssertFalse(a.contains(b))
     }
     
     func testDuringAndContains() {
@@ -81,9 +92,13 @@ class RelationTests: XCTestCase {
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .during)
+        XCTAssertTrue(a.isDuring(b))
+        XCTAssertFalse(b.isDuring(a))
         
         let bToA = b.relation(to: a)
         XCTAssertEqual(bToA, .contains)
+        XCTAssertTrue(b.contains(a))
+        XCTAssertFalse(a.contains(b))
     }
     
     func testFinishesAndIsFinishedBy() {
@@ -92,9 +107,13 @@ class RelationTests: XCTestCase {
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .finishes)
+        XCTAssertTrue(a.isDuring(b))
+        XCTAssertFalse(b.isDuring(a))
         
         let bToA = b.relation(to: a)
         XCTAssertEqual(bToA, .isFinishedBy)
+        XCTAssertTrue(b.contains(a))
+        XCTAssertFalse(a.contains(b))
     }
     
     func testEqual() {

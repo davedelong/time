@@ -17,8 +17,8 @@ import Foundation
 /// - See Also: [Allen's Interval Algebra](https://en.wikipedia.org/wiki/Allen%27s_interval_algebra)
 public enum Relation: Hashable, CaseIterable {
     
-    public static let meetings: Set<Relation> = [.meets, .isMetBy, .starts, .isStartedBy, .finishes, .isFinishedBy]
-    public static let overlappings: Set<Relation> = [.overlaps, .isOverlappedBy, .during, .contains]
+    internal static let meetings: Set<Relation> = [.meets, .isMetBy, .starts, .isStartedBy, .finishes, .isFinishedBy]
+    internal static let overlappings: Set<Relation> = [.overlaps, .isOverlappedBy, .during, .contains]
     
     /// The first range occurs entirely before the second range
     ///
