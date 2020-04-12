@@ -18,6 +18,8 @@ public extension Absolute where Smallest == Hour, Largest == Era {
         return AbsoluteTimePeriodSequence(parent: self)
     }
     
+    var firstSecond: Absolute<Second> { return first() }
+    var lastSecond: Absolute<Second> { return last() }
     var seconds: AbsoluteTimePeriodSequence<Second> {
         return AbsoluteTimePeriodSequence(parent: self)
     }

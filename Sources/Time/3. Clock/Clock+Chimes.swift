@@ -22,11 +22,9 @@ extension Clock {
     ///   - interval: The amount of time that should elapse before the next chime occurs.
     ///   - startTime: The time to start counting at before the first chime occurs.
     /// - Returns: A publisher which publishes absolute time values at the moment of each chime.
-    public func chime<U>(every interval: Difference<U, Era>,
-                         startingFrom startTime: Absolute<U>? = nil) -> Clock.IntervalChime<U> where U: Unit {
-        return Clock.IntervalChime(for: self,
-                                   interval: interval,
-                                   startTime: startTime)
+    public func chime<U: Unit>(every interval: TimeDifference<U, Era>,
+                               startingFrom startTime: Absolute<U>? = nil) -> Clock.Chime<U> {
+        return Clock.Chime(clock: self, interval: interval, startTime: startTime)
     }
     
     /// Sets up a repeating chime for each unit that matches the given closure.
@@ -42,228 +40,155 @@ extension Clock {
     /// - Parameters:
     ///   - matches: A closure which is called when each prospective unit elapses to determine
     ///   whether it should be published.
-    ///   - time: A propspective time value.
+    ///   - time: A prospective time value.
     ///
     /// - Returns: A publisher which publishes absolute time values at the moment of each chime.
-    public func chime<U>(when matches: @escaping (_ time: Absolute<U>) -> Bool) -> Clock.IntervalChime<U> where U: Unit {
-        let interval = Difference<U, Era>(value: 1, unit: U.component)
-        return Clock.IntervalChime(for: self,
-                                   interval: interval,
-                                   startTime: nil,
-                                   predicate: matches)
+    public func chime<U: Unit>(when matches: @escaping (_ time: Absolute<U>) -> Bool) -> Clock.Chime<U> {
+        return Clock.Chime(clock: self, when: matches)
     }
     
     /// Sets up a single chime (ex: "at 12:00 PM").
     ///
     /// Useful, for example, when you want the `Clock` to "tell me when it's 3:00 PM."
+    /// If the time has already passed, then the publisher completes immediately without sending a value.
     ///
     /// - Parameter time: The time at which the chime should occur.
     ///
     /// - Returns: A publisher which publishes the current absolute time and then completes.
-    public func chime<U>(at time: Absolute<U>) -> Clock.AbsoluteChime<U> where U: Unit {
-        return Clock.AbsoluteChime(for: self, firstInstantOf: time)
+    public func chime<U: Unit>(at time: Absolute<U>) -> Clock.Chime<U> {
+        return Clock.Chime(clock: self, at: time)
     }
     
 }
-
-private extension Value {
-    
-    /// Returns the `TimeInterval` (number of seconds) from this `Value` to the `next`.
-    ///
-    /// For example, May 5 at 3:02:26 and May 5 at 3:02:30 are 4 seconds apart. The opposite
-    /// would return a negative value.
-    func seconds(to next: Self) -> TimeInterval {
-        let now = self
-        let then = next
-        let nowSeconds = now.firstInstant.intervalSinceEpoch.rawValue
-        let thenSeconds = then.firstInstant.intervalSinceEpoch.rawValue
-        
-        return thenSeconds - nowSeconds
-    }
-    
-}
-
-// MARK: - Interval Chime
 
 @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Clock {
     
-    public final class IntervalChimeSubscription<SubscriberType, Unit>: Subscription
-        where Unit: Time.Unit,
-        SubscriberType: Subscriber,
-        SubscriberType.Failure == Clock.IntervalChime<Unit>.Failure,
-        SubscriberType.Input == Clock.IntervalChime<Unit>.Output {
+    /// A Combine Publisher to signal significant calendar times
+    public struct Chime<U: Unit>: Combine.Publisher {
         
-        private var subscriber: SubscriberType?
-        private let clock: Clock
-        private let predicate: (Absolute<Unit>) -> Bool
-        private let timer: DispatchSourceTimer
-        
-        init(subscriber: SubscriberType,
-             clock: Clock,
-             interval: Difference<Unit, Era>,
-             startingAt startTime: Absolute<Unit>?,
-             predicate: @escaping (_ time: Absolute<Unit>) -> Bool) {
-            self.subscriber = subscriber
-            self.clock = clock
-            self.predicate = predicate
-            
-            // start waiting...
-            self.timer = DispatchSource.makeTimerSource(flags: .strict)
-            timer.setEventHandler(handler: performChime)
-            let now: Absolute<Unit> = clock.this()
-            let start = startTime ?? now
-            
-            let secondsToStart = now.seconds(to: start)
-            let firstTick = start.applying(difference: interval)
-            let repeatInterval = start.seconds(to: firstTick)
-            
-            let rate = clock.rate
-            // First chime (deadline) happens after delay and first elapsed interval
-            timer.schedule(deadline: .now() + (secondsToStart / rate) + (repeatInterval / rate),
-                           repeating: (repeatInterval / rate))
-            timer.activate()
-        }
-        
-        private func performChime() {
-            let value: Absolute<Unit> = clock.this()
-            guard predicate(value) else { return }
-            _ = subscriber?.receive(value)
-        }
-        
-        public func request(_ demand: Subscribers.Demand) {
-            // We ignore this, since time doesn't care when we're looking.
-        }
-        
-        public func cancel() {
-            timer.cancel()
-            subscriber = nil
-        }
-    }
-    
-    /// A publisher which publishes repeatedly—each time a given `Clock` reads that a specified time interval
-    /// has elapsed.
-    public struct IntervalChime<Unit>: Combine.Publisher where Unit: Time.Unit {
-        
-        public typealias Output = Absolute<Unit>
+        public typealias Output = Absolute<U>
         public typealias Failure = Never
         
-        /// The clock that the publisher watches for time events.
-        public var clock: Clock
+        private let clock: Clock
+        private let values: AnyIterator<Absolute<U>>
         
-        /// The time interval between chimes.
-        public var interval: Difference<Unit, Era>
-        
-        /// The time at which to start chiming.
-        ///
-        /// If found to be `nil` when a subscriber requests values, then the present time is assumed.
-        public var startTime: Absolute<Unit>?
-        
-        /// A predicate to use which determines whether a time value will be published.
-        ///
-        /// Defaults to a closure that always returns `true`.
-        public var predicate: (Absolute<Unit>) -> Bool
-        
-        public init(for clock: Clock,
-                    interval: Difference<Unit, Era>,
-                    startTime: Absolute<Unit>?,
-                    predicate: @escaping (_ time: Absolute<Unit>) -> Bool = { _ in true }) {
+        private init<I: IteratorProtocol>(clock: Clock, iterator: I) where I.Element == Absolute<U> {
             self.clock = clock
-            self.interval = interval
-            self.startTime = startTime
-            self.predicate = predicate
+            self.values = AnyIterator(iterator)
+        }
+        
+        /// Create a publisher that will emit a value after a specified calendar interval,
+        /// when that value matches the provided predicate.
+        ///
+        /// - Parameters:
+        ///   - clock: The `Clock` to use for producing calendar values
+        ///   - interval: The calendar interval to wait between each subsequent value
+        ///   - startTime: The first time at which a value should be emitted. If this value is `nil`, the clock's current time is used.
+        ///   - predicate: Only values matching this predicate will be emitted. By default, all emitted values match.
+        public init(clock: Clock,
+                    interval: TimeDifference<U, Era>,
+                    startTime: Absolute<U>?,
+                    predicate: @escaping (_ time: Absolute<U>) -> Bool = { _ in true }) {
+            
+            let start = startTime ?? clock.this()
+            let i = AbsoluteTimePeriodSequence(start: start, stride: interval).lazy.filter(predicate).makeIterator()
+            self.init(clock: clock, iterator: i)
+        }
+        
+        /// Create a publisher that emits values that match a provided predicate.
+        /// - Parameters:
+        ///   - clock: The `Clock` to use for producing calendar values
+        ///   - matches: Only values matching this predicate will be emitted.
+        public init(clock: Clock, when matches: @escaping (Absolute<U>) -> Bool) {
+            let interval = TimeDifference<U, Era>(value: 1, unit: U.component)
+            self.init(clock: clock, interval: interval, startTime: nil, predicate: matches)
+        }
+        
+        /// Create a publisher that emits at most one value at the specified time.
+        /// - Parameters:
+        ///   - clock: The `Clock` to use for producing calendar values.
+        ///   - time: The time at which to emit the value. If this value is in the past, then the publisher immediately completes.
+        public init(clock: Clock, at time: Absolute<U>) {
+            let current: Absolute<U> = clock.this()
+            var values = Array<Absolute<U>>()
+            if time >= current {
+                values = [time]
+            }
+            self.init(clock: clock, iterator: values.makeIterator())
         }
         
         public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
-            let subscription =
-                IntervalChimeSubscription(subscriber: subscriber,
-                                          clock: clock,
-                                          interval: interval,
-                                          startingAt: startTime,
-                                          predicate: predicate)
+            let subscription = ChimeSubscription(subscriber: subscriber,
+                                                 clock: clock,
+                                                 iterator: values)
             subscriber.receive(subscription: subscription)
         }
         
     }
 }
 
-// MARK: - Absolute Chime
-
 @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-extension Clock {
+private class ChimeSubscription<SubscriberType, U>: Subscription
+    where U: Unit,
+    SubscriberType: Subscriber,
+    SubscriberType.Failure == Clock.Chime<U>.Failure,
+SubscriberType.Input == Clock.Chime<U>.Output {
     
-    /// A subscription to a `Clock.AbsoluteChime`.
-    public final class AbsoluteChimeSubscription<SubscriberType, Unit>: Subscription
-        where Unit: Time.Unit,
-        SubscriberType: Subscriber,
-        SubscriberType.Failure == Clock.AbsoluteChime<Unit>.Failure,
-        SubscriberType.Input == Clock.AbsoluteChime<Unit>.Output {
+    private var subscriber: SubscriberType?
+    private let clock: Clock
+    private var timeIterator: AnyIterator<Absolute<U>>
+    private var nextChime: DispatchWorkItem?
+    
+    init(subscriber: SubscriberType, clock: Clock, iterator: AnyIterator<Absolute<U>>) {
+        self.subscriber = subscriber
+        self.clock = clock
+        self.timeIterator = iterator
         
-        private var subscriber: SubscriberType?
-        private let clock: Clock
-        private let timer: DispatchSourceTimer
-        
-        init(subscriber: SubscriberType, clock: Clock, value: Absolute<Unit>) {
-            self.subscriber = subscriber
-            self.clock = clock
-            
-            // start waiting...
-            self.timer = DispatchSource.makeTimerSource(flags: .strict)
-            timer.setEventHandler(handler: performChime)
-            let now: Absolute<Unit> = clock.this()
-            let then = value
-            let normalInterval = now.seconds(to: then)
-            
-            let rate = clock.rate
-            let difference = (normalInterval) / rate
-            // Chime (deadline) happens after first elapsed interval
-            timer.schedule(deadline: .now() + difference)
-            timer.activate()
-        }
-        
-        private func performChime() {
-            _ = subscriber?.receive(clock.this())
+        scheduleNextChime()
+    }
+    
+    private func scheduleNextChime() {
+        guard let nextChimeTime = timeIterator.next() else {
             subscriber?.receive(completion: .finished)
-            subscriber = nil
+            cancel()
+            return
         }
         
-        public func request(_ demand: Subscribers.Demand) {
-            // We ignore this, since time doesn't care when we're looking.
-        }
+        let clockNow = clock.now()
+        let chimeInstant = nextChimeTime.firstInstant
         
-        public func cancel() {
-            timer.cancel()
-            subscriber = nil
+        let realSecondsUntilChime: TimeInterval
+        
+        if chimeInstant <= clockNow {
+            // chime already passed
+            // chime immediately
+            realSecondsUntilChime = 0
+        } else {
+            let clockSecondsUntilChime = chimeInstant - clockNow
+            realSecondsUntilChime = (clockSecondsUntilChime / clock.rate).rawValue
         }
+        let chime = DispatchWorkItem { [weak self] in
+            self?.performChime(at: nextChimeTime)
+        }
+        nextChime = chime
+        DispatchQueue.main.asyncAfter(deadline: .now() + realSecondsUntilChime, execute: chime)
     }
     
-    /// A publisher which publishes exactly once—when a given `Clock` reads a specified time—and then completes.
-    public struct AbsoluteChime<Unit>: Publisher where Unit: Time.Unit {
-        
-        public typealias Output = Absolute<Unit>
-        public typealias Failure = Never
-        
-        /// The clock that the publisher watches for time events.
-        public var clock: Clock
-        
-        /// The time at which to chime.
-        public var value: Absolute<Unit>
-        
-        public init(for clock: Clock, firstInstantOf value: Absolute<Unit>) {
-            self.clock = clock
-            self.value = value
-        }
-        
-        public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
-            let subscription =
-                AbsoluteChimeSubscription(
-                    subscriber: subscriber,
-                    clock: clock,
-                    value: value)
-            subscriber.receive(subscription: subscription)
-        }
-        
+    private func performChime(at time: Absolute<U>) {
+        nextChime = nil
+        _ = subscriber?.receive(time)
+        scheduleNextChime()
     }
     
+    public func request(_ demand: Subscribers.Demand) {
+        // We ignore this, since time doesn't care when we're looking.
+    }
+    
+    public func cancel() {
+        nextChime?.cancel()
+        nextChime = nil
+        subscriber = nil
+    }
 }
 #endif

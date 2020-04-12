@@ -16,14 +16,14 @@ internal extension Instant {
 
 internal protocol ClockImplementation {
     var SISecondsPerCalendarSecond: Double { get }
-    var SISecondsPerActualSecond: Double { get }
+    var SISecondsPerRealSecond: Double { get }
     func now() -> Instant
     
 }
 
 internal struct SystemClock: ClockImplementation {
     let SISecondsPerCalendarSecond: Double = 1.0
-    let SISecondsPerActualSecond: Double = 1.0
+    let SISecondsPerRealSecond: Double = 1.0
     func now() -> Instant { return Instant() }
 }
 
@@ -34,7 +34,7 @@ internal struct CustomClock: ClockImplementation {
     let rate: Double
     let calendar: Calendar
     var SISecondsPerCalendarSecond: Double { return calendar.SISecondsPerSecond }
-    var SISecondsPerActualSecond: Double { return rate * SISecondsPerCalendarSecond }
+    var SISecondsPerRealSecond: Double { return rate * SISecondsPerCalendarSecond }
     
     private let actualRate: Double
     
@@ -59,7 +59,7 @@ internal struct OffsetClock: ClockImplementation {
     let base: ClockImplementation
     let offset: TimeInterval
     var SISecondsPerCalendarSecond: Double { return base.SISecondsPerCalendarSecond }
-    var SISecondsPerActualSecond: Double { SISecondsPerCalendarSecond }
+    var SISecondsPerRealSecond: Double { SISecondsPerCalendarSecond }
     
     init(offset: TimeInterval, from base: ClockImplementation) {
         self.base = base

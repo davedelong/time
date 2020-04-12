@@ -17,7 +17,7 @@ public struct AbsoluteTimePeriodSequence<U: Unit>: Sequence {
     ///   - start: The starting `Absolute` calendar value.
     ///   - stride: The difference between subsequent calendar values.
     ///   - keepGoing: A closure that is invoked to indicate whether the sequence should continue. This closure is invoked *before* the next value is generated.
-    public init(start: Absolute<U>, stride: TimeDifference<U, Era>, while keepGoing: @escaping (Absolute<U>) -> Bool) {
+    public init(start: Absolute<U>, stride: TimeDifference<U, Era>, while keepGoing: @escaping (Absolute<U>) -> Bool = { _ in return true }) {
         constructor = { AbsoluteTimePeriodIterator(start: start, stride: stride, keepGoing: keepGoing)}
     }
     

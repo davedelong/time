@@ -12,282 +12,167 @@ import Time
 @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 final class ClockChimeTests: XCTestCase {
     
-    static var allTests: [(String, (ClockChimeTests) -> () throws -> ())] = [
+    static var allTests = [
         ("testPastChime", testPastChime),
         ("testImmediateChime", testImmediateChime),
         ("testChimeAtSpecificValue", testChimeAtSpecificValue),
         ("testScaledChimeAtSpecificValue", testScaledChimeAtSpecificValue),
         ("testAbsoluteChimeCancel", testAbsoluteChimeCancel),
         ("testIntervalChime", testIntervalChime),
-        ("testIntervalChimeOnce", testIntervalChimeOnce),
-        ("testIntervalChimeAfterDelay", testIntervalChimeAfterDelay),
         ("testIntervalChimeCancel", testIntervalChimeCancel),
         ("testPredicateChime", testPredicateChime),
     ]
     
-    var clock: Clock!
+    let clock = Clock()
+    var cancellables = Set<AnyCancellable>()
     
-    override func setUp() {
-        clock = Clock()
+    override func tearDown() {
+        super.tearDown()
+        cancellables = []
     }
     
     func testPastChime() {
-        let chimesOnce = expectation(description: "Clock chimes immediately")
+        let dontChime = expectation(description: "Clock never chimes")
+        dontChime.isInverted = true
+        
         let completes = expectation(description: "Chime completes")
-        let minutesAgo = clock.thisNanosecond().subtracting(minutes: 5)
-        let now = clock.thisNanosecond()
+        let lastMinute = clock.previousMinute()
         
-        var observation: AnyCancellable? = clock
-            .chime(at: minutesAgo) // Should fire ASAP
-            .sink(
-                receiveCompletion: { (completion) in
-                    completes.fulfill()
-                },
-                receiveValue: { (result) in
-                    let expected = now.firstInstant.intervalSinceEpoch.rawValue
-                    let actual = result.firstInstant.intervalSinceEpoch.rawValue
-                    XCTAssertEqual(actual, expected, accuracy: 0.005,
-                                   "Chime at \(actual)s is \(actual - expected)s late (early if negative).")
-                    XCTAssertEqual(result.absoluteSecond,
-                                   now.absoluteSecond)
-                    chimesOnce.fulfill()
-                }
-            )
+        clock
+            .chime(at: lastMinute) // Should fire ASAP
+            .sink(receiveCompletion: { _ in
+                completes.fulfill()
+            }, receiveValue: { _ in
+                dontChime.fulfill()
+            })
+            .store(in: &cancellables)
         
-        wait(for: [chimesOnce, completes], timeout: 0.5, enforceOrder: true)
-        if observation != nil { // Otherwise, the observer deallocates early, and cancels!
-            observation = nil
-        }
+        wait(for: [completes, dontChime], timeout: 0.01, enforceOrder: true)
     }
     
     func testImmediateChime() {
         let chimesOnce = expectation(description: "Clock chimes immediately")
         let completes = expectation(description: "Chime completes")
-        let now = clock.thisNanosecond()
+        let now = clock.thisSecond()
         
-        var observation: AnyCancellable? = clock
+        clock
             .chime(at: now) // Should fire immediately
-            .sink(
-                receiveCompletion: { (completion) in
-                    completes.fulfill()
-                },
-                receiveValue: { (result) in
-                    let expected = now.firstInstant.intervalSinceEpoch.rawValue
-                    let actual = result.firstInstant.intervalSinceEpoch.rawValue
-                    XCTAssertEqual(actual, expected, accuracy: 0.005,
-                                   "Chime at \(actual)s is \(actual - expected)s late (early if negative).")
-                    XCTAssertEqual(result.absoluteSecond,
-                                   now.absoluteSecond)
-                    chimesOnce.fulfill()
-                }
-            )
+            .sink(receiveCompletion: { _ in
+                completes.fulfill()
+            }, receiveValue: { value in
+                XCTAssertEqual(now, value)
+                chimesOnce.fulfill()
+            })
+            .store(in: &cancellables)
         
         wait(for: [chimesOnce, completes], timeout: 0.5, enforceOrder: true)
-        if observation != nil { // Otherwise, the observer deallocates early, and cancels!
-            observation = nil
-        }
     }
     
     func testChimeAtSpecificValue() {
         let chimesOnce = expectation(description: "Clock chimes shortly")
         let completes = expectation(description: "Chime completes")
-        let seconds: Int = 2
-        let xSecondsFromNow = clock.thisNanosecond().adding(seconds: seconds)
         
-        var observation: AnyCancellable? = clock
-            .chime(at: xSecondsFromNow) // Should fire in `seconds`
-            .sink(
-                receiveCompletion: { (completion) in
-                    completes.fulfill()
-                },
-                receiveValue: { (result) in
-                    let expected = xSecondsFromNow.firstInstant.intervalSinceEpoch.rawValue
-                    let actual = result.firstInstant.intervalSinceEpoch.rawValue
-                    XCTAssertEqual(actual, expected, accuracy: 0.005,
-                                   "Chime at \(actual)s is \(actual - expected)s late (early if negative).")
-                    XCTAssertEqual(result.absoluteSecond,
-                                   xSecondsFromNow.absoluteSecond)
-                    chimesOnce.fulfill()
-                }
-            )
+        let nextSecond = clock.nextSecond()
+        clock
+            .chime(at: nextSecond)
+            .sink(receiveCompletion: { _ in
+                completes.fulfill()
+            }, receiveValue: { value in
+                XCTAssertEqual(value, nextSecond)
+                chimesOnce.fulfill()
+            })
+            .store(in: &cancellables)
         
-        wait(for: [chimesOnce, completes], timeout: Double(seconds) + 0.5, enforceOrder: true)
-        if observation != nil { // Otherwise, the observer deallocates early, and cancels!
-            observation = nil
-        }
+        wait(for: [chimesOnce, completes], timeout: 1, enforceOrder: true)
     }
     
     func testScaledChimeAtSpecificValue() {
         let chimesOnce = expectation(description: "Clock chimes shortly")
         let completes = expectation(description: "Chime completes")
-        let seconds: Int = 2
-        let rate: Double = 2.0
-        let clock = Clock(startingFrom: .reference, rate: rate)
-        let xScaledSeconds = clock.thisNanosecond().adding(seconds: seconds)
         
-        var observation: AnyCancellable? = clock
-            .chime(at: xScaledSeconds) // Should fire when clock reads `seconds` (`seconds` / `rate`)
-            .sink(
-                receiveCompletion: { (completion) in
-                    completes.fulfill()
-                },
-                receiveValue: { (result) in
-                    let expected = xScaledSeconds.firstInstant.intervalSinceEpoch.rawValue
-                    let actual = result.firstInstant.intervalSinceEpoch.rawValue
-                    XCTAssertEqual(actual, expected, accuracy: 0.01,
-                                   "Chime at \(actual)s is \(actual - expected)s late (early if negative).")
-                    XCTAssertEqual(result.absoluteSecond,
-                                   xScaledSeconds.absoluteSecond)
-                    chimesOnce.fulfill()
-                }
-            )
+        let sixtyXClock = Clock(startingFrom: clock.now(), rate: 60.0, region: clock.region)
+        let nextMinute = sixtyXClock.nextMinute()
         
-        wait(for: [chimesOnce, completes], timeout: 1.5, enforceOrder: true)
-        if observation != nil { // Otherwise, the observer deallocates early, and cancels!
-            observation = nil
-        }
+        sixtyXClock
+            .chime(at: nextMinute)
+            .sink(receiveCompletion: { _ in
+                completes.fulfill()
+            }, receiveValue: { value in
+                XCTAssertEqual(value, nextMinute)
+                chimesOnce.fulfill()
+            })
+            .store(in: &cancellables)
+        
+        wait(for: [chimesOnce, completes], timeout: 1, enforceOrder: true)
     }
     
     func testAbsoluteChimeCancel() {
-        let distantFuture = Absolute<Second>(region: .posix, date: .distantFuture)
-        let chime = clock.chime(at: distantFuture).sink { (result) in
-            XCTFail("We shouldn't get a chime from the distant future: \(result)")
+        let nextSecond = clock.nextSecond()
+        let dontChime = expectation(description: "Clock does not chime")
+        dontChime.isInverted = true
+        let chime = clock.chime(at: nextSecond).sink { value in
+            dontChime.fulfill()
         }
         chime.cancel()
-        // This is mostly for coverage's sake. Cancellation is much easier to test with IntervalChime.
+        wait(for: [dontChime], timeout: 1.0)
     }
     
     func testIntervalChime() {
         let chimesTwice = expectation(description: "Clock chimes twice, once per second")
-        let units: Int = 1
-        let count: Int = 2
-        chimesTwice.expectedFulfillmentCount = count
-        var results = [Double]()
-        let now = clock.thisSecond().firstInstant.intervalSinceEpoch.rawValue
-        for value in 0..<count {
-            results.append(now + Double(units + units * value))
-        } // Expected results are [units, units * 2, ..., units * (n-1)]
+        chimesTwice.expectedFulfillmentCount = 2
         
-        var observation: AnyCancellable? = clock
-            .chime(every: Difference<Second, Era>.seconds(units))
-            .sink(
-                receiveCompletion: { (completion) in
-                    XCTFail("Repeating chime completed: \(completion)")
-                },
-                receiveValue: { (result) in
-                    let expected = results.removeFirst()
-                    let actual = result.firstInstant.intervalSinceEpoch.rawValue
-                    XCTAssertEqual(actual, expected, accuracy: 0.005,
-                                   "Chime at \(actual)s is \(actual - expected)s late (early if negative).")
-                    chimesTwice.fulfill()
-                }
-            )
+        let start = clock.nextSecond()
+        var results = [start, start.nextSecond]
+        print("Expecting chimes at \(results)")
         
-        wait(for: [chimesTwice], timeout: 2.5)
-        if observation != nil { // Otherwise, the observer deallocates early, and cancels!
-            observation = nil
-        }
-    }
-    
-    func testIntervalChimeOnce() {
-        let chimesOnce = expectation(description: "Clock chimes shortly")
-        let nanoseconds: Int = 500_000_000 // half second
-        let then = clock.thisNanosecond().adding(nanoseconds: nanoseconds)
+        clock
+            .chime(every: TimeDifference<Second, Era>.seconds(1), startingFrom: start)
+            .sink(receiveCompletion: { (completion) in
+                XCTFail("Repeating chime completed: \(completion)")
+            }, receiveValue: { value in
+                let expected = results.removeFirst()
+                XCTAssertEqual(value, expected)
+                chimesTwice.fulfill()
+            })
+            .store(in: &cancellables)
         
-        var observation: AnyCancellable? = clock
-            .chime(every: Difference<Nanosecond, Era>.nanoseconds(nanoseconds))
-            .sink(
-                receiveCompletion: { (completion) in
-                    XCTFail("Repeating chime completed: \(completion)")
-                },
-                receiveValue: { (result) in
-                    let expected = then.firstInstant.intervalSinceEpoch.rawValue
-                    let actual = result.firstInstant.intervalSinceEpoch.rawValue
-                    XCTAssertEqual(actual, expected, accuracy: 0.01,
-                                   "Chime at \(actual)s is \(actual - expected)s late (early if negative).")
-                    XCTAssertEqual(result.absoluteSecond,
-                                   then.absoluteSecond)
-                    chimesOnce.fulfill()  // This lets the waiter go through, which then cancels the watcher
-                }
-            )
-        
-        wait(for: [chimesOnce], timeout: 0.75)
-        if observation != nil {
-            observation = nil // See? Cancelled.
-        }
-    }
-    
-    func testIntervalChimeAfterDelay() {
-        let chimesOnce = expectation(description: "Clock chimes shortly")
-        let nanoseconds: Int = 500_000_000 // half second
-        let delay: Int = 1
-        let now = clock.thisNanosecond()
-        let delaySeconds = now.adding(seconds: delay)
-        let then = delaySeconds.adding(nanoseconds: nanoseconds)
-        
-        var observation: AnyCancellable? = clock
-            .chime(every: Difference<Nanosecond, Era>.nanoseconds(nanoseconds),
-                   startingFrom: delaySeconds)
-            .sink(
-                receiveCompletion: { (completion) in
-                    XCTFail("Repeating chime completed: \(completion)")
-                },
-                receiveValue: { (result) in
-                    let expected = then.firstInstant.intervalSinceEpoch.rawValue
-                    let actual = result.firstInstant.intervalSinceEpoch.rawValue
-                    XCTAssertEqual(actual, expected, accuracy: 0.01,
-                                   "Chime at \(actual)s is \(actual - expected)s late (early if negative).")
-                    XCTAssertEqual(result.absoluteSecond,
-                                   then.absoluteSecond)
-                    chimesOnce.fulfill() // This lets the waiter go through, which then cancels the watcher
-                }
-            )
-        
-        wait(for: [chimesOnce], timeout: 2)
-        if observation != nil {
-            observation = nil // See? Cancelled.
-        }
+        wait(for: [chimesTwice], timeout: 2.0)
     }
     
     func testIntervalChimeCancel() {
-        let blueMoon = Difference<Nanosecond, Era>.nanoseconds(1_000_000_000 / 12)
+        let blueMoon = TimeDifference<Nanosecond, Era>.nanoseconds(1_000_000_000 / 12)
         let bellOfStJohn = expectation(description: "The bell rings twelve times")
         bellOfStJohn.expectedFulfillmentCount = 12
-        let chime = clock.chime(every: blueMoon).sink { (result) in
+        clock.chime(every: blueMoon).sink { _ in
             bellOfStJohn.fulfill()
-        }
+        }.store(in: &cancellables)
         
         wait(for: [bellOfStJohn], timeout: 2)
-        // We get here after the 12th chime. This should halt our listener, and the expectation won't assert.
-        chime.cancel()
     }
     
     func testPredicateChime() {
-        // Set to the top of the hour
-        let topOfNextHour = clock.nextHour().firstMinute().firstSecond().subtracting(seconds: 1)
-        let minutesToTop = clock.thisMinute().firstSecond().difference(to: topOfNextHour)
-        let secondsToTop = Double(minutesToTop.seconds)
-        let fastClock = Clock(startingFrom: clock.now() + .init(secondsToTop),
-                              rate: 3600) // an hour per second!
+        // Set to the next hour
+        let justBeforeNextMinute = clock.nextMinute().firstSecond.previous
         
-        let chimes = expectation(description: "Clock chimes five times in an hour")
-        var expectedMins = [0, 13, 26, 39, 52]
-        chimes.expectedFulfillmentCount = expectedMins.count
-        // This should prove the example in the documentation.
-        var observation: AnyCancellable? = fastClock
-            .chime(when: { (time: Absolute<Minute>) in time.minute % 13 == 0 })
-            .sink { (result) in
-                let expected = expectedMins.removeFirst()
-                let actual = result.minute
-                XCTAssertEqual(actual, expected,
-                               "Chime at *:\(actual) is \(actual - expected)m late (early if negative).")
+        // every second is a minute
+        let fastClock = Clock(startingFrom: justBeforeNextMinute.firstInstant, rate: 60.0, region: clock.region)
+        var results = [0, 13, 26, 39, 52]
+        
+        let chimes = expectation(description: "Clock chimes 5 times in an hour")
+        chimes.expectedFulfillmentCount = 5
+        
+        fastClock
+            .chime(when: { (value: Absolute<Second>) -> Bool in
+                return value.second % 13 == 0
+            })
+            .sink(receiveValue: { value in
+                let expected = results.removeFirst()
+                XCTAssertEqual(value.second, expected)
                 chimes.fulfill()
-            }
+            })
+            .store(in: &cancellables)
         
-        wait(for: [chimes], timeout: 2)
-        if observation != nil {
-            observation = nil
-        }
+        wait(for: [chimes], timeout: 10.0)
     }
     
 }
