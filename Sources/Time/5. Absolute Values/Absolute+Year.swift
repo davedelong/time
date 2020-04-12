@@ -9,16 +9,16 @@ import Foundation
 
 public extension Absolute where Smallest == Year, Largest == Era {
     
-    func firstMonth() -> Absolute<Month> { return first() }
-    func lastMonth() -> Absolute<Month> { return last() }
+    var firstMonth: Absolute<Month> { return first() }
+    var lastMonth: Absolute<Month> { return last() }
     func nthMonth(_ ordinal: Int) throws -> Absolute<Month> { return try nth(ordinal) }
     func month(_ number: Int) -> Absolute<Month>? { return numbered(number) }
     
-    func months() -> AbsoluteTimePeriodSequence<Month> {
+    var months: AbsoluteTimePeriodSequence<Month> {
         return AbsoluteTimePeriodSequence(parent: self)
     }
     
-    func days() -> AbsoluteTimePeriodSequence<Day> {
+    var days: AbsoluteTimePeriodSequence<Day> {
         return AbsoluteTimePeriodSequence(parent: self)
     }
     

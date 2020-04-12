@@ -9,16 +9,16 @@ import Foundation
 
 public extension Absolute where Smallest == Hour, Largest == Era {
     
-    func firstMinute() -> Absolute<Minute> { return first() }
-    func lastMinute() -> Absolute<Minute> { return last() }
+    var firstMinute: Absolute<Minute> { return first() }
+    var lastMinute: Absolute<Minute> { return last() }
     func nthMinute(_ ordinal: Int) throws -> Absolute<Minute> { return try nth(ordinal) }
     func minute(_ number: Int) -> Absolute<Minute>? { return numbered(number) }
     
-    func minutes() -> AbsoluteTimePeriodSequence<Minute> {
+    var minutes: AbsoluteTimePeriodSequence<Minute> {
         return AbsoluteTimePeriodSequence(parent: self)
     }
     
-    func seconds() -> AbsoluteTimePeriodSequence<Second> {
+    var seconds: AbsoluteTimePeriodSequence<Second> {
         return AbsoluteTimePeriodSequence(parent: self)
     }
 }

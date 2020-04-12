@@ -30,19 +30,19 @@ public extension Absolute where Largest == Era {
         return applying(difference: difference)
     }
     
-    func next() -> TimePeriod<Smallest, Largest> { offset(by: 1) }
+    var next: TimePeriod<Smallest, Largest> { offset(by: 1) }
     
-    func previous() -> TimePeriod<Smallest, Largest> { offset(by: -1) }
+    var previous: TimePeriod<Smallest, Largest> { offset(by: -1) }
 
 }
 
 public extension Absolute where Smallest: LTOEYear, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one year.
-    func nextYear() -> Self { return adding(years: 1) }
+    var nextYear: Self { return adding(years: 1) }
     
     /// Create a new `TimePeriod` by moving backward one year.
-    func previousYear() -> Self { return subtracting(years: 1) }
+    var previousYear: Self { return subtracting(years: 1) }
     
     /// Create a new `TimePeriod` by moving forward some number of years.
     /// - Parameter years: The number of years by which to move forward.
@@ -57,10 +57,10 @@ public extension Absolute where Smallest: LTOEYear, Largest == Era {
 public extension Absolute where Smallest: LTOEMonth, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one month.
-    func nextMonth() -> Self { return adding(months: 1) }
+    var nextMonth: Self { return adding(months: 1) }
     
     /// Create a new `TimePeriod` by moving backward one month.
-    func previousMonth() -> Self { return subtracting(months: 1) }
+    var previousMonth: Self { return subtracting(months: 1) }
     
     /// Create a new `TimePeriod` by moving forward some number of months.
     /// - Parameter months: The number of months by which to move forward.
@@ -75,22 +75,22 @@ public extension Absolute where Smallest: LTOEMonth, Largest == Era {
 public extension Absolute where Smallest: LTOEDay, Largest == Era {
     
     /// Adjust the date to the beginning of the calendar's week.
-    func startOfWeek() -> Self {
+    var startOfWeek: Self {
         var s = self
         let targetWeekday = region.calendar.firstWeekday
         
         // TODO: this is O(n). Could this be done in O(1) by pre-computing the number of days to move backwards?
         while s.dayOfWeek != targetWeekday {
-            s = s.previousDay()
+            s = s.previousDay
         }
         return s
     }
     
     /// Create a new `TimePeriod` by moving forward one day.
-    func nextDay() -> Self { return adding(days: 1) }
+    var nextDay: Self { return adding(days: 1) }
     
     /// Create a new `TimePeriod` by moving backward one day.
-    func previousDay() -> Self { return subtracting(days: 1) }
+    var previousDay: Self { return subtracting(days: 1) }
     
     /// Create a new `TimePeriod` by moving forward some number of days.
     /// - Parameter days: The number of days by which to move forward.
@@ -122,9 +122,9 @@ public extension Absolute where Smallest: LTOEDay, Largest == Era {
         if proposed.dayOfWeek == day { return proposed }
         
         // something went wrong. manually scan forward
-        var current = self.nextDay()
+        var current = self.nextDay
         while current.dayOfWeek != day {
-            current = current.nextDay()
+            current = current.nextDay
         }
         return current
     }
@@ -134,10 +134,10 @@ public extension Absolute where Smallest: LTOEDay, Largest == Era {
 public extension Absolute where Smallest: LTOEHour, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one hour.
-    func nextHour() -> Self { return adding(hours: 1) }
+    var nextHour: Self { return adding(hours: 1) }
     
     /// Create a new `TimePeriod` by moving backward one hour.
-    func previousHour() -> Self { return subtracting(hours: 1) }
+    var previousHour: Self { return subtracting(hours: 1) }
     
     /// Create a new `TimePeriod` by moving forward some number of hours.
     /// - Parameter hours: The number of hours by which to move forward.
@@ -152,10 +152,10 @@ public extension Absolute where Smallest: LTOEHour, Largest == Era {
 public extension Absolute where Smallest: LTOEMinute, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one minute.
-    func nextMinute() -> Self { return adding(minutes: 1) }
+    var nextMinute: Self { return adding(minutes: 1) }
     
     /// Create a new `TimePeriod` by moving backward one minute.
-    func previousMinute() -> Self { return subtracting(minutes: 1) }
+    var previousMinute: Self { return subtracting(minutes: 1) }
     
     /// Create a new `TimePeriod` by moving forward some number of minutes.
     /// - Parameter minutes: The number of minutes by which to move forward.
@@ -170,10 +170,10 @@ public extension Absolute where Smallest: LTOEMinute, Largest == Era {
 public extension Absolute where Smallest: LTOESecond, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one second.
-    func nextSecond() -> Self { return adding(seconds: 1) }
+    var nextSecond: Self { return adding(seconds: 1) }
     
     /// Create a new `TimePeriod` by moving backward one second.
-    func previousSecond() -> Self { return subtracting(seconds: 1) }
+    var previousSecond: Self { return subtracting(seconds: 1) }
     
     /// Create a new `TimePeriod` by moving forward some number of seconds.
     /// - Parameter seconds: The number of seconds by which to move forward.
@@ -188,10 +188,10 @@ public extension Absolute where Smallest: LTOESecond, Largest == Era {
 public extension Absolute where Smallest: LTOENanosecond, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one nanosecond.
-    func nextNanosecond() -> Self { return adding(nanoseconds: 1) }
+    var nextNanosecond: Self { return adding(nanoseconds: 1) }
     
     /// Create a new `TimePeriod` by moving backward one nanosecond.
-    func previousNanosecond() -> Self { return subtracting(nanoseconds: 1) }
+    var previousNanosecond: Self { return subtracting(nanoseconds: 1) }
     
     /// Create a new `TimePeriod` by moving forward some number of nanoseconds.
     /// - Parameter nanoseconds: The number of nanoseconds by which to move forward.

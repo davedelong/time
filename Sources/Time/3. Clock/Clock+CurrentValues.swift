@@ -17,8 +17,8 @@ public extension Clock {
     
     /// Retrieve the current calendar day of the `Clock`.
     func today() -> Absolute<Day> { return this() }
-    func tomorrow() -> Absolute<Day> { return this().next() }
-    func yesterday() -> Absolute<Day> { return this().previous() }
+    func tomorrow() -> Absolute<Day> { return this().next }
+    func yesterday() -> Absolute<Day> { return this().previous }
     
     /// Retrieve the current calendar era of the `Clock`.
     func thisEra() -> Absolute<Era> { return this() }
@@ -44,17 +44,17 @@ public extension Clock {
     /// Retrieve the current calendar nanosecond of the `Clock`.
     func thisNanosecond() -> Absolute<Nanosecond> { return this() }
     
-    func nextYear() -> Absolute<Year> { return this().next() }
-    func nextMonth() -> Absolute<Month> { return this().next() }
-    func nextDay() -> Absolute<Day> { return this().next() }
-    func nextHour() -> Absolute<Hour> { return this().next() }
-    func nextMinute() -> Absolute<Minute> { return this().next() }
-    func nextSecond() -> Absolute<Second> { return this().next() }
+    func nextYear() -> Absolute<Year> { return this().next }
+    func nextMonth() -> Absolute<Month> { return this().next }
+    func nextDay() -> Absolute<Day> { return this().next }
+    func nextHour() -> Absolute<Hour> { return this().next }
+    func nextMinute() -> Absolute<Minute> { return this().next }
+    func nextSecond() -> Absolute<Second> { return this().next }
 
-    func previousYear() -> Absolute<Year> { return this().previous() }
-    func previousMonth() -> Absolute<Month> { return this().previous() }
-    func previousDay() -> Absolute<Day> { return this().previous() }
-    func previousHour() -> Absolute<Hour> { return this().previous() }
-    func previousMinute() -> Absolute<Minute> { return this().previous() }
-    func previousSecond() -> Absolute<Second> { return this().previous() }
+    func previousYear() -> Absolute<Year> { return this().previous }
+    func previousMonth() -> Absolute<Month> { return this().previous }
+    func previousDay() -> Absolute<Day> { return this().previous }
+    func previousHour() -> Absolute<Hour> { return this().previous }
+    func previousMinute() -> Absolute<Minute> { return this().previous }
+    func previousSecond() -> Absolute<Second> { return this().previous }
 }
