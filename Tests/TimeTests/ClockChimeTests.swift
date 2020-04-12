@@ -5,6 +5,7 @@
 //  Created by James Robinson on 4/11/20.
 //
 
+#if canImport(Combine)
 import XCTest
 import Combine
 import Time
@@ -17,7 +18,8 @@ final class ClockChimeTests: XCTestCase {
         ("testImmediateChime", testImmediateChime),
         ("testChimeAtSpecificPeriod", testChimeAtSpecificPeriod),
         ("testScaledChimeAtSpecificPeriod", testScaledChimeAtSpecificPeriod),
-        ("testAbsoluteChimeCancel", testAbsoluteChimeCancel),
+        ("testSingleChimeCancel", testSingleChimeCancel),
+        
         ("testIntervalChime", testIntervalChime),
         ("testIntervalChimeOnce", testIntervalChimeOnce),
         ("testIntervalChimeAfterDelay", testIntervalChimeAfterDelay),
@@ -148,7 +150,7 @@ final class ClockChimeTests: XCTestCase {
         }
     }
     
-    func testAbsoluteChimeCancel() {
+    func testSingleChimeCancel() {
         let distantFuture = Absolute<Second>(region: .posix, date: .distantFuture)
         let chime = clock.chime(at: distantFuture).sink { (result) in
             XCTFail("We shouldn't get a chime from the distant future: \(result)")
@@ -289,3 +291,4 @@ final class ClockChimeTests: XCTestCase {
     }
     
 }
+#endif
