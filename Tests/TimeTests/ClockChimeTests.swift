@@ -6,8 +6,10 @@
 //
 
 import XCTest
-import Combine
 import Time
+
+#if canImport(Combine)
+import Combine
 
 @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 final class ClockChimeTests: XCTestCase {
@@ -19,6 +21,7 @@ final class ClockChimeTests: XCTestCase {
         ("testScaledChimeAtSpecificValue", testScaledChimeAtSpecificValue),
         ("testAbsoluteChimeCancel", testAbsoluteChimeCancel),
         ("testIntervalChime", testIntervalChime),
+        ("testIntervalChimeWithPastStart", testIntervalChimeWithPastStart),
         ("testIntervalChimeCancel", testIntervalChimeCancel),
         ("testPredicateChime", testPredicateChime),
     ]
@@ -139,6 +142,25 @@ final class ClockChimeTests: XCTestCase {
         wait(for: [chimesTwice], timeout: 2.0)
     }
     
+    func testIntervalChimeWithPastStart() {
+        let chimes = expectation(description: "Clock chimes once")
+        
+        let thisSecond = clock.thisSecond()
+        let startAMonthAgo = thisSecond.subtracting(minutes: 1)
+        
+        clock
+            .chime(every: TimeDifference<Second, Era>.seconds(1), startingFrom: startAMonthAgo)
+            .sink(receiveCompletion: { (completion) in
+                XCTFail("Repeating chime completed: \(completion)")
+            }, receiveValue: { value in
+                XCTAssertEqual(value, thisSecond)
+                chimes.fulfill()
+            })
+            .store(in: &cancellables)
+        
+        wait(for: [chimes], timeout: 0.1)
+    }
+    
     func testIntervalChimeCancel() {
         let blueMoon = TimeDifference<Nanosecond, Era>.nanoseconds(1_000_000_000 / 12)
         let bellOfStJohn = expectation(description: "The bell rings twelve times")
@@ -176,3 +198,11 @@ final class ClockChimeTests: XCTestCase {
     }
     
 }
+
+#else
+
+final class ClockChimeTests: XCTestCase {
+    static var allTests: [(String, (ClockChimeTests) -> () throws -> ())] = []
+}
+
+#endif

@@ -107,6 +107,20 @@ let shortYearString = today.format(year: .twoDigits, month: .full) // Ex: Februa
 
 More information in ["Formatting TimePeriods"](Documentation/2-Usage/7-Formatting.md).
 
+#### Observing time changes
+
+```swift
+let clock: Clock = ...
+clock
+    .chime(every: .seconds(5))
+    .sink { (value: Absolute<Second>) in
+        print("Another 5 seconds have passed")
+    }
+    .store(in: &cancellables)
+```
+
+More information in ["Observing time changes"](Documentation/2-Usage/8-Observation.md).
+
 ## Detailed Information
 
 For more information, [please see the documentation](Documentation).

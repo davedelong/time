@@ -149,7 +149,13 @@ SubscriberType.Input == Clock.Chime<U>.Output {
     }
     
     private func scheduleNextChime() {
-        guard let nextChimeTime = timeIterator.next() else {
+        var nextTime: Absolute<U>? = timeIterator.next()
+        let now: Absolute<U> = clock.this()
+        while let next = nextTime, next < now {
+            nextTime = timeIterator.next()
+        }
+        
+        guard let nextChimeTime = nextTime else {
             subscriber?.receive(completion: .finished)
             cancel()
             return

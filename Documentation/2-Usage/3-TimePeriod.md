@@ -73,3 +73,7 @@ You can iterate over sub-values using the [iteration API](6-Iteration.md).
 ## Formatting
 
 You can turn a `TimePeriod` into a human-readable string using the [formatting API](7-Formatting.md).
+
+## Observing
+
+You can observe changes to the current `TimePeriod` using the [observation API](8-Observation.md).
