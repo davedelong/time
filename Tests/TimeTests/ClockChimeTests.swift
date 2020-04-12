@@ -15,8 +15,8 @@ final class ClockChimeTests: XCTestCase {
     static var allTests: [(String, (ClockChimeTests) -> () throws -> ())] = [
         ("testPastChime", testPastChime),
         ("testImmediateChime", testImmediateChime),
-        ("testChimeAtSpecificValue", testChimeAtSpecificValue),
-        ("testScaledChimeAtSpecificValue", testScaledChimeAtSpecificValue),
+        ("testChimeAtSpecificPeriod", testChimeAtSpecificPeriod),
+        ("testScaledChimeAtSpecificPeriod", testScaledChimeAtSpecificPeriod),
         ("testAbsoluteChimeCancel", testAbsoluteChimeCancel),
         ("testIntervalChime", testIntervalChime),
         ("testIntervalChimeOnce", testIntervalChimeOnce),
@@ -88,7 +88,7 @@ final class ClockChimeTests: XCTestCase {
         }
     }
     
-    func testChimeAtSpecificValue() {
+    func testChimeAtSpecificPeriod() {
         let chimesOnce = expectation(description: "Clock chimes shortly")
         let completes = expectation(description: "Chime completes")
         let seconds: Int = 2
@@ -117,7 +117,7 @@ final class ClockChimeTests: XCTestCase {
         }
     }
     
-    func testScaledChimeAtSpecificValue() {
+    func testScaledChimeAtSpecificPeriod() {
         let chimesOnce = expectation(description: "Clock chimes shortly")
         let completes = expectation(description: "Chime completes")
         let seconds: Int = 2
@@ -169,7 +169,7 @@ final class ClockChimeTests: XCTestCase {
         } // Expected results are [units, units * 2, ..., units * (n-1)]
         
         var observation: AnyCancellable? = clock
-            .chime(every: Difference<Second, Era>.seconds(units))
+            .chime(every: TimeDifference<Second, Era>.seconds(units))
             .sink(
                 receiveCompletion: { (completion) in
                     XCTFail("Repeating chime completed: \(completion)")
@@ -195,7 +195,7 @@ final class ClockChimeTests: XCTestCase {
         let then = clock.thisNanosecond().adding(nanoseconds: nanoseconds)
         
         var observation: AnyCancellable? = clock
-            .chime(every: Difference<Nanosecond, Era>.nanoseconds(nanoseconds))
+            .chime(every: TimeDifference<Nanosecond, Era>.nanoseconds(nanoseconds))
             .sink(
                 receiveCompletion: { (completion) in
                     XCTFail("Repeating chime completed: \(completion)")
@@ -226,7 +226,7 @@ final class ClockChimeTests: XCTestCase {
         let then = delaySeconds.adding(nanoseconds: nanoseconds)
         
         var observation: AnyCancellable? = clock
-            .chime(every: Difference<Nanosecond, Era>.nanoseconds(nanoseconds),
+            .chime(every: TimeDifference<Nanosecond, Era>.nanoseconds(nanoseconds),
                    startingFrom: delaySeconds)
             .sink(
                 receiveCompletion: { (completion) in
@@ -250,7 +250,7 @@ final class ClockChimeTests: XCTestCase {
     }
     
     func testIntervalChimeCancel() {
-        let blueMoon = Difference<Nanosecond, Era>.nanoseconds(1_000_000_000 / 12)
+        let blueMoon = TimeDifference<Nanosecond, Era>.nanoseconds(1_000_000_000 / 12)
         let bellOfStJohn = expectation(description: "The bell rings twelve times")
         bellOfStJohn.expectedFulfillmentCount = 12
         let chime = clock.chime(every: blueMoon).sink { (result) in
@@ -264,11 +264,9 @@ final class ClockChimeTests: XCTestCase {
     
     func testPredicateChime() {
         // Set to the top of the hour
-        let topOfNextHour = clock.nextHour().firstMinute().firstSecond().subtracting(seconds: 1)
-        let minutesToTop = clock.thisMinute().firstSecond().difference(to: topOfNextHour)
-        let secondsToTop = Double(minutesToTop.seconds)
-        let fastClock = Clock(startingFrom: clock.now() + .init(secondsToTop),
-                              rate: 3600) // an hour per second!
+        let justBeforeNextHour = clock
+            .nextHour().firstMinute.subtracting(minutes: 1).firstInstant
+        let fastClock = Clock(startingFrom: justBeforeNextHour, rate: 3600) // an hour per second!
         
         let chimes = expectation(description: "Clock chimes five times in an hour")
         var expectedMins = [0, 13, 26, 39, 52]

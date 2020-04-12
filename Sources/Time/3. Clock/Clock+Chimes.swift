@@ -6,9 +6,10 @@
 //
 
 #if canImport(Combine)
-import Foundation
 import Dispatch
 import Combine
+
+// MARK: - Convenience Methods
 
 @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Clock {
@@ -21,8 +22,8 @@ extension Clock {
     /// - Parameters:
     ///   - interval: The amount of time that should elapse before the next chime occurs.
     ///   - startTime: The time to start counting at before the first chime occurs.
-    /// - Returns: A publisher which publishes absolute time values at the moment of each chime.
-    public func chime<U>(every interval: Difference<U, Era>,
+    /// - Returns: A publisher which publishes absolute time periods at the moment of each chime.
+    public func chime<U>(every interval: TimeDifference<U, Era>,
                          startingFrom startTime: Absolute<U>? = nil) -> Clock.IntervalChime<U> where U: Unit {
         return Clock.IntervalChime(for: self,
                                    interval: interval,
@@ -42,11 +43,11 @@ extension Clock {
     /// - Parameters:
     ///   - matches: A closure which is called when each prospective unit elapses to determine
     ///   whether it should be published.
-    ///   - time: A propspective time value.
+    ///   - time: A prospective time period to be published.
     ///
-    /// - Returns: A publisher which publishes absolute time values at the moment of each chime.
+    /// - Returns: A publisher which publishes absolute time periods at the moment of each chime.
     public func chime<U>(when matches: @escaping (_ time: Absolute<U>) -> Bool) -> Clock.IntervalChime<U> where U: Unit {
-        let interval = Difference<U, Era>(value: 1, unit: U.component)
+        let interval = TimeDifference<U, Era>(value: 1, unit: U.component)
         return Clock.IntervalChime(for: self,
                                    interval: interval,
                                    startTime: nil,
@@ -60,19 +61,19 @@ extension Clock {
     /// - Parameter time: The time at which the chime should occur.
     ///
     /// - Returns: A publisher which publishes the current absolute time and then completes.
-    public func chime<U>(at time: Absolute<U>) -> Clock.AbsoluteChime<U> where U: Unit {
-        return Clock.AbsoluteChime(for: self, firstInstantOf: time)
+    public func chime<U>(at time: Absolute<U>) -> Clock.SingleChime<U> where U: Unit {
+        return Clock.SingleChime(for: self, firstInstantOf: time)
     }
     
 }
 
-private extension Value {
+private extension TimePeriod where Largest == Era {
     
-    /// Returns the `TimeInterval` (number of seconds) from this `Value` to the `next`.
+    /// Returns the number of seconds from this `TimePeriod` to the `next`.
     ///
     /// For example, May 5 at 3:02:26 and May 5 at 3:02:30 are 4 seconds apart. The opposite
     /// would return a negative value.
-    func seconds(to next: Self) -> TimeInterval {
+    func seconds(to next: Self) -> Double {
         let now = self
         let then = next
         let nowSeconds = now.firstInstant.intervalSinceEpoch.rawValue
@@ -101,7 +102,7 @@ extension Clock {
         
         init(subscriber: SubscriberType,
              clock: Clock,
-             interval: Difference<Unit, Era>,
+             interval: TimeDifference<Unit, Era>,
              startingAt startTime: Absolute<Unit>?,
              predicate: @escaping (_ time: Absolute<Unit>) -> Bool) {
             self.subscriber = subscriber
@@ -126,9 +127,9 @@ extension Clock {
         }
         
         private func performChime() {
-            let value: Absolute<Unit> = clock.this()
-            guard predicate(value) else { return }
-            _ = subscriber?.receive(value)
+            let moment: Absolute<Unit> = clock.this()
+            guard predicate(moment) else { return }
+            _ = subscriber?.receive(moment)
         }
         
         public func request(_ demand: Subscribers.Demand) {
@@ -152,20 +153,20 @@ extension Clock {
         public var clock: Clock
         
         /// The time interval between chimes.
-        public var interval: Difference<Unit, Era>
+        public var interval: TimeDifference<Unit, Era>
         
         /// The time at which to start chiming.
         ///
         /// If found to be `nil` when a subscriber requests values, then the present time is assumed.
         public var startTime: Absolute<Unit>?
         
-        /// A predicate to use which determines whether a time value will be published.
+        /// A predicate to use which determines whether a time period will be published.
         ///
         /// Defaults to a closure that always returns `true`.
         public var predicate: (Absolute<Unit>) -> Bool
         
         public init(for clock: Clock,
-                    interval: Difference<Unit, Era>,
+                    interval: TimeDifference<Unit, Era>,
                     startTime: Absolute<Unit>?,
                     predicate: @escaping (_ time: Absolute<Unit>) -> Bool = { _ in true }) {
             self.clock = clock
@@ -187,23 +188,23 @@ extension Clock {
     }
 }
 
-// MARK: - Absolute Chime
+// MARK: - Single Chime
 
 @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Clock {
     
-    /// A subscription to a `Clock.AbsoluteChime`.
-    public final class AbsoluteChimeSubscription<SubscriberType, Unit>: Subscription
+    /// A subscription to a `Clock.SingleChime`.
+    public final class SingleChimeSubscription<SubscriberType, Unit>: Subscription
         where Unit: Time.Unit,
         SubscriberType: Subscriber,
-        SubscriberType.Failure == Clock.AbsoluteChime<Unit>.Failure,
-        SubscriberType.Input == Clock.AbsoluteChime<Unit>.Output {
+        SubscriberType.Failure == Clock.SingleChime<Unit>.Failure,
+        SubscriberType.Input == Clock.SingleChime<Unit>.Output {
         
         private var subscriber: SubscriberType?
         private let clock: Clock
         private let timer: DispatchSourceTimer
         
-        init(subscriber: SubscriberType, clock: Clock, value: Absolute<Unit>) {
+        init(subscriber: SubscriberType, clock: Clock, moment: Absolute<Unit>) {
             self.subscriber = subscriber
             self.clock = clock
             
@@ -211,7 +212,7 @@ extension Clock {
             self.timer = DispatchSource.makeTimerSource(flags: .strict)
             timer.setEventHandler(handler: performChime)
             let now: Absolute<Unit> = clock.this()
-            let then = value
+            let then = moment
             let normalInterval = now.seconds(to: then)
             
             let rate = clock.rate
@@ -238,7 +239,7 @@ extension Clock {
     }
     
     /// A publisher which publishes exactly once—when a given `Clock` reads a specified time—and then completes.
-    public struct AbsoluteChime<Unit>: Publisher where Unit: Time.Unit {
+    public struct SingleChime<Unit>: Publisher where Unit: Time.Unit {
         
         public typealias Output = Absolute<Unit>
         public typealias Failure = Never
@@ -247,19 +248,19 @@ extension Clock {
         public var clock: Clock
         
         /// The time at which to chime.
-        public var value: Absolute<Unit>
+        public var timePeriod: Absolute<Unit>
         
-        public init(for clock: Clock, firstInstantOf value: Absolute<Unit>) {
+        public init(for clock: Clock, firstInstantOf timePeriod: Absolute<Unit>) {
             self.clock = clock
-            self.value = value
+            self.timePeriod = timePeriod
         }
         
         public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
             let subscription =
-                AbsoluteChimeSubscription(
+                SingleChimeSubscription(
                     subscriber: subscriber,
                     clock: clock,
-                    value: value)
+                    moment: timePeriod)
             subscriber.receive(subscription: subscription)
         }
         
