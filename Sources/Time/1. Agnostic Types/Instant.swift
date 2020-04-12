@@ -76,39 +76,3 @@ public struct Instant: Hashable, Comparable {
         return Instant(interval: epochInterval, since: epoch)
     }
 }
-
-/*
-extension Instant: ReferenceConvertible {
-    
-    public typealias ReferenceType = NSDate
-    public typealias _ObjectiveCType = NSDate
-    
-    public var debugDescription: String {
-        "Debug"
-    }
-    
-    public var description: String {
-        "Desc"
-    }
-    
-    
-    public func _bridgeToObjectiveC() -> NSDate {
-        return NSDate(timeIntervalSinceReferenceDate: intervalSinceReferenceEpoch.rawValue)
-    }
-    
-    public static func _forceBridgeFromObjectiveC(_ source: NSDate, result: inout Instant?) {
-        <#code#>
-    }
-    
-    public static func _conditionallyBridgeFromObjectiveC(_ source: NSDate, result: inout Instant?) -> Bool {
-        <#code#>
-    }
-    
-    public static func _unconditionallyBridgeFromObjectiveC(_ source: NSDate?) -> Instant {
-        <#code#>
-    }
-    
-    
-    
-}
-*/
