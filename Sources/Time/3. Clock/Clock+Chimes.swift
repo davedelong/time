@@ -49,7 +49,7 @@ extension Clock {
         let interval = Difference<U, Era>(value: 1, unit: U.component)
         return Clock.IntervalChime(for: self,
                                    interval: interval,
-                                   startTime: self.this(),
+                                   startTime: nil,
                                    predicate: matches)
     }
     
