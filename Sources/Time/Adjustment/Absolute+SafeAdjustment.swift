@@ -11,9 +11,9 @@ public extension Absolute {
     
     /// Adjust an absolute value by applying a temporal delta value.
     ///
-    /// - Parameter difference: The `Difference` that describes the difference between the receiver
+    /// - Parameter difference: The `TimeDifference` that describes the difference between the receiver
     ///    and the produced value.
-    func applying(difference: Difference<Smallest, Largest>) -> TimePeriod<Smallest, Largest> {
+    func applying(difference: TimeDifference<Smallest, Largest>) -> TimePeriod<Smallest, Largest> {
         let adjuster = Adjustment<Smallest, Largest, Smallest, Largest> {
             let d = $0.range.lowerBound.date
             let diff = difference.dateComponents

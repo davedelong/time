@@ -75,7 +75,7 @@ let day1: Absolute<Day> = ...
 let day2: Absolute<Day> = ...
 
 // compute the difference in days, months, years, and eras
-let difference: Difference<Day, Era> = day1.difference(to: day2)
+let difference: TimeDifference<Day, Era> = day1.difference(to: day2)
 
 // or conveniently the number of calendar days between the two values
 let daysDifference = day1.differenceInDays(to: day2)

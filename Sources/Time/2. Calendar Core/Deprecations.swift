@@ -25,6 +25,12 @@ public typealias AbsoluteValueSequence = AbsoluteTimePeriodSequence
             message: "AbsoluteValueIterator has been renamed to 'AbsoluteTimePeriodIterator'. This name will disappear in 1.0")
 public typealias AbsoluteValueIterator = AbsoluteTimePeriodIterator
 
+@available(*,
+            deprecated,
+            renamed: "TimeDifference",
+            message: "Difference has been renamed to 'TimeDifference'. This name will disappear in 1.0")
+public typealias Difference = TimeDifference
+
 
 extension Absolute {
     @available(*, deprecated,
