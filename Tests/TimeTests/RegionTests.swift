@@ -9,6 +9,10 @@ import XCTest
 import Time
 
 class RegionTests: XCTestCase {
+
+    static var allTests = [
+        ("test24HourPreference", test24HourPreference),
+    ]
     
     func test24HourPreference() {
         

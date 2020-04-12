@@ -1,7 +1,12 @@
 import XCTest
-@testable import Time
+import Time
 
 class TimeTests: XCTestCase {
+
+    static var allTests = [
+        ("testExample", testExample),
+    ]
+    
     func testExample() {
         
         let c = Clock.system
@@ -14,8 +19,4 @@ class TimeTests: XCTestCase {
         }
     }
 
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }

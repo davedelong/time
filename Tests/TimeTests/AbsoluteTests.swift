@@ -2,6 +2,18 @@ import XCTest
 @testable import Time
 
 class AbsoluteTests: XCTestCase {
+
+    static var allTests = [
+        ("testInitializingGregorianDateWithoutEraSucceeds", testInitializingGregorianDateWithoutEraSucceeds),
+        ("testInitializingGregorianDateWithEraSucceeds", testInitializingGregorianDateWithEraSucceeds),
+        ("testInitializingJapaneseDateWithoutEraFails", testInitializingJapaneseDateWithoutEraFails),
+        ("testInitializingJapaneseDateWithEraSucceeds", testInitializingJapaneseDateWithEraSucceeds),
+        ("testLastMonthOfYear", testLastMonthOfYear),
+        ("testLastDayOfMonth", testLastDayOfMonth),
+        ("testLastHourOfDay", testLastHourOfDay),
+        ("testLastMinuteOfHour", testLastMinuteOfHour),
+        ("testLastSecondOfMinute", testLastSecondOfMinute),
+    ]
     
     func testInitializingGregorianDateWithoutEraSucceeds() {
         XCTAssertNoThrow(try Absolute<Day>(region: .posix, year: 1970, month: 4, day: 1))
@@ -66,16 +78,4 @@ class AbsoluteTests: XCTestCase {
 
         XCTAssertEqual(lastSecond, expectedlastSecond)
     }
-
-    static var allTests = [
-        ("testInitializingGregorianDateWithoutEraSucceeds", testInitializingGregorianDateWithoutEraSucceeds),
-        ("testInitializingGregorianDateWithEraSucceeds", testInitializingGregorianDateWithEraSucceeds),
-        ("testInitializingJapaneseDateWithoutEraFails", testInitializingJapaneseDateWithoutEraFails),
-        ("testInitializingJapaneseDateWithEraSucceeds", testInitializingJapaneseDateWithEraSucceeds),
-        ("testLastMonthOfYear", testLastMonthOfYear),
-        ("testLastDayOfMonth", testLastDayOfMonth),
-        ("testLastHourOfDay", testLastHourOfDay),
-        ("testLastMinuteOfHour", testLastMinuteOfHour),
-        ("testLastSecondOfMinute", testLastSecondOfMinute),
-    ]
 }

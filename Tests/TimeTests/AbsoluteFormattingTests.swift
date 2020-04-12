@@ -10,6 +10,15 @@ import Time
 
 class AbsoluteFormattingTests: XCTestCase {
     
+    static var allTests = [
+        ("testEraFormatting", testEraFormatting),
+        ("testYearFormatting", testYearFormatting),
+        ("testMonthFormatting", testMonthFormatting),
+        ("testDayFormatting", testDayFormatting),
+        ("testRawFormatting_Strict", testRawFormatting_Strict),
+        ("testRawFormatting_Lenient", testRawFormatting_Lenient),
+    ]
+    
     // create a clock that starts at the first instant of the reference era
     // the slow rate is just to make sure that small units (seconds, etc) don't move faster than
     // the unit tests can reasonably handle
