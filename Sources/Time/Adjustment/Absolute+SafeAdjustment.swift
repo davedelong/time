@@ -22,6 +22,17 @@ public extension Absolute {
         }
         return applying(adjuster)
     }
+    
+    func offset(by count: Int) -> TimePeriod<Smallest, Largest> {
+        guard count != 0 else { return self }
+        
+        let difference = TimeDifference<Smallest, Largest>(value: count, unit: Smallest.component)
+        return applying(difference: difference)
+    }
+    
+    func next() -> TimePeriod<Smallest, Largest> { offset(by: 1) }
+    
+    func previous() -> TimePeriod<Smallest, Largest> { offset(by: -1) }
 
 }
 
