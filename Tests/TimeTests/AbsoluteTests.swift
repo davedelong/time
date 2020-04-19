@@ -13,6 +13,7 @@ class AbsoluteTests: XCTestCase {
         ("testLastHourOfDay", testLastHourOfDay),
         ("testLastMinuteOfHour", testLastMinuteOfHour),
         ("testLastSecondOfMinute", testLastSecondOfMinute),
+        ("testAddingComponents", testAddingComponents),
     ]
     
     func testInitializingGregorianDateWithoutEraSucceeds() {
@@ -77,5 +78,14 @@ class AbsoluteTests: XCTestCase {
         let expectedlastSecond = try! Absolute<Second>(region: .posix, era:1, year: 2020, month: 2, day: 29, hour: 13, minute: 31, second: 59)
 
         XCTAssertEqual(lastSecond, expectedlastSecond)
+    }
+    
+    func testAddingComponents() throws {
+        let today: Absolute<Day> = Clock.system.today()
+        let todayAt12: Absolute<Minute> = try today.setting(hour: 12, minute: 00)
+        
+        XCTAssertEqual(todayAt12.absoluteDay, today)
+        XCTAssertEqual(todayAt12.hour, 12)
+        XCTAssertEqual(todayAt12.minute, 0)
     }
 }

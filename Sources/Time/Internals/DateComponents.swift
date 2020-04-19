@@ -86,7 +86,7 @@ internal extension DateComponents {
     func merging(_ other: DateComponents) -> DateComponents {
         var copy = self
         for unit in Calendar.Component.descendingOrder {
-            if let value = other.value(for: unit) {
+            if let value = other.value(for: unit), value != NSNotFound {
                 copy.setValue(value, for: unit)
             }
         }
