@@ -9,7 +9,7 @@ Working with calendars can be extremely complicated and error-prone. `Time` solv
 `Time` can be installed like any other Swift package. Add this to the `dependencies` section of your Package.swift:
 
 ```swift
-.package(url: "https://github.com/davedelong/time", from: "0.9.0")
+.package(url: "https://github.com/davedelong/time", from: "0.9.1")
 ```
 
 ## The Basics
