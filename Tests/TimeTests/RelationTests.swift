@@ -148,8 +148,8 @@ class RelationTests: XCTestCase {
         let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
         let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
         
-        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 3)
-        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 4)
+        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 3)
         
         let a = a1 ..< a2
         let b = b1 ..< b2
