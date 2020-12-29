@@ -84,6 +84,10 @@ public struct SISeconds: RawRepresentable, Hashable, Comparable {
         self.rawValue = value
     }
     
+    public init(_ value: Int) {
+        self.init(Double(value))
+    }
+    
     public func hash(into hasher: inout Hasher) {
         hasher.combine(rawValue)
     }
