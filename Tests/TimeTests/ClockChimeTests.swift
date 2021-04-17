@@ -26,7 +26,7 @@ final class ClockChimeTests: XCTestCase {
         ("testPredicateChime", testPredicateChime),
     ]
     
-    let clock = Clock()
+    let clock = Clocks.system
     var cancellables = Set<AnyCancellable>()
     
     override func tearDown() {
@@ -93,7 +93,7 @@ final class ClockChimeTests: XCTestCase {
         let chimesOnce = expectation(description: "Clock chimes shortly")
         let completes = expectation(description: "Chime completes")
         
-        let sixtyXClock = Clock(startingFrom: clock.now(), rate: 60.0, region: clock.region)
+        let sixtyXClock = Clocks.custom(startingFrom: clock.now(), rate: 60.0, region: clock.region)
         let nextMinute = sixtyXClock.nextMinute()
         
         sixtyXClock
@@ -177,7 +177,7 @@ final class ClockChimeTests: XCTestCase {
         let justBeforeNextMinute = clock.nextMinute().firstSecond.previous
         
         // every second is a minute
-        let fastClock = Clock(startingFrom: justBeforeNextMinute.firstInstant, rate: 60.0, region: clock.region)
+        let fastClock = Clocks.custom(startingFrom: justBeforeNextMinute.firstInstant, rate: 60.0, region: clock.region)
         var results = [0, 13, 26, 39, 52]
         
         let chimes = expectation(description: "Clock chimes 5 times in an hour")

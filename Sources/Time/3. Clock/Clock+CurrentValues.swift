@@ -10,6 +10,8 @@ import Foundation
 public extension Clock {
     
     /// Retrieve the current `Instant` shown on the `Clock`.
+    ///
+    /// This method is equivalent to invoking the `now()` method.
     func thisInstant() -> Instant { return now() }
     
     /// Retrieve the current `Absolute` calendrical value, accurate down to the specified unit.

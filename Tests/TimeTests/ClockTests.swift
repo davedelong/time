@@ -25,14 +25,14 @@ class ClockTests: XCTestCase {
     
     func testSystem() {
         
-        let c = Clock.system
+        let c = Clocks.system
         let now = c.now()
         
         XCTAssertEqual(now.intervalSinceEpoch.rawValue, Date.timeIntervalSinceReferenceDate, accuracy: 0.001)
     }
     
     func testExplicit() {
-        let c = Clock.posix
+        let c = Clocks.posix
         
         let now = c.now()
         XCTAssertEqual(now.intervalSinceEpoch.rawValue, Date.timeIntervalSinceReferenceDate, accuracy: 0.001)
@@ -42,8 +42,8 @@ class ClockTests: XCTestCase {
     }
     
     func testAccelerated_2x() {
-        let now = Clock.system.now()
-        let c = Clock(startingFrom: now, rate: 2.0, region: Region.current)
+        let now = Clocks.system.now()
+        let c = Clocks.custom(startingFrom: now, rate: 2.0, region: Region.current)
         
         let thisSecond = c.now()
         wait(1)
@@ -55,8 +55,8 @@ class ClockTests: XCTestCase {
     }
     
     func testAccelerated_10x() {
-        let now = Clock.system.now()
-        let c = Clock(startingFrom: now, rate: 10.0, region: Region.current)
+        let now = Clocks.system.now()
+        let c = Clocks.custom(startingFrom: now, rate: 10.0, region: Region.current)
         
         let thisSecond = c.now()
         wait(1)
@@ -69,8 +69,8 @@ class ClockTests: XCTestCase {
     }
     
     func testDecelerated_2x() {
-        let now = Clock.system.now()
-        let c = Clock(startingFrom: now, rate: 0.5, region: Region.current)
+        let now = Clocks.system.now()
+        let c = Clocks.custom(startingFrom: now, rate: 0.5, region: Region.current)
         
         let thisSecond = c.now()
         wait(1)
@@ -82,8 +82,8 @@ class ClockTests: XCTestCase {
     }
     
     func testDecelerated_10x() {
-        let now = Clock.system.now()
-        let c = Clock(startingFrom: now, rate: 0.1, region: Region.current)
+        let now = Clocks.system.now()
+        let c = Clocks.custom(startingFrom: now, rate: 0.1, region: Region.current)
         
         let thisSecond = c.now()
         wait(1)
@@ -107,7 +107,7 @@ extension ClockTests {
             timeZone: timeZone,
             locale: .autoupdatingCurrent)
         
-        let clock = Clock(region: region)
+        let clock = Clocks.system(in: region)
         
         let instant = clock.nextDaylightSavingTimeTransition()
         XCTAssertNotNil(instant)
@@ -124,7 +124,7 @@ extension ClockTests {
             timeZone: timeZone,
             locale: .autoupdatingCurrent)
         
-        let clock = Clock(region: region)
+        let clock = Clocks.system(in: region)
         let instantNextYear = (clock.thisDay() + .years(1)).firstInstant
         
         let nextDSTSeconds = clock
@@ -145,7 +145,7 @@ extension ClockTests {
             timeZone: timeZone,
             locale: .autoupdatingCurrent)
 
-        let clock = Clock(region: region)
+        let clock = Clocks.system(in: region)
         
         XCTAssertNil(clock.nextDaylightSavingTimeTransition())
     }
@@ -158,7 +158,7 @@ extension ClockTests {
             timeZone: timeZone,
             locale: .autoupdatingCurrent)
 
-        let clock = Clock(region: region)
+        let clock = Clocks.system(in: region)
         let instantNextYear = (clock.thisDay() + .years(1)).firstInstant
         
         let nextDSTSeconds = clock

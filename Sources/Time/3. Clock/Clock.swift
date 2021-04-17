@@ -7,90 +7,70 @@
 
 import Foundation
 
-
 /// A `Clock` is how you know what "now" is.
-public class Clock {
+public protocol Clock {
     
-    /// The system clock. This `Clock` uses the current `Region` and follows the current device time.
-    public static let system = Clock()
+    /// The `Clock`'s `Region`, used for creating `TimePeriod` values relative to this `Clock`.
+    var region: Region { get }
     
-    /// A POSIX clock. This `Clock` uses the POSIX `Region` and follows the current device time.
-    public static let posix = Clock(region: .posix)
+    /// The instantaneous time currently shown on the `Clock`.
+    func now() -> Instant
     
-    private let impl: ClockImplementation
-    
-    /// How many seconds the `Clock` measures per actual second elapsed.
+    /// The number of `SISeconds` that pass for every real-world second.
     ///
-    /// This value is 1.0, unless otherwise specified in the initializer.
-    public var rate: Double { impl.SISecondsPerRealSecond }
+    /// This is used in situations where you wish to "speed up" or "slow down" clock time. A clock that moves
+    /// twice as fast as real time would return `2.0` for this value. A clock that moves half as fast as real time
+    /// would return `0.5` for this value.
+    ///
+    /// The default value is `1.0`, indicating that the clock advances 1 second for every elapsed `SISecond`
+    /// in real time.
+    var SISecondsPerRealSecond: Double { get }
     
-    /// The `Clock`'s `Region`.
-    public let region: Region
+}
+
+extension Clock {
+    
+    public var SISecondsPerRealSecond: Double { return 1.0 }
+    
+}
+
+extension Clock {
     
     /// The `Calendar` used by the `Clock`, as defined by its `region`.
-    public var calendar: Calendar { return region.calendar }
+    public var calendar: Calendar { region.calendar }
     
     /// The `TimeZone` used by the `Clock`, as defined by its `region`.
-    public var timeZone: TimeZone { return region.timeZone }
+    public var timeZone: TimeZone { region.timeZone }
     
     /// The `Locale` used by the `Clock`, as defined by its `region`.
-    public var locale: Locale { return region.locale }
-    
-    private init(implementation: ClockImplementation, region: Region) {
-        self.impl = implementation
-        self.region = region
-    }
-    
-    /// Create a `Clock` that reflects the current system time localized to a particular `Region`.
-    public convenience init(region: Region = .autoupdatingCurrent) {
-        self.init(implementation: SystemClock(), region: region)
-    }
-    
-    /// Create a clock with a custom start time and flow rate.
-    ///
-    /// - Parameters:
-    ///   - referenceDate: The instantaneous "now" from which the clock will start counting.
-    ///   - rate: The rate at which time progresses in the clock, relative to the supplied calendar.
-    ///     - `1.0` (the default) means one second on the system clock correlates to a second passing in the clock.
-    ///     - `2.0` would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast).
-    ///   - region: The Region in which calendar values are produced.
-    public convenience init(startingFrom referenceInstant: Instant, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
-        guard rate > 0.0 else { fatalError("Clocks can only count forwards") }
-        
-        let implementation = CustomClock(referenceInstant: referenceInstant, rate: rate, calendar: region.calendar)
-        self.init(implementation: implementation, region: region)
-    }
-    
-    
-    /// Create a clock with a custom start time and flow rate.
-    ///
-    /// - Parameters:
-    ///   - referenceEpoch: The instantaneous "now" from which the clock will start counting.
-    ///   - rate: The rate at which time progresses in the clock.
-    ///     - `1.0` (the default) means one second on the system clock correlates to a second passing in the clock.
-    ///     - `2.0` would mean that every second elapsing on the system clock would be 2 seconds on this clock (ie, time progresses twice as fast).
-    ///   - region: The Region in which calendar values are produced.
-    public convenience init(startingFrom referenceEpoch: Epoch, rate: Double = 1.0, region: Region = .autoupdatingCurrent) {
-        let referenceInstant = Instant(interval: 0, since: referenceEpoch)
-        self.init(startingFrom: referenceInstant, rate: rate, region: region)
-    }
-    
-    
-    /// Retrieve the current instant.
-    ///
-    /// - Returns: An `Instant` representing the current time on the clock.
-    public func now() -> Instant {
-        return impl.now()
-    }
-    
+    public var locale: Locale { region.locale }
     
     /// Offset a clock.
     ///
-    /// - Parameter by: A `TimeInterval` by which to create an offset clock.
-    /// - Returns: A new `Clock` that is offset by the specified `TimeInterval` from the receiver.
-    public func offset(by: TimeInterval) -> Clock {
-        let offset = OffsetClock(offset: by, from: impl)
-        return Clock(implementation: offset, region: region)
+    /// - Parameter by: the `SISeconds` by which to create an offset clock.
+    /// - Returns: A new `Clock` that is offset by the specified `SISeconds` from the receiver.
+    public func offset(by delta: SISeconds) -> Clock {
+        return OffsetClock(offset: delta, from: self)
+    }
+    
+    /// Scale a clock.
+    ///
+    /// - Parameter by: the `Double` by which to speed up or slow down time
+    /// - Returns: A new `Clock` that is scaled from the receiver by the specified `Double` factor.
+    public func scaled(by factor: Double) -> Clock {
+        guard factor > 0 else {
+            fatalError("You cannot create a clock where time has stopped or flows backwards")
+        }
+        return ScaledClock(scale: factor, from: self)
+    }
+    
+    /// Retrieve the `Instant` of the next daylight saving time transition on this Clock.
+    ///
+    /// - Parameter after: The `Instant` after which to find the next daylight saving time transition. If omitted, it will be assumed to be the current instant.
+    /// - Returns: The `Instant` of the next daylight saving time transition, or `nil` if the time zone does not currently observe daylight saving time.
+    public func nextDaylightSavingTimeTransition(after instant: Instant? = nil) -> Instant? {
+        let afterInstant = instant ?? now()
+        return timeZone.nextDaylightSavingTimeTransition(after: afterInstant.date).map(Instant.init)
     }
     
     
@@ -104,6 +84,10 @@ public class Clock {
         return self.converting(to: newRegion)
     }
     
+    /// Convert a clock to a new calendar.
+    ///
+    /// - Parameter calendar: The `Calendar` of the new `Clock`.
+    /// - Returns: A new `Clock` that reports values in the specified `Calendar`.
     public func converting(to calendar: Calendar) -> Clock {
         if calendar == self.calendar { return self }
         // TODO: if the new calendar defines a different scaling of SI Seconds... ?
@@ -111,25 +95,23 @@ public class Clock {
         return self.converting(to: newRegion)
     }
     
+    /// Convert a clock to a new locale.
+    ///
+    /// - Parameter locale: The `Locale` of the new `Clock`.
+    /// - Returns: A new `Clock` that reports values in the specified `Locale`.
     public func converting(to locale: Locale) -> Clock {
         if locale == self.locale { return self }
         let newRegion = self.region.converting(to: locale)
         return self.converting(to: newRegion)
     }
     
+    /// Convert a clock to a new region.
+    ///
+    /// - Parameter region: The `Region` of the new `Clock`.
+    /// - Returns: A new `Clock` that reports values in the specified `Region`.
     public func converting(to newRegion: Region) -> Clock {
         // TODO: compare the existing region to the new region and short-circuit if possible
         // TODO: if the new calendar defines a different scaling of SI Seconds... ?
-        return Clock(implementation: impl, region: newRegion)
-    }
-    
-    
-    /// Retrieve the `Instant` of the next daylight saving time transition.
-    ///
-    /// - Parameter after: The `Instant` after which to find the next daylight saving time transition. If omitted, it will be assumed to be the current instant.
-    /// - Returns: The `Instant` of the next daylight saving time transition, or `nil` if the time zone does not currently observe daylight saving time.
-    public func nextDaylightSavingTimeTransition(after instant: Instant? = nil) -> Instant? {
-        let afterInstant = instant ?? now()
-        return timeZone.nextDaylightSavingTimeTransition(after: afterInstant.date).map(Instant.init)
+        return RegionalClock(base: self, region: newRegion)
     }
 }

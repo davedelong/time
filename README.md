@@ -16,7 +16,7 @@ Working with calendars can be extremely complicated and error-prone. `Time` solv
 
 Here's the TL;DR of the documentation:
 
-- If you want to know what time it is, you need a `Clock`. You can get the device's clock by using `Clock.system`.
+- If you want to know what time it is, you need a `Clock`. You can get the device's clock by using `Clocks.system`.
 
 - A `Clock` can tell you the current time via some functions. For example, `.today()` will give you the current calendar day. `.thisMinute()` will give you the current time, accurate down to the _minute_ level.
 
@@ -31,7 +31,7 @@ There are some examples below showing a sneak peek of what you can do with `Time
 #### Fetching the Current Time
 
 ```swift
-let clock = Clock.system
+let clock = Clocks.system
 
 // retrieve the current instantaneous time from the clock
 let now = clock.thisInstant()
@@ -47,7 +47,7 @@ More information in ["Clock"](Documentation/2-Usage/2-Clock.md).
 ```swift
 let nycTimeZone = TimeZone(identifier: "America/New_York")!
 
-let myClock = Clock.system
+let myClock = Clocks.system
 let nycClock = myClock.converting(to: nycTimeZone)
 
 let myLocalTime = myClock.thisMinute() // Ex: 28 Feb 2020 at 3:14 PM Pacific Time
@@ -86,7 +86,7 @@ More information in ["Differences"](Documentation/2-Usage/5-Differences.md).
 #### Iterating Over TimePeriods
 
 ```swift
-let thisMonth = Clock.system.thisMonth()
+let thisMonth = Clocks.system.thisMonth()
 let daysInThisMonth = thisMonth.days()
 
 for day in daysInThisMonth {

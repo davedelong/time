@@ -22,7 +22,7 @@ class AbsoluteFormattingTests: XCTestCase {
     // create a clock that starts at the first instant of the reference era
     // the slow rate is just to make sure that small units (seconds, etc) don't move faster than
     // the unit tests can reasonably handle
-    let clock = Clock(startingFrom: Instant(interval: 0, since: .reference), rate: 0.001, region: .posix)
+    let clock = Clocks.custom(startingFrom: Instant(interval: 0, since: .reference), rate: 0.001, region: .posix)
     
     func testEraFormatting() {
         let v = clock.thisEra()

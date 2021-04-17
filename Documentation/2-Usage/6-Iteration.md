@@ -3,7 +3,7 @@
 Iterating over calendrical values is a common problem, especially when it comes to building a UI around calendars. Many developers want to iterate over every day in a month, or every month in a year. `Time` makes this easy:
 
 ```swift
-let thisMonth = Clock.system.thisMonth()
+let thisMonth = Clocks.system.thisMonth()
 let daysInThisMonth = thisMonth.days()
 
 for day in daysInThisMonth {

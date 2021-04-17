@@ -5,7 +5,7 @@ The fundamental entry point for retrieving calendrical values is via a `Clock`. 
 The simplest way to retrieve a `Clock` in the package is to ask for the `system` clock:
 
 ```swift
-let clock = Clock.system
+let clock = Clocks.system
 ```
 
 The `system` clock follows the user-visible time on the current device. It is automatically initialized with the user's current locale, calendar, and time zone.
@@ -45,10 +45,10 @@ let offsetClock = aClock.offset(by: 42.0)
 ```
 
 ```swift
-let now = Clock.system.thisInstant()
+let now = Clocks.system.thisInstant()
 
 // this creates a clock that, from this point onwards, pretends that 2 seconds have passed for every second that has passed in real time 
-let fastClock = Clock(startingFrom: now, rate: 2.0, region: .current)
+let fastClock = Clocks.custom(startingFrom: now, rate: 2.0, region: .current)
 ```
 
 So if you wanted to see how your app behaves as it approaches 3 PM, you can construct a custom clock to start counting time from "today at 3 PM" and provide it to your code.
@@ -63,10 +63,14 @@ For example, if you have the current system clock, but you *also* want to know w
 
 let nycTimeZone = TimeZone(identifier: "America/New_York")!
 
-let myClock = Clock.system
+let myClock = Clocks.system
 let nycClock = myClock.converting(to: nycTimeZone)
 
 let myLocalTime = myClock.thisMinute() // ex: 28 Feb 2020 at 3:14 PM Pacific Time
 
 let nycLocalTime = nycClock.thisMinute() // ex: 28 Feb 2020 at 6:14 PM Eastern Time
 ```
+
+## Custom Clocks
+
+The `Clock` type is a protocol, and Time provides several different implementations to account for varying regions, scaled time, and offset time. You are welcome to create your own `Clock`-conforming types. Having a custom clock can make unit testing and debugging extremely easy, as a proper implementation would allow you to instanteously jump forwards or backwards through time, or explicitly set what "now" is, and so on.
