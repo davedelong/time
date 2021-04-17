@@ -21,7 +21,7 @@ public extension Template where F == Era {
 }
 
 public extension Template where F == Year {
-    static let full = Template("y")
+    static let naturalDigits = Template("y")
     static let twoDigits = digits(paddedToLength: 2)
     static func digits(paddedToLength: Int) -> Template {
         guard paddedToLength > 0 else { fatalError("Cannot pad to a length less than 1") }
@@ -31,42 +31,42 @@ public extension Template where F == Year {
 }
 
 public extension Template where F == Month {
-    static let fullDigits = Template("M")
+    static let naturalDigits = Template("M")
     static let twoDigits = Template("MM")
     static let abbreviatedName = Template("MMM")
-    static let fullName = Template("MMMM")
+    static let naturalName = Template("MMMM")
     static let narrowName = Template("MMMMM")
 }
 
 public enum Standalone<Field> { }
 public extension Template where F == Standalone<Month> {
-    static let fullDigits = Template("L")
+    static let naturalDigits = Template("L")
     static let twoDigits = Template("LL")
     static let abbreviatedName = Template("LLL")
-    static let fullName = Template("LLLL")
+    static let naturalName = Template("LLLL")
     static let narrowName = Template("LLLLL")
 }
 
 public extension Template where F == Day {
-    static let full = Template("d")
+    static let naturalDigits = Template("d")
     static let twoDigits = Template("dd")
 }
 
 public enum Weekday { }
 public extension Template where F == Weekday {
-    static let fullDigits = Template("e")
+    static let naturalDigits = Template("e")
     static let twoDigits = Template("ee")
     static let abbreviatedName = Template("eee")
-    static let fullName = Template("eeee")
+    static let naturalName = Template("eeee")
     static let narrowName = Template("eeeee")
     static let shortName = Template("eeeeee")
 }
 
 public extension Template where F == Standalone<Weekday> {
 // these don't appear to be working correctly. Until I figure out what's going on, let's leave them out
-//    static let fullDigits = Template("c")
+//    static let naturalDigits = Template("c")
 //    static let twoDigits = Template("cc")
-    static let fullName = Template("cccc")
+    static let naturalName = Template("cccc")
     static let abbreviatedName = Template("ccc")
     static let shortName = Template("cccccc")
     static let narrowName = Template("ccccc")
@@ -74,16 +74,16 @@ public extension Template where F == Standalone<Weekday> {
 
 public enum DayPeriod { }
 public extension Template where F == DayPeriod {
-    static let abbreviated = Template("a")
+    static let natural = Template("a")
     static let wide = Template("aaaa")
     static let narrow = Template("aaaaa")
 }
 
 public extension Template where F == Hour {
-    static let full = Template.full(with: nil)
+    static let naturalDigits = Template.naturalDigits(with: nil)
     static let twoDigits = Template.twoDigits(with: nil)
     
-    static func full(with period: Template<DayPeriod>? = .abbreviated) -> Template {
+    static func naturalDigits(with period: Template<DayPeriod>? = .natural) -> Template {
         guard let p = period else { return Template("J") }
         
         if p.template == Template<DayPeriod>.wide.template {
@@ -95,7 +95,7 @@ public extension Template where F == Hour {
         }
     }
     
-    static func twoDigits(with period: Template<DayPeriod>? = .abbreviated) -> Template {
+    static func twoDigits(with period: Template<DayPeriod>? = .natural) -> Template {
         guard let p = period else { return Template("JJ") }
         
         if p.template == Template<DayPeriod>.wide.template {
@@ -110,12 +110,12 @@ public extension Template where F == Hour {
 }
 
 public extension Template where F == Minute {
-    static let full = Template("m")
+    static let naturalDigits = Template("m")
     static let twoDigits = Template("mm")
 }
 
 public extension Template where F == Second {
-    static let full = Template("s")
+    static let naturalDigits = Template("s")
     static let twoDigits = Template("ss")
 }
 

@@ -13,6 +13,6 @@ Additionally, `Time` supports building formatted values by specifying individual
 ```swift
 let today: Absolute<Day> = ...
 
-let string = today.format(year: .twoDigits, month: .full) // Ex: February '20
+let string = today.format(year: .twoDigits, month: .naturalName) // Ex: February '20
 ```
 

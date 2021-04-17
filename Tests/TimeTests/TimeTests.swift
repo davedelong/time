@@ -15,7 +15,7 @@ class TimeTests: XCTestCase {
         
         for month in months {
             let days = Array(month.days)
-            print("\(month.format(year: .full, month: .fullName)) - \(days.count) days")
+            print("\(month.format(year: .naturalDigits, month: .naturalName)) - \(days.count) days")
         }
     }
 

@@ -12,24 +12,24 @@ fileprivate let likelyFormats: Dictionary<Calendar.Component, Array<Format>> = [
         Template<Era>.abbreviated
     ],
     .year: [
-        Template<Year>.full,
+        Template<Year>.naturalDigits,
         Template<Year>.twoDigits
     ],
     .month: [
-        Template<Month>.fullDigits,
+        Template<Month>.naturalDigits,
         Template<Month>.twoDigits,
         Template<Month>.abbreviatedName,
-        Template<Month>.fullName
+        Template<Month>.naturalName
     ],
     .day: [
-        Template<Day>.full,
+        Template<Day>.naturalDigits,
         Template<Day>.twoDigits
     ],
     .hour: [
-        Template<Hour>.full,
-        Template<Hour>.full(with: .abbreviated),
+        Template<Hour>.naturalDigits,
+        Template<Hour>.naturalDigits(with: .natural),
         Template<Hour>.twoDigits,
-        Template<Hour>.twoDigits(with: .abbreviated)
+        Template<Hour>.twoDigits(with: .natural)
     ],
     .minute: [
         Template<Minute>.twoDigits
@@ -39,7 +39,7 @@ fileprivate let likelyFormats: Dictionary<Calendar.Component, Array<Format>> = [
     ],
     .weekday: [
         Template<Weekday>.abbreviatedName,
-        Template<Weekday>.fullName
+        Template<Weekday>.naturalName
     ],
     .nanosecond: [
         Template<Nanosecond>.digits(4)

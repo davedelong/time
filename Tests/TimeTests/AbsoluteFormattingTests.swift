@@ -35,11 +35,11 @@ class AbsoluteFormattingTests: XCTestCase {
     func testYearFormatting() {
         let v = clock.thisYear()
         
-        XCTAssertEqual(v.format(year: .full), "2001")
+        XCTAssertEqual(v.format(year: .naturalDigits), "2001")
         XCTAssertEqual(v.format(year: .twoDigits), "01")
         XCTAssertEqual(v.format(year: .digits(paddedToLength: 5)), "02001")
         
-        XCTAssertEqual(v.format(era: .abbreviated, year: .full), "2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits), "2001 AD")
         XCTAssertEqual(v.format(era: .abbreviated, year: .twoDigits), "01 AD")
         XCTAssertEqual(v.format(era: .wide, year: .digits(paddedToLength: 5)), "02001 Anno Domini")
     }
@@ -47,47 +47,47 @@ class AbsoluteFormattingTests: XCTestCase {
     func testMonthFormatting() {
         let v = clock.thisMonth()
         
-        XCTAssertEqual(v.format(month: .fullName), "January")
+        XCTAssertEqual(v.format(month: .naturalName), "January")
         XCTAssertEqual(v.format(month: .abbreviatedName), "Jan")
         XCTAssertEqual(v.format(month: .narrowName), "J")
-        XCTAssertEqual(v.format(month: .fullDigits), "1")
+        XCTAssertEqual(v.format(month: .naturalDigits), "1")
         XCTAssertEqual(v.format(month: .twoDigits), "01")
         
-        XCTAssertEqual(v.format(year: .full, month: .fullName), "January 2001")
-        XCTAssertEqual(v.format(year: .full, month: .abbreviatedName), "Jan 2001")
-        XCTAssertEqual(v.format(year: .full, month: .narrowName), "J 2001")
-        XCTAssertEqual(v.format(year: .full, month: .fullDigits), "1/2001")
-        XCTAssertEqual(v.format(year: .full, month: .twoDigits), "01/2001")
+        XCTAssertEqual(v.format(year: .naturalDigits, month: .naturalName), "January 2001")
+        XCTAssertEqual(v.format(year: .naturalDigits, month: .abbreviatedName), "Jan 2001")
+        XCTAssertEqual(v.format(year: .naturalDigits, month: .narrowName), "J 2001")
+        XCTAssertEqual(v.format(year: .naturalDigits, month: .naturalDigits), "1/2001")
+        XCTAssertEqual(v.format(year: .naturalDigits, month: .twoDigits), "01/2001")
         
-        XCTAssertEqual(v.format(era: .abbreviated, year: .full, month: .fullName), "January 2001 AD")
-        XCTAssertEqual(v.format(era: .abbreviated, year: .full, month: .abbreviatedName), "Jan 2001 AD")
-        XCTAssertEqual(v.format(era: .abbreviated, year: .full, month: .narrowName), "J 2001 AD")
-        XCTAssertEqual(v.format(era: .abbreviated, year: .full, month: .fullDigits), "1 2001 AD")
-        XCTAssertEqual(v.format(era: .abbreviated, year: .full, month: .twoDigits), "01 2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .naturalName), "January 2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .abbreviatedName), "Jan 2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .narrowName), "J 2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .naturalDigits), "1 2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .twoDigits), "01 2001 AD")
     }
     
     func testDayFormatting() {
         let v = clock.thisDay()
         
-        XCTAssertEqual(v.format(weekday: .fullName), "Monday")
+        XCTAssertEqual(v.format(weekday: .naturalName), "Monday")
         XCTAssertEqual(v.format(weekday: .abbreviatedName), "Mon")
         XCTAssertEqual(v.format(weekday: .shortName), "Mo")
         XCTAssertEqual(v.format(weekday: .narrowName), "M")
         
-        XCTAssertEqual(v.format(day: .full), "1")
+        XCTAssertEqual(v.format(day: .naturalDigits), "1")
         XCTAssertEqual(v.format(day: .twoDigits), "01")
         
-        XCTAssertEqual(v.format(month: .fullName, day: .full), "January 1")
-        XCTAssertEqual(v.format(month: .fullName, day: .twoDigits), "January 01")
+        XCTAssertEqual(v.format(month: .naturalName, day: .naturalDigits), "January 1")
+        XCTAssertEqual(v.format(month: .naturalName, day: .twoDigits), "January 01")
         
-        XCTAssertEqual(v.format(year: .full, month: .fullName, day: .full), "January 1, 2001")
-        XCTAssertEqual(v.format(year: .full, month: .fullName, day: .twoDigits), "January 01, 2001")
+        XCTAssertEqual(v.format(year: .naturalDigits, month: .naturalName, day: .naturalDigits), "January 1, 2001")
+        XCTAssertEqual(v.format(year: .naturalDigits, month: .naturalName, day: .twoDigits), "January 01, 2001")
         
-        XCTAssertEqual(v.format(era: .abbreviated, year: .full, month: .fullName, day: .full), "January 1, 2001 AD")
-        XCTAssertEqual(v.format(era: .abbreviated, year: .full, month: .fullName, day: .twoDigits), "January 01, 2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .naturalName, day: .naturalDigits), "January 1, 2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .naturalName, day: .twoDigits), "January 01, 2001 AD")
         
-        XCTAssertEqual(v.format(year: .full, month: .fullName, day: .full, weekday: .fullName), "Monday, January 1, 2001")
-        XCTAssertEqual(v.format(year: .full, month: .fullName, day: .twoDigits, weekday: .fullName), "Monday, January 01, 2001")
+        XCTAssertEqual(v.format(year: .naturalDigits, month: .naturalName, day: .naturalDigits, weekday: .naturalName), "Monday, January 1, 2001")
+        XCTAssertEqual(v.format(year: .naturalDigits, month: .naturalName, day: .twoDigits, weekday: .naturalName), "Monday, January 01, 2001")
         
         XCTAssertEqual(v.format(date: .full), "Monday, January 1, 2001")
     }

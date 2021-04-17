@@ -8,6 +8,36 @@
 import XCTest
 import Time
 
+extension Collection {
+    func slice(between: (Element, Element) -> Bool) -> Array<SubSequence> {
+        var slices = Array<SubSequence>()
+        
+        var startOfCurrentSlice = startIndex
+        
+        var previousIndex = startOfCurrentSlice
+        var currentIndex = index(after: startOfCurrentSlice)
+        
+        while currentIndex < endIndex {
+            let p = self[previousIndex]
+            let c = self[currentIndex]
+            
+            if between(p, c) {
+                slices.append(self[startOfCurrentSlice..<currentIndex])
+                startOfCurrentSlice = currentIndex
+            }
+            
+            previousIndex = currentIndex
+            currentIndex = index(after: currentIndex)
+        }
+        
+        if currentIndex > startOfCurrentSlice {
+            slices.append(self[startOfCurrentSlice ..< currentIndex])
+        }
+        
+        return slices
+    }
+}
+
 class ClockTests: XCTestCase {
     
     static var allTests = [
@@ -22,6 +52,15 @@ class ClockTests: XCTestCase {
         ("testNextDSTTransitionForTimeZoneWithoutDST", testNextDSTTransitionForTimeZoneWithoutDST),
         ("testNextDSTTransitionNextYearForTimeZoneWithoutDST", testNextDSTTransitionNextYearForTimeZoneWithoutDST)
     ]
+    
+    func testWeeksInYear() {
+        let thisYear = Clocks.system.thisYear()
+        let daysInTheYear = Array(thisYear.days)
+        
+        let weeks = daysInTheYear.slice(between: { $0.weekOfYear != $1.weekOfYear })
+        print(weeks)
+        
+    }
     
     func testSystem() {
         

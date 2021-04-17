@@ -127,9 +127,9 @@ extension TimePeriod: CustomStringConvertible {
     
     /// Provide a description of the `TimePeriod`.
     ///
-    /// The description is a localized "full" formatting of the calendar value.
+    /// The description is a localized "natural" formatting of the calendar value.
     public var description: String {
-        return formatFull()
+        return formatNatural()
     }
     
 }

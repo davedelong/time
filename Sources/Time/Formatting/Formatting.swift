@@ -13,7 +13,7 @@ internal protocol Format {
 
 extension TimePeriod {
     
-    static func fullFormats(in calendar: Calendar) -> Array<Format?> {
+    static func naturalFormats(in calendar: Calendar) -> Array<Format?> {
         var f = Array<Format?>()
         
         let order = Calendar.Component.descendingOrder
@@ -26,14 +26,14 @@ extension TimePeriod {
             switch unit {
                 case .era:
                     if calendar.isEraRelevant { f.append(Template<Era>.abbreviated) }
-                case .year: f.append(Template<Year>.full)
-                case .month: f.append(Template<Month>.fullName)
+                case .year: f.append(Template<Year>.naturalDigits)
+                case .month: f.append(Template<Month>.narrowName)
                 case .day:
-                    if isAbsolute { f.append(Template<Weekday>.fullName) }
-                    f.append(Template<Day>.full)
-                case .hour: f.append(Template<Hour>.full())
-                case .minute: f.append(Template<Minute>.full)
-                case .second: f.append(Template<Second>.full)
+                    if isAbsolute { f.append(Template<Weekday>.naturalName) }
+                    f.append(Template<Day>.naturalDigits)
+                case .hour: f.append(Template<Hour>.naturalDigits())
+                case .minute: f.append(Template<Minute>.naturalDigits)
+                case .second: f.append(Template<Second>.naturalDigits)
                 case .nanosecond: f.append(Template<Nanosecond>.digits(4))
                 default: continue
             }
@@ -57,8 +57,8 @@ extension TimePeriod {
         return date
     }
     
-    internal func formatFull() -> String {
-        return format(TimePeriod.fullFormats(in: calendar))
+    internal func formatNatural() -> String {
+        return format(TimePeriod.naturalFormats(in: calendar))
     }
         
     internal func format(_ formats: Array<Format?>, using date: Date? = nil) -> String {

@@ -15,18 +15,8 @@
 - [x] differences between absolute values
 - [x] enumerating absolute values
 - [x] parsing absolute values from strings
-- [x] Rename `Delta`. Possible candidates:
-    - `Difference` (This was chosen, then renamed again to `TimeDifference`)
-    - `Interval`
-- [x] Rename `Value`. Possible candidates:
-    - `TimeSlice`
-    - `Period`
-    - `TemporalRange`
-    - `Components`
-    - `Measurement`
-    - `Quantum`
-    - `Quantity`
-    - `TimePeriod` (chosen)
+- [x] Rename `Delta` ->  `TimeDifference`
+- [x] Rename `Value` -> `TimePeriod`
 - [ ] documentation
 - [x] Project organization
 
@@ -49,8 +39,10 @@ Fill out base functionality and fully implement `Relative` values:
 - [ ] rounding relative values
 - [ ] pseudo-units (`Week` and `Quarter`)
     - one thing to think about: let's say we have an `Absolute<Week>` that spans over a new year. Since weeks are independent of years, what would the `.year` and `.month` of the value be?
+    - maybe there are new protocols: `BaseUnit` and `PseudoUnit`, and `.year` and `.month` only show up for base units?
 - [ ] library with system shims (`Timer`, GCD, UIKit, UserNotifications, etc)
-- [ ] library with an NTP `Clock` using [`TrueTime.swift`](https://github.com/instacart/TrueTime.swift/issues/82) or [`Kronos`](https://github.com/Lyft/Kronos)
+- [ ] library with an NTP `Clock` using something like [`Kronos`](https://github.com/MobileNativeFoundation/Kronos)
+    - perhaps this could be done using a [cross-import overlay](https://forums.swift.org/t/cross-import-overlays/36710)?
 
 ## Long-term Features
 
