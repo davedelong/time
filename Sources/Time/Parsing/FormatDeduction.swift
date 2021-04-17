@@ -27,9 +27,9 @@ fileprivate let likelyFormats: Dictionary<Calendar.Component, Array<Format>> = [
     ],
     .hour: [
         Template<Hour>.naturalDigits,
-        Template<Hour>.naturalDigits(with: .natural),
+        Template<Hour>.naturalDigits(designator: .none),
         Template<Hour>.twoDigits,
-        Template<Hour>.twoDigits(with: .natural)
+        Template<Hour>.twoDigits(designator: .none)
     ],
     .minute: [
         Template<Minute>.twoDigits

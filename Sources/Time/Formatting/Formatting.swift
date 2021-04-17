@@ -31,7 +31,7 @@ extension TimePeriod {
                 case .day:
                     if isAbsolute { f.append(Template<Weekday>.naturalName) }
                     f.append(Template<Day>.naturalDigits)
-                case .hour: f.append(Template<Hour>.naturalDigits())
+                case .hour: f.append(Template<Hour>.naturalDigits)
                 case .minute: f.append(Template<Minute>.naturalDigits)
                 case .second: f.append(Template<Second>.naturalDigits)
                 case .nanosecond: f.append(Template<Nanosecond>.digits(4))

@@ -80,10 +80,10 @@ public extension Template where F == DayPeriod {
 }
 
 public extension Template where F == Hour {
-    static let naturalDigits = Template.naturalDigits(with: nil)
-    static let twoDigits = Template.twoDigits(with: nil)
+    static let naturalDigits = Template.naturalDigits(designator: .natural)
+    static let twoDigits = Template.twoDigits(designator: .natural)
     
-    static func naturalDigits(with period: Template<DayPeriod>? = .natural) -> Template {
+    static func naturalDigits(designator period: Template<DayPeriod>?) -> Template {
         guard let p = period else { return Template("J") }
         
         if p.template == Template<DayPeriod>.wide.template {
@@ -95,7 +95,7 @@ public extension Template where F == Hour {
         }
     }
     
-    static func twoDigits(with period: Template<DayPeriod>? = .natural) -> Template {
+    static func twoDigits(designator period: Template<DayPeriod>?) -> Template {
         guard let p = period else { return Template("JJ") }
         
         if p.template == Template<DayPeriod>.wide.template {
