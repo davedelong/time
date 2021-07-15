@@ -45,6 +45,9 @@ public extension Absolute where Smallest: LTOEDay, Largest == Era {
     /// For the Gregorian calendar, 1 = Sunday, 2 = Monday, ... 7 = Saturday
     var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
     
+    /// For the Gregorian calendar(Regions other than US), 1 = Monday, 2 = Tuesday, ... 7 = Sunday
+    var dayOfWeekOther: Int { return calendar.component(Calendar.Component.weekday == 1 ? 7 : (Calendar.Component.weekday - 1), from: approximateMidPoint.date) }
+    
     /// Returns the day of the month on which the receiver occurs.
     ///
     /// For example, given a value that represents "Halloween" (October 31st) on the Gregorian calendar,
