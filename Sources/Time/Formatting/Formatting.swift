@@ -27,7 +27,7 @@ extension TimePeriod {
                 case .era:
                     if calendar.isEraRelevant { f.append(Template<Era>.abbreviated) }
                 case .year: f.append(Template<Year>.naturalDigits)
-                case .month: f.append(Template<Month>.narrowName)
+                case .month: f.append(Template<Month>.naturalName)
                 case .day:
                     if isAbsolute { f.append(Template<Weekday>.naturalName) }
                     f.append(Template<Day>.naturalDigits)
