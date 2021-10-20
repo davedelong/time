@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import Time
+@testable import Time
 
 extension Collection {
     func slice(between: (Element, Element) -> Bool) -> Array<SubSequence> {
@@ -206,4 +206,20 @@ extension ClockTests {
         XCTAssertNil(nextDSTSeconds)
     }
     
+}
+
+// MARK: Syntax Sugar
+
+extension ClockTests {
+  #if swift(>=5.5)
+  func testClockProtocolExtensions() {
+    func testContext(_ clock: Clock) { }
+
+    testContext(.system)
+    testContext(.system(in: .current))
+    testContext(.posix)
+    testContext(.custom(startingFrom: Clocks.system.thisInstant(), rate: 1.0, region: .current))
+    testContext(.custom(startingFrom: Epoch(0), rate: 2.0, region: .current))
+  }
+  #endif
 }

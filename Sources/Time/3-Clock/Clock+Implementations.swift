@@ -7,15 +7,15 @@
 
 import Foundation
 
-internal struct SystemClock: Clock {
+public struct _SystemClock: Clock {
 
-    internal let region: Region
+    public let region: Region
     
     internal init(region: Region) {
         self.region = region
     }
     
-    internal func now() -> Instant {
+    public func now() -> Instant {
         return Instant()
     }
     
@@ -71,14 +71,15 @@ internal struct ScaledClock: Clock {
     
 }
 
-internal struct CustomClock: Clock {
-    
-    let absoluteStart = Instant()
-    let clockStart: Instant
-    let rate: Double
-    let region: Region
-    var SISecondsPerCalendarSecond: Double { return calendar.SISecondsPerSecond }
-    var SISecondsPerRealSecond: Double { return rate * SISecondsPerCalendarSecond }
+public struct _CustomClock: Clock {
+
+    public let region: Region
+    public var SISecondsPerRealSecond: Double { return rate * SISecondsPerCalendarSecond }
+
+    internal let absoluteStart = Instant()
+    internal let clockStart: Instant
+    internal let rate: Double
+    internal var SISecondsPerCalendarSecond: Double { return calendar.SISecondsPerSecond }
     
     private let actualRate: Double
     
@@ -89,7 +90,7 @@ internal struct CustomClock: Clock {
         self.actualRate = rate * region.calendar.SISecondsPerSecond
     }
     
-    func now() -> Instant {
+    public func now() -> Instant {
         let absoluteNow = Instant()
         let elapsedTime = absoluteNow - absoluteStart
         let scaledElapsedTime = elapsedTime * actualRate
