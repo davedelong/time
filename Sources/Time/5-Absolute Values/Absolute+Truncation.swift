@@ -9,7 +9,7 @@ import Foundation
 
 // the "Largest == Era" constraint is unfortunately necessary
 // https://bugs.swift.org/browse/SR-12195
-extension Absolute where Smallest: LTOEYear, Largest == Era {
+extension Absolute where Smallest: _LTOEYear, Largest == Era {
     
     /// Retrieve the absolute era described by this calendar value.
     ///
@@ -18,7 +18,7 @@ extension Absolute where Smallest: LTOEYear, Largest == Era {
     public var absoluteEra: Absolute<Era> { subComponents() }
 }
 
-extension Absolute where Smallest: LTOEMonth, Largest == Era {
+extension Absolute where Smallest: _LTOEMonth, Largest == Era {
     
     /// Retrieve the absolute year described by this calendar value.
     ///
@@ -27,7 +27,7 @@ extension Absolute where Smallest: LTOEMonth, Largest == Era {
     public var absoluteYear: Absolute<Year> { subComponents() }
 }
 
-extension Absolute where Smallest: LTOEDay, Largest == Era {
+extension Absolute where Smallest: _LTOEDay, Largest == Era {
     
     /// Retrieve the absolute month described by this calendar value.
     ///
@@ -36,7 +36,7 @@ extension Absolute where Smallest: LTOEDay, Largest == Era {
     public var absoluteMonth: Absolute<Month> { subComponents() }
 }
 
-extension Absolute where Smallest: LTOEHour, Largest == Era {
+extension Absolute where Smallest: _LTOEHour, Largest == Era {
     
     /// Retrieve the absolute day described by this calendar value.
     ///
@@ -45,7 +45,7 @@ extension Absolute where Smallest: LTOEHour, Largest == Era {
     public var absoluteDay: Absolute<Day> { subComponents() }
 }
 
-extension Absolute where Smallest: LTOEMinute, Largest == Era {
+extension Absolute where Smallest: _LTOEMinute, Largest == Era {
     
     /// Retrieve the absolute hour described by this calendar value.
     ///
@@ -54,7 +54,7 @@ extension Absolute where Smallest: LTOEMinute, Largest == Era {
     public var absoluteHour: Absolute<Hour> { subComponents() }
 }
 
-extension Absolute where Smallest: LTOESecond, Largest == Era {
+extension Absolute where Smallest: _LTOESecond, Largest == Era {
     
     /// Retrieve the absolute minute described by this calendar value.
     ///
@@ -63,7 +63,7 @@ extension Absolute where Smallest: LTOESecond, Largest == Era {
     public var absoluteMinute: Absolute<Minute> { subComponents() }
 }
 
-extension Absolute where Smallest: LTOENanosecond, Largest == Era {
+extension Absolute where Smallest: _LTOENanosecond, Largest == Era {
     
     /// Retrieve the absolute second described by this calendar value.
     ///

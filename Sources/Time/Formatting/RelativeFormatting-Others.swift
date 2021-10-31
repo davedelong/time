@@ -7,25 +7,25 @@
 
 import Foundation
 
-public extension TimePeriod where Smallest: LTOEDay, Largest: GTOEYear {
+public extension TimePeriod where Smallest: _LTOEDay, Largest: _GTOEYear {
     func format(dateStyle: DateFormatter.Style) -> String {
         return formatUsing(dateStyle: dateStyle, timeStyle: .none)
     }
 }
 
-public extension TimePeriod where Smallest: LTOESecond, Largest: GTOEHour {
+public extension TimePeriod where Smallest: _LTOESecond, Largest: _GTOEHour {
     func format(timeStyle: DateFormatter.Style) -> String {
         return formatUsing(dateStyle: .none, timeStyle: timeStyle)
     }
 }
 
-public extension TimePeriod where Smallest: LTOESecond, Largest: GTOEYear {
+public extension TimePeriod where Smallest: _LTOESecond, Largest: _GTOEYear {
     func format(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style) -> String {
         return formatUsing(dateStyle: dateStyle, timeStyle: timeStyle)
     }
 }
 
-public extension TimePeriod where Smallest: LTOEMinute, Largest: GTOEYear {
+public extension TimePeriod where Smallest: _LTOEMinute, Largest: _GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 day: Template<Day>,
@@ -36,7 +36,7 @@ public extension TimePeriod where Smallest: LTOEMinute, Largest: GTOEYear {
     }
 }
 
-public extension TimePeriod where Smallest: LTOESecond, Largest: GTOEMonth {
+public extension TimePeriod where Smallest: _LTOESecond, Largest: _GTOEMonth {
     func format(month: Template<Month>,
                 day: Template<Day>,
                 hour: Template<Hour>,
@@ -47,7 +47,7 @@ public extension TimePeriod where Smallest: LTOESecond, Largest: GTOEMonth {
     }
 }
 
-public extension TimePeriod where Smallest: LTOENanosecond, Largest: GTOEDay {
+public extension TimePeriod where Smallest: _LTOENanosecond, Largest: _GTOEDay {
     func format(day: Template<Day>,
                 hour: Template<Hour>,
                 minute: Template<Minute>,
@@ -59,7 +59,7 @@ public extension TimePeriod where Smallest: LTOENanosecond, Largest: GTOEDay {
 }
 
 
-public extension TimePeriod where Smallest: LTOESecond, Largest: GTOEYear {
+public extension TimePeriod where Smallest: _LTOESecond, Largest: _GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 day: Template<Day>,
@@ -71,7 +71,7 @@ public extension TimePeriod where Smallest: LTOESecond, Largest: GTOEYear {
     }
 }
 
-public extension TimePeriod where Smallest: LTOENanosecond, Largest: GTOEMonth {
+public extension TimePeriod where Smallest: _LTOENanosecond, Largest: _GTOEMonth {
     func format(month: Template<Month>,
                 day: Template<Day>,
                 hour: Template<Hour>,
@@ -84,7 +84,7 @@ public extension TimePeriod where Smallest: LTOENanosecond, Largest: GTOEMonth {
 }
 
 
-public extension TimePeriod where Smallest: LTOENanosecond, Largest: GTOEYear {
+public extension TimePeriod where Smallest: _LTOENanosecond, Largest: _GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 day: Template<Day>,

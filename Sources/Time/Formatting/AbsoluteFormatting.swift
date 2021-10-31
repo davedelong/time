@@ -50,13 +50,13 @@ public extension Absolute where Largest == Era {
     }
 }
 
-public extension Absolute where Smallest: LTOEDay {
+public extension Absolute where Smallest: _LTOEDay {
     func format(date dateStyle: DateFormatter.Style) -> String {
         return formatUsing(dateStyle: dateStyle, timeStyle: .none)
     }
 }
 
-public extension Absolute where Smallest: LTOESecond {
+public extension Absolute where Smallest: _LTOESecond {
     func format(date dateStyle: DateFormatter.Style, time timeStyle: DateFormatter.Style) -> String {
         return formatUsing(dateStyle: dateStyle, timeStyle: timeStyle)
     }
@@ -66,13 +66,13 @@ public extension Absolute where Smallest: LTOESecond {
     }
 }
 
-public extension Absolute where Smallest: LTOEEra {
+public extension Absolute where Smallest: _LTOEEra {
     func format(era: Template<Era>) -> String {
         return format([era])
     }
 }
 
-public extension Absolute where Smallest: LTOEYear {
+public extension Absolute where Smallest: _LTOEYear {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 timeZone: Template<TimeZone>? = nil) -> String {
@@ -80,7 +80,7 @@ public extension Absolute where Smallest: LTOEYear {
     }
 }
 
-public extension Absolute where Smallest: LTOEMonth {
+public extension Absolute where Smallest: _LTOEMonth {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -89,7 +89,7 @@ public extension Absolute where Smallest: LTOEMonth {
     }
 }
 
-public extension Absolute where Smallest: LTOEDay {
+public extension Absolute where Smallest: _LTOEDay {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -100,7 +100,7 @@ public extension Absolute where Smallest: LTOEDay {
     }
 }
 
-public extension Absolute where Smallest: LTOEHour {
+public extension Absolute where Smallest: _LTOEHour {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -112,7 +112,7 @@ public extension Absolute where Smallest: LTOEHour {
     }
 }
 
-public extension Absolute where Smallest: LTOEMinute {
+public extension Absolute where Smallest: _LTOEMinute {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -125,7 +125,7 @@ public extension Absolute where Smallest: LTOEMinute {
     }
 }
 
-public extension Absolute where Smallest: LTOESecond {
+public extension Absolute where Smallest: _LTOESecond {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,
@@ -139,7 +139,7 @@ public extension Absolute where Smallest: LTOESecond {
     }
 }
 
-public extension Absolute where Smallest: LTOENanosecond {
+public extension Absolute where Smallest: _LTOENanosecond {
     func format(era: Template<Era>? = nil,
                 year: Template<Year>,
                 month: Template<Month>,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension StrictAdjustment where IL: GTOEEra, IS == OS, IL == OL {
+extension StrictAdjustment where IL: _GTOEEra, IS == OS, IL == OL {
     
     fileprivate init(setting: DateComponents) {
         self.init { old -> TimePeriod<OS, OL> in
@@ -19,7 +19,7 @@ extension StrictAdjustment where IL: GTOEEra, IS == OS, IL == OL {
     
 }
 
-extension StrictAdjustment where IL: GTOEEra, OL: GTOEEra {
+extension StrictAdjustment where IL: _GTOEEra, OL: _GTOEEra {
 
     fileprivate init(setting: DateComponents) {
         self.init { old -> TimePeriod<OS, OL> in
@@ -31,7 +31,7 @@ extension StrictAdjustment where IL: GTOEEra, OL: GTOEEra {
 
 }
 
-public extension Absolute where Smallest: LTOEYear, Largest == Era {
+public extension Absolute where Smallest: _LTOEYear, Largest == Era {
     
     func setting(year: Int) throws -> Self {
         return try applying(StrictAdjustment(setting: dateComponents.setting(year: year)))
@@ -39,7 +39,7 @@ public extension Absolute where Smallest: LTOEYear, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEMonth, Largest == Era {
+public extension Absolute where Smallest: _LTOEMonth, Largest == Era {
     
     func setting(year: Int, month: Int) throws -> Self {
         return try applying(StrictAdjustment(setting: dateComponents.setting(year: year, month: month)))
@@ -51,7 +51,7 @@ public extension Absolute where Smallest: LTOEMonth, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEDay, Largest == Era {
+public extension Absolute where Smallest: _LTOEDay, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int) throws -> Self {
         return try applying(StrictAdjustment(setting: dateComponents.setting(year: year, month: month, day: day)))
@@ -67,7 +67,7 @@ public extension Absolute where Smallest: LTOEDay, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEHour, Largest == Era {
+public extension Absolute where Smallest: _LTOEHour, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int, hour: Int) throws -> Self {
         return try applying(StrictAdjustment(setting: dateComponents.setting(year: year, month: month, day: day, hour: hour)))
@@ -87,7 +87,7 @@ public extension Absolute where Smallest: LTOEHour, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEMinute, Largest == Era {
+public extension Absolute where Smallest: _LTOEMinute, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int) throws -> Self {
         return try applying(StrictAdjustment(setting: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute)))
@@ -111,7 +111,7 @@ public extension Absolute where Smallest: LTOEMinute, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOESecond, Largest == Era {
+public extension Absolute where Smallest: _LTOESecond, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) throws -> Self {
         return try applying(StrictAdjustment(setting: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute, second: second)))
@@ -139,7 +139,7 @@ public extension Absolute where Smallest: LTOESecond, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOENanosecond, Largest == Era {
+public extension Absolute where Smallest: _LTOENanosecond, Largest == Era {
     
     func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Self {
         return try applying(StrictAdjustment(setting: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond)))

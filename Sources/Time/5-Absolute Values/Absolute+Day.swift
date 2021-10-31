@@ -28,7 +28,7 @@ public extension Absolute where Smallest == Day, Largest == Era {
     var lastSecond: Absolute<Second> { return last() }
 }
 
-public extension Absolute where Smallest: LTOEDay, Largest == Era {
+public extension Absolute where Smallest: _LTOEDay, Largest == Era {
     
     /// Returns `true` if the receiver is known to occur during the weekend.
     ///

@@ -20,7 +20,7 @@ public extension Absolute where Largest == Era {
     
 }
 
-public extension TimePeriod where Smallest == Era, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Era, Largest: _GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>) throws {
     
@@ -28,7 +28,7 @@ public extension TimePeriod where Smallest == Era, Largest: GTOEEra {
     }
 }
 
-public extension TimePeriod where Smallest == Year, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Year, Largest: _GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -38,7 +38,7 @@ public extension TimePeriod where Smallest == Year, Largest: GTOEEra {
     }
 }
 
-public extension TimePeriod where Smallest == Month, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Month, Largest: _GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -49,7 +49,7 @@ public extension TimePeriod where Smallest == Month, Largest: GTOEEra {
     }
 }
 
-public extension TimePeriod where Smallest == Day, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Day, Largest: _GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -62,7 +62,7 @@ public extension TimePeriod where Smallest == Day, Largest: GTOEEra {
     }
 }
 
-public extension TimePeriod where Smallest == Hour, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Hour, Largest: _GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -76,7 +76,7 @@ public extension TimePeriod where Smallest == Hour, Largest: GTOEEra {
     }
 }
 
-public extension TimePeriod where Smallest == Minute, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Minute, Largest: _GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -91,7 +91,7 @@ public extension TimePeriod where Smallest == Minute, Largest: GTOEEra {
     }
 }
 
-public extension TimePeriod where Smallest == Second, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Second, Largest: _GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,
@@ -107,7 +107,7 @@ public extension TimePeriod where Smallest == Second, Largest: GTOEEra {
     }
 }
 
-public extension TimePeriod where Smallest == Nanosecond, Largest: GTOEEra {
+public extension TimePeriod where Smallest == Nanosecond, Largest: _GTOEEra {
     init(stringValue: String, region: Region,
          era: Template<Era>? = nil,
          year: Template<Year>,

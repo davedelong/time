@@ -29,7 +29,7 @@ public extension Absolute where Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEYear, Largest == Era {
+public extension Absolute where Smallest: _LTOEYear, Largest == Era {
     
     func differenceInYears(to other: TimePeriod<Smallest, Largest>) -> TimeDifference<Year, Year> {
         return computeDifference(to: other)
@@ -37,7 +37,7 @@ public extension Absolute where Smallest: LTOEYear, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEMonth, Largest == Era {
+public extension Absolute where Smallest: _LTOEMonth, Largest == Era {
     
     func differenceInMonths(to other: TimePeriod<Smallest, Largest>) -> TimeDifference<Month, Month> {
         return computeDifference(to: other)
@@ -45,7 +45,7 @@ public extension Absolute where Smallest: LTOEMonth, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEDay, Largest == Era {
+public extension Absolute where Smallest: _LTOEDay, Largest == Era {
     
     func differenceInDays(to other: TimePeriod<Smallest, Largest>) -> TimeDifference<Day, Day> {
         return computeDifference(to: other)
@@ -53,7 +53,7 @@ public extension Absolute where Smallest: LTOEDay, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEHour, Largest == Era {
+public extension Absolute where Smallest: _LTOEHour, Largest == Era {
     
     func differenceInHours(to other: TimePeriod<Smallest, Largest>) -> TimeDifference<Hour, Hour> {
         return computeDifference(to: other)
@@ -61,7 +61,7 @@ public extension Absolute where Smallest: LTOEHour, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEMinute, Largest == Era {
+public extension Absolute where Smallest: _LTOEMinute, Largest == Era {
     
     func differenceInMinutes(to other: TimePeriod<Smallest, Largest>) -> TimeDifference<Minute, Minute> {
         return computeDifference(to: other)
@@ -69,7 +69,7 @@ public extension Absolute where Smallest: LTOEMinute, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOESecond, Largest == Era {
+public extension Absolute where Smallest: _LTOESecond, Largest == Era {
     
     func differenceInSeconds(to other: TimePeriod<Smallest, Largest>) -> TimeDifference<Second, Second> {
         return computeDifference(to: other)
@@ -77,7 +77,7 @@ public extension Absolute where Smallest: LTOESecond, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOENanosecond, Largest == Era {
+public extension Absolute where Smallest: _LTOENanosecond, Largest == Era {
     
     func differenceInNanoseconds(to other: TimePeriod<Smallest, Largest>) -> TimeDifference<Nanosecond, Nanosecond> {
         return computeDifference(to: other)

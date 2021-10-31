@@ -36,7 +36,7 @@ public extension Absolute where Largest == Era {
 
 }
 
-public extension Absolute where Smallest: LTOEYear, Largest == Era {
+public extension Absolute where Smallest: _LTOEYear, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one year.
     var nextYear: Self { return adding(years: 1) }
@@ -54,7 +54,7 @@ public extension Absolute where Smallest: LTOEYear, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEMonth, Largest == Era {
+public extension Absolute where Smallest: _LTOEMonth, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one month.
     var nextMonth: Self { return adding(months: 1) }
@@ -72,7 +72,7 @@ public extension Absolute where Smallest: LTOEMonth, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEDay, Largest == Era {
+public extension Absolute where Smallest: _LTOEDay, Largest == Era {
     
     /// Adjust the date to the beginning of the calendar's week.
     var startOfWeek: Self {
@@ -131,7 +131,7 @@ public extension Absolute where Smallest: LTOEDay, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEHour, Largest == Era {
+public extension Absolute where Smallest: _LTOEHour, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one hour.
     var nextHour: Self { return adding(hours: 1) }
@@ -149,7 +149,7 @@ public extension Absolute where Smallest: LTOEHour, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOEMinute, Largest == Era {
+public extension Absolute where Smallest: _LTOEMinute, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one minute.
     var nextMinute: Self { return adding(minutes: 1) }
@@ -167,7 +167,7 @@ public extension Absolute where Smallest: LTOEMinute, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOESecond, Largest == Era {
+public extension Absolute where Smallest: _LTOESecond, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one second.
     var nextSecond: Self { return adding(seconds: 1) }
@@ -185,7 +185,7 @@ public extension Absolute where Smallest: LTOESecond, Largest == Era {
     
 }
 
-public extension Absolute where Smallest: LTOENanosecond, Largest == Era {
+public extension Absolute where Smallest: _LTOENanosecond, Largest == Era {
     
     /// Create a new `TimePeriod` by moving forward one nanosecond.
     var nextNanosecond: Self { return adding(nanoseconds: 1) }

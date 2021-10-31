@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension TimePeriod where Smallest: LTOEMonth, Largest: GTOEYear {
+public extension TimePeriod where Smallest: _LTOEMonth, Largest: _GTOEYear {
     func format(year: Template<Year>,
                 month: Template<Month>,
                 timeZone: Template<TimeZone>? = nil) -> String {
@@ -15,7 +15,7 @@ public extension TimePeriod where Smallest: LTOEMonth, Largest: GTOEYear {
     }
 }
 
-public extension TimePeriod where Smallest: LTOEDay, Largest: GTOEMonth {
+public extension TimePeriod where Smallest: _LTOEDay, Largest: _GTOEMonth {
     func format(month: Template<Month>,
                 day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
@@ -24,7 +24,7 @@ public extension TimePeriod where Smallest: LTOEDay, Largest: GTOEMonth {
     }
 }
 
-public extension TimePeriod where Smallest: LTOEHour, Largest: GTOEDay {
+public extension TimePeriod where Smallest: _LTOEHour, Largest: _GTOEDay {
     func format(day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
                 hour: Template<Hour>,
@@ -33,7 +33,7 @@ public extension TimePeriod where Smallest: LTOEHour, Largest: GTOEDay {
     }
 }
 
-public extension TimePeriod where Smallest: LTOEMinute, Largest: GTOEHour {
+public extension TimePeriod where Smallest: _LTOEMinute, Largest: _GTOEHour {
     func format(hour: Template<Hour>,
                 minute: Template<Minute>,
                 timeZone: Template<TimeZone>? = nil) -> String {
@@ -41,7 +41,7 @@ public extension TimePeriod where Smallest: LTOEMinute, Largest: GTOEHour {
     }
 }
 
-public extension TimePeriod where Smallest: LTOESecond, Largest: GTOEMinute {
+public extension TimePeriod where Smallest: _LTOESecond, Largest: _GTOEMinute {
     func format(minute: Template<Minute>,
                 second: Template<Second>,
                 timeZone: Template<TimeZone>? = nil) -> String {
@@ -49,7 +49,7 @@ public extension TimePeriod where Smallest: LTOESecond, Largest: GTOEMinute {
     }
 }
 
-public extension TimePeriod where Smallest: LTOENanosecond, Largest: GTOESecond {
+public extension TimePeriod where Smallest: _LTOENanosecond, Largest: _GTOESecond {
     func format(second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) -> String {

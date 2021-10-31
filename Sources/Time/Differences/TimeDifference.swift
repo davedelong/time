@@ -26,7 +26,7 @@ public struct TimeDifference<Smallest: Unit, Largest: Unit> {
     }
 }
 
-public extension TimeDifference where Smallest: LTOEYear, Largest: GTOEYear {
+public extension TimeDifference where Smallest: _LTOEYear, Largest: _GTOEYear {
     static func eras(_ value: Int) -> TimeDifference { return self.init(value: value, unit: .era) }
 
     /// Retrieve the number of eras in a calendrical difference.
@@ -36,7 +36,7 @@ public extension TimeDifference where Smallest: LTOEYear, Largest: GTOEYear {
     }
 }
 
-public extension TimeDifference where Smallest: LTOEYear, Largest: GTOEYear {
+public extension TimeDifference where Smallest: _LTOEYear, Largest: _GTOEYear {
     static func years(_ value: Int) -> TimeDifference { return self.init(value: value, unit: .year) }
     
     /// Retrieve the number of years in a calendrical difference.
@@ -46,7 +46,7 @@ public extension TimeDifference where Smallest: LTOEYear, Largest: GTOEYear {
     }
 }
 
-public extension TimeDifference where Smallest: LTOEMonth, Largest: GTOEMonth {
+public extension TimeDifference where Smallest: _LTOEMonth, Largest: _GTOEMonth {
     static func months(_ value: Int) -> TimeDifference { return self.init(value: value, unit: .month) }
     
     /// Retrieve the number of months in a calendrical difference.
@@ -56,7 +56,7 @@ public extension TimeDifference where Smallest: LTOEMonth, Largest: GTOEMonth {
     }
 }
 
-public extension TimeDifference where Smallest: LTOEDay, Largest: GTOEDay {
+public extension TimeDifference where Smallest: _LTOEDay, Largest: _GTOEDay {
     static func days(_ value: Int) -> TimeDifference { return self.init(value: value, unit: .day) }
     
     /// Retrieve the number of days in a calendrical difference.
@@ -66,7 +66,7 @@ public extension TimeDifference where Smallest: LTOEDay, Largest: GTOEDay {
     }
 }
 
-public extension TimeDifference where Smallest: LTOEHour, Largest: GTOEHour {
+public extension TimeDifference where Smallest: _LTOEHour, Largest: _GTOEHour {
     static func hours(_ value: Int) -> TimeDifference { return self.init(value: value, unit: .hour) }
     
     /// Retrieve the number of hours in a calendrical difference.
@@ -76,7 +76,7 @@ public extension TimeDifference where Smallest: LTOEHour, Largest: GTOEHour {
     }
 }
 
-public extension TimeDifference where Smallest: LTOEMinute, Largest: GTOEMinute {
+public extension TimeDifference where Smallest: _LTOEMinute, Largest: _GTOEMinute {
     static func minutes(_ value: Int) -> TimeDifference { return self.init(value: value, unit: .minute) }
     
     /// Retrieve the number of minutes in a calendrical difference.
@@ -86,7 +86,7 @@ public extension TimeDifference where Smallest: LTOEMinute, Largest: GTOEMinute 
     }
 }
 
-public extension TimeDifference where Smallest: LTOESecond, Largest: GTOESecond {
+public extension TimeDifference where Smallest: _LTOESecond, Largest: _GTOESecond {
     static func seconds(_ value: Int) -> TimeDifference { return self.init(value: value, unit: .second) }
     
     /// Retrieve the number of seconds in a calendrical difference.
@@ -96,7 +96,7 @@ public extension TimeDifference where Smallest: LTOESecond, Largest: GTOESecond 
     }
 }
 
-public extension TimeDifference where Smallest: LTOENanosecond, Largest: GTOENanosecond {
+public extension TimeDifference where Smallest: _LTOENanosecond, Largest: _GTOENanosecond {
     static func nanoseconds(_ value: Int) -> TimeDifference { return self.init(value: value, unit: .nanosecond) }
     
     /// Retrieve the number of nanoseconds in a calendrical difference.
@@ -116,10 +116,10 @@ public func -<S>(lhs: TimePeriod<S, Era>, rhs: TimeDifference<S, Era>) -> TimePe
 }
 
 // relative adjustment
-internal func +<S, L>(lhs: TimePeriod<S, L>, rhs: TimeDifference<S, L>) -> TimePeriod<S, L> where L: LTOEYear {
+internal func +<S, L>(lhs: TimePeriod<S, L>, rhs: TimeDifference<S, L>) -> TimePeriod<S, L> where L: _LTOEYear {
     fatalError("Unimplemented")
 }
 
-internal func -<S, L>(lhs: TimePeriod<S, L>, rhs: TimeDifference<S, L>) -> TimePeriod<S, L> where L: LTOEYear {
+internal func -<S, L>(lhs: TimePeriod<S, L>, rhs: TimeDifference<S, L>) -> TimePeriod<S, L> where L: _LTOEYear {
     return lhs + rhs.negated()
 }
