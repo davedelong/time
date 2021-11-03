@@ -29,7 +29,7 @@ However, the are also specific scenarios in which it will not.
 
 For example, if `today` is `February 29th, 2020`, then:
 - `answer1` will produce `April 1st, 2020` (29 Feb + 1 day = 1 Mar; 1 Mar + 1 month = 1 Apr)
-- `answer2` will product `March 30th, 2020` (29 Feb + 1 month = 29 Mar; 29 Mar + 1 day = 30 Mar)
+- `answer2` will produce `March 30th, 2020` (29 Feb + 1 month = 29 Mar; 29 Mar + 1 day = 30 Mar)
 
 ### Iterative addition
 
