@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -12,7 +12,7 @@ let package = Package(
         
     ],
     targets: [
-        .target(name: "Time", dependencies: [], exclude: ["Documentation.docc"]),
+        .target(name: "Time", dependencies: []),
         
         .testTarget(name: "TimeTests", dependencies: ["Time"]),
     ]
