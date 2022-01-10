@@ -11,6 +11,7 @@
 		5AC20AF9278597EC00A8706D /* MonthCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC20AF8278597EC00A8706D /* MonthCalendarView.swift */; };
 		5AC20AFB278597F100A8706D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AC20AFA278597F100A8706D /* Assets.xcassets */; };
 		5AC20AFE278597F100A8706D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AC20AFD278597F100A8706D /* Preview Assets.xcassets */; };
+		5AFC231B278C331B009A0ADF /* Time in Frameworks */ = {isa = PBXBuildFile; productRef = 5AFC231A278C331B009A0ADF /* Time */; };
 		5AFF2AE227859B5B000A2655 /* MonthCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFF2AE127859B5B000A2655 /* MonthCalendarViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -20,6 +21,7 @@
 		5AC20AF8278597EC00A8706D /* MonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarView.swift; sourceTree = "<group>"; };
 		5AC20AFA278597F100A8706D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5AC20AFD278597F100A8706D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5AFC2318278C30D1009A0ADF /* time */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = time; path = ../..; sourceTree = "<group>"; };
 		5AFF2AE127859B5B000A2655 /* MonthCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -28,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AFC231B278C331B009A0ADF /* Time in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,8 +40,10 @@
 		5AC20AEA278597EC00A8706D = {
 			isa = PBXGroup;
 			children = (
+				5AFC2317278C30D1009A0ADF /* Packages */,
 				5AC20AF5278597EC00A8706D /* MonthCalendar */,
 				5AC20AF4278597EC00A8706D /* Products */,
+				5AFC2319278C331B009A0ADF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +99,21 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		5AFC2317278C30D1009A0ADF /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				5AFC2318278C30D1009A0ADF /* time */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		5AFC2319278C331B009A0ADF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -110,6 +130,9 @@
 			dependencies = (
 			);
 			name = MonthCalendar;
+			packageProductDependencies = (
+				5AFC231A278C331B009A0ADF /* Time */,
+			);
 			productName = MonthCalendar;
 			productReference = 5AC20AF3278597EC00A8706D /* MonthCalendar.app */;
 			productType = "com.apple.product-type.application";
@@ -367,6 +390,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5AFC231A278C331B009A0ADF /* Time */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Time;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5AC20AEB278597EC00A8706D /* Project object */;
 }
