@@ -17,21 +17,20 @@ final class MonthCalendarViewModel: ObservableObject {
     private var month: Absolute<Month>
     
     @Published
-    private var days: AbsoluteTimePeriodSequence<Day> {
-        didSet {
-            dayTitles = days.map(\.description)
-        }
-    }
+    private var days: AbsoluteTimePeriodSequence<Day>
     
-    var yearTitle: String { month.year.description }
     var monthTitle: String { month.description }
-    var dayTitles: [String] = []
+    var dayTitles: [String]
     
     // MARK: Initializer
     
     init() {
         let month = Clocks.system.thisMonth()
+        let days = month.days
         self.month = month
-        days = month.days
+        self.days = days
+        self.dayTitles = days
+            .map(\.day)
+            .map(\.description)
     }
 }
