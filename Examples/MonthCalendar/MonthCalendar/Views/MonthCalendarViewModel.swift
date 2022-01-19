@@ -20,8 +20,8 @@ final class MonthCalendarViewModel: ObservableObject {
     private var daysSequence: AbsoluteTimePeriodSequence<Day>
     
     var monthTitle: String { month.description }
-    var weekDaysTitles: [String] { Region.current.calendar.veryShortWeekdaySymbols }
-    var numberOfWeekDays: Int { weekDaysTitles.count }
+    var weekDayTitles: [String] { Region.current.calendar.veryShortWeekdaySymbols }
+    var numberOfWeekDays: Int { weekDayTitles.count }
     var days: [String]
     
     // MARK: Initializer
