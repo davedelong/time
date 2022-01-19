@@ -21,34 +21,60 @@ struct MonthCalendarView: View {
     var body: some View {
         GeometryReader { proxy in
             VStack {
+                Text("Time")
+                
                 Spacer()
                 
                 Text(viewModel.monthTitle)
-
-                LazyVGrid(columns: gridItem(for: proxy), spacing: Constants.gridItemSpacing) {
-                    ForEach(viewModel.days, id: \.self) { title in
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(.clear)
-                            // TODO: Fix the interitem borders.
-                                .border(.black, width: 1)
-                            Text(title)
-                        }
-                        .aspectRatio(1, contentMode: .fit)
-                    }
+                
+                VStack(spacing: 0) {
+                    weekDays
+                    calendarDays(using: proxy)
                 }
                 
                 Spacer()
             }
-            .padding()
+        }
+    }
+    
+    private func calendarDays(using proxy: GeometryProxy) -> some View {
+        LazyVGrid(columns: gridItem(for: proxy), spacing: Constants.gridItemSpacing) {
+            ForEach(viewModel.days, id: \.self) { title in
+                ZStack {
+                    Rectangle()
+                        .foregroundColor(.clear)
+                    // TODO: Fix the interitem internal borders.
+                        .border(.black, width: 1)
+                    Text(title)
+                }
+                .aspectRatio(1, contentMode: .fit)
+            }
+        }
+    }
+    
+    private var weekDays: some View {
+        let enumeratedTitles = viewModel
+            .weekDaysTitles
+            .enumerated()
+            .map { (index: $0.0, title: $0.1) }
+        
+        return HStack(alignment: .center, spacing: 0) {
+            ForEach(enumeratedTitles, id: \.index) { weekDay in
+                ZStack {
+                    Rectangle()
+                        .foregroundColor(.clear)
+                    Text(weekDay.title)
+                }
+                .aspectRatio(1, contentMode: .fit)
+            }
         }
     }
     
     private func gridItem(for proxy: GeometryProxy) -> [GridItem] {
         var gridItem = GridItem(.adaptive(
-            minimum: Constants.minGridItemWidth,
-            maximum: proxy.size.width / Double(viewModel.numberOfWeekDays))
-        )
+            minimum: proxy.size.width / Double(viewModel.numberOfWeekDays),
+            maximum: proxy.size.width / Double(viewModel.numberOfWeekDays)
+        ))
         gridItem.spacing = Constants.gridItemSpacing
         return [gridItem]
     }
