@@ -17,19 +17,21 @@ final class MonthCalendarViewModel: ObservableObject {
     private var month: Absolute<Month>
     
     @Published
-    private var days: AbsoluteTimePeriodSequence<Day>
+    private var daysSequence: AbsoluteTimePeriodSequence<Day>
     
     var monthTitle: String { month.description }
-    var dayTitles: [String]
+    var weekDaysTitles: [String] { Region.current.calendar.veryShortWeekdaySymbols }
+    var numberOfWeekDays: Int { weekDaysTitles.count }
+    var days: [String]
     
     // MARK: Initializer
     
     init() {
         let month = Clocks.system.thisMonth()
-        let days = month.days
+        let daysSequence = month.days
         self.month = month
-        self.days = days
-        self.dayTitles = days
+        self.daysSequence = daysSequence
+        self.days = daysSequence
             .map(\.day)
             .map(\.description)
     }

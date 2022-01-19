@@ -25,11 +25,12 @@ struct MonthCalendarView: View {
                 
                 Text(viewModel.monthTitle)
 
-                LazyVGrid(columns: gridItem(for: proxy), spacing: 0) {
-                    ForEach(viewModel.dayTitles, id: \.self) { title in
+                LazyVGrid(columns: gridItem(for: proxy), spacing: Constants.gridItemSpacing) {
+                    ForEach(viewModel.days, id: \.self) { title in
                         ZStack {
                             Rectangle()
                                 .foregroundColor(.clear)
+                            // TODO: Fix the interitem borders.
                                 .border(.black, width: 1)
                             Text(title)
                         }
@@ -39,14 +40,25 @@ struct MonthCalendarView: View {
                 
                 Spacer()
             }
+            .padding()
         }
     }
     
     private func gridItem(for proxy: GeometryProxy) -> [GridItem] {
-        var gridItem = GridItem(.adaptive(minimum: 44, maximum: proxy.size.width / 7))
-        gridItem.spacing = 0
+        var gridItem = GridItem(.adaptive(
+            minimum: Constants.minGridItemWidth,
+            maximum: proxy.size.width / Double(viewModel.numberOfWeekDays))
+        )
+        gridItem.spacing = Constants.gridItemSpacing
         return [gridItem]
     }
+}
+
+// MARK: - Constants
+
+fileprivate enum Constants {
+    static let minGridItemWidth = 44.0
+    static let gridItemSpacing = 0.0
 }
 
 // MARK: - Preview
