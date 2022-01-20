@@ -21,15 +21,8 @@ struct DaysGrid: View {
     
     var body: some View {
         LazyVGrid(columns: gridItem, spacing: Constants.spacing) {
-            ForEach(days, id: \.self) { title in
-                ZStack {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                    // TODO: Fix the interitem internal borders.
-                        .border(.black, width: 1)
-                    Text(title)
-                }
-                .aspectRatio(1, contentMode: .fit)
+            ForEach(days, id: \.self) {
+                DayGridCell(title: $0)
             }
         }
     }

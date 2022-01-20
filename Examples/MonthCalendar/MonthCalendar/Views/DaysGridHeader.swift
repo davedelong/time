@@ -24,13 +24,8 @@ struct DaysGridHeader: View {
             .map { (index: $0.0, title: $0.1) }
         
         HStack(alignment: .center, spacing: 0) {
-            ForEach(enumeratedTitles, id: \.index) { weekDay in
-                ZStack {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                    Text(weekDay.title)
-                }
-                .aspectRatio(1, contentMode: .fit)
+            ForEach(enumeratedTitles, id: \.index) {
+                DayGridCell(title: $0.title)
             }
         }
     }

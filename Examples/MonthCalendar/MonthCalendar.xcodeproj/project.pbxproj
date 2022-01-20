@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		47F0280D2798281800240823 /* DaysGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F0280C2798281800240823 /* DaysGrid.swift */; };
 		47F0280F27982E4300240823 /* DaysGridHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F0280E27982E4300240823 /* DaysGridHeader.swift */; };
+		47F0282E279979A500240823 /* DayGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F0282D279979A500240823 /* DayGridCell.swift */; };
 		5AC20AF7278597EC00A8706D /* MonthCalendarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC20AF6278597EC00A8706D /* MonthCalendarApp.swift */; };
 		5AC20AF9278597EC00A8706D /* MonthCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC20AF8278597EC00A8706D /* MonthCalendar.swift */; };
 		5AC20AFB278597F100A8706D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AC20AFA278597F100A8706D /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		47F0280C2798281800240823 /* DaysGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysGrid.swift; sourceTree = "<group>"; };
 		47F0280E27982E4300240823 /* DaysGridHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysGridHeader.swift; sourceTree = "<group>"; };
+		47F0282D279979A500240823 /* DayGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayGridCell.swift; sourceTree = "<group>"; };
 		5AC20AF3278597EC00A8706D /* MonthCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonthCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AC20AF6278597EC00A8706D /* MonthCalendarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarApp.swift; sourceTree = "<group>"; };
 		5AC20AF8278597EC00A8706D /* MonthCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendar.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				5AFF2AE127859B5B000A2655 /* MonthCalendarViewModel.swift */,
 				47F0280C2798281800240823 /* DaysGrid.swift */,
 				47F0280E27982E4300240823 /* DaysGridHeader.swift */,
+				47F0282D279979A500240823 /* DayGridCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				5AC20AF9278597EC00A8706D /* MonthCalendar.swift in Sources */,
 				47F0280F27982E4300240823 /* DaysGridHeader.swift in Sources */,
 				5AFF2AE227859B5B000A2655 /* MonthCalendarViewModel.swift in Sources */,
+				47F0282E279979A500240823 /* DayGridCell.swift in Sources */,
 				5AC20AF7278597EC00A8706D /* MonthCalendarApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
