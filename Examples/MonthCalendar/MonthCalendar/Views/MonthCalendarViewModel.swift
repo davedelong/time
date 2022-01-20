@@ -22,17 +22,20 @@ final class MonthCalendarViewModel: ObservableObject {
     var monthTitle: String { month.description }
     var weekDayTitles: [String] { Region.current.calendar.veryShortWeekdaySymbols }
     var numberOfWeekDays: Int { weekDayTitles.count }
-    var days: [String]
+    var days: [DayViewModel]
     
     // MARK: Initializer
     
     init() {
-        let month = Clocks.system.thisMonth()
+        let clock = Clocks.system
+        let month = clock.thisMonth()
+        let todayNumber = clock.today().day
         let daysSequence = month.days
+        
         self.month = month
         self.daysSequence = daysSequence
         self.days = daysSequence
             .map(\.day)
-            .map(\.description)
+            .map { DayViewModel(title: $0.description, isToday: $0 == todayNumber) }
     }
 }

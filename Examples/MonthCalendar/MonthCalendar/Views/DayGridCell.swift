@@ -21,8 +21,6 @@ struct DayGridCell: View {
         ZStack {
             Rectangle()
                 .foregroundColor(.clear)
-            // TODO: Fix the interitem internal borders.
-                .border(.black, width: 1)
             Text(title)
         }
         .aspectRatio(1, contentMode: .fit)

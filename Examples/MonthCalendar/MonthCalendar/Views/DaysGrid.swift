@@ -13,7 +13,7 @@ struct DaysGrid: View {
     
     // MARK: Properties
     
-    let days: [String]
+    let days: [DayViewModel]
     let numberOfWeekDays: Int
     let availableWidth: Double
     
@@ -21,8 +21,13 @@ struct DaysGrid: View {
     
     var body: some View {
         LazyVGrid(columns: gridItem, spacing: Constants.spacing) {
-            ForEach(days, id: \.self) {
-                DayGridCell(title: $0)
+            ForEach(days, id: \.self) { day in
+                if let title = day.title {
+                    DayGridCell(title: title)
+                        .border(.black, width: 1)
+                } else {
+                    EmptyView()
+                }
             }
         }
     }
