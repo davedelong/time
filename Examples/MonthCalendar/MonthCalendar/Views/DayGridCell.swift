@@ -13,7 +13,7 @@ struct DayGridCell: View {
     
     // MARK: Properties
     
-    let title: String
+    let title: String?
     
     // MARK: Body
     
@@ -21,7 +21,9 @@ struct DayGridCell: View {
         ZStack {
             Rectangle()
                 .foregroundColor(.clear)
-            Text(title)
+            if let title = title {
+                Text(title)
+            }
         }
         .aspectRatio(1, contentMode: .fit)
     }

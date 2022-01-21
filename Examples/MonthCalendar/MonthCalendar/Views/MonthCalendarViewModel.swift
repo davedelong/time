@@ -18,7 +18,7 @@ final class MonthCalendarViewModel: ObservableObject {
     private lazy var daysSequence = month.days
     
     var monthTitle: String { month.description }
-    var weekDayTitles: [String] { Region.current.calendar.veryShortWeekdaySymbols }
+    var weekDayTitles: [String] { Region.current.calendar.shortWeekdaySymbols }
     var numberOfWeekDays: Int { weekDayTitles.count }
     
     @Published
@@ -42,14 +42,10 @@ final class MonthCalendarViewModel: ObservableObject {
         computeDaysInCurrentMonth()
     }
     
-    func goToToday() {
-        month = clock.thisMonth()
-        computeDaysInCurrentMonth()
-    }
-    
     // MARK: Private Methods
     
     private func computeDaysInCurrentMonth() {
+        // TODO: Fix current day computation.
         let todayNumber = clock.today().day
         
         var days = daysSequence

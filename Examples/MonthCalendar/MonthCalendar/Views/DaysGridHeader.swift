@@ -26,6 +26,8 @@ struct DaysGridHeader: View {
         HStack(alignment: .center, spacing: 0) {
             ForEach(enumeratedTitles, id: \.index) {
                 DayGridCell(title: $0.title)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline.bold())
             }
         }
     }

@@ -22,12 +22,9 @@ struct DaysGrid: View {
     var body: some View {
         LazyVGrid(columns: gridItem, spacing: Constants.spacing) {
             ForEach(days, id: \.self) { day in
-                if let title = day.title {
-                    DayGridCell(title: title)
-                        .border(.black, width: 1)
-                } else {
-                    Text("-")
-                }
+                DayGridCell(title: day.title)
+                    .font(day.isToday ? .body.weight(.heavy) : .body)
+                    .foregroundColor(day.isToday ? .accentColor : .primary)
             }
         }
     }

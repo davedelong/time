@@ -22,10 +22,30 @@ struct MonthCalendar: View {
         GeometryReader { proxy in
             VStack {
                 Text("Time")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(.primary)
                 
                 Spacer()
                 
-                Text(viewModel.monthTitle)
+                HStack {
+                    Button("Previous") {
+                        viewModel.goToPreviousMonth()
+                    }
+                    
+                    Spacer()
+                    
+                    Text(viewModel.monthTitle)
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    Spacer()
+                    
+                    Button("Next") {
+                        viewModel.goToNextMonth()
+                    }
+                }
+                .padding()
                 
                 VStack(spacing: 0) {
                     DaysGridHeader(titles: viewModel.weekDayTitles)
@@ -36,28 +56,10 @@ struct MonthCalendar: View {
                     )
                 }
                 
-                HStack {
-                    Button("Previous month") {
-                        viewModel.goToPreviousMonth()
-                    }
-                    
-                    Spacer()
-                    
-                    Button("Today") {
-                        viewModel.goToToday()
-                    }
-                    
-                    Spacer()
-                    
-                    Button("Next Month") {
-                        viewModel.goToNextMonth()
-                    }
-                }
-                
                 Spacer()
             }
         }
-        .padding(.horizontal, Constants.horizontalPadding)
+        .padding(Constants.horizontalPadding)
     }
 }
 
