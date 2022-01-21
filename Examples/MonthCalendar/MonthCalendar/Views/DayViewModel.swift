@@ -2,7 +2,7 @@
 //  DayViewModel.swift
 //  MonthCalendar
 //
-//  Created by Knowledge Temple on 20/01/22.
+//  Created by Tiago Lopes on 20/01/22.
 //
 
 import Foundation

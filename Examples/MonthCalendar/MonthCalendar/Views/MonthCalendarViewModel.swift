@@ -45,12 +45,12 @@ final class MonthCalendarViewModel: ObservableObject {
     // MARK: Private Methods
     
     private func computeDaysInCurrentMonth() {
-        // TODO: Fix current day computation.
+        let thisMonth = clock.thisMonth()
         let todayNumber = clock.today().day
         
         var days = daysSequence
             .map(\.day)
-            .map { DayViewModel(title: $0.description, isToday: $0 == todayNumber) }
+            .map { DayViewModel(title: $0.description, isToday: $0 == todayNumber && month == thisMonth) }
         
         let leadingPaddingAmount = month.firstDay.dayOfWeek - 1
         days = (0 ..< leadingPaddingAmount).map { _ in DayViewModel(title: nil, isToday: false) } + days
