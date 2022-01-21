@@ -55,7 +55,7 @@ final class MonthCalendarViewModel: ObservableObject {
         let leadingPaddingAmount = month.firstDay.dayOfWeek - 1
         days = (0 ..< leadingPaddingAmount).map { _ in DayViewModel(title: nil, isToday: false) } + days
         
-        let trailingPaddingAmount = numberOfWeekDays - month.days.map(\.day).count % 7
+        let trailingPaddingAmount = numberOfWeekDays - days.count % 7
         days += (0...trailingPaddingAmount).map { _ in DayViewModel(title: nil, isToday: false) }
         
         self.days = days

@@ -11,6 +11,7 @@
 		47F0280F27982E4300240823 /* DaysGridHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F0280E27982E4300240823 /* DaysGridHeader.swift */; };
 		47F0282E279979A500240823 /* DayGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F0282D279979A500240823 /* DayGridCell.swift */; };
 		47F02830279982D000240823 /* DayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F0282F279982D000240823 /* DayViewModel.swift */; };
+		47F02832279AB27300240823 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F02831279AB27300240823 /* IconButton.swift */; };
 		5AC20AF7278597EC00A8706D /* MonthCalendarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC20AF6278597EC00A8706D /* MonthCalendarApp.swift */; };
 		5AC20AF9278597EC00A8706D /* MonthCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC20AF8278597EC00A8706D /* MonthCalendar.swift */; };
 		5AC20AFB278597F100A8706D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AC20AFA278597F100A8706D /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		47F0280E27982E4300240823 /* DaysGridHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysGridHeader.swift; sourceTree = "<group>"; };
 		47F0282D279979A500240823 /* DayGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayGridCell.swift; sourceTree = "<group>"; };
 		47F0282F279982D000240823 /* DayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayViewModel.swift; sourceTree = "<group>"; };
+		47F02831279AB27300240823 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		5AC20AF3278597EC00A8706D /* MonthCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonthCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AC20AF6278597EC00A8706D /* MonthCalendarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarApp.swift; sourceTree = "<group>"; };
 		5AC20AF8278597EC00A8706D /* MonthCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendar.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				47F0280E27982E4300240823 /* DaysGridHeader.swift */,
 				47F0282D279979A500240823 /* DayGridCell.swift */,
 				47F0282F279982D000240823 /* DayViewModel.swift */,
+				47F02831279AB27300240823 /* IconButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F02832279AB27300240823 /* IconButton.swift in Sources */,
 				47F0280D2798281800240823 /* DaysGrid.swift in Sources */,
 				5AC20AF9278597EC00A8706D /* MonthCalendar.swift in Sources */,
 				47F0280F27982E4300240823 /* DaysGridHeader.swift in Sources */,

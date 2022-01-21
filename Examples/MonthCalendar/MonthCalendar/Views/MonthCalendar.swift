@@ -26,24 +26,26 @@ struct MonthCalendar: View {
                     .bold()
                     .foregroundColor(.primary)
                 
-                Spacer()
-                
                 HStack {
-                    Button("Previous") {
+                    IconButton(iconName: "arrow.left.circle.fill") {
                         viewModel.goToPreviousMonth()
                     }
+                    .font(.title)
+                    .foregroundColor(.accentColor)
                     
                     Spacer()
                     
                     Text(viewModel.monthTitle)
-                        .font(.headline)
                         .foregroundColor(.primary)
+                        .font(.headline)
                     
                     Spacer()
                     
-                    Button("Next") {
+                    IconButton(iconName: "arrow.right.circle.fill") {
                         viewModel.goToNextMonth()
                     }
+                    .font(.title)
+                    .foregroundColor(.accentColor)
                 }
                 .padding()
                 
