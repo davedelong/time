@@ -13,28 +13,27 @@ final class MonthCalendarViewModel: ObservableObject {
     
     // MARK: Properties
     
-    @Published
-    private var month: Absolute<Month>
-    
-    @Published
-    private var daysSequence: AbsoluteTimePeriodSequence<Day>
+    private let clock = Clocks.system
+    private lazy var month = clock.thisMonth()
+    private lazy var daysSequence = month.days
     
     var monthTitle: String { month.description }
     var weekDayTitles: [String] { Region.current.calendar.veryShortWeekdaySymbols }
     var numberOfWeekDays: Int { weekDayTitles.count }
-    var days: [DayViewModel]
+    
+    @Published
+    var days = [DayViewModel]()
     
     // MARK: Initializer
     
     init() {
-        let clock = Clocks.system
-        let month = clock.thisMonth().nextMonth.nextMonth.nextMonth
+        computeDaysInCurrentMonth()
+    }
+    
+    // MARK: Private Methods
+    
+    private func computeDaysInCurrentMonth() {
         let todayNumber = clock.today().day
-        let daysSequence = month.days
-        let numberOfWeekDays = Region.current.calendar.veryShortWeekdaySymbols.count
-        
-        self.month = month
-        self.daysSequence = daysSequence
         
         var days = daysSequence
             .map(\.day)
@@ -43,10 +42,8 @@ final class MonthCalendarViewModel: ObservableObject {
         let leadingPaddingAmount = month.firstDay.dayOfWeek - 1
         days = (0 ..< leadingPaddingAmount).map { _ in DayViewModel(title: nil, isToday: false) } + days
         
-        let trailingPaddingAmount = numberOfWeekDays - month.days.map(\.day).count % 7 - 1
-        if trailingPaddingAmount > 0 {
-            days += (0...trailingPaddingAmount).map { _ in DayViewModel(title: nil, isToday: false) }
-        }
+        let trailingPaddingAmount = numberOfWeekDays - month.days.map(\.day).count % 7
+        days += (0...trailingPaddingAmount).map { _ in DayViewModel(title: nil, isToday: false) }
         
         self.days = days
     }
