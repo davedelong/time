@@ -28,14 +28,26 @@ final class MonthCalendarViewModel: ObservableObject {
     
     init() {
         let clock = Clocks.system
-        let month = clock.thisMonth()
+        let month = clock.thisMonth().nextMonth.nextMonth.nextMonth
         let todayNumber = clock.today().day
         let daysSequence = month.days
+        let numberOfWeekDays = Region.current.calendar.veryShortWeekdaySymbols.count
         
         self.month = month
         self.daysSequence = daysSequence
-        self.days = daysSequence
+        
+        var days = daysSequence
             .map(\.day)
             .map { DayViewModel(title: $0.description, isToday: $0 == todayNumber) }
+        
+        let leadingPaddingAmount = month.firstDay.dayOfWeek - 1
+        days = (0 ..< leadingPaddingAmount).map { _ in DayViewModel(title: nil, isToday: false) } + days
+        
+        let trailingPaddingAmount = numberOfWeekDays - month.days.map(\.day).count % 7 - 1
+        if trailingPaddingAmount > 0 {
+            days += (0...trailingPaddingAmount).map { _ in DayViewModel(title: nil, isToday: false) }
+        }
+        
+        self.days = days
     }
 }

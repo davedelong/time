@@ -26,7 +26,7 @@ struct DaysGrid: View {
                     DayGridCell(title: title)
                         .border(.black, width: 1)
                 } else {
-                    EmptyView()
+                    Text("-")
                 }
             }
         }
