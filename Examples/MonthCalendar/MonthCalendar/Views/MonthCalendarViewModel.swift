@@ -30,6 +30,23 @@ final class MonthCalendarViewModel: ObservableObject {
         computeDaysInCurrentMonth()
     }
     
+    // MARK: Actions
+    
+    func goToPreviousMonth() {
+        month = month.previous
+        computeDaysInCurrentMonth()
+    }
+    
+    func goToNextMonth() {
+        month = month.nextMonth
+        computeDaysInCurrentMonth()
+    }
+    
+    func goToToday() {
+        month = clock.thisMonth()
+        computeDaysInCurrentMonth()
+    }
+    
     // MARK: Private Methods
     
     private func computeDaysInCurrentMonth() {

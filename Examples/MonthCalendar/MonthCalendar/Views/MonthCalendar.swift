@@ -36,6 +36,24 @@ struct MonthCalendar: View {
                     )
                 }
                 
+                HStack {
+                    Button("Previous month") {
+                        viewModel.goToPreviousMonth()
+                    }
+                    
+                    Spacer()
+                    
+                    Button("Today") {
+                        viewModel.goToToday()
+                    }
+                    
+                    Spacer()
+                    
+                    Button("Next Month") {
+                        viewModel.goToNextMonth()
+                    }
+                }
+                
                 Spacer()
             }
         }
