@@ -14,6 +14,6 @@ let package = Package(
     targets: [
         .target(name: "Time", dependencies: []),
         
-        .testTarget(name: "TimeTests", dependencies: ["Time"]),
+        .testTarget(name: "TimeTests", dependencies: ["Time"], resources: [.copy("Resources/CodablePayload.json")]),
     ]
 )

@@ -34,7 +34,7 @@ enum TimePeriodDecodeError: Error {
     case invalidDate
 }
 
-extension TimePeriod: Codable where Largest == Time.Era {
+extension TimePeriod: Codable {
 
     enum CodingKeys: String, CodingKey {
         case components
