@@ -8,7 +8,7 @@
 import Foundation
 
 extension Region: Codable {
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case timeZone
         case locale
         case calendar
@@ -36,7 +36,7 @@ enum TimePeriodDecodeError: Error {
 
 extension TimePeriod: Codable {
 
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case components
         case region
     }
