@@ -30,10 +30,6 @@ extension Region: Codable {
     }
 }
 
-enum TimePeriodDecodeError: Error {
-    case invalidDate
-}
-
 extension TimePeriod: Codable {
 
     private enum CodingKeys: String, CodingKey {
