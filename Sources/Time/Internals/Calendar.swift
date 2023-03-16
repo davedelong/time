@@ -28,7 +28,8 @@ internal extension Calendar {
     var isEraRelevant: Bool { return identifier == .japanese }
     
     func exactDate(from components: DateComponents, matching: Set<Calendar.Component>) throws -> Date {
-        var restricted = try components.requireAndRestrict(to: matching)
+        let lenient: Set<Calendar.Component> = isEraRelevant ? [] : [.era]
+        var restricted = try components.requireAndRestrict(to: matching, lenient: lenient)
         
         guard let proposed = self.date(from: restricted) else {
             let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)

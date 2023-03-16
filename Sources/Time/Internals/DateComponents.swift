@@ -14,18 +14,45 @@ internal extension DateComponents {
         self.setValue(value, for: component)
     }
     
-    func requireAndRestrict(to components: Set<Calendar.Component>) throws -> DateComponents {
+    /// Restrict the receiver to only the provided set of calendar components
+    ///
+    /// This is used for constructing absolute ``TimePeriod`` values, because absolute time periods must contain
+    /// values for all relevant calendar components. The exception to this is that some calendars can omit the `.era` unit
+    /// and still correctly interpret the set of component values. In those cases, `[.era]` is typically passed in as the set
+    /// of "lenient" components for which this code will allow a missing component value.
+    ///
+    /// - Parameters:
+    ///   - components: the set of ``Calendar.Component`` values that must all be present in the returned value
+    ///   - lenient: a set of ``Calendar.Component`` values that may be omitted from the returned value
+    /// - Returns: a ``DateComponents`` value that will only contain the required components. If a component is missing from the receiver,
+    /// and that component is *not* present in the `lenient` set, then this will throw an error
+    func requireAndRestrict(to components: Set<Calendar.Component>, lenient: Set<Calendar.Component>) throws -> DateComponents {
+        assert(components.isSuperset(of: lenient))
+        
         var final = DateComponents()
         var missing = Set<Calendar.Component>()
         for component in components {
-            if let value = self.value(for: component) {
+            if let value = self.value(for: component), value != NSNotFound {
                 final.setValue(value, for: component)
-            } else {
+            } else if lenient.contains(component) == false {
                 missing.insert(component)
             }
         }
         if missing.isEmpty == false {
             throw TimeError.missingCalendarComponents(missing)
+        }
+        return final
+    }
+    
+    /// Restrict the receiver to only the provided set of calendar components
+    /// - Parameter components: The set of ``Calendar.Component`` values that *may* be present in the returned value
+    /// - Returns: A ``DateComponents`` value that will contain zero or more calendar components
+    func restrict(to components: Set<Calendar.Component>) -> DateComponents {
+        var final = DateComponents()
+        for component in components {
+            if let value = self.value(for: component), value != NSNotFound {
+                final.setValue(value, for: component)
+            }
         }
         return final
     }

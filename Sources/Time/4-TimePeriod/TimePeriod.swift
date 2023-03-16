@@ -36,8 +36,8 @@ public typealias Absolute<U: Unit> = TimePeriod<U, Era>
 /// locale used in computing the underlying component values.
 public struct TimePeriod<Smallest: Unit, Largest: Unit> {
     
-    internal static func restrict(dateComponents: DateComponents) throws -> DateComponents {
-        return try dateComponents.requireAndRestrict(to: representedComponents)
+    internal static func restrict(dateComponents: DateComponents, lenient: Set<Calendar.Component>) throws -> DateComponents {
+        return try dateComponents.requireAndRestrict(to: representedComponents, lenient: lenient)
     }
     
     /// The set of `Calendar.Components` represented by this particular `TimePeriod`
@@ -66,7 +66,8 @@ public struct TimePeriod<Smallest: Unit, Largest: Unit> {
     
     internal init(region: Region, dateComponents: DateComponents) throws {
         self.region = region
-        self.dateComponents = try TimePeriod.restrict(dateComponents: dateComponents)
+        let lenient: Set<Calendar.Component> = region.calendar.isEraRelevant ? [] : [.era]
+        self.dateComponents = try TimePeriod.restrict(dateComponents: dateComponents, lenient: lenient)
     }
     
     internal func subComponents<S: Unit, L: Unit>() -> TimePeriod<S, L> {
