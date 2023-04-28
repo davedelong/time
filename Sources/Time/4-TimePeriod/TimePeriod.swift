@@ -66,8 +66,7 @@ public struct TimePeriod<Smallest: Unit, Largest: Unit> {
     
     internal init(region: Region, dateComponents: DateComponents) throws {
         self.region = region
-        let lenient: Set<Calendar.Component> = region.calendar.isEraRelevant ? [] : [.era]
-        self.dateComponents = try TimePeriod.restrict(dateComponents: dateComponents, lenient: lenient)
+        self.dateComponents = try TimePeriod.restrict(dateComponents: dateComponents, lenient: region.calendar.lenientUnitsForAbsoluteTimePeriods)
     }
     
     internal func subComponents<S: Unit, L: Unit>() -> TimePeriod<S, L> {
