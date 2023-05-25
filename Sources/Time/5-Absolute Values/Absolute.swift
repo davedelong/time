@@ -17,16 +17,9 @@ extension Absolute where Largest == Era {
     /// - is this calendar value contained within this other calendar value?
     /// - etc
     public var range: Range<Instant> {
-        let date = calendar.date(from: dateComponents).unwrap("We should always be able to convert absolute components into a date")
+        let range = calendar.range(containing: self.anchorDate, in: self.representedComponents)
         
-        var start = Date()
-        var length: TimeInterval = 0
-        let succeeded = calendar.dateInterval(of: Smallest.component, start: &start, interval: &length, for: date)
-        require(succeeded, "We should always be able to get the range of a calendar component")
-        
-        let startInstant = Instant(date: start)
-        let endInstant = Instant(date: start.addingTimeInterval(length))
-        return startInstant..<endInstant
+        return Instant(date: range.lowerBound) ..< Instant(date: range.upperBound)
     }
     
     /// Retrieve the first `Instant` known to occur within this `Value`.

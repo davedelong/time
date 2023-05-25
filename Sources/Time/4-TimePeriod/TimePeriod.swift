@@ -53,7 +53,16 @@ public struct TimePeriod<Smallest: Unit, Largest: Unit> {
         return TimePeriod<Smallest, Largest>.representedComponents
     }
     
-    internal let dateComponents: DateComponents
+    internal let storage: TimePeriodStorage
+    
+    internal var dateComponents: DateComponents {
+        switch storage {
+            case .absolute(let date):
+                return region.calendar.dateComponents(self.representedComponents, from: date)
+            case .relative(let dateComponents):
+                return dateComponents
+        }
+    }
     
     /// The `Calendar` used in computing this `TimePeriod`'s components, as defined by its `Region`.
     public var calendar: Calendar { return region.calendar }
@@ -64,13 +73,37 @@ public struct TimePeriod<Smallest: Unit, Largest: Unit> {
     /// The `Locale` used in computing this `TimePeriod`'s components, as defined by its `Region`.
     public var locale: Locale { return region.locale }
     
-    internal init(region: Region, dateComponents: DateComponents) throws {
+    internal init(region: Region, absolute: Foundation.Date) {
         self.region = region
-        self.dateComponents = try TimePeriod.restrict(dateComponents: dateComponents, lenient: region.calendar.lenientUnitsForAbsoluteTimePeriods)
+        self.storage = .absolute(absolute)
+    }
+    
+    internal init(region: Region, relative: DateComponents) throws {
+        self.region = region
+        let lenient = region.calendar.lenientUnitsForAbsoluteTimePeriods
+        let restricted = try TimePeriod.restrict(dateComponents: relative, lenient: lenient)
+        self.storage = .relative(restricted)
+    }
+    
+    private init(region: Region, dateComponents: DateComponents) throws {
+        self.region = region
+        
+        if Largest.self == Era.self {
+            // turn the date components into a date
+            guard let date = region.calendar.date(from: dateComponents) else {
+                throw TimeError.invalidDateComponents(dateComponents, in: region)
+            }
+            
+            self.storage = .absolute(date)
+        } else {
+            // TODO: does this need more?
+            let restricted = dateComponents.restrict(to: Self.representedComponents)
+            self.storage = .relative(restricted)
+        }
     }
     
     internal func subComponents<S: Unit, L: Unit>() -> TimePeriod<S, L> {
-        return try! TimePeriod<S, L>.init(region: region, dateComponents: dateComponents)
+        return try! TimePeriod<S, L>(region: region, dateComponents: dateComponents)
     }
 }
 
@@ -108,7 +141,20 @@ extension TimePeriod: Comparable {
     /// - Parameter lhs: a `TimePeriod`
     /// - Parameter rhs: a `TimePeriod`
     public static func > (lhs: TimePeriod, rhs: TimePeriod) -> Bool {
-        return lhs.region == rhs.region && lhs.dateComponents.isGreaterThan(other: rhs.dateComponents)
+        guard lhs.region == rhs.region else { return false }
+        
+        switch (lhs.storage, rhs.storage) {
+            case (.absolute(let l), .absolute(let r)):
+                let leftRange = lhs.calendar.range(containing: l, in: lhs.representedComponents)
+                let rightRange = rhs.calendar.range(containing: r, in: rhs.representedComponents)
+                
+                return leftRange.lowerBound > rightRange.lowerBound
+            case (.relative(let l), .relative(let r)):
+                return l.isGreaterThan(other: r)
+                
+            default:
+                return false
+        }
     }
     
     /// Determine if one `TimePeriod` is less than another `TimePeriod`.
@@ -118,7 +164,20 @@ extension TimePeriod: Comparable {
     /// - Parameter lhs: a `TimePeriod`
     /// - Parameter rhs: a `TimePeriod`
     public static func < (lhs: TimePeriod, rhs: TimePeriod) -> Bool {
-        return lhs.region == rhs.region && lhs.dateComponents.isLessThan(other: rhs.dateComponents)
+        guard lhs.region == rhs.region else { return false }
+        
+        switch (lhs.storage, rhs.storage) {
+            case (.absolute(let l), .absolute(let r)):
+                let leftRange = lhs.calendar.range(containing: l, in: lhs.representedComponents)
+                let rightRange = rhs.calendar.range(containing: r, in: rhs.representedComponents)
+                
+                return leftRange.lowerBound < rightRange.lowerBound
+            case (.relative(let l), .relative(let r)):
+                return l.isLessThan(other: r)
+                
+            default:
+                return false
+        }
     }
     
 }
@@ -132,4 +191,34 @@ extension TimePeriod: CustomStringConvertible {
         return formatNatural()
     }
     
+}
+
+internal enum TimePeriodStorage: Codable {
+    case absolute(Foundation.Date)
+    case relative(Foundation.DateComponents)
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        do {
+            let date = try container.decode(Date.self)
+            self = .absolute(date)
+        } catch let absoluteError {
+            do {
+                let components = try container.decode(DateComponents.self)
+                self = .relative(components)
+            } catch let relativeError {
+                throw TimeError.cannotDecodeTimePeriod(absoluteError, relativeError)
+            }
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+            case .absolute(let date):
+                try container.encode(date)
+            case .relative(let dc):
+                try container.encode(dc)
+        }
+    }
 }

@@ -54,12 +54,36 @@ internal extension Calendar {
         return proposed
     }
     
+    func range(containing date: Date, in units: Set<Calendar.Component>) -> Range<Date> {
+        var start = Date()
+        var length: TimeInterval = 0
+        let smallest = Calendar.Component.smallest(from: units)
+        let succeeded = self.dateInterval(of: smallest, start: &start, interval: &length, for: date)
+        require(succeeded, "We should always be able to get the range of a calendar component")
+        
+        return start ..< start.addingTimeInterval(length)
+    }
+    
 }
 
 internal extension Calendar.Component {
     
-    static var ascendingOrder: Array<Calendar.Component> { return [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era] }
-    static var descendingOrder: Array<Calendar.Component> { return [.era, .year, .month, .day, .hour, .minute, .second, .nanosecond] }
+    static let ascendingOrder: Array<Calendar.Component> = [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
+    static let descendingOrder: Array<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .nanosecond]
+    
+    static func smallest(from units: Set<Calendar.Component>) -> Calendar.Component {
+        for unit in ascendingOrder {
+            if units.contains(unit) { return unit }
+        }
+        fatalError("Cannot determine smallest unit in \(units)")
+    }
+    
+    static func largest(from units: Set<Calendar.Component>) -> Calendar.Component {
+        for unit in descendingOrder {
+            if units.contains(unit) { return unit }
+        }
+        fatalError("Cannot determine largest unit in \(units)")
+    }
     
 }
 

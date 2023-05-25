@@ -33,20 +33,29 @@ extension Region: Codable {
 extension TimePeriod: Codable {
 
     private enum CodingKeys: String, CodingKey {
-        case components
+        case value
         case region
+        
+        // old key
+        case components
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let components = try container.decode(DateComponents.self, forKey: .components)
-        let region = try container.decode(Region.self, forKey: .region)
-        try self.init(region: region, dateComponents: components)
+        self.region = try container.decode(Region.self, forKey: .region)
+        
+        do {
+            // try to decode the old "components" key first
+            self.storage = try container.decode(TimePeriodStorage.self, forKey: .components)
+        } catch {
+            // if that fails, try decoding the newer "value" key
+            self.storage = try container.decode(TimePeriodStorage.self, forKey: .value)
+        }
     }
-
+    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(dateComponents, forKey: .components)
         try container.encode(region, forKey: .region)
+        try container.encode(storage, forKey: .value)
     }
 }

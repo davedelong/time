@@ -10,17 +10,19 @@ import Foundation
 // absolute conversion
 extension Absolute where Largest == Era {
     
+    internal var anchorDate: Date {
+        switch storage {
+            case .absolute(let d):
+                return d
+            case .relative(let dc):
+                fatalError("Unexpectedly have an Absolute TimePeriod with relative stored values \(dc)")
+        }
+    }
+    
     /// Construct a new `TimePeriod` by converting the receiver to a new `Region`.
     public func converting(to newRegion: Region) -> Self {
         if newRegion == self.region { return self }
-        
-        if newRegion.calendar != region.calendar || newRegion.timeZone != region.timeZone {
-            // changing calendar or timezone means generating new date components
-            return Self.init(region: newRegion, instant: approximateMidPoint)
-        } else {
-            // changing locale does not affect the underlying date components
-            return try! Self.init(region: newRegion, dateComponents: dateComponents)
-        }
+        return Self.init(region: newRegion, date: self.anchorDate)
     }
     
     /// Construct a new `TimePeriod` by converting the receiver to a new `Calendar`.

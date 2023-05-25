@@ -20,8 +20,12 @@ extension TimePeriod {
     /// - Parameter region: The `Region` in which to interpret the point in time
     /// - Parameter instant: The `Date` that is contained by the constructed `TimePeriod`
     public init(region: Region, date: Date) {
-        let components = region.calendar.dateComponents(in: region.timeZone, from: date)
-        try! self.init(region: region, dateComponents: components)
+        if Largest.self == Era.self {
+            self.init(region: region, absolute: date)
+        } else {
+            let components = region.calendar.dateComponents(in: region.timeZone, from: date)
+            try! self.init(region: region, relative: components)
+        }
     }
 
 }

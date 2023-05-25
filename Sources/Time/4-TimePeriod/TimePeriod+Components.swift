@@ -10,6 +10,7 @@ import Foundation
 public extension TimePeriod {
     
     func value(for unit: Calendar.Component) -> Int {
+        // TODO: what if it's a pseudo unit?
         return dateComponents.value(for: unit).unwrap("A TimePeriod<\(Smallest.self), \(Largest.self)> does not contain a represented \(unit)")
     }
     
