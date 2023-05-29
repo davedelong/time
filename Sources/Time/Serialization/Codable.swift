@@ -46,7 +46,21 @@ extension TimePeriod: Codable {
         
         do {
             // try to decode the old "components" key first
-            self.storage = try container.decode(TimePeriodStorage.self, forKey: .components)
+            let storageOnOldKey = try container.decode(TimePeriodStorage.self, forKey: .components)
+            switch storageOnOldKey {
+            case .absolute(_):
+                self.storage = storageOnOldKey
+            case .relative(let components):
+                if Largest.self != Era.self {
+                    self.storage = storageOnOldKey
+                } else {
+                    // When decoding absolute values, we need to convert the storage to the newer instant-based storage.
+                    guard let date = region.calendar.date(from: components) else {
+                        throw TimeError.invalidDateComponents(components, in: region, description: "Decoding an Absolute value")
+                    }
+                    self.storage = .absolute(date)
+                }
+            }
         } catch {
             // if that fails, try decoding the newer "value" key
             self.storage = try container.decode(TimePeriodStorage.self, forKey: .value)
