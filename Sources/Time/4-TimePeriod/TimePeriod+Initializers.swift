@@ -28,6 +28,37 @@ extension TimePeriod {
         }
     }
 
+    /// Create a "deep" copy of the receiver. This is a reasonably expensive operation, and should be used with care.
+    ///
+    /// This method is useful if you're on a platform that doesn't provide thread safety for the underlying date
+    /// primatives, most notably Linux at the time of writing (mid-2023). If you're using `TimePeriod` objects in a
+    /// multithreaded environment and are seeing odd behaviour, you may need to work with copies.
+    ///
+    /// Notable observed "odd behaviours" include:
+    ///
+    /// - Attempting to create what should be a valid `TimePeriod` range (like `someDay..<someDay.adding(days: 7)`)
+    ///   crashing with `Fatal error: Range requires lowerBound <= upperBound`.
+    ///
+    /// - Attempts to work with `AbsoluteTimePeriodSequence` or other basic time period manipulations crashing with a
+    ///   stack trace deep into Foundation's internals (often mentioning `NSCalendar`).
+    ///
+    /// For some technical background, `Calendar`/`NSCalendar` is *not* thread-safe in the `swift-corelibs-foundation`
+    /// package, which is used to provide Foundation to Swift on non-Apple platforms. Many operations that don't
+    /// outwardly appear to be mutating do temporarily perform mutating operations internally when performing
+    /// calendrical calculations, which in turn makes many nonmutating operations on `TimePeriod` not thread-safe.
+    ///
+    /// Note that modern Apple platforms (iOS, macOS, etc) have thread-safe `Calendar`/`NSCalendar` implementations
+    /// and don't suffer from this particular problem.
+    public func forcedCopy() -> Self {
+        switch storage {
+            case .absolute(let date):
+                return Self(region: region.forcedCopy(), absolute: Date(timeIntervalSince1970: date.timeIntervalSince1970))
+            case .relative(let components):
+                // Since we'll already have validated our date components, the try! here *should* be safe.
+                return try! Self(region: region.forcedCopy(), relative: components)
+        }
+    }
+
 }
 
 // Absolute initializers

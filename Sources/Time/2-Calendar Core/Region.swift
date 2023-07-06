@@ -43,6 +43,19 @@ public struct Region: Hashable {
         self.timeZone = timeZone
         self.locale = locale
     }
+
+    /// Create a "deep" copy of the receiver. This is a reasonably expensive operation, and should be used with care.
+    ///
+    /// This method is useful if you're on a platform that doesn't provide thread safety for the underlying date
+    /// primatives, most notably Linux at the time of writing (mid-2023). If you're using `Region` objects in a
+    /// multithreaded environment and are seeing odd behaviour, you may need to work with copies.
+    ///
+    /// For more detail, see the discussion on `TimePeriod.forcedCopy()`.
+    public func forcedCopy() -> Self {
+        return Self(calendar: Calendar(identifier: calendar.identifier),
+                    timeZone: TimeZone(identifier: timeZone.identifier) ?? TimeZone(secondsFromGMT: timeZone.secondsFromGMT()) ?? timeZone,
+                    locale: Locale(identifier: locale.identifier))
+    }
     
     /// Indicates whether time values in this region will be formatted using 12-hour ("1:00 PM") or 24-hour ("13:00") time.
     public var wants24HourTime: Bool {
