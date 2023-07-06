@@ -9,5 +9,6 @@ XCTMain([
     testCase(RegionTests.allTests),
     testCase(RelationTests.allTests),
     testCase(TimeTests.allTests),
-    testCase(SerializationTests.allTests)
+    testCase(SerializationTests.allTests),
+    testCase(ThreadingTests.allTests)
 ])
