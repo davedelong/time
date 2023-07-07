@@ -1,6 +1,7 @@
 import XCTest
 @testable import TimeTests
 
+#if swift(<5.1)
 XCTMain([
     testCase(AbsoluteFormattingTests.allTests),
     testCase(AbsoluteTests.allTests),
@@ -11,3 +12,4 @@ XCTMain([
     testCase(TimeTests.allTests),
     testCase(SerializationTests.allTests)
 ])
+#endif
