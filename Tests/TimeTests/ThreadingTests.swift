@@ -24,7 +24,7 @@ class ThreadingTests: XCTestCase {
 
         let results = await withTaskGroup(of: Range<Absolute<Minute>>.self, body: { group in
             for _ in 0..<1000 {
-                let taskLocalStart = rangeStart.forcedCopy()
+                let taskLocalStart = rangeStart._forcedCopy()
                 // ^ Without this copy, this test is likely to crash on Linux.
                 group.addTask {
                     let range = taskLocalStart..<taskLocalStart.adding(hours: 4)

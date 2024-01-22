@@ -25,7 +25,7 @@ class AbsoluteFormattingTests: XCTestCase {
     let clock = Clocks.custom(startingFrom: Instant(interval: 0, since: .reference), rate: 0.001, region: .posix)
     
     func testEraFormatting() {
-        let v = clock.thisEra()
+        let v = clock.thisEra
         
         XCTAssertEqual(v.format(era: .wide), "Anno Domini")
         XCTAssertEqual(v.format(era: .abbreviated), "AD")
@@ -33,7 +33,7 @@ class AbsoluteFormattingTests: XCTestCase {
     }
     
     func testYearFormatting() {
-        let v = clock.thisYear()
+        let v = clock.thisYear
         
         XCTAssertEqual(v.format(year: .naturalDigits), "2001")
         XCTAssertEqual(v.format(year: .twoDigits), "01")
@@ -45,7 +45,7 @@ class AbsoluteFormattingTests: XCTestCase {
     }
     
     func testMonthFormatting() {
-        let v = clock.thisMonth()
+        let v = clock.thisMonth
         
         XCTAssertEqual(v.format(month: .naturalName), "January")
         XCTAssertEqual(v.format(month: .abbreviatedName), "Jan")
@@ -67,7 +67,7 @@ class AbsoluteFormattingTests: XCTestCase {
     }
     
     func testDayFormatting() {
-        let v = clock.thisDay()
+        let v = clock.thisDay
         
         XCTAssertEqual(v.format(weekday: .naturalName), "Monday")
         XCTAssertEqual(v.format(weekday: .abbreviatedName), "Mon")
@@ -93,25 +93,25 @@ class AbsoluteFormattingTests: XCTestCase {
     }
     
     func testRawFormatting_Strict() {
-        let v = clock.thisMonth()
+        let v = clock.thisMonth
         
-        XCTAssertNoThrow(try v.format(using: "yyyy"), "This should not throw")
-        XCTAssertNoThrow(try v.format(using: "y-MM"), "This should not throw")
-        XCTAssertNoThrow(try v.format(using: "y-MM Q"), "This should not throw")
-        XCTAssertNoThrow(try v.format(using: "y-MM 'some literal stuff'"), "This should not throw")
+        XCTAssertNoThrow(try v.format(raw: "yyyy"), "This should not throw")
+        XCTAssertNoThrow(try v.format(raw: "y-MM"), "This should not throw")
+        XCTAssertNoThrow(try v.format(raw: "y-MM Q"), "This should not throw")
+        XCTAssertNoThrow(try v.format(raw: "y-MM 'some literal stuff'"), "This should not throw")
         
-        XCTAssertThrowsError(try v.format(using: "y-MM-dd"), "This should have thrown")
-        XCTAssertThrowsError(try v.format(using: "y-MM HH"), "This should have thrown")
-        XCTAssertThrowsError(try v.format(using: "y-MM mm"), "This should have thrown")
-        XCTAssertThrowsError(try v.format(using: "y-MM ss"), "This should have thrown")
-        XCTAssertThrowsError(try v.format(using: "y-MM SSSSSS"), "This should have thrown")
+        XCTAssertThrowsError(try v.format(raw: "y-MM-dd"), "This should have thrown")
+        XCTAssertThrowsError(try v.format(raw: "y-MM HH"), "This should have thrown")
+        XCTAssertThrowsError(try v.format(raw: "y-MM mm"), "This should have thrown")
+        XCTAssertThrowsError(try v.format(raw: "y-MM ss"), "This should have thrown")
+        XCTAssertThrowsError(try v.format(raw: "y-MM SSSSSS"), "This should have thrown")
     }
     
     func testRawFormatting_Lenient() {
-        let v = clock.thisMonth()
+        let v = clock.thisMonth
         
-        XCTAssertEqual(try v.format(using: "y-MM-dd", strict: false), "2001-01-01")
-        XCTAssertEqual(try v.format(using: "y-MM-dd 'at' HH:mm:ss", strict: false), "2001-01-01 at 00:00:00")
+        XCTAssertEqual(try v.format(raw: "y-MM-dd", strict: false), "2001-01-01")
+        XCTAssertEqual(try v.format(raw: "y-MM-dd 'at' HH:mm:ss", strict: false), "2001-01-01 at 00:00:00")
     }
     
 }

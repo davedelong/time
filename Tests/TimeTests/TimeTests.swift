@@ -10,7 +10,7 @@ class TimeTests: XCTestCase {
     func testExample() {
         
         let c = Clocks.system
-        let nextYear = c.nextYear()
+        let nextYear = c.nextYear
         let months = nextYear.months
         
         for month in months {

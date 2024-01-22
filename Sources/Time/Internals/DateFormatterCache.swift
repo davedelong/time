@@ -7,70 +7,44 @@
 
 import Foundation
 
-internal class DateFormatterCache {
+internal enum FormatConfiguration: Hashable {
+    case template(String)
+    case raw(String)
+    case styles(DateFormatter.Style, DateFormatter.Style)
+}
+
+extension DateFormatter {
     
-    internal static let shared = DateFormatterCache()
-    
-    private struct Key: Hashable {
-        enum Configuration: Hashable {
-            case template(String)
-            case raw(String)
-            case styles(DateFormatter.Style, DateFormatter.Style)
-        }
-        let configuration: Configuration
+    internal struct Key: Hashable {
+        let configuration: FormatConfiguration
         let region: Region
     }
     
+    internal static func formatter(for key: Key) -> DateFormatter {
+        return DateFormatterCache.shared.formatter(for: key)
+    }
+    
+    internal static func formatter(for rawFormat: String, region: Region) -> DateFormatter {
+        return self.formatter(for: .init(configuration: .raw(rawFormat), region: region))
+    }
+    
+    internal static func formatter(for templates: Array<Format?>, region: Region) -> DateFormatter {
+        let template = templates.compactMap { $0?.template }.joined()
+        return self.formatter(for: .init(configuration: .template(template), region: region))
+    }
+}
+
+private class DateFormatterCache {
+    
+    static let shared = DateFormatterCache()
+    
     private let queue = DispatchQueue(label: "DateFormatterCache")
     
-    private var formatters = Dictionary<Key, DateFormatter>()
-    
-    private var registeredForAutoupdatingNotifications = false
-    private var autoupdating = Dictionary<Key, DateFormatter>()
+    private var formatters = Dictionary<DateFormatter.Key, DateFormatter>()
     
     private init() { }
     
-    private func onqueue_registerForAutoupdatingChanges() {
-        guard registeredForAutoupdatingNotifications == false else { return }
-        
-        let observer: (Notification) -> Void = { [weak self] _ in
-            self?.resetAutoupdatingFormatters()
-        }
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSSystemTimeZoneDidChange, object: nil, queue: nil, using: observer)
-        NotificationCenter.default.addObserver(forName: NSLocale.currentLocaleDidChangeNotification, object: nil, queue: nil, using: observer)
-        
-        registeredForAutoupdatingNotifications = true
-    }
-    
-    private func resetAutoupdatingFormatters() {
-        queue.async {
-            self.autoupdating.removeAll()
-        }
-    }
-    
-    private func onqueue_autoupdatingFormatter(for key: Key) -> DateFormatter {
-        if let existing = autoupdating[key] { return existing }
-        
-        let formatter = DateFormatter()
-        formatter.locale = key.region.locale.isAutoupdating ? .current : key.region.locale
-        formatter.calendar = key.region.calendar.isAutoupdating ? .current : key.region.calendar
-        formatter.timeZone = key.region.timeZone.isAutoupdating ? .current : key.region.timeZone
-        switch key.configuration {
-            case .template(let template):
-                formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: key.region.locale)
-            case .raw(let format):
-                formatter.dateFormat = format
-            case .styles(let date, let time):
-                formatter.dateStyle = date
-                formatter.timeStyle = time
-        }
-        formatters[key] = formatter
-        
-        return formatter
-    }
-    
-    private func onqueue_nonupdatingFormatter(for key: Key) -> DateFormatter {
+    private func onqueue_nonupdatingFormatter(for key: DateFormatter.Key) -> DateFormatter {
         if let existing = formatters[key] { return existing }
         
         let formatter = DateFormatter()
@@ -91,29 +65,10 @@ internal class DateFormatterCache {
         return formatter
     }
     
-    private func formatter(for key: Key) -> DateFormatter {
+    func formatter(for key: DateFormatter.Key) -> DateFormatter {
         return queue.sync {
-            if key.region.isAutoupdating {
-                return onqueue_autoupdatingFormatter(for: key)
-            } else {
-                return onqueue_nonupdatingFormatter(for: key)
-            }
+            return onqueue_nonupdatingFormatter(for: key)
         }
-    }
-    
-    func formatter(forTemplate template: String, region: Region) -> DateFormatter {
-        let key = Key(configuration: .template(template), region: region)
-        return formatter(for: key)
-    }
-    
-    func formatter(forFormat format: String, region: Region) -> DateFormatter {
-        let key = Key(configuration: .raw(format), region: region)
-        return formatter(for: key)
-    }
-    
-    func formatter(for dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style, region: Region) -> DateFormatter {
-        let key = Key(configuration: .styles(dateStyle, timeStyle), region: region)
-        return formatter(for: key)
     }
     
 }

@@ -57,7 +57,7 @@ class RelationTests: XCTestCase {
         // BETWEEN calendaring systems
         
         // Jumada al-Awwal 1441 overlaps with January 2020
-        let islamicRegion = Region.posix.converting(to: Calendar(identifier: .islamic))
+        let islamicRegion = Region.posix.setCalendar(Calendar(identifier: .islamic))
         let a = try! Absolute<Month>(region: islamicRegion, year: 1441, month: 5)
         
         let b = try! Absolute<Month>(region: .posix, year: 2020, month: 1)

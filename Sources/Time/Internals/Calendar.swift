@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal extension Calendar {
+extension Calendar {
     
     /// Different calendars may have different definitions of what a "second" is.
     /// For example, on Earth, calendars all have the convention that one calendar-second
@@ -18,21 +18,21 @@ internal extension Calendar {
     /// SI Seconds are in each calendar-second.
     /// note: This does NOT affect how physics calculations are done (or velocities, etc)
     /// because those are all defined relative to SI Seconds.
-    var SISecondsPerSecond: Double { return 1.0 }
+    internal var SISecondsPerSecond: Double { return 1.0 }
     
     /// For most calendars, the Era is not very relevant. For example "2019" is unambiguously
     /// understood to be "2019 CE", not "2019 BCE". However, there are some calendars
     /// (most notably the Japanese calendar) for which the era is extremely relevant.
     /// The relevancy of the era is taken into account when doing default formatting
     /// of calendar Values.
-    var isEraRelevant: Bool { return identifier == .japanese }
+    internal var isEraRelevant: Bool { return identifier == .japanese }
     
-    var lenientUnitsForAbsoluteTimePeriods: Set<Calendar.Component> {
+    internal var lenientUnitsForAbsoluteTimePeriods: Set<Calendar.Component> {
         if isEraRelevant { return [] }
         return [.era]
     }
     
-    func exactDate(from components: DateComponents, matching: Set<Calendar.Component>) throws -> Date {
+    internal func exactDate(from components: DateComponents, matching: Set<Calendar.Component>) throws -> Date {
         var restricted = try components.requireAndRestrict(to: matching, lenient: self.lenientUnitsForAbsoluteTimePeriods)
         
         guard let proposed = self.date(from: restricted) else {
@@ -54,7 +54,7 @@ internal extension Calendar {
         return proposed
     }
     
-    func range(containing date: Date, in units: Set<Calendar.Component>) -> Range<Date> {
+    internal func range(containing date: Date, in units: Set<Calendar.Component>) -> Range<Date> {
         var start = Date()
         var length: TimeInterval = 0
         let smallest = Calendar.Component.smallest(from: units)
@@ -62,27 +62,6 @@ internal extension Calendar {
         require(succeeded, "We should always be able to get the range of a calendar component")
         
         return start ..< start.addingTimeInterval(length)
-    }
-    
-}
-
-internal extension Calendar.Component {
-    
-    static let ascendingOrder: Array<Calendar.Component> = [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
-    static let descendingOrder: Array<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .nanosecond]
-    
-    static func smallest(from units: Set<Calendar.Component>) -> Calendar.Component {
-        for unit in ascendingOrder {
-            if units.contains(unit) { return unit }
-        }
-        fatalError("Cannot determine smallest unit in \(units)")
-    }
-    
-    static func largest(from units: Set<Calendar.Component>) -> Calendar.Component {
-        for unit in descendingOrder {
-            if units.contains(unit) { return unit }
-        }
-        fatalError("Cannot determine largest unit in \(units)")
     }
     
 }

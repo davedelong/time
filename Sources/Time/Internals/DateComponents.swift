@@ -16,7 +16,7 @@ internal extension DateComponents {
     
     /// Restrict the receiver to only the provided set of calendar components
     ///
-    /// This is used for constructing absolute ``TimePeriod`` values, because absolute time periods must contain
+    /// This is used for constructing ``Absolute`` values, because absolute time periods must contain
     /// values for all relevant calendar components. The exception to this is that some calendars can omit the `.era` unit
     /// and still correctly interpret the set of component values. In those cases, `[.era]` is typically passed in as the set
     /// of "lenient" components for which this code will allow a missing component value.

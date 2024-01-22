@@ -81,7 +81,7 @@ class AbsoluteTests: XCTestCase {
     }
     
     func testAddingComponents() throws {
-        let today: Absolute<Day> = Clocks.system.today()
+        let today: Absolute<Day> = Clocks.system.today
         let todayAt12: Absolute<Minute> = try today.setting(hour: 12, minute: 00)
         
         XCTAssertEqual(todayAt12.absoluteDay, today)

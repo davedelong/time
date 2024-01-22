@@ -54,7 +54,7 @@ class ClockTests: XCTestCase {
     ]
     
     func testWeeksInYear() {
-        let thisYear = Clocks.system.thisYear()
+        let thisYear = Clocks.system.thisYear
         let daysInTheYear = Array(thisYear.days)
         
         let weeks = daysInTheYear.slice(between: { $0.weekOfYear != $1.weekOfYear })
@@ -65,72 +65,72 @@ class ClockTests: XCTestCase {
     func testSystem() {
         
         let c = Clocks.system
-        let now = c.now()
+        let now = c.now
         
-        XCTAssertEqual(now.intervalSinceEpoch.rawValue, Date.timeIntervalSinceReferenceDate, accuracy: 0.001)
+        XCTAssertEqual(now.intervalSinceEpoch.timeInterval, Date.timeIntervalSinceReferenceDate, accuracy: 0.001)
     }
     
     func testExplicit() {
         let c = Clocks.posix
         
-        let now = c.now()
-        XCTAssertEqual(now.intervalSinceEpoch.rawValue, Date.timeIntervalSinceReferenceDate, accuracy: 0.001)
+        let now = c.now
+        XCTAssertEqual(now.intervalSinceEpoch.timeInterval, Date.timeIntervalSinceReferenceDate, accuracy: 0.001)
         
-        let today = c.today()
+        let today = c.today
         XCTAssertEqual(today.region, c.region)
     }
     
     func testAccelerated_2x() {
-        let now = Clocks.system.now()
+        let now = Clocks.system.now
         let c = Clocks.custom(startingFrom: now, rate: 2.0, region: Region.current)
         
-        let thisSecond = c.now()
+        let thisSecond = c.now
         wait(1)
-        let nextSecond = c.now()
+        let nextSecond = c.now
         
         let elapsedTime = nextSecond - thisSecond
         
-        XCTAssertEqual(elapsedTime.rawValue, 2.0, accuracy: 0.2) // 10% margin for error
+        XCTAssertEqual(elapsedTime.timeInterval, 2.0, accuracy: 0.2) // 10% margin for error
     }
     
     func testAccelerated_10x() {
-        let now = Clocks.system.now()
+        let now = Clocks.system.now
         let c = Clocks.custom(startingFrom: now, rate: 10.0, region: Region.current)
         
-        let thisSecond = c.now()
+        let thisSecond = c.now
         wait(1)
-        let nextSecond = c.now()
+        let nextSecond = c.now
         
         let elapsedTime = nextSecond - thisSecond
         
         // we need a larger margin for error here so the CI tests can handle this
-        XCTAssertEqual(elapsedTime.rawValue, 10.0, accuracy: 1.5) // 15% margin for error
+        XCTAssertEqual(elapsedTime.timeInterval, 10.0, accuracy: 1.5) // 15% margin for error
     }
     
     func testDecelerated_2x() {
-        let now = Clocks.system.now()
+        let now = Clocks.system.now
         let c = Clocks.custom(startingFrom: now, rate: 0.5, region: Region.current)
         
-        let thisSecond = c.now()
+        let thisSecond = c.now
         wait(1)
-        let nextSecond = c.now()
+        let nextSecond = c.now
         
         let elapsedTime = nextSecond - thisSecond
         
-        XCTAssertEqual(elapsedTime.rawValue, 0.5, accuracy: 0.05) // 10% margin for error
+        XCTAssertEqual(elapsedTime.timeInterval, 0.5, accuracy: 0.05) // 10% margin for error
     }
     
     func testDecelerated_10x() {
-        let now = Clocks.system.now()
+        let now = Clocks.system.now
         let c = Clocks.custom(startingFrom: now, rate: 0.1, region: Region.current)
         
-        let thisSecond = c.now()
+        let thisSecond = c.now
         wait(1)
-        let nextSecond = c.now()
+        let nextSecond = c.now
         
         let elapsedTime = nextSecond - thisSecond
         
-        XCTAssertEqual(elapsedTime.rawValue, 0.1, accuracy: 0.01) // 10% margin for error
+        XCTAssertEqual(elapsedTime.timeInterval, 0.1, accuracy: 0.01) // 10% margin for error
     }
 }
 
@@ -150,9 +150,19 @@ extension ClockTests {
         
         let instant = clock.nextDaylightSavingTimeTransition()
         XCTAssertNotNil(instant)
-        XCTAssertEqual(
-            instant?.intervalSinceEpoch.rawValue,
-            timeZone.nextDaylightSavingTimeTransition?.timeIntervalSinceReferenceDate)
+        
+        if #available(macOS 14, iOS 17, watchOS 11, tvOS 17, *) {
+            XCTAssertEqual(
+                instant?.intervalSinceReferenceEpoch.timeInterval,
+                timeZone.nextDaylightSavingTimeTransition?.timeIntervalSinceReferenceDate)
+        } else {
+            // https://github.com/apple/swift/pull/66111
+            XCTAssertEqual(
+                instant!.intervalSinceReferenceEpoch.timeInterval,
+                timeZone.nextDaylightSavingTimeTransition!.timeIntervalSinceReferenceDate,
+                accuracy: 0.000001
+            )
+        }
     }
     
     func testNextDSTTransitionNextYearForTimeZoneWithDST() {
@@ -164,10 +174,10 @@ extension ClockTests {
             locale: .autoupdatingCurrent)
         
         let clock = Clocks.system(in: region)
-        let instantNextYear = (clock.thisDay() + .years(1)).firstInstant
+        let instantNextYear = (clock.thisDay + .years(1)).firstInstant
         
         let nextDSTSeconds = clock
-            .nextDaylightSavingTimeTransition(after: instantNextYear)?.intervalSinceEpoch.rawValue
+            .nextDaylightSavingTimeTransition(after: instantNextYear)?.intervalSinceEpoch.timeInterval
         
         let expectedDSTSeconds = timeZone
             .nextDaylightSavingTimeTransition(after: instantNextYear.date)?.timeIntervalSinceReferenceDate
@@ -198,7 +208,7 @@ extension ClockTests {
             locale: .autoupdatingCurrent)
 
         let clock = Clocks.system(in: region)
-        let instantNextYear = (clock.thisDay() + .years(1)).firstInstant
+        let instantNextYear = (clock.thisDay + .years(1)).firstInstant
         
         let nextDSTSeconds = clock
             .nextDaylightSavingTimeTransition(after: instantNextYear)?.intervalSinceEpoch.rawValue

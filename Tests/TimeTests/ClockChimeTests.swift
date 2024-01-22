@@ -39,7 +39,7 @@ final class ClockChimeTests: XCTestCase {
         dontChime.isInverted = true
         
         let completes = expectation(description: "Chime completes")
-        let lastMinute = clock.previousMinute()
+        let lastMinute = clock.previousMinute
         
         clock
             .chime(at: lastMinute) // Should fire ASAP
@@ -56,7 +56,7 @@ final class ClockChimeTests: XCTestCase {
     func testImmediateChime() {
         let chimesOnce = expectation(description: "Clock chimes immediately")
         let completes = expectation(description: "Chime completes")
-        let now = clock.thisSecond()
+        let now = clock.thisSecond
         
         clock
             .chime(at: now) // Should fire immediately
@@ -75,7 +75,7 @@ final class ClockChimeTests: XCTestCase {
         let chimesOnce = expectation(description: "Clock chimes shortly")
         let completes = expectation(description: "Chime completes")
         
-        let nextSecond = clock.nextSecond()
+        let nextSecond = clock.nextSecond
         clock
             .chime(at: nextSecond)
             .sink(receiveCompletion: { _ in
@@ -93,8 +93,8 @@ final class ClockChimeTests: XCTestCase {
         let chimesOnce = expectation(description: "Clock chimes shortly")
         let completes = expectation(description: "Chime completes")
         
-        let sixtyXClock = Clocks.custom(startingFrom: clock.now(), rate: 60.0, region: clock.region)
-        let nextMinute = sixtyXClock.nextMinute()
+        let sixtyXClock = Clocks.custom(startingFrom: clock.now, rate: 60.0, region: clock.region)
+        let nextMinute = sixtyXClock.nextMinute
         
         sixtyXClock
             .chime(at: nextMinute)
@@ -110,7 +110,7 @@ final class ClockChimeTests: XCTestCase {
     }
     
     func testAbsoluteChimeCancel() {
-        let nextSecond = clock.nextSecond()
+        let nextSecond = clock.nextSecond
         let dontChime = expectation(description: "Clock does not chime")
         dontChime.isInverted = true
         let chime = clock.chime(at: nextSecond).sink { value in
@@ -124,7 +124,7 @@ final class ClockChimeTests: XCTestCase {
         let chimesTwice = expectation(description: "Clock chimes twice, once per second")
         chimesTwice.expectedFulfillmentCount = 2
         
-        let start = clock.nextSecond()
+        let start = clock.nextSecond
         var results = [start, start.nextSecond]
         print("Expecting chimes at \(results)")
         
@@ -145,7 +145,7 @@ final class ClockChimeTests: XCTestCase {
     func testIntervalChimeWithPastStart() {
         let chimes = expectation(description: "Clock chimes once")
         
-        let thisSecond = clock.thisSecond()
+        let thisSecond = clock.thisSecond
         let startAMonthAgo = thisSecond.subtracting(minutes: 1)
         
         clock
@@ -174,7 +174,7 @@ final class ClockChimeTests: XCTestCase {
     
     func testPredicateChime() {
         // Set to the next hour
-        let justBeforeNextMinute = clock.nextMinute().firstSecond.previous
+        let justBeforeNextMinute = clock.nextMinute.firstSecond.previous
         
         // every second is a minute
         let fastClock = Clocks.custom(startingFrom: justBeforeNextMinute.firstInstant, rate: 60.0, region: clock.region)
