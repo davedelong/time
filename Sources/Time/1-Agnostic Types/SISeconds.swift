@@ -100,7 +100,7 @@ extension SISeconds: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
         self.init(value)
     }
     
-    public init(integerLiteral value: Double) {
+    public init(integerLiteral value: Int) {
         self.init(value)
     }
 }
