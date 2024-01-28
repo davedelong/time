@@ -1,6 +1,6 @@
 //
-//  AbsoluteFormattingTests.swift
-//  
+//  FixedFormattingTests.swift
+//
 //
 //  Created by Dave DeLong on 4/11/20.
 //
@@ -8,7 +8,7 @@
 import XCTest
 import Time
 
-class AbsoluteFormattingTests: XCTestCase {
+class FixedFormattingTests: XCTestCase {
     
     static var allTests = [
         ("testEraFormatting", testEraFormatting),

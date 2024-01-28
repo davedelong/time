@@ -36,7 +36,7 @@ extension Fixed {
         let desiredUnits = Calendar.Component.components(in: rawFormatString)
         let missingUnits = desiredUnits.subtracting(representedComponents)
         
-        let style: AbsoluteFormatStyle<Smallest>
+        let style: FixedFormatStyle<Smallest>
         if missingUnits.isEmpty == false {
             if strict == true {
                 // the format string specified units that are not represented by this value

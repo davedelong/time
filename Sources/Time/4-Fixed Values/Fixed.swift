@@ -188,7 +188,7 @@ extension Fixed: CustomStringConvertible {
     ///
     /// The description is a localized "natural" formatting of the calendar value.
     public var description: String {
-        let style = AbsoluteFormatStyle<Smallest>(naturalFormats: calendar)
+        let style = FixedFormatStyle<Smallest>(naturalFormats: calendar)
         return format(using: style)
     }
     

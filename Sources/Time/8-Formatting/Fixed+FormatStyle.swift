@@ -10,7 +10,7 @@ import Foundation
 extension Fixed where Smallest: LTOEDay {
     
     public func format(date dateStyle: DateFormatter.Style) -> String {
-        let style = AbsoluteFormatStyle<Smallest>(dateStyle: dateStyle, timeStyle: .none)
+        let style = FixedFormatStyle<Smallest>(dateStyle: dateStyle, timeStyle: .none)
         return self.format(using: style)
     }
     
@@ -25,12 +25,12 @@ extension Fixed where Smallest: LTOEDay {
 extension Fixed where Smallest: LTOEMinute {
     
     public func format(date dateStyle: DateFormatter.Style, time timeStyle: DateFormatter.Style) -> String {
-        let style = AbsoluteFormatStyle<Smallest>(dateStyle: dateStyle, timeStyle: timeStyle)
+        let style = FixedFormatStyle<Smallest>(dateStyle: dateStyle, timeStyle: timeStyle)
         return self.format(using: style)
     }
     
     public func format(time timeStyle: DateFormatter.Style) -> String {
-        let style = AbsoluteFormatStyle<Smallest>(dateStyle: .none, timeStyle: timeStyle)
+        let style = FixedFormatStyle<Smallest>(dateStyle: .none, timeStyle: timeStyle)
         return self.format(using: style)
     }
     

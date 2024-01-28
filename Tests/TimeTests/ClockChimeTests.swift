@@ -19,7 +19,7 @@ final class ClockChimeTests: XCTestCase {
         ("testImmediateChime", testImmediateChime),
         ("testChimeAtSpecificValue", testChimeAtSpecificValue),
         ("testScaledChimeAtSpecificValue", testScaledChimeAtSpecificValue),
-        ("testAbsoluteChimeCancel", testAbsoluteChimeCancel),
+        ("testFixedChimeCancel", testFixedChimeCancel),
         ("testIntervalChime", testIntervalChime),
         ("testIntervalChimeWithPastStart", testIntervalChimeWithPastStart),
         ("testIntervalChimeCancel", testIntervalChimeCancel),
@@ -109,7 +109,7 @@ final class ClockChimeTests: XCTestCase {
         wait(for: [chimesOnce, completes], timeout: 1, enforceOrder: true)
     }
     
-    func testAbsoluteChimeCancel() {
+    func testFixedChimeCancel() {
         let nextSecond = clock.nextSecond
         let dontChime = expectation(description: "Clock does not chime")
         dontChime.isInverted = true

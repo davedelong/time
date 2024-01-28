@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AbsoluteFormatStyle<Smallest: Unit & LTOEEra> {
+public struct FixedFormatStyle<Smallest: Unit & LTOEEra> {
     
     internal let configuration: FormatConfiguration
     
@@ -32,7 +32,7 @@ public struct AbsoluteFormatStyle<Smallest: Unit & LTOEEra> {
 
 extension Fixed {
     
-    private func format<S>(_ style: AbsoluteFormatStyle<S>) -> String {
+    private func format<S>(_ style: FixedFormatStyle<S>) -> String {
         let key = DateFormatter.Key(configuration: style.configuration,
                                     region: self.region)
         
@@ -42,39 +42,39 @@ extension Fixed {
     }
     
     internal func format(_ templates: Array<Format?>) -> String {
-        let style = AbsoluteFormatStyle<Smallest>(templates: templates)
+        let style = FixedFormatStyle<Smallest>(templates: templates)
         return format(style)
     }
     
-    public func format(using style: AbsoluteFormatStyle<Smallest>) -> String {
+    public func format(using style: FixedFormatStyle<Smallest>) -> String {
         return format(style)
     }
     
-    public func format<U>(using style: AbsoluteFormatStyle<U>) -> String where Smallest: LTOEYear, U: LTOEEra {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEYear, U: LTOEEra {
         return format(style)
     }
     
-    public func format<U>(using style: AbsoluteFormatStyle<U>) -> String where Smallest: LTOEMonth, U: LTOEYear {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEMonth, U: LTOEYear {
         return format(style)
     }
     
-    public func format<U>(using style: AbsoluteFormatStyle<U>) -> String where Smallest: LTOEDay, U: LTOEMonth {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEDay, U: LTOEMonth {
         return format(style)
     }
     
-    public func format<U>(using style: AbsoluteFormatStyle<U>) -> String where Smallest: LTOEHour, U: LTOEDay {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEHour, U: LTOEDay {
         return format(style)
     }
     
-    public func format<U>(using style: AbsoluteFormatStyle<U>) -> String where Smallest: LTOEMinute, U: LTOEHour {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEMinute, U: LTOEHour {
         return format(style)
     }
     
-    public func format<U>(using style: AbsoluteFormatStyle<U>) -> String where Smallest: LTOESecond, U: LTOEMinute {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOESecond, U: LTOEMinute {
         return format(style)
     }
     
-    public func format<U>(using style: AbsoluteFormatStyle<U>) -> String where Smallest: LTOENanosecond, U: LTOESecond {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOENanosecond, U: LTOESecond {
         return format(style)
     }
     
