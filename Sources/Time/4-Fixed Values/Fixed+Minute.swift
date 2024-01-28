@@ -14,7 +14,7 @@ extension Fixed where Smallest == Minute {
     public func nthSecond(_ ordinal: Int) throws -> Fixed<Second> { return try nth(ordinal) }
     public func second(_ number: Int) -> Fixed<Second>? { return numbered(number) }
     
-    public var seconds: AbsoluteSequence<Second> {
-        return AbsoluteSequence(parent: self)
+    public var seconds: FixedSequence<Second> {
+        return FixedSequence(parent: self)
     }
 }

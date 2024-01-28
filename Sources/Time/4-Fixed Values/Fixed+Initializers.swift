@@ -146,7 +146,7 @@ extension Fixed {
     /// - Attempting to create what should be a valid `Fixed` value range (like `someDay..<someDay.adding(days: 7)`)
     ///   crashing with `Fatal error: Range requires lowerBound <= upperBound`.
     ///
-    /// - Attempts to work with `AbsoluteSequence` or other basic time period manipulations crashing with a
+    /// - Attempts to work with `FixedSequence` or other basic time period manipulations crashing with a
     ///   stack trace deep into Foundation's internals (often mentioning `NSCalendar`).
     ///
     /// For some technical background, `Calendar`/`NSCalendar` is *not* thread-safe in the `swift-corelibs-foundation`

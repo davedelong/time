@@ -19,7 +19,7 @@ extension Fixed {
         let order = Calendar.Component.descendingOrder
         let represented = Self.representedComponents
         
-        let isAbsolute = represented.contains(.era)
+        let isFixed = represented.contains(.era)
         
         for unit in order {
             guard represented.contains(unit) else { continue }
@@ -29,7 +29,7 @@ extension Fixed {
                 case .year: f.append(Template<Year>.naturalDigits)
                 case .month: f.append(Template<Month>.naturalName)
                 case .day:
-                    if isAbsolute { f.append(Template<Weekday>.naturalName) }
+                    if isFixed { f.append(Template<Weekday>.naturalName) }
                     f.append(Template<Day>.naturalDigits)
                 case .hour: f.append(Template<Hour>.naturalDigits)
                 case .minute: f.append(Template<Minute>.naturalDigits)
@@ -38,7 +38,7 @@ extension Fixed {
                 default: continue
             }
         }
-        if isAbsolute { f.append(Template<TimeZone>.shortSpecific) }
+        if isFixed { f.append(Template<TimeZone>.shortSpecific) }
         
         return f
     }

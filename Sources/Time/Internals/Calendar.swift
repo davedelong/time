@@ -27,13 +27,13 @@ extension Calendar {
     /// of calendar Values.
     internal var isEraRelevant: Bool { return identifier == .japanese }
     
-    internal var lenientUnitsForAbsoluteTimePeriods: Set<Calendar.Component> {
+    internal var lenientUnitsForFixedTimePeriods: Set<Calendar.Component> {
         if isEraRelevant { return [] }
         return [.era]
     }
     
     internal func exactDate(from components: DateComponents, matching: Set<Calendar.Component>) throws -> Date {
-        var restricted = try components.requireAndRestrict(to: matching, lenient: self.lenientUnitsForAbsoluteTimePeriods)
+        var restricted = try components.requireAndRestrict(to: matching, lenient: self.lenientUnitsForFixedTimePeriods)
         
         guard let proposed = self.date(from: restricted) else {
             let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)

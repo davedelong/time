@@ -14,14 +14,14 @@ extension Fixed where Smallest == Month {
     public func nthDay(_ ordinal: Int) throws -> Fixed<Day> { return try nth(ordinal) }
     public func day(_ number: Int) -> Fixed<Day>? { return numbered(number) }
     
-    public var days: AbsoluteSequence<Day> {
-        return AbsoluteSequence<Day>(parent: self)
+    public var days: FixedSequence<Day> {
+        return FixedSequence<Day>(parent: self)
     }
     
     public var firstHour: Fixed<Hour> { return first() }
     public var lastHour: Fixed<Hour> { return last() }
-    public var hours: AbsoluteSequence<Hour> {
-        return AbsoluteSequence<Hour>(parent: self)
+    public var hours: FixedSequence<Hour> {
+        return FixedSequence<Hour>(parent: self)
     }
     
 }

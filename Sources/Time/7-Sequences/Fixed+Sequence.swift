@@ -1,5 +1,5 @@
 //
-//  AbsoluteSequence.swift
+//  FixedSequence.swift
 //
 //
 //  Created by Dave DeLong on 10/5/19.
@@ -8,16 +8,16 @@
 import Foundation
 
 /// A `Sequence` of `Fixed` calendar values.
-public struct AbsoluteSequence<U: Unit & LTOEEra>: Sequence {
+public struct FixedSequence<U: Unit & LTOEEra>: Sequence {
     
-    private let constructor: () -> AbsoluteIterator<U>
+    private let constructor: () -> FixedIterator<U>
     
     /// Construct an infinite sequence of `Fixed` calendar values starting from a specific value.
     /// - Parameters:
     ///   - start: The starting `Fixed` calendar value.
     ///   - stride: The difference between subsequent calendar values.
     public init(start: Fixed<U>, stride: TimeDifference<U, Era>) {
-        constructor = { AbsoluteIterator(start: start, stride: stride, keepGoing: { _ in return true })}
+        constructor = { FixedIterator(start: start, stride: stride, keepGoing: { _ in return true })}
     }
     
     /// Construct a sequence of `Fixed` calendar values starting from a specific value.
@@ -26,7 +26,7 @@ public struct AbsoluteSequence<U: Unit & LTOEEra>: Sequence {
     ///   - stride: The difference between subsequent calendar values.
     ///   - keepGoing: A closure that is invoked to indicate whether the sequence should continue. This closure is invoked *before* the next value is generated.
     public init(start: Fixed<U>, stride: TimeDifference<U, Era>, while keepGoing: @escaping (Fixed<U>) -> Bool) {
-        constructor = { AbsoluteIterator(start: start, stride: stride, keepGoing: keepGoing)}
+        constructor = { FixedIterator(start: start, stride: stride, keepGoing: keepGoing)}
     }
     
     /// Construct a sequence of `Fixed` calendar values that iterates through a definite range of values.
@@ -38,7 +38,7 @@ public struct AbsoluteSequence<U: Unit & LTOEEra>: Sequence {
     public init<S>(range: Range<Fixed<S>>, stride: TimeDifference<U, Era>) {
         let lower = range.lowerBound
         let upper = range.upperBound.setting(region: lower.region)
-        constructor = { AbsoluteIterator(region: lower.region, range: lower.firstInstant ..< upper.firstInstant, stride: stride) }
+        constructor = { FixedIterator(region: lower.region, range: lower.firstInstant ..< upper.firstInstant, stride: stride) }
     }
     
     /// Construct a sequence of `Fixed` calendar values that iterates through a closed range of values.
@@ -50,21 +50,21 @@ public struct AbsoluteSequence<U: Unit & LTOEEra>: Sequence {
     public init<S>(range: ClosedRange<Fixed<S>>, stride: TimeDifference<U, Era>) {
         let lower = range.lowerBound
         let upper = range.upperBound.setting(region: lower.region)
-        constructor = { AbsoluteIterator(region: lower.region, range: lower.firstInstant ... upper.firstInstant, stride: stride) }
+        constructor = { FixedIterator(region: lower.region, range: lower.firstInstant ... upper.firstInstant, stride: stride) }
     }
     
     internal init<S>(parent: Fixed<S>, stride: TimeDifference<U, Era> = TimeDifference(value: 1, unit: U.component)) {
-        constructor = { AbsoluteIterator(region: parent.region, range: parent.range, stride: stride) }
+        constructor = { FixedIterator(region: parent.region, range: parent.range, stride: stride) }
     }
     
-    public __consuming func makeIterator() -> AbsoluteIterator<U> {
+    public __consuming func makeIterator() -> FixedIterator<U> {
         return constructor()
     }
     
 }
 
 /// An iterator of `Fixed` calendar values.
-public struct AbsoluteIterator<U: Unit & LTOEEra>: IteratorProtocol {
+public struct FixedIterator<U: Unit & LTOEEra>: IteratorProtocol {
     private let region: Region
     
     private let keepGoing: (Fixed<U>) -> Bool

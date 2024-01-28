@@ -85,7 +85,7 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     
     private init(region: Region, dateComponents: DateComponents) throws {
         let refined = try dateComponents.requireAndRestrict(to: Self.representedComponents,
-                                                            lenient: region.calendar.lenientUnitsForAbsoluteTimePeriods)
+                                                            lenient: region.calendar.lenientUnitsForFixedTimePeriods)
         
         // turn the date components into a date
         guard let date = region.calendar.date(from: refined) else {

@@ -14,13 +14,13 @@ extension Fixed where Smallest == Hour {
     public func nthMinute(_ ordinal: Int) throws -> Fixed<Minute> { return try nth(ordinal) }
     public func minute(_ number: Int) -> Fixed<Minute>? { return numbered(number) }
     
-    public var minutes: AbsoluteSequence<Minute> {
-        return AbsoluteSequence(parent: self)
+    public var minutes: FixedSequence<Minute> {
+        return FixedSequence(parent: self)
     }
     
     public var firstSecond: Fixed<Second> { return first() }
     public var lastSecond: Fixed<Second> { return last() }
-    public var seconds: AbsoluteSequence<Second> {
-        return AbsoluteSequence(parent: self)
+    public var seconds: FixedSequence<Second> {
+        return FixedSequence(parent: self)
     }
 }

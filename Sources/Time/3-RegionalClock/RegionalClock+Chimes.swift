@@ -87,7 +87,7 @@ public struct ClockChime<U: Unit & LTOEEra>: Combine.Publisher {
                 predicate: @escaping (_ time: Fixed<U>) -> Bool = { _ in true }) {
         
         let start = startTime ?? clock.this()
-        let i = AbsoluteSequence(start: start, stride: interval).lazy.filter(predicate).makeIterator()
+        let i = FixedSequence(start: start, stride: interval).lazy.filter(predicate).makeIterator()
         self.init(clock: clock, iterator: i)
     }
     

@@ -1,7 +1,7 @@
 import XCTest
 @testable import Time
 
-class AbsoluteTests: XCTestCase {
+class FixedTests: XCTestCase {
 
     static var allTests = [
         ("testInitializingGregorianDateWithoutEraSucceeds", testInitializingGregorianDateWithoutEraSucceeds),
