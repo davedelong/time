@@ -20,9 +20,9 @@ class ThreadingTests: XCTestCase {
                             timeZone: TimeZone(identifier: "Europe/Paris")!,
                             locale: Locale(identifier: "en_US"))
 
-        let rangeStart = try Absolute<Minute>(region: region, year: 2023, month: 06, day: 26, hour: 14, minute: 00)
+        let rangeStart = try Fixed<Minute>(region: region, year: 2023, month: 06, day: 26, hour: 14, minute: 00)
 
-        let results = await withTaskGroup(of: Range<Absolute<Minute>>.self, body: { group in
+        let results = await withTaskGroup(of: Range<Fixed<Minute>>.self, body: { group in
             for _ in 0..<1000 {
                 let taskLocalStart = rangeStart._forcedCopy()
                 // ^ Without this copy, this test is likely to crash on Linux.
@@ -34,7 +34,7 @@ class ThreadingTests: XCTestCase {
                 }
             }
 
-            var ranges = [Range<Absolute<Minute>>]()
+            var ranges = [Range<Fixed<Minute>>]()
             for await result in group { ranges.append(result) }
             return ranges
         })

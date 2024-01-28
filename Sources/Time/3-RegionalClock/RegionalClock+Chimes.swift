@@ -22,7 +22,7 @@ extension RegionalClock {
     ///   - startTime: The time to start counting at before the first chime occurs.
     /// - Returns: A publisher which publishes absolute time values at the moment of each chime.
     public func chime<U: Unit>(every interval: TimeDifference<U, Era>,
-                               startingFrom startTime: Absolute<U>? = nil) -> ClockChime<U> {
+                               startingFrom startTime: Fixed<U>? = nil) -> ClockChime<U> {
         return ClockChime(clock: self, interval: interval, startTime: startTime)
     }
     
@@ -31,7 +31,7 @@ extension RegionalClock {
     /// For example:
     /// ```
     /// // Chimes every hour at *:00, *:13, *:26, *:39, *:52
-    /// clock.chime(when: { (time: Absolute<Minute>) in
+    /// clock.chime(when: { (time: Fixed<Minute>) in
     ///     time.minute % 13 == 0
     /// })
     /// ```
@@ -42,7 +42,7 @@ extension RegionalClock {
     ///   - time: A prospective time value.
     ///
     /// - Returns: A publisher which publishes absolute time values at the moment of each chime.
-    public func chime<U: Unit>(when matches: @escaping (_ time: Absolute<U>) -> Bool) -> ClockChime<U> {
+    public func chime<U: Unit>(when matches: @escaping (_ time: Fixed<U>) -> Bool) -> ClockChime<U> {
         return ClockChime(clock: self, when: matches)
     }
     
@@ -54,7 +54,7 @@ extension RegionalClock {
     /// - Parameter time: The time at which the chime should occur.
     ///
     /// - Returns: A publisher which publishes the current absolute time and then completes.
-    public func chime<U: Unit>(at time: Absolute<U>) -> ClockChime<U> {
+    public func chime<U: Unit>(at time: Fixed<U>) -> ClockChime<U> {
         return ClockChime(clock: self, at: time)
     }
     
@@ -62,13 +62,13 @@ extension RegionalClock {
 
 public struct ClockChime<U: Unit & LTOEEra>: Combine.Publisher {
     
-    public typealias Output = Absolute<U>
+    public typealias Output = Fixed<U>
     public typealias Failure = Never
     
     private let clock: any RegionalClock
-    private let values: AnyIterator<Absolute<U>>
+    private let values: AnyIterator<Fixed<U>>
     
-    private init<I: IteratorProtocol>(clock: any RegionalClock, iterator: I) where I.Element == Absolute<U> {
+    private init<I: IteratorProtocol>(clock: any RegionalClock, iterator: I) where I.Element == Fixed<U> {
         self.clock = clock
         self.values = AnyIterator(iterator)
     }
@@ -83,8 +83,8 @@ public struct ClockChime<U: Unit & LTOEEra>: Combine.Publisher {
     ///   - predicate: Only values matching this predicate will be emitted. By default, all emitted values match.
     public init(clock: any RegionalClock,
                 interval: TimeDifference<U, Era>,
-                startTime: Absolute<U>?,
-                predicate: @escaping (_ time: Absolute<U>) -> Bool = { _ in true }) {
+                startTime: Fixed<U>?,
+                predicate: @escaping (_ time: Fixed<U>) -> Bool = { _ in true }) {
         
         let start = startTime ?? clock.this()
         let i = AbsoluteSequence(start: start, stride: interval).lazy.filter(predicate).makeIterator()
@@ -95,7 +95,7 @@ public struct ClockChime<U: Unit & LTOEEra>: Combine.Publisher {
     /// - Parameters:
     ///   - clock: The `RegionalClock` to use for producing calendar values
     ///   - matches: Only values matching this predicate will be emitted.
-    public init(clock: any RegionalClock, when matches: @escaping (Absolute<U>) -> Bool) {
+    public init(clock: any RegionalClock, when matches: @escaping (Fixed<U>) -> Bool) {
         let interval = TimeDifference<U, Era>(value: 1, unit: U.component)
         self.init(clock: clock, interval: interval, startTime: nil, predicate: matches)
     }
@@ -104,9 +104,9 @@ public struct ClockChime<U: Unit & LTOEEra>: Combine.Publisher {
     /// - Parameters:
     ///   - clock: The `RegionalClock` to use for producing calendar values.
     ///   - time: The time at which to emit the value. If this value is in the past, then the publisher immediately completes.
-    public init(clock: any RegionalClock, at time: Absolute<U>) {
-        let current: Absolute<U> = clock.this()
-        var values = Array<Absolute<U>>()
+    public init(clock: any RegionalClock, at time: Fixed<U>) {
+        let current: Fixed<U> = clock.this()
+        var values = Array<Fixed<U>>()
         if time >= current {
             values = [time]
         }
@@ -130,10 +130,10 @@ SubscriberType.Input == ClockChime<U>.Output {
     
     private var subscriber: SubscriberType?
     private let clock: any RegionalClock
-    private var timeIterator: AnyIterator<Absolute<U>>
+    private var timeIterator: AnyIterator<Fixed<U>>
     private var nextChime: DispatchWorkItem?
     
-    init(subscriber: SubscriberType, clock: any RegionalClock, iterator: AnyIterator<Absolute<U>>) {
+    init(subscriber: SubscriberType, clock: any RegionalClock, iterator: AnyIterator<Fixed<U>>) {
         self.subscriber = subscriber
         self.clock = clock
         self.timeIterator = iterator
@@ -142,8 +142,8 @@ SubscriberType.Input == ClockChime<U>.Output {
     }
     
     private func scheduleNextChime() {
-        var nextTime: Absolute<U>? = timeIterator.next()
-        let now: Absolute<U> = clock.this()
+        var nextTime: Fixed<U>? = timeIterator.next()
+        let now: Fixed<U> = clock.this()
         while let next = nextTime, next < now {
             nextTime = timeIterator.next()
         }
@@ -174,7 +174,7 @@ SubscriberType.Input == ClockChime<U>.Output {
         DispatchQueue.main.asyncAfter(deadline: .now() + realSecondsUntilChime, execute: chime)
     }
     
-    private func performChime(at time: Absolute<U>) {
+    private func performChime(at time: Fixed<U>) {
         nextChime = nil
         _ = subscriber?.receive(time)
         scheduleNextChime()

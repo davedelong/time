@@ -1,5 +1,5 @@
 //
-//  Absolute+Internal.swift
+//  Fixed+Internal.swift
 //  Time
 //
 //  Created by Dave DeLong on 10/4/18.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Absolute {
+extension Fixed {
     
     internal var approximateMidPoint: Instant {
         let r = self.range
@@ -23,18 +23,18 @@ extension Absolute {
         return dateComponents.value(for: U.component)
     }
     
-    internal func first<U: Unit>() -> Absolute<U> {
-        return Absolute<U>(region: region, instant: range.lowerBound)
+    internal func first<U: Unit>() -> Fixed<U> {
+        return Fixed<U>(region: region, instant: range.lowerBound)
     }
     
-    internal func last<U: Unit>() -> Absolute<U> {
-        return Absolute<U>(region: region, instant: range.upperBound) - TimeDifference(value: 1, unit: U.component)
+    internal func last<U: Unit>() -> Fixed<U> {
+        return Fixed<U>(region: region, instant: range.upperBound) - TimeDifference(value: 1, unit: U.component)
     }
     
-    internal func nth<U: Unit>(_ ordinal: Int) throws -> Absolute<U> {
+    internal func nth<U: Unit>(_ ordinal: Int) throws -> Fixed<U> {
         let target = DateComponents(value: ordinal, component: U.component)
         guard ordinal >= 1 else { throw TimeError.invalidDateComponents(target, in: region) }
-        let offset: Absolute<U> = first() + TimeDifference<U, Era>(value: ordinal - 1, unit: U.component)
+        let offset: Fixed<U> = first() + TimeDifference<U, Era>(value: ordinal - 1, unit: U.component)
         
         let parentRange = self.range
         let childRange = offset.range
@@ -44,15 +44,15 @@ extension Absolute {
         return offset
     }
     
-    internal func numbered<U: Unit>(_ number: Int) -> Absolute<U>? {
-        guard let potential: Absolute<U> = try? nth(number - 1) else { return nil }
+    internal func numbered<U: Unit>(_ number: Int) -> Fixed<U>? {
+        guard let potential: Fixed<U> = try? nth(number - 1) else { return nil }
         guard let value = potential.value(for: U.self) else { return nil }
         if value == number { return potential }
         
         let incrementing = (value < number)
         
         let delta = TimeDifference<U, Era>(value: incrementing ? 1 : -1, unit: U.component)
-        let tooFar: (Absolute<U>) -> Bool = {
+        let tooFar: (Fixed<U>) -> Bool = {
             let value = $0.value(for: U.self)!
             if incrementing { return value > number }
             return value < number

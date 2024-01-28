@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import Time
+@testable import Time
 
 extension Collection {
     func slice(between: (Element, Element) -> Bool) -> Array<SubSequence> {

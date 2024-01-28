@@ -1,5 +1,5 @@
 //
-//  Absolute+Day.swift
+//  Fixed+Day.swift
 //  
 //
 //  Created by Dave DeLong on 10/3/19.
@@ -7,28 +7,28 @@
 
 import Foundation
 
-extension Absolute where Smallest == Day {
+extension Fixed where Smallest == Day {
     
-    public var firstHour: Absolute<Hour> { return first() }
-    public var lastHour: Absolute<Hour> { return last() }
-    public func nthHour(_ ordinal: Int) throws -> Absolute<Hour> { return try nth(ordinal) }
-    public func hour(_ number: Int) -> Absolute<Hour>? { return numbered(number) }
+    public var firstHour: Fixed<Hour> { return first() }
+    public var lastHour: Fixed<Hour> { return last() }
+    public func nthHour(_ ordinal: Int) throws -> Fixed<Hour> { return try nth(ordinal) }
+    public func hour(_ number: Int) -> Fixed<Hour>? { return numbered(number) }
     
     public var hours: AbsoluteSequence<Hour> {
         return AbsoluteSequence(parent: self)
     }
     
-    public var firstMinute: Absolute<Minute> { return first() }
-    public var lastMinute: Absolute<Minute> { return last() }
+    public var firstMinute: Fixed<Minute> { return first() }
+    public var lastMinute: Fixed<Minute> { return last() }
     public var minutes: AbsoluteSequence<Minute> {
         return AbsoluteSequence(parent: self)
     }
     
-    public var firstSecond: Absolute<Second> { return first() }
-    public var lastSecond: Absolute<Second> { return last() }
+    public var firstSecond: Fixed<Second> { return first() }
+    public var lastSecond: Fixed<Second> { return last() }
 }
 
-extension Absolute where Smallest: LTOEDay {
+extension Fixed where Smallest: LTOEDay {
     
     /// Returns `true` if the receiver is known to occur during the weekend.
     ///

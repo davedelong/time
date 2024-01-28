@@ -22,8 +22,8 @@ class RelationTests: XCTestCase {
     ]
     
     func testBeforeAndAfter() {
-        let a = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let b = try! Absolute<Day>(region: .posix, year: 2020, month: 2, day: 1)
+        let a = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b = try! Fixed<Day>(region: .posix, year: 2020, month: 2, day: 1)
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .before)
@@ -35,8 +35,8 @@ class RelationTests: XCTestCase {
     }
     
     func testMeetsAndIsMetBy() {
-        let a = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let b = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        let a = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 2)
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .meets)
@@ -58,9 +58,9 @@ class RelationTests: XCTestCase {
         
         // Jumada al-Awwal 1441 overlaps with January 2020
         let islamicRegion = Region.posix.setCalendar(Calendar(identifier: .islamic))
-        let a = try! Absolute<Month>(region: islamicRegion, year: 1441, month: 5)
+        let a = try! Fixed<Month>(region: islamicRegion, year: 1441, month: 5)
         
-        let b = try! Absolute<Month>(region: .posix, year: 2020, month: 1)
+        let b = try! Fixed<Month>(region: .posix, year: 2020, month: 1)
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .overlaps)
@@ -72,8 +72,8 @@ class RelationTests: XCTestCase {
     }
     
     func testStartsAndIsStartedBy() {
-        let a = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let b = try! Absolute<Month>(region: .posix, year: 2020, month: 1)
+        let a = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b = try! Fixed<Month>(region: .posix, year: 2020, month: 1)
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .starts)
@@ -87,8 +87,8 @@ class RelationTests: XCTestCase {
     }
     
     func testDuringAndContains() {
-        let a = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
-        let b = try! Absolute<Month>(region: .posix, year: 2020, month: 1)
+        let a = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        let b = try! Fixed<Month>(region: .posix, year: 2020, month: 1)
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .during)
@@ -102,8 +102,8 @@ class RelationTests: XCTestCase {
     }
     
     func testFinishesAndIsFinishedBy() {
-        let a = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 31)
-        let b = try! Absolute<Month>(region: .posix, year: 2020, month: 1)
+        let a = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 31)
+        let b = try! Fixed<Month>(region: .posix, year: 2020, month: 1)
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .finishes)
@@ -117,8 +117,8 @@ class RelationTests: XCTestCase {
     }
     
     func testEqual() {
-        let a = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 31)
-        let b = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 31)
+        let a = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 31)
+        let b = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 31)
         
         let aToB = a.relation(to: b)
         XCTAssertEqual(aToB, .equal)
@@ -128,11 +128,11 @@ class RelationTests: XCTestCase {
     }
     
     func testRangeBeforeAndAfter() {
-        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        let a1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 2)
         
-        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 2, day: 1)
-        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 2, day: 2)
+        let b1 = try! Fixed<Day>(region: .posix, year: 2020, month: 2, day: 1)
+        let b2 = try! Fixed<Day>(region: .posix, year: 2020, month: 2, day: 2)
         
         let a = a1 ..< a2
         let b = b1 ..< b2
@@ -145,11 +145,11 @@ class RelationTests: XCTestCase {
     }
     
     func testRangeMeetsAndIsMetBy() {
-        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        let a1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 2)
         
-        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
-        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 3)
+        let b1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        let b2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 3)
         
         let a = a1 ..< a2
         let b = b1 ..< b2
@@ -162,11 +162,11 @@ class RelationTests: XCTestCase {
     }
     
     func testRangeOverlapsAndIsOverlappedBy() {
-        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 10)
+        let a1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 10)
         
-        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
-        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 15)
+        let b1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        let b2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 15)
         
         let a = a1 ..< a2
         let b = b1 ..< b2
@@ -179,11 +179,11 @@ class RelationTests: XCTestCase {
     }
     
     func testRangeStartsAndIsStartedBy() {
-        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        let a1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 2)
         
-        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        let b1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 5)
         
         let a = a1 ..< a2
         let b = b1 ..< b2
@@ -196,11 +196,11 @@ class RelationTests: XCTestCase {
     }
     
     func testRangeDuringAndContains() {
-        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 2)
-        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 3)
+        let a1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 2)
+        let a2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 3)
         
-        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        let b1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 5)
         
         let a = a1 ..< a2
         let b = b1 ..< b2
@@ -213,11 +213,11 @@ class RelationTests: XCTestCase {
     }
     
     func testRangeFinishesAndIsFinishedBy() {
-        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 4)
-        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        let a1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 4)
+        let a2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 5)
         
-        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 5)
+        let b1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 5)
         
         let a = a1 ..< a2
         let b = b1 ..< b2
@@ -230,11 +230,11 @@ class RelationTests: XCTestCase {
     }
     
     func testRangeEqual() {
-        let a1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let a2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 10)
+        let a1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let a2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 10)
         
-        let b1 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 1)
-        let b2 = try! Absolute<Day>(region: .posix, year: 2020, month: 1, day: 10)
+        let b1 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 1)
+        let b2 = try! Fixed<Day>(region: .posix, year: 2020, month: 1, day: 10)
         
         let a = a1 ..< a2
         let b = b1 ..< b2

@@ -31,9 +31,9 @@ internal extension Range where Bound: Comparable {
     
 }
 
-public extension Range {
+extension Range {
     
-    func relation<IL, OL>(to other: Range<Absolute<OL>>) -> Relation where Bound == Absolute<IL> {
+    public func relation<IL, OL>(to other: Range<Fixed<OL>>) -> Relation where Bound == Fixed<IL> {
         // Ranges do _not_ contain their upper bound, so when converting to ranges of Instant, we should
         // take the Range<Absolue>'s upper bound's lowest Instant.
         let thisRange = lowerBound.range.lowerBound ..< upperBound.range.lowerBound
@@ -41,7 +41,7 @@ public extension Range {
         return thisRange.determineRelationship(to: thatRange)
     }
     
-    func relation<IL, OL>(to other: Absolute<OL>) -> Relation where Bound == Absolute<IL> {
+    public func relation<IL, OL>(to other: Fixed<OL>) -> Relation where Bound == Fixed<IL> {
         let thisRange = lowerBound.range.lowerBound ..< upperBound.range.lowerBound
         return thisRange.determineRelationship(to: other.range)
     }

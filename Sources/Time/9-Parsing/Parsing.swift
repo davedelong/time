@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Absolute {
+extension Fixed {
     
     internal init(stringValue: String, region: Region, formats: Array<Format?>) throws {
         let df = DateFormatter.formatter(for: formats, region: region)

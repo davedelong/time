@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Absolute {
+extension Fixed {
     
     public func format(era: Template<Era>) -> String {
         return format([era])
@@ -15,7 +15,7 @@ extension Absolute {
     
 }
 
-extension Absolute where Smallest: LTOEYear {
+extension Fixed where Smallest: LTOEYear {
     
     public func format(era: Template<Era>? = nil,
                        year: Template<Year>,
@@ -25,7 +25,7 @@ extension Absolute where Smallest: LTOEYear {
     
 }
 
-extension Absolute where Smallest: LTOEMonth {
+extension Fixed where Smallest: LTOEMonth {
     
     public func format(era: Template<Era>? = nil,
                        year: Template<Year>,
@@ -36,7 +36,7 @@ extension Absolute where Smallest: LTOEMonth {
     
 }
 
-extension Absolute where Smallest: LTOEDay {
+extension Fixed where Smallest: LTOEDay {
     
     public func format(era: Template<Era>? = nil,
                        year: Template<Year>,
@@ -49,7 +49,7 @@ extension Absolute where Smallest: LTOEDay {
     
 }
 
-extension Absolute where Smallest: LTOEHour {
+extension Fixed where Smallest: LTOEHour {
     
     public func format(era: Template<Era>? = nil,
                        year: Template<Year>,
@@ -63,7 +63,7 @@ extension Absolute where Smallest: LTOEHour {
     
 }
 
-extension Absolute where Smallest: LTOEMinute {
+extension Fixed where Smallest: LTOEMinute {
     
     public func format(era: Template<Era>? = nil,
                        year: Template<Year>,
@@ -78,7 +78,7 @@ extension Absolute where Smallest: LTOEMinute {
     
 }
 
-extension Absolute where Smallest: LTOESecond {
+extension Fixed where Smallest: LTOESecond {
     
     public func format(era: Template<Era>? = nil,
                        year: Template<Year>,
@@ -94,7 +94,7 @@ extension Absolute where Smallest: LTOESecond {
     
 }
 
-extension Absolute where Smallest: LTOENanosecond {
+extension Fixed where Smallest: LTOENanosecond {
     
     public func format(era: Template<Era>? = nil,
                        year: Template<Year>,

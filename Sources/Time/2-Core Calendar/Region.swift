@@ -54,7 +54,7 @@ public struct Region: Hashable, Sendable {
     /// primatives, most notably Linux at the time of writing (mid-2023). If you're using `Region` objects in a
     /// multithreaded environment and are seeing odd behaviour, you may need to work with copies.
     ///
-    /// For more detail, see the discussion on `Absolute<Unit>._forcedCopy()`.
+    /// For more detail, see the discussion on `Fixed<Unit>._forcedCopy()`.
     public func _forcedCopy() -> Self {
         return Self(calendar: Calendar(identifier: calendar.identifier),
                     timeZone: TimeZone(identifier: timeZone.identifier) ?? TimeZone(secondsFromGMT: timeZone.secondsFromGMT()) ?? timeZone,

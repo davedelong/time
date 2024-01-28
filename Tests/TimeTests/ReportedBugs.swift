@@ -15,7 +15,7 @@ class ReportedBugs: XCTestCase {
                             timeZone: TimeZone(identifier: "Europe/Stockholm")!,
                               locale: Locale(identifier: "en_US"))
 
-        let start = try Absolute<Second>(region: sweden, year: 2023, month: 10, day: 29, hour: 02, minute: 30, second: 00)
+        let start = try Fixed<Second>(region: sweden, year: 2023, month: 10, day: 29, hour: 02, minute: 30, second: 00)
         let end = start.adding(minutes: 30)
         let range = start ..< end
         
@@ -27,7 +27,7 @@ class ReportedBugs: XCTestCase {
                             timeZone: TimeZone(identifier: "Europe/Stockholm")!,
                               locale: Locale(identifier: "en_US"))
 
-        let start = try Absolute<Second>(region: sweden, year: 2023, month: 10, day: 29, hour: 02, minute: 30, second: 00)
+        let start = try Fixed<Second>(region: sweden, year: 2023, month: 10, day: 29, hour: 02, minute: 30, second: 00)
         let target = start.adding(hours: 10)
         var step = start
 

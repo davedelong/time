@@ -24,13 +24,13 @@ public struct AbsoluteFormatStyle<Smallest: Unit & LTOEEra> {
     }
     
     init(naturalFormats calendar: Calendar) {
-        let formats = Absolute<Smallest>.naturalFormats(in: calendar)
+        let formats = Fixed<Smallest>.naturalFormats(in: calendar)
         self.init(templates: formats)
     }
     
 }
 
-extension Absolute {
+extension Fixed {
     
     private func format<S>(_ style: AbsoluteFormatStyle<S>) -> String {
         let key = DateFormatter.Key(configuration: style.configuration,

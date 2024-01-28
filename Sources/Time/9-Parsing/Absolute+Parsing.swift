@@ -1,5 +1,5 @@
 //
-//  Absolute+Parsing.swift
+//  Fixed+Parsing.swift
 //
 //
 //  Created by Dave DeLong on 2/4/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Absolute {
+extension Fixed {
     
     public init(stringValue: String, rawFormat: String, region: Region) throws {
         let df = DateFormatter.formatter(for: rawFormat, region: region)
@@ -20,7 +20,7 @@ extension Absolute {
     
 }
 
-extension Absolute where Smallest == Era {
+extension Fixed where Smallest == Era {
     public init(stringValue: String, region: Region,
                 era: Template<Era>) throws {
         
@@ -28,7 +28,7 @@ extension Absolute where Smallest == Era {
     }
 }
 
-extension Absolute where Smallest == Year {
+extension Fixed where Smallest == Year {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -38,7 +38,7 @@ extension Absolute where Smallest == Year {
     }
 }
 
-extension Absolute where Smallest == Month {
+extension Fixed where Smallest == Month {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -49,7 +49,7 @@ extension Absolute where Smallest == Month {
     }
 }
 
-extension Absolute where Smallest == Day {
+extension Fixed where Smallest == Day {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -62,7 +62,7 @@ extension Absolute where Smallest == Day {
     }
 }
 
-extension Absolute where Smallest == Hour {
+extension Fixed where Smallest == Hour {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -76,7 +76,7 @@ extension Absolute where Smallest == Hour {
     }
 }
 
-extension Absolute where Smallest == Minute {
+extension Fixed where Smallest == Minute {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -91,7 +91,7 @@ extension Absolute where Smallest == Minute {
     }
 }
 
-extension Absolute where Smallest == Second {
+extension Fixed where Smallest == Second {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -107,7 +107,7 @@ extension Absolute where Smallest == Second {
     }
 }
 
-extension Absolute where Smallest == Nanosecond {
+extension Fixed where Smallest == Nanosecond {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Absolute where Smallest: LTOEDay {
+extension Fixed where Smallest: LTOEDay {
     
     public func format(date dateStyle: DateFormatter.Style) -> String {
         let style = AbsoluteFormatStyle<Smallest>(dateStyle: dateStyle, timeStyle: .none)
@@ -22,7 +22,7 @@ extension Absolute where Smallest: LTOEDay {
  
  Formatting happens using the `dateForFormatting()`, which picks the first instant of the represented range.
  */
-extension Absolute where Smallest: LTOEMinute {
+extension Fixed where Smallest: LTOEMinute {
     
     public func format(date dateStyle: DateFormatter.Style, time timeStyle: DateFormatter.Style) -> String {
         let style = AbsoluteFormatStyle<Smallest>(dateStyle: dateStyle, timeStyle: timeStyle)

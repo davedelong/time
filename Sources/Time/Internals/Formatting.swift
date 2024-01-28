@@ -11,7 +11,7 @@ internal protocol Format {
     var template: String { get }
 }
 
-extension Absolute {
+extension Fixed {
     
     static func naturalFormats(in calendar: Calendar) -> Array<Format?> {
         var f = Array<Format?>()

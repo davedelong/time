@@ -37,7 +37,7 @@ private let minimumRequiredComponent: Dictionary<Character, Calendar.Component> 
     "m": .minute,
     "s": .second,
     "S": .nanosecond,
-// these are ignored because we can always format a timezone, because all Absolute<U> have a timezone
+// these are ignored because we can always format a timezone, because all Fixed<U> have a timezone
 //    "z": .timeZone,
 //    "Z": .timeZone,
 //    "O": .timeZone,

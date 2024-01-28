@@ -1,5 +1,5 @@
 //
-//  Absolute.swift
+//  Fixed.swift
 //
 //
 //  Created by Dave DeLong on 10/5/19.
@@ -7,17 +7,17 @@
 
 import Foundation
 
-/// An `Absolute<U>` is a type that corresponds to one (and only one) value
+/// An `Fixed<U>` is a type that corresponds to one (and only one) value
 /// on a physical calendar. For example, there is only one "October 2019 CE"
 /// on the Gregorian calendar.
 ///
-/// The defining characteristic of `Absolute<U>` values is that they contain
+/// The defining characteristic of `Fixed<U>` values is that they contain
 /// all calendar components starting from their lower unit up-to-and-including
 /// the `Era` unit.
 ///
-/// All `Absolute` values have a `Region`, which defines the calendar, timezone, and
+/// All `Fixed` values have a `Region`, which defines the calendar, timezone, and
 /// locale used in computing the underlying component values.
-public struct Absolute<Smallest: Unit & LTOEEra> {
+public struct Fixed<Smallest: Unit & LTOEEra> {
     
     internal static func restrict(dateComponents: DateComponents, lenient: Set<Calendar.Component>) throws -> DateComponents {
         return try dateComponents.requireAndRestrict(to: representedComponents, lenient: lenient)
@@ -48,32 +48,32 @@ public struct Absolute<Smallest: Unit & LTOEEra> {
     /// The `Locale` used in computing this `Absolute` value's components, as defined by its `Region`.
     public var locale: Locale { return region.locale }
     
-    /// Construct an `Absolute` value from an instantaneous point in time.
+    /// Construct an `Fixed` value from an instantaneous point in time.
     /// - Parameter region: The `Region` in which to interpret the point in time
-    /// - Parameter instant: The `Instant` that is contained by the constructed `Absolute` value
+    /// - Parameter instant: The `Instant` that is contained by the constructed `Fixed` value
     public init(region: Region, instant: Instant) {
         self.init(region: region, date: instant.date)
     }
     
-    /// Construct an `Absolute` value from an instantaneous point in time.
+    /// Construct an `Fixed` value from an instantaneous point in time.
     /// - Parameter region: The `Region` in which to interpret the point in time
-    /// - Parameter instant: The `Date` that is contained by the constructed `Absolute` value
+    /// - Parameter instant: The `Date` that is contained by the constructed `Fixed` value
     public init(region: Region, date: Foundation.Date) {
         self.region = region
         self.date = date
         self.dateComponents = region.calendar.dateComponents(Self.representedComponents, from: date)
     }
     
-    /// Construct an absolute `Absolute` value from a set of `DateComponents`.
+    /// Construct an absolute `Fixed` value from a set of `DateComponents`.
     ///
     /// This method is "strict" because it is fairly easy for it to produce an error.
-    /// For example, if you are attempting to construct an `Absolute<Month>` but only provide
+    /// For example, if you are attempting to construct an `Fixed<Month>` but only provide
     /// a `year` value in the `DateComponents`, then this will throw a `TimeError`.
     ///
     /// If you are attempting to construct a calendrically impossible date, such as "February 30th",
     /// then this will throw a `TimeError`.
     ///
-    /// The matching done on the `DateComponents` is a *strict* match; the returned `Absolute` value will
+    /// The matching done on the `DateComponents` is a *strict* match; the returned `Fixed` value will
     /// either exactly match the provided components, or this will throw a `TimeError`.
     ///
     /// - Parameter region: The `Region` in which to interpret the date components
@@ -95,23 +95,23 @@ public struct Absolute<Smallest: Unit & LTOEEra> {
         self.init(region: region, date: date)
     }
     
-    internal func subComponents<S: Unit>() -> Absolute<S> {
-        return try! Absolute<S>(region: region, dateComponents: dateComponents)
+    internal func subComponents<S: Unit>() -> Fixed<S> {
+        return try! Fixed<S>(region: region, dateComponents: dateComponents)
     }
     
-    /// Construct a new `Absolute` value by converting the receiver to a new `Region`.
+    /// Construct a new `Fixed` value by converting the receiver to a new `Region`.
     public func setting(region: Region) -> Self {
         if region == self.region { return self }
         return Self.init(region: region, date: self.date)
     }
     
-    /// Construct a new `Absolute` value by converting the receiver to a new `Calendar`.
+    /// Construct a new `Fixed` value by converting the receiver to a new `Calendar`.
     public func setting(calendar: Calendar) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return self.setting(region: newRegion)
     }
     
-    /// Construct a new `Absolute` value by converting the receiver to a new `TimeZone`.
+    /// Construct a new `Fixed` value by converting the receiver to a new `TimeZone`.
     public func converting(to timeZone: TimeZone) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return self.setting(region: newRegion)
@@ -125,7 +125,7 @@ public struct Absolute<Smallest: Unit & LTOEEra> {
     
 }
 
-extension Absolute: Equatable {
+extension Fixed: Equatable {
     
     /// Determine if two `Absolute` values are equal.
     ///
@@ -138,7 +138,7 @@ extension Absolute: Equatable {
     
 }
 
-extension Absolute: Hashable {
+extension Fixed: Hashable {
     
     /// Compute the hash of a n`Absolute` value
     ///
@@ -150,7 +150,7 @@ extension Absolute: Hashable {
     
 }
 
-extension Absolute: Comparable {
+extension Fixed: Comparable {
     
     /// Determine if one `Absolute` value is greater than another `Absolute` value.
     ///
@@ -182,7 +182,7 @@ extension Absolute: Comparable {
     
 }
 
-extension Absolute: CustomStringConvertible {
+extension Fixed: CustomStringConvertible {
     
     /// Provide a description of the `Absolute` value.
     ///

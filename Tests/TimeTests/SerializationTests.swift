@@ -39,9 +39,9 @@ class SerializationTests: XCTestCase {
         try testRoundTrip(of: clock.thisNanosecond)
     }
 
-    private func testRoundTrip<U: Unit>(of timePeriod: Absolute<U>) throws {
+    private func testRoundTrip<U: Unit>(of timePeriod: Fixed<U>) throws {
         let encoded = try JSONEncoder().encode(timePeriod)
-        let decoded = try JSONDecoder().decode(Absolute<U>.self, from: encoded)
+        let decoded = try JSONDecoder().decode(Fixed<U>.self, from: encoded)
         XCTAssertEqual(timePeriod, decoded)
     }
 
@@ -62,50 +62,71 @@ class SerializationTests: XCTestCase {
 //        XCTAssertEqual(timePeriod, decodedValue)
 //    }
 
-#if swift(>=5.5)
     // Test resources were added in a Swift version later than 5.0, which this library supports.
 
     func testMaliciousPayload() throws {
         let decoder = JSONDecoder()
 
         let validPayload = generatePayloadFor(year: 2023, month: 01, day: 01, hour: 11, minute: 00, second: 00)
-        let _ = try decoder.decode(Absolute<Second>.self, from: validPayload)
+        let _ = try decoder.decode(Fixed<Second>.self, from: validPayload)
 
         let invalidMonthPayload = generatePayloadFor(year: 2023, month: -4, day: 01, hour: 11, minute: 00, second: 00)
-        let _ = try decoder.decode(Absolute<Second>.self, from: invalidMonthPayload)
+        let _ = try decoder.decode(Fixed<Second>.self, from: invalidMonthPayload)
         // TODO: Should this be valid? It spits out August 2022.
 
         let invalidHourPayload = generatePayloadFor(year: 2023, month: 01, day: 01, hour: 27, minute: 00, second: 00)
-        let _ = try decoder.decode(Absolute<Second>.self, from: invalidHourPayload)
+        let _ = try decoder.decode(Fixed<Second>.self, from: invalidHourPayload)
         // TODO: Should this be valid? It spits out 2nd January at 3am.
 
         let invalidDayPayload = generatePayloadFor(year: 2023, month: 01, day: 00, hour: 01, minute: 00, second: 00)
-        let _ = try decoder.decode(Absolute<Second>.self, from: invalidDayPayload)
+        let _ = try decoder.decode(Fixed<Second>.self, from: invalidDayPayload)
         // TODO: Should this be valid? It spits out 31st December 2022.
 
         let payloadMissingPayload = generatePayloadFor(year: 2023, month: 01, day: 01, hour: 01, minute: 00, second: 00)
-        let _ = try decoder.decode(Absolute<Nanosecond>.self, from: payloadMissingPayload)
+        let _ = try decoder.decode(Fixed<Nanosecond>.self, from: payloadMissingPayload)
         // TODO: This payload is missing the nanoseconds component, which gets intepreted as "zero". Should this be valid?
     }
 
     private func generatePayloadFor(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) -> Data {
         // This is very crude.
-        let payloadUrl = Bundle.module.url(forResource: "CodablePayload", withExtension: "json")!
-        var payloadString = String(data: try! Data(contentsOf: payloadUrl), encoding: .utf8)!
-        payloadString = payloadString.replacingCharacters(in: payloadString.range(of: "%ERA%")!, with: "\(1)")
-        payloadString = payloadString.replacingCharacters(in: payloadString.range(of: "%YEAR%")!, with: "\(year)")
-        payloadString = payloadString.replacingCharacters(in: payloadString.range(of: "%MONTH%")!, with: "\(month)")
-        payloadString = payloadString.replacingCharacters(in: payloadString.range(of: "%DAY%")!, with: "\(day)")
-        payloadString = payloadString.replacingCharacters(in: payloadString.range(of: "%HOUR%")!, with: "\(hour)")
-        payloadString = payloadString.replacingCharacters(in: payloadString.range(of: "%MINUTE%")!, with: "\(minute)")
-        payloadString = payloadString.replacingCharacters(in: payloadString.range(of: "%SECOND%")!, with: "\(second)")
-        return payloadString.data(using: .utf8)!
+        
+        let string = #"""
+        {"region":{
+            "locale":{
+                "current":2,
+                "identifier":"en_SE"
+            },
+            "timeZone":{
+                "autoupdating":true,
+                "identifier":"Europe\/Stockholm"
+            },
+            "calendar":{
+                "locale":{
+                    "current":2,
+                    "identifier":"en_SE"
+                },
+                "timeZone":{
+                    "autoupdating":true,
+                    "identifier":"Europe\/Stockholm"
+                },
+                "current":0,
+                "identifier":"gregorian",
+                "minimumDaysInFirstWeek":4,
+                "firstWeekday":2
+            }
+        },
+        "components":{
+            "era":\#(1),
+            "year":\#(year),
+            "month":\#(month),
+            "day":\#(day),
+            "hour":\#(hour),
+            "minute":\#(minute),
+            "second":\#(second)
+        }}
+        """#
+        
+        return Data(string.utf8)
     }
-#else
-
-    func testMaliciousPayload() throws {
-        print("WARNING: Skipping testMaliciousPayload() since it requires Swift >= 5.5.")
-    }
-#endif
 
 }

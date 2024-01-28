@@ -184,7 +184,7 @@ final class ClockChimeTests: XCTestCase {
         chimes.expectedFulfillmentCount = 5
         
         fastClock
-            .chime(when: { (value: Absolute<Second>) -> Bool in
+            .chime(when: { (value: Fixed<Second>) -> Bool in
                 return value.second % 13 == 0
             })
             .sink(receiveValue: { value in

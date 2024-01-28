@@ -1,5 +1,5 @@
 //
-//  Absolute+SafeAdjustment.swift
+//  Fixed+SafeAdjustment.swift
 //  Time
 //
 //  Created by Dave DeLong on 2/19/18.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Absolute {
+extension Fixed {
     
     public static func +(lhs: Self, rhs: TimeDifference<Smallest, Era>) -> Self {
         return lhs.applying(difference: rhs)
@@ -41,7 +41,7 @@ extension Absolute {
 
 }
 
-extension Absolute where Smallest: LTOEYear {
+extension Fixed where Smallest: LTOEYear {
     
     /// Create a new `Absolute` value by moving forward one year.
     public var nextYear: Self { return adding(years: 1) }
@@ -49,17 +49,17 @@ extension Absolute where Smallest: LTOEYear {
     /// Create a new `Absolute` value by moving backward one year.
     public var previousYear: Self { return subtracting(years: 1) }
     
-    /// Create a new `Absolute` value by moving forward some number of years.
+    /// Create a new `Fixed` value by moving forward some number of years.
     /// - Parameter years: The number of years by which to move forward.
     public func adding(years: Int) -> Self { return applying(difference: .years(years)) }
     
-    /// Create a new `Absolute` value by moving backward some number of years.
+    /// Create a new `Fixed` value by moving backward some number of years.
     /// - Parameter years: The number of years by which to move backward.
     public func subtracting(years: Int) -> Self { return applying(difference: .years(-years)) }
     
 }
 
-extension Absolute where Smallest: LTOEMonth {
+extension Fixed where Smallest: LTOEMonth {
     
     /// Create a new `Absolute` value by moving forward one month.
     public var nextMonth: Self { return adding(months: 1) }
@@ -67,17 +67,17 @@ extension Absolute where Smallest: LTOEMonth {
     /// Create a new `Absolute` value by moving backward one month.
     public var previousMonth: Self { return subtracting(months: 1) }
     
-    /// Create a new `Absolute` value by moving forward some number of months.
+    /// Create a new `Fixed` value by moving forward some number of months.
     /// - Parameter months: The number of months by which to move forward.
     public func adding(months: Int) -> Self { return applying(difference: .months(months)) }
     
-    /// Create a new `Absolute` value by moving backward some number of months.
+    /// Create a new `Fixed` value by moving backward some number of months.
     /// - Parameter months: The number of months by which to move backward.
     public func subtracting(months: Int) -> Self { return applying(difference: .months(-months)) }
     
 }
 
-extension Absolute where Smallest: LTOEDay {
+extension Fixed where Smallest: LTOEDay {
     
     /// Adjust the date to the beginning of the calendar's week.
     public var startOfWeek: Self {
@@ -97,11 +97,11 @@ extension Absolute where Smallest: LTOEDay {
     /// Create a new `Absolute` value by moving backward one day.
     public var previousDay: Self { return subtracting(days: 1) }
     
-    /// Create a new `Absolute` value by moving forward some number of days.
+    /// Create a new `Fixed` value by moving forward some number of days.
     /// - Parameter days: The number of days by which to move forward.
     public func adding(days: Int) -> Self { return applying(difference: .days(days)) }
     
-    /// Create a new `Absolute` value by moving backward some number of days.
+    /// Create a new `Fixed` value by moving backward some number of days.
     /// - Parameter days: The number of days by which to move backward.
     public func subtracting(days: Int) -> Self { return applying(difference: .days(-days)) }
     
@@ -136,7 +136,7 @@ extension Absolute where Smallest: LTOEDay {
     
 }
 
-extension Absolute where Smallest: LTOEHour {
+extension Fixed where Smallest: LTOEHour {
     
     /// Create a new `Absolute` value by moving forward one hour.
     public var nextHour: Self { return adding(hours: 1) }
@@ -144,17 +144,17 @@ extension Absolute where Smallest: LTOEHour {
     /// Create a new `Absolute` value by moving backward one hour.
     public var previousHour: Self { return subtracting(hours: 1) }
     
-    /// Create a new `Absolute` value by moving forward some number of hours.
+    /// Create a new `Fixed` value by moving forward some number of hours.
     /// - Parameter hours: The number of hours by which to move forward.
     public func adding(hours: Int) -> Self { return applying(difference: .hours(hours)) }
     
-    /// Create a new `Absolute` value by moving backward some number of hours.
+    /// Create a new `Fixed` value by moving backward some number of hours.
     /// - Parameter hours: The number of hours by which to move backward.
     public func subtracting(hours: Int) -> Self { return applying(difference: .hours(-hours)) }
     
 }
 
-extension Absolute where Smallest: LTOEMinute {
+extension Fixed where Smallest: LTOEMinute {
     
     /// Create a new `Absolute` value by moving forward one minute.
     public var nextMinute: Self { return adding(minutes: 1) }
@@ -162,17 +162,17 @@ extension Absolute where Smallest: LTOEMinute {
     /// Create a new `Absolute` value by moving backward one minute.
     public var previousMinute: Self { return subtracting(minutes: 1) }
     
-    /// Create a new `Absolute` value by moving forward some number of minutes.
+    /// Create a new `Fixed` value by moving forward some number of minutes.
     /// - Parameter minutes: The number of minutes by which to move forward.
     public func adding(minutes: Int) -> Self { return applying(difference: .minutes(minutes)) }
     
-    /// Create a new `Absolute` value by moving backward some number of minutes.
+    /// Create a new `Fixed` value by moving backward some number of minutes.
     /// - Parameter minutes: The number of minutes by which to move backward.
     public func subtracting(minutes: Int) -> Self { return applying(difference: .minutes(-minutes)) }
     
 }
 
-extension Absolute where Smallest: LTOESecond {
+extension Fixed where Smallest: LTOESecond {
     
     /// Create a new `Absolute` value by moving forward one second.
     public var nextSecond: Self { return adding(seconds: 1) }
@@ -180,17 +180,17 @@ extension Absolute where Smallest: LTOESecond {
     /// Create a new `Absolute` value by moving backward one second.
     public var previousSecond: Self { return subtracting(seconds: 1) }
     
-    /// Create a new `Absolute` value by moving forward some number of seconds.
+    /// Create a new `Fixed` value by moving forward some number of seconds.
     /// - Parameter seconds: The number of seconds by which to move forward.
     public func adding(seconds: Int) -> Self { return applying(difference: .seconds(seconds)) }
     
-    /// Create a new `Absolute` value by moving backward some number of seconds.
+    /// Create a new `Fixed` value by moving backward some number of seconds.
     /// - Parameter seconds: The number of seconds by which to move backward.
     public func subtracting(seconds: Int) -> Self { return applying(difference: .seconds(-seconds)) }
     
 }
 
-extension Absolute where Smallest: LTOENanosecond {
+extension Fixed where Smallest: LTOENanosecond {
     
     /// Create a new `Absolute` value by moving forward one nanosecond.
     public var nextNanosecond: Self { return adding(nanoseconds: 1) }
@@ -198,11 +198,11 @@ extension Absolute where Smallest: LTOENanosecond {
     /// Create a new `Absolute` value by moving backward one nanosecond.
     public var previousNanosecond: Self { return subtracting(nanoseconds: 1) }
     
-    /// Create a new `Absolute` value by moving forward some number of nanoseconds.
+    /// Create a new `Fixed` value by moving forward some number of nanoseconds.
     /// - Parameter nanoseconds: The number of nanoseconds by which to move forward.
     public func adding(nanoseconds: Int) -> Self { return applying(difference: .nanoseconds(nanoseconds)) }
     
-    /// Create a new `Absolute` value by moving backward some number of nanoseconds.
+    /// Create a new `Fixed` value by moving backward some number of nanoseconds.
     /// - Parameter nanoseconds: The number of nanoseconds by which to move backward.
     public func subtracting(nanoseconds: Int) -> Self { return applying(difference: .nanoseconds(-nanoseconds)) }
     

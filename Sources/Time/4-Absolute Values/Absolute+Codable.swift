@@ -30,7 +30,7 @@ extension Region: Codable {
     }
 }
 
-extension Absolute: Codable {
+extension Fixed: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case value
@@ -84,7 +84,7 @@ extension Absolute: Codable {
         case .relative(let components):
             // When decoding absolute values, we need to convert the storage to the newer instant-based storage.
             guard let d = region.calendar.date(from: components) else {
-                throw TimeError.invalidDateComponents(components, in: region, description: "Decoding an Absolute value")
+                throw TimeError.invalidDateComponents(components, in: region, description: "Decoding a Fixed value")
             }
             date = d
         }

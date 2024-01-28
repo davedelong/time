@@ -7,11 +7,11 @@
 
 import Foundation
 
-extension Absolute {
+extension Fixed {
     
-    /// Format an Absolute value using hard-coded format string.
+    /// Format a `Fixed` value using hard-coded format string.
     ///
-    /// The localized format options provided for Absolute values are not always sufficient.
+    /// The localized format options provided for Fixed values are not always sufficient.
     /// The most common scenario for needing a hard-coded format string is when communicating with servers,
     /// which tend to expect a timestamp in a very specific format (ex: ISO8601). This requirement
     /// is at odds with the locale-sensitive formatting provided by this package.
