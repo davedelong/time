@@ -18,7 +18,7 @@ extension Fixed {
 
 extension Fixed {
     
-    /// Retrieve the `Range` of `Instants` described by this `Absolute` value.
+    /// Retrieve the `Range` of `Instants` described by this `Fixed` value.
     ///
     /// All absolute values contain many possible `Instants`. This property allows you
     /// to retrieve that range to use in calculations, such as knowing things like:

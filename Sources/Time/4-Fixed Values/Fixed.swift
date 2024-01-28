@@ -23,39 +23,39 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
         return try dateComponents.requireAndRestrict(to: representedComponents, lenient: lenient)
     }
     
-    /// The set of `Calendar.Components` represented by this particular `Absolute` value
+    /// The set of `Calendar.Components` represented by this particular `Fixed` value
     public static var representedComponents: Set<Calendar.Component> {
         return Calendar.Component.from(lower: Smallest.self, to: Era.self)
     }
         
-    /// The `Region` value used in computing this `Absolute` value's components.
+    /// The `Region` value used in computing this `Fixed` value's components.
     public let region: Region
     
     internal let date: Foundation.Date
     internal let dateComponents: Foundation.DateComponents
     
-    /// The set of calendar components represented by this `Absolute` value.
+    /// The set of calendar components represented by this `Fixed` value.
     public var representedComponents: Set<Calendar.Component> {
         return Self.representedComponents
     }
     
-    /// The `Calendar` used in computing this `Absolute` value's components, as defined by its `Region`.
+    /// The `Calendar` used in computing this `Fixed` value's components, as defined by its `Region`.
     public var calendar: Calendar { return region.calendar }
     
-    /// The `TimeZone` used in computing this `Absolute` value's components, as defined by its `Region`.
+    /// The `TimeZone` used in computing this `Fixed` value's components, as defined by its `Region`.
     public var timeZone: TimeZone { return region.timeZone }
     
-    /// The `Locale` used in computing this `Absolute` value's components, as defined by its `Region`.
+    /// The `Locale` used in computing this `Fixed` value's components, as defined by its `Region`.
     public var locale: Locale { return region.locale }
     
-    /// Construct an `Fixed` value from an instantaneous point in time.
+    /// Construct a `Fixed` value from an instantaneous point in time.
     /// - Parameter region: The `Region` in which to interpret the point in time
     /// - Parameter instant: The `Instant` that is contained by the constructed `Fixed` value
     public init(region: Region, instant: Instant) {
         self.init(region: region, date: instant.date)
     }
     
-    /// Construct an `Fixed` value from an instantaneous point in time.
+    /// Construct a `Fixed` value from an instantaneous point in time.
     /// - Parameter region: The `Region` in which to interpret the point in time
     /// - Parameter instant: The `Date` that is contained by the constructed `Fixed` value
     public init(region: Region, date: Foundation.Date) {
@@ -117,7 +117,7 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
         return self.setting(region: newRegion)
     }
     
-    /// Construct a new `Absolute` value by converting the receiver to a new `Locale`.
+    /// Construct a new `Fixed` value by converting the receiver to a new `Locale`.
     public func converting(to locale: Locale) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return self.setting(region: newRegion)
@@ -127,11 +127,11 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
 
 extension Fixed: Equatable {
     
-    /// Determine if two `Absolute` values are equal.
+    /// Determine if two `Fixed` values are equal.
     ///
-    /// Two `Absolute` values are equal if they have the same `Region` and represent the same calendrical components.
-    /// - Parameter lhs: an `Absolute` value
-    /// - Parameter rhs: an `Absolute` value
+    /// Two `Fixed` values are equal if they have the same `Region` and represent the same calendrical components.
+    /// - Parameter lhs: a `Fixed` value
+    /// - Parameter rhs: a `Fixed` value
     public static func ==(lhs: Self, rhs: Self) -> Bool {
         return lhs.region == rhs.region && lhs.dateComponents == rhs.dateComponents
     }
@@ -140,7 +140,7 @@ extension Fixed: Equatable {
 
 extension Fixed: Hashable {
     
-    /// Compute the hash of a n`Absolute` value
+    /// Compute the hash of an`Fixed` value
     ///
     /// - Parameter hasher: a `Hasher`
     public func hash(into hasher: inout Hasher) {
@@ -152,12 +152,12 @@ extension Fixed: Hashable {
 
 extension Fixed: Comparable {
     
-    /// Determine if one `Absolute` value is greater than another `Absolute` value.
+    /// Determine if one `Fixed` value is greater than another `Fixed` value.
     ///
-    /// An `Absolute` value is greater than another if they have the same `Region`, and the first's
+    /// A `Fixed` value is greater than another if they have the same `Region`, and the first's
     /// calendrical components come *after* the other's components.
-    /// - Parameter lhs: an `Absolute` value
-    /// - Parameter rhs: an `Absolute` value
+    /// - Parameter lhs: a `Fixed` value
+    /// - Parameter rhs: a `Fixed` value
     public static func > (lhs: Self, rhs: Self) -> Bool {
         guard lhs.region == rhs.region else { return false }
         let leftRange = lhs.calendar.range(containing: lhs.date, in: lhs.representedComponents)
@@ -166,12 +166,12 @@ extension Fixed: Comparable {
         return leftRange.lowerBound > rightRange.lowerBound
     }
     
-    /// Determine if one `Absolute` value is less than another `Absolute` value.
+    /// Determine if one `Fixed` value is less than another `Fixed` value.
     ///
-    /// An `Absolute` value is less than another if they have the same `Region`, and the first's
+    /// A `Fixed` value is less than another if they have the same `Region`, and the first's
     /// calendrical components come *before* the other's components.
-    /// - Parameter lhs: an `Absolute` value
-    /// - Parameter rhs: an `Absolute` value
+    /// - Parameter lhs: a `Fixed` value
+    /// - Parameter rhs: a `Fixed` value
     public static func < (lhs: Self, rhs: Self) -> Bool {
         guard lhs.region == rhs.region else { return false }
         let leftRange = lhs.calendar.range(containing: lhs.date, in: lhs.representedComponents)
@@ -184,7 +184,7 @@ extension Fixed: Comparable {
 
 extension Fixed: CustomStringConvertible {
     
-    /// Provide a description of the `Absolute` value.
+    /// Provide a description of the `Fixed` value.
     ///
     /// The description is a localized "natural" formatting of the calendar value.
     public var description: String {

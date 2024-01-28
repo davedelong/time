@@ -57,7 +57,7 @@ it will throw an error indicating the date components do not represent a "real" 
 
 ## Retrieving Components
 
-With an ``Absolute`` period, you can retrieve its constituent parts, such as:
+With a ``Fixed`` period, you can retrieve its constituent parts, such as:
 
 ```swift
 let today: Absolute<Day> = myClock.today()
@@ -90,7 +90,7 @@ let hour = today.hour
 
 ### Creating TimePeriod Instances
 
-- ``Absolute``
+- ``Fixed``
 - ``TimePeriod``
 
 ### Operating on TimePeriod

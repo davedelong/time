@@ -43,10 +43,10 @@ extension Fixed {
 
 extension Fixed where Smallest: LTOEYear {
     
-    /// Create a new `Absolute` value by moving forward one year.
+    /// Create a new `Fixed` value by moving forward one year.
     public var nextYear: Self { return adding(years: 1) }
     
-    /// Create a new `Absolute` value by moving backward one year.
+    /// Create a new `Fixed` value by moving backward one year.
     public var previousYear: Self { return subtracting(years: 1) }
     
     /// Create a new `Fixed` value by moving forward some number of years.
@@ -61,10 +61,10 @@ extension Fixed where Smallest: LTOEYear {
 
 extension Fixed where Smallest: LTOEMonth {
     
-    /// Create a new `Absolute` value by moving forward one month.
+    /// Create a new `Fixed` value by moving forward one month.
     public var nextMonth: Self { return adding(months: 1) }
     
-    /// Create a new `Absolute` value by moving backward one month.
+    /// Create a new `Fixed` value by moving backward one month.
     public var previousMonth: Self { return subtracting(months: 1) }
     
     /// Create a new `Fixed` value by moving forward some number of months.
@@ -91,10 +91,10 @@ extension Fixed where Smallest: LTOEDay {
         return s
     }
     
-    /// Create a new `Absolute` value by moving forward one day.
+    /// Create a new `Fixed` value by moving forward one day.
     public var nextDay: Self { return adding(days: 1) }
     
-    /// Create a new `Absolute` value by moving backward one day.
+    /// Create a new `Fixed` value by moving backward one day.
     public var previousDay: Self { return subtracting(days: 1) }
     
     /// Create a new `Fixed` value by moving forward some number of days.
@@ -138,10 +138,10 @@ extension Fixed where Smallest: LTOEDay {
 
 extension Fixed where Smallest: LTOEHour {
     
-    /// Create a new `Absolute` value by moving forward one hour.
+    /// Create a new `Fixed` value by moving forward one hour.
     public var nextHour: Self { return adding(hours: 1) }
     
-    /// Create a new `Absolute` value by moving backward one hour.
+    /// Create a new `Fixed` value by moving backward one hour.
     public var previousHour: Self { return subtracting(hours: 1) }
     
     /// Create a new `Fixed` value by moving forward some number of hours.
@@ -156,10 +156,10 @@ extension Fixed where Smallest: LTOEHour {
 
 extension Fixed where Smallest: LTOEMinute {
     
-    /// Create a new `Absolute` value by moving forward one minute.
+    /// Create a new `Fixed` value by moving forward one minute.
     public var nextMinute: Self { return adding(minutes: 1) }
     
-    /// Create a new `Absolute` value by moving backward one minute.
+    /// Create a new `Fixed` value by moving backward one minute.
     public var previousMinute: Self { return subtracting(minutes: 1) }
     
     /// Create a new `Fixed` value by moving forward some number of minutes.
@@ -174,10 +174,10 @@ extension Fixed where Smallest: LTOEMinute {
 
 extension Fixed where Smallest: LTOESecond {
     
-    /// Create a new `Absolute` value by moving forward one second.
+    /// Create a new `Fixed` value by moving forward one second.
     public var nextSecond: Self { return adding(seconds: 1) }
     
-    /// Create a new `Absolute` value by moving backward one second.
+    /// Create a new `Fixed` value by moving backward one second.
     public var previousSecond: Self { return subtracting(seconds: 1) }
     
     /// Create a new `Fixed` value by moving forward some number of seconds.
@@ -192,10 +192,10 @@ extension Fixed where Smallest: LTOESecond {
 
 extension Fixed where Smallest: LTOENanosecond {
     
-    /// Create a new `Absolute` value by moving forward one nanosecond.
+    /// Create a new `Fixed` value by moving forward one nanosecond.
     public var nextNanosecond: Self { return adding(nanoseconds: 1) }
     
-    /// Create a new `Absolute` value by moving backward one nanosecond.
+    /// Create a new `Fixed` value by moving backward one nanosecond.
     public var previousNanosecond: Self { return subtracting(nanoseconds: 1) }
     
     /// Create a new `Fixed` value by moving forward some number of nanoseconds.
