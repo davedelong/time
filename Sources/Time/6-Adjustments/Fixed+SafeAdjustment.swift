@@ -17,7 +17,7 @@ extension Fixed {
         return lhs.applying(difference: rhs.negated())
     }
     
-    /// Adjust an absolute value by applying a temporal delta value.
+    /// Adjust a fixed value by applying a temporal delta value.
     ///
     /// - Parameter difference: The `TimeDifference` that describes the difference between the receiver
     ///    and the produced value.

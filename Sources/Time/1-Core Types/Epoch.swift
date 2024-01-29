@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// An `Epoch` defines a "fixed" point in time, from which relative calendrical values are calculated.
+/// An `Epoch` defines a point in time from which relative calendrical values are calculated, like a temporal Prime Meridian.
 ///
 /// In Swift, there are two well-known epochs: the Unix epoch (1 Jan 1970), and the "Reference" epoch (1 Jan 2001).
 /// All `Instant` values are defined as a number of seconds before or after their `Epoch`.

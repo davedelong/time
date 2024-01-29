@@ -20,8 +20,8 @@ extension RegionalClock {
     /// - Parameters:
     ///   - interval: The amount of time that should elapse before the next chime occurs.
     ///   - startTime: The time to start counting at before the first chime occurs.
-    /// - Returns: A publisher which publishes absolute time values at the moment of each chime.
     public func chime<U: Unit>(every interval: TimeDifference<U, Era>,
+    /// - Returns: A publisher which publishes fixed time values at the moment of each chime.
                                startingFrom startTime: Fixed<U>? = nil) -> ClockChime<U> {
         return ClockChime(clock: self, interval: interval, startTime: startTime)
     }
@@ -41,8 +41,8 @@ extension RegionalClock {
     ///   whether it should be published.
     ///   - time: A prospective time value.
     ///
-    /// - Returns: A publisher which publishes absolute time values at the moment of each chime.
     public func chime<U: Unit>(when matches: @escaping (_ time: Fixed<U>) -> Bool) -> ClockChime<U> {
+    /// - Returns: A publisher which publishes fixed time values at the moment of each chime.
         return ClockChime(clock: self, when: matches)
     }
     
@@ -53,7 +53,7 @@ extension RegionalClock {
     ///
     /// - Parameter time: The time at which the chime should occur.
     ///
-    /// - Returns: A publisher which publishes the current absolute time and then completes.
+    /// - Returns: A publisher which publishes the current fixed time and then completes.
     public func chime<U: Unit>(at time: Fixed<U>) -> ClockChime<U> {
         return ClockChime(clock: self, at: time)
     }

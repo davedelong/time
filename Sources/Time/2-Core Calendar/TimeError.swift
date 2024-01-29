@@ -16,7 +16,7 @@ public struct TimeError: Error, CustomStringConvertible {
         case missingUnits(Set<Calendar.Component>, Bool)
         case invalidComponents(DateComponents, Region)
         case cannotParseString(String, Region)
-        case cannotDecodeTimePeriodStorage(absolute: Error, relative: Error)
+        case cannotDecodeTimePeriodStorage(fixed: Error, floating: Error)
     }
     
     public static func missingCalendarComponents(_ components: Set<Calendar.Component>, description: String? = nil) -> TimeError {
@@ -35,8 +35,8 @@ public struct TimeError: Error, CustomStringConvertible {
         return TimeError(payload: .cannotParseString(string, region), _description: description)
     }
     
-    internal static func cannotDecodeTimePeriod(_ absoluteError: Error, _ relativeError: Error) -> TimeError {
-        return TimeError(payload: .cannotDecodeTimePeriodStorage(absolute: absoluteError, relative: relativeError), _description: nil)
+    internal static func cannotDecodeTimePeriod(_ fixedError: Error, _ floatingError: Error) -> TimeError {
+        return TimeError(payload: .cannotDecodeTimePeriodStorage(fixed: fixedError, floating: floatingError), _description: nil)
     }
     
     public var description: String {
@@ -53,8 +53,8 @@ public struct TimeError: Error, CustomStringConvertible {
                 return "The provided date components (\(dc)) cannot be correctly interpreted in the \(region) region"
             case .cannotParseString(let string, let region):
                 return "Cannot parse string '\(string)' in the \(region) region"
-            case .cannotDecodeTimePeriodStorage(absolute: let abs, relative: let rel):
-                return "Cannot decode value from provided data. Attempts errored with: \(abs) and \(rel)"
+            case .cannotDecodeTimePeriodStorage(fixed: let fix, floating: let flt):
+                return "Cannot decode value from provided data. Attempts errored with: \(fix) and \(flt)"
         }
     }
     
@@ -63,7 +63,7 @@ public struct TimeError: Error, CustomStringConvertible {
             case .missingUnits(_, _): return nil
             case .invalidComponents(_, let r): return r
             case .cannotParseString(_, let r): return r
-            case .cannotDecodeTimePeriodStorage(absolute: _, relative: _): return nil
+            case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return nil
         }
     }
     
@@ -72,7 +72,7 @@ public struct TimeError: Error, CustomStringConvertible {
             case .missingUnits(_, _): return nil
             case .invalidComponents(let c, _): return c
             case .cannotParseString(_, _): return nil
-            case .cannotDecodeTimePeriodStorage(absolute: _, relative: _): return nil
+            case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return nil
         }
     }
     
@@ -81,7 +81,7 @@ public struct TimeError: Error, CustomStringConvertible {
             case .missingUnits(_, _): return nil
             case .invalidComponents(_, _): return nil
             case .cannotParseString(let s, _): return s
-            case .cannotDecodeTimePeriodStorage(absolute: _, relative: _): return nil
+            case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return nil
         }
     }
     
@@ -90,7 +90,7 @@ public struct TimeError: Error, CustomStringConvertible {
             case .missingUnits(_, let parsing): return parsing
             case .invalidComponents(_, _): return false
             case .cannotParseString(_, _): return true
-            case .cannotDecodeTimePeriodStorage(absolute: _, relative: _): return true
+            case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return true
         }
     }
     
@@ -99,7 +99,7 @@ public struct TimeError: Error, CustomStringConvertible {
             case .missingUnits(let c, _): return c
             case .invalidComponents(_, _): return []
             case .cannotParseString(_, _): return []
-            case .cannotDecodeTimePeriodStorage(absolute: _, relative: _): return []
+            case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return []
         }
     }
     

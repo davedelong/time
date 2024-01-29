@@ -10,7 +10,6 @@ import Foundation
 /// A representation of a temporal interval, as measured in seconds.
 ///
 /// An `SISeconds` represents a temporal interval, independent of any calendaring system.
-/// It supports fractional seconds, up to the precision allowed by `Double`.
 ///
 /// This type exists to ensure a proper distinction between "seconds as used in physics calculations"
 /// and "seconds as represented by a calendar". On Earth, there is typically a 1:1 correspondence between
@@ -88,12 +87,13 @@ public struct SISeconds: RawRepresentable, Hashable, Comparable, DurationProtoco
         SISeconds(-rhs.rawValue)
     }
     
-    /// The underlying `Double` representation of an `SISeconds` value.
-    ///
-    /// This value is analogous to `Foundation.TimeInterval`.
+    /// The underlying `Duration` representation of an `SISeconds` value.
     public let rawValue: Swift.Duration
     
-    public var timeInterval: Foundation.TimeInterval {
+    /// The representation of the `rawValue` as a `TimeInterval`.
+    ///
+    /// - Note: This is potentially a lossy conversion, since `TimeInterval` is not as precise as `Duration`.
+    internal var timeInterval: Foundation.TimeInterval {
         let (seconds, attoseconds) = rawValue.components
         return Double(seconds) + (Double(attoseconds) / Double(1e18))
     }
@@ -120,17 +120,13 @@ public struct SISeconds: RawRepresentable, Hashable, Comparable, DurationProtoco
     
 }
 
-extension SISeconds {
-    
-}
-
 extension SISeconds: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
     
     public init(floatLiteral value: Double) {
         self.init(value)
     }
     
-    public init(integerLiteral value: Double) {
+    public init(integerLiteral value: Int) {
         self.init(value)
     }
 }

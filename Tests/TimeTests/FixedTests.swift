@@ -84,7 +84,7 @@ class FixedTests: XCTestCase {
         let today: Fixed<Day> = Clocks.system.today
         let todayAt12: Fixed<Minute> = try today.setting(hour: 12, minute: 00)
         
-        XCTAssertEqual(todayAt12.absoluteDay, today)
+        XCTAssertEqual(todayAt12.fixedDay, today)
         XCTAssertEqual(todayAt12.hour, 12)
         XCTAssertEqual(todayAt12.minute, 0)
     }

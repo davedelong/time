@@ -1,5 +1,5 @@
 //
-//  RelativeFormatting-Others.swift
+//  PartialFormatting-Others.swift
 //  Time
 //
 //  Created by Dave DeLong on 5/18/18.

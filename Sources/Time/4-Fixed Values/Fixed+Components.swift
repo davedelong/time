@@ -20,7 +20,7 @@ extension Fixed {
     
     /// Retrieve the `Range` of `Instants` described by this `Fixed` value.
     ///
-    /// All absolute values contain many possible `Instants`. This property allows you
+    /// All fixed values contain many possible `Instants`. This property allows you
     /// to retrieve that range to use in calculations, such as knowing things like:
     /// - do these two calendar values overlap?
     /// - is this calendar value contained within this other calendar value?
@@ -37,48 +37,48 @@ extension Fixed {
     @available(*, unavailable, message: "It's impossible to know the last instant of a calendar value, just like it's impossible to know the last number before 1.0")
     public var lastInstant: Instant { fatalError() }
     
-    /// Retrieve the numeric era of an absolute calendrical value.
+    /// Retrieve the numeric era of a fixed calendrical value.
     public var era: Int { dateComponents.era.unwrap("A Fixed<\(Smallest.self)> must have an era value") }
 }
 
 extension Fixed where Smallest: LTOEYear {
     
-    /// Retrieve the numeric year of an absolute calendrical value.
+    /// Retrieve the numeric year of a fixed calendrical value.
     public var year: Int { dateComponents.year.unwrap("A Fixed<\(Smallest.self)> must have a year value") }
 }
 
 extension Fixed where Smallest: LTOEMonth {
     
-    /// Retrieve the numeric month of an absolute calendrical value.
+    /// Retrieve the numeric month of a fixed calendrical value.
     public var month: Int { dateComponents.month.unwrap("A Fixed<\(Smallest.self)> must have a month value") }
 }
 
 extension Fixed where Smallest: LTOEDay {
     
-    /// Retrieve the numeric day of an absolute calendrical value.
+    /// Retrieve the numeric day of a fixed calendrical value.
     public var day: Int { dateComponents.day.unwrap("A Fixed<\(Smallest.self)> must have a day value") }
 }
 
 extension Fixed where Smallest: LTOEHour {
     
-    /// Retrieve the numeric hour of an absolute calendrical value.
+    /// Retrieve the numeric hour of a fixed calendrical value.
     public var hour: Int { dateComponents.hour.unwrap("A Fixed<\(Smallest.self)> must have an hour value") }
 }
 
 extension Fixed where Smallest: LTOEMinute {
     
-    /// Retrieve the numeric minute of an absolute calendrical value
+    /// Retrieve the numeric minute of a fixed calendrical value
     public var minute: Int { dateComponents.minute.unwrap("A Fixed<\(Smallest.self)> must have a minute value") }
 }
 
 extension Fixed where Smallest: LTOESecond {
     
-    /// Retrieve the numeric second of an absolute calendrical value.
+    /// Retrieve the numeric second of a fixed calendrical value.
     public var second: Int { dateComponents.second.unwrap("A Fixed<\(Smallest.self)> must have a second value") }
 }
 
 extension Fixed where Smallest: LTOENanosecond {
     
-    /// Retrieve the numeric nanosecond of an absolute calendrical value.
+    /// Retrieve the numeric nanosecond of a fixed calendrical value.
     public var nanosecond: Int { dateComponents.nanosecond.unwrap("A Fixed<\(Smallest.self)> must have a nanosecond value") }
 }

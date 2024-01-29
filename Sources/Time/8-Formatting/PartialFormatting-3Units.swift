@@ -1,5 +1,5 @@
 //
-//  RelativeFormatting-2Units.swift
+//  PartialFormatting-3Units.swift
 //  Time
 //
 //  Created by Dave DeLong on 5/18/18.
@@ -7,64 +7,57 @@
 
 import Foundation
 
-extension Fixed where Smallest: LTOEMonth {
+extension Fixed where Smallest: LTOEDay {
     
     public func format(year: Template<Year>,
                        month: Template<Month>,
-                       timeZone: Template<TimeZone>? = nil) -> String {
-        return format([year, month, timeZone])
-    }
-    
-}
-
-extension Fixed where Smallest: LTOEDay {
-    
-    public func format(month: Template<Month>,
                        day: Template<Day>,
-                       weekday: Template<Weekday>? = nil,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([month, day, weekday, timeZone])
+        return format([year, month, day, timeZone])
     }
     
 }
 
 extension Fixed where Smallest: LTOEHour {
     
-    public func format(day: Template<Day>,
-                       weekday: Template<Weekday>? = nil,
+    public func format(month: Template<Month>,
+                       day: Template<Day>,
                        hour: Template<Hour>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([day, weekday, hour, timeZone])
+        return format([month, day, hour, timeZone])
     }
     
 }
 
 extension Fixed where Smallest: LTOEMinute {
     
-    public func format(hour: Template<Hour>,
+    public func format(day: Template<Day>,
+                       hour: Template<Hour>,
                        minute: Template<Minute>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([hour, minute, timeZone])
+        return format([day, hour, minute, timeZone])
     }
     
 }
 
 extension Fixed where Smallest: LTOESecond {
     
-    public func format(minute: Template<Minute>,
+    public func format(hour: Template<Hour>,
+                       minute: Template<Minute>,
                        second: Template<Second>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([minute, second, timeZone])
+        return format([hour, minute, second, timeZone])
     }
     
 }
 
 extension Fixed where Smallest: LTOENanosecond {
     
-    public func format(second: Template<Second>,
+    public func format(minute:Template<Minute>,
+                       second: Template<Second>,
                        nanosecond: Template<Nanosecond>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([second, nanosecond, timeZone])
+        return format([minute, second, nanosecond, timeZone])
     }
     
 }
