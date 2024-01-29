@@ -20,9 +20,16 @@ extension RegionalClock {
     /// - Parameters:
     ///   - interval: The amount of time that should elapse before the next chime occurs.
     ///   - startTime: The time to start counting at before the first chime occurs.
-    public func chime<U: Unit>(every interval: TimeDifference<U, Era>,
     /// - Returns: A publisher which publishes fixed time values at the moment of each chime.
+    public func chime<U: Unit>(producing unit: U.Type = U.self,
+                               every interval: TimeDifference<U, Era>,
                                startingFrom startTime: Fixed<U>? = nil) -> ClockChime<U> {
+        return ClockChime(clock: self, interval: interval, startTime: startTime)
+    }
+    
+    public func chime<U: Unit>(every unit: U.Type,
+                               startingFrom startTime: Fixed<U>? = nil) -> ClockChime<U> {
+        let interval = TimeDifference<U, Era>(value: 1, unit: U.component)
         return ClockChime(clock: self, interval: interval, startTime: startTime)
     }
     
@@ -41,8 +48,9 @@ extension RegionalClock {
     ///   whether it should be published.
     ///   - time: A prospective time value.
     ///
-    public func chime<U: Unit>(when matches: @escaping (_ time: Fixed<U>) -> Bool) -> ClockChime<U> {
     /// - Returns: A publisher which publishes fixed time values at the moment of each chime.
+    public func chime<U: Unit>(producing unit: U.Type = U.self,
+                               when matches: @escaping (_ time: Fixed<U>) -> Bool) -> ClockChime<U> {
         return ClockChime(clock: self, when: matches)
     }
     
@@ -60,13 +68,10 @@ extension RegionalClock {
     
 }
 
-public struct ClockChime<U: Unit & LTOEEra>: Combine.Publisher {
+public struct ClockChime<U: Unit & LTOEEra> {
     
-    public typealias Output = Fixed<U>
-    public typealias Failure = Never
-    
-    private let clock: any RegionalClock
-    private let values: AnyIterator<Fixed<U>>
+    fileprivate let clock: any RegionalClock
+    fileprivate let values: AnyIterator<Fixed<U>>
     
     private init<I: IteratorProtocol>(clock: any RegionalClock, iterator: I) where I.Element == Fixed<U> {
         self.clock = clock
@@ -105,7 +110,7 @@ public struct ClockChime<U: Unit & LTOEEra>: Combine.Publisher {
     ///   - clock: The `RegionalClock` to use for producing calendar values.
     ///   - time: The time at which to emit the value. If this value is in the past, then the publisher immediately completes.
     public init(clock: any RegionalClock, at time: Fixed<U>) {
-        let current: Fixed<U> = clock.this()
+        let current = clock.this(U.self)
         var values = Array<Fixed<U>>()
         if time >= current {
             values = [time]
@@ -113,11 +118,49 @@ public struct ClockChime<U: Unit & LTOEEra>: Combine.Publisher {
         self.init(clock: clock, iterator: values.makeIterator())
     }
     
+}
+
+extension ClockChime: Combine.Publisher {
+    
+    public typealias Output = Fixed<U>
+    public typealias Failure = Never
+    
     public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
         let subscription = ChimeSubscription(subscriber: subscriber,
                                              clock: clock,
                                              iterator: values)
         subscriber.receive(subscription: subscription)
+    }
+    
+}
+
+extension ClockChime: AsyncSequence {
+    
+    public typealias Element = Fixed<U>
+    
+    public struct AsyncIterator: AsyncIteratorProtocol {
+        public typealias Element = Fixed<U>
+        
+        fileprivate let clock: any RegionalClock
+        fileprivate var baseIterator: AnyIterator<Element>
+        
+        public mutating func next() async throws -> Fixed<U>? {
+            var nextTime: Fixed<U>? = baseIterator.next()
+            let now = clock.this(U.self)
+            while let next = nextTime, next < now {
+                nextTime = baseIterator.next()
+            }
+            
+            guard let next = nextTime else { return nil }
+            
+            try await clock.sleep(until: next.firstInstant, tolerance: nil)
+            return next
+        }
+        
+    }
+    
+    public func makeAsyncIterator() -> AsyncIterator {
+        return AsyncIterator(clock: self.clock, baseIterator: self.values)
     }
     
 }
@@ -143,8 +186,9 @@ SubscriberType.Input == ClockChime<U>.Output {
     
     private func scheduleNextChime() {
         var nextTime: Fixed<U>? = timeIterator.next()
-        let now: Fixed<U> = clock.this()
+        let now = clock.this(U.self)
         while let next = nextTime, next < now {
+            // make sure we never chime anything in the past
             nextTime = timeIterator.next()
         }
         
@@ -165,7 +209,7 @@ SubscriberType.Input == ClockChime<U>.Output {
             realSecondsUntilChime = 0
         } else {
             let clockSecondsUntilChime = chimeInstant - clockNow
-            realSecondsUntilChime = (clockSecondsUntilChime / clock.SISecondsPerCalendarSecond).timeInterval
+            realSecondsUntilChime = (clockSecondsUntilChime / clock.SISecondsPerClockSecond).timeInterval
         }
         let chime = DispatchWorkItem { [weak self] in
             self?.performChime(at: nextChimeTime)

@@ -13,7 +13,7 @@ public protocol RegionalClock: Clock where Instant == Time.Instant, Duration == 
     /// The clock's `Region`, used for creating calendrical values.
     var region: Region { get }
     
-    /// The number of `SISeconds` that pass for every calendar second.
+    /// The number of `SISeconds` that pass for every clock second.
     ///
     /// This is used in situations where you wish to "speed up" or "slow down" clock time. A clock that moves
     /// twice as fast as real time would return `2.0` for this value. A clock that moves half as fast as real time
@@ -21,18 +21,33 @@ public protocol RegionalClock: Clock where Instant == Time.Instant, Duration == 
     ///
     /// The default value is `1.0`, indicating that the clock advances 1 second for every elapsed `SISecond`
     /// in real time.
-    var SISecondsPerCalendarSecond: Double { get }
+    var SISecondsPerClockSecond: Double { get }
     
 }
 
 extension RegionalClock {
     
-    public var SISecondsPerCalendarSecond: Double { return 1.0 }
+    public var SISecondsPerClockSecond: Double { return 1.0 }
     
     public var minimumResolution: SISeconds { return SISeconds(1.0 / Double(NSEC_PER_SEC)) }
     
     public func sleep(until deadline: Instant, tolerance: Instant.Duration?) async throws {
-        throw NSError()
+        let now = self.now
+        let difference = now - deadline
+        
+        // `difference` contains the number of CLOCK seconds that must elapse until the deadline is hit
+        
+        // if the deadline is in the past, immediately return
+        if difference <= .zero { return }
+        
+        let sisecondsToWait = difference / self.SISecondsPerClockSecond
+        let systemTolerance = tolerance.map { $0 / self.SISecondsPerClockSecond }
+        
+        let systemClock = SystemClock(region: .current)
+        let systemNow = systemClock.now
+        let systemDeadline = systemNow + sisecondsToWait
+        
+        try await Task.sleep(until: systemDeadline, tolerance: systemTolerance, clock: systemClock)
     }
     
 }

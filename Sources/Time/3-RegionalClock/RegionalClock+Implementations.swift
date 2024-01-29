@@ -16,7 +16,7 @@ internal struct SystemClock: RegionalClock {
     }
     
     internal var now: Instant {
-        return Instant()
+        return Instant(date: Date())
     }
     
 }
@@ -27,7 +27,7 @@ internal struct OffsetClock: RegionalClock {
     internal let offset: SISeconds
     
     internal var region: Region { base.region }
-    internal var SISecondsPerCalendarSecond: Double { base.SISecondsPerCalendarSecond }
+    internal var SISecondsPerClockSecond: Double { base.SISecondsPerClockSecond }
     
     internal init(offset: SISeconds, from base: any RegionalClock) {
         self.base = base
@@ -46,7 +46,7 @@ internal struct ScaledClock: RegionalClock {
     internal let scale: Double
     
     internal var region: Region { base.region }
-    internal var SISecondsPerCalendarSecond: Double { scale * base.SISecondsPerCalendarSecond }
+    internal var SISecondsPerClockSecond: Double { scale * base.SISecondsPerClockSecond }
     
     private let startTime: Instant
     
@@ -73,23 +73,24 @@ internal struct ScaledClock: RegionalClock {
 
 internal struct CustomClock: RegionalClock {
     
-    let absoluteStart = Instant()
+    let systemStart: Instant
     let clockStart: Instant
     let rate: Double
     let region: Region
-    let SISecondsPerCalendarSecond: Double
+    let SISecondsPerClockSecond: Double
     
     init(referenceInstant: Instant, rate: Double, region: Region) {
+        self.systemStart = Clocks.system.now
         self.clockStart = referenceInstant
         self.region = region
         self.rate = rate
-        self.SISecondsPerCalendarSecond = rate * region.calendar.SISecondsPerSecond
+        self.SISecondsPerClockSecond = rate * region.calendar.SISecondsPerSecond
     }
     
     internal var now: Instant {
-        let absoluteNow = Instant()
-        let elapsedTime = absoluteNow - absoluteStart
-        let scaledElapsedTime = elapsedTime * SISecondsPerCalendarSecond
+        let systemNow = Clocks.system.now
+        let elapsedTime = systemNow - systemStart
+        let scaledElapsedTime = elapsedTime * SISecondsPerClockSecond
         return clockStart + scaledElapsedTime
     }
     
@@ -109,12 +110,5 @@ internal struct CustomRegionClock: RegionalClock {
         base.now
     }
     
-    var SISecondsPerCalendarSecond: Double { base.SISecondsPerCalendarSecond }
-}
-
-private extension Instant {
-    init() {
-        let now = Foundation.Date.timeIntervalSinceReferenceDate
-        self.init(interval: SISeconds(now), since: .reference)
-    }
+    var SISecondsPerClockSecond: Double { base.SISecondsPerClockSecond }
 }

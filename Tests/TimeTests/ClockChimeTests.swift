@@ -53,6 +53,17 @@ final class ClockChimeTests: XCTestCase {
         wait(for: [completes, dontChime], timeout: 0.01, enforceOrder: true)
     }
     
+    func testPastChimeAsync() async throws {
+        let lastMinute = clock.previousMinute
+        
+        var chimeCount = 0
+        for try await _ in clock.chime(at: lastMinute) {
+            XCTFail("Clock chimes should skip times in the past")
+            chimeCount += 1
+        }
+        XCTAssertEqual(chimeCount, 0)
+    }
+    
     func testImmediateChime() {
         let chimesOnce = expectation(description: "Clock chimes immediately")
         let completes = expectation(description: "Chime completes")
@@ -71,6 +82,19 @@ final class ClockChimeTests: XCTestCase {
         wait(for: [chimesOnce, completes], timeout: 0.5, enforceOrder: true)
     }
     
+    func testImmediateChimeAsync() async throws {
+        let start = clock.thisSecond
+        
+        var chimeCount = 0
+        for try await time in clock.chime(at: start) {
+            let now = clock.thisSecond
+            XCTAssertEqual(start, now)
+            XCTAssertEqual(time, now)
+            chimeCount += 1
+        }
+        XCTAssertEqual(chimeCount, 1)
+    }
+    
     func testChimeAtSpecificValue() {
         let chimesOnce = expectation(description: "Clock chimes shortly")
         let completes = expectation(description: "Chime completes")
@@ -87,6 +111,17 @@ final class ClockChimeTests: XCTestCase {
             .store(in: &cancellables)
         
         wait(for: [chimesOnce, completes], timeout: 1, enforceOrder: true)
+    }
+    
+    func testChimeAtSpecificValueAsync() async throws {
+        let nextSecond = clock.nextSecond
+        var chimeCount = 0
+        
+        for try await time in clock.chime(at: nextSecond) {
+            XCTAssertEqual(time, nextSecond)
+            chimeCount += 1
+        }
+        XCTAssertEqual(chimeCount, 1)
     }
     
     func testScaledChimeAtSpecificValue() {
@@ -109,6 +144,18 @@ final class ClockChimeTests: XCTestCase {
         wait(for: [chimesOnce, completes], timeout: 1, enforceOrder: true)
     }
     
+    func testScaledChimeAtSpecificValueAsync() async throws {
+        let sixtyXClock = Clocks.custom(startingFrom: clock.now, rate: 60.0, region: clock.region)
+        let nextMinute = sixtyXClock.nextMinute
+        
+        var chimeCount = 0
+        for try await time in sixtyXClock.chime(at: nextMinute) {
+            XCTAssertEqual(time, nextMinute)
+            chimeCount += 1
+        }
+        XCTAssertEqual(chimeCount, 1)
+    }
+    
     func testFixedChimeCancel() {
         let nextSecond = clock.nextSecond
         let dontChime = expectation(description: "Clock does not chime")
@@ -119,6 +166,8 @@ final class ClockChimeTests: XCTestCase {
         chime.cancel()
         wait(for: [dontChime], timeout: 1.0)
     }
+    
+    // There's no way to make a `testFixedChimeCancelAsync()` test, because callers cannot cancel an async for loop
     
     func testIntervalChime() {
         let chimesTwice = expectation(description: "Clock chimes twice, once per second")
@@ -142,14 +191,29 @@ final class ClockChimeTests: XCTestCase {
         wait(for: [chimesTwice], timeout: 2.0)
     }
     
+    func testIntervalChimeAsync() async throws {
+        let start = clock.nextSecond
+        
+        var expected = [start, start.nextSecond]
+        var chimeCount = 0
+        
+        for try await time in clock.chime(every: .seconds(1), startingFrom: start) {
+            XCTAssertEqual(time, expected.removeFirst())
+            chimeCount += 1
+            if expected.isEmpty { break }
+        }
+        
+        XCTAssertEqual(chimeCount, 2)
+    }
+    
     func testIntervalChimeWithPastStart() {
         let chimes = expectation(description: "Clock chimes once")
         
         let thisSecond = clock.thisSecond
-        let startAMonthAgo = thisSecond.subtracting(minutes: 1)
+        let aMinuteAgo = thisSecond.subtracting(minutes: 1)
         
         clock
-            .chime(every: TimeDifference<Second, Era>.seconds(1), startingFrom: startAMonthAgo)
+            .chime(every: .seconds(1), startingFrom: aMinuteAgo)
             .sink(receiveCompletion: { (completion) in
                 XCTFail("Repeating chime completed: \(completion)")
             }, receiveValue: { value in
@@ -158,7 +222,20 @@ final class ClockChimeTests: XCTestCase {
             })
             .store(in: &cancellables)
         
-        wait(for: [chimes], timeout: 0.1)
+        wait(for: [chimes], timeout: 1)
+    }
+    
+    func testIntervalChimeWithPastStartAsync() async throws {
+        let thisSecond = clock.thisSecond
+        let aMinuteAgo = thisSecond.subtracting(minutes: 1)
+        
+        var chimeCount = 0
+        for try await time in clock.chime(every: .seconds(1), startingFrom: aMinuteAgo) {
+            XCTAssertEqual(time, thisSecond)
+            chimeCount += 1
+            break
+        }
+        XCTAssertEqual(chimeCount, 1)
     }
     
     func testIntervalChimeCancel() {
@@ -195,6 +272,20 @@ final class ClockChimeTests: XCTestCase {
             .store(in: &cancellables)
         
         wait(for: [chimes], timeout: 10.0)
+    }
+    
+    func testPredicateChimeAsync() async throws {
+        let justBeforeTheNextMinute = clock.nextMinute.firstSecond.previous
+        
+        let fastClock = Clocks.custom(startingFrom: justBeforeTheNextMinute.firstInstant, rate: 60.0, region: clock.region)
+        var results = [0, 13, 26, 39, 52]
+        
+        for try await time in fastClock.chime(producing: Second.self, when: { $0.second.isMultiple(of: 13) }) {
+            XCTAssertEqual(time.second, results.removeFirst())
+            if results.isEmpty { break }
+        }
+        
+        XCTAssertTrue(results.isEmpty)
     }
     
 }
