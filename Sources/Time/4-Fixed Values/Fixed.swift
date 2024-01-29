@@ -31,7 +31,7 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     /// The `Region` value used in computing this `Fixed` value's components.
     public let region: Region
     
-    internal let date: Foundation.Date
+    internal let instant: Time.Instant
     internal let dateComponents: Foundation.DateComponents
     
     /// The set of calendar components represented by this `Fixed` value.
@@ -48,23 +48,32 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     /// The `Locale` used in computing this `Fixed` value's components, as defined by its `Region`.
     public var locale: Locale { return region.locale }
     
+    /// The designated initializer for all Fixed values
+    ///
+    /// All initializers must funnel through this one. By the time this is called, the components should already be extracted
+    internal init(region: Region, instant: Instant, components: Foundation.DateComponents) {
+        self.region = region
+        self.instant = instant
+        self.dateComponents = components
+    }
+    
     /// Construct a `Fixed` value from an instantaneous point in time.
     /// - Parameter region: The `Region` in which to interpret the point in time
     /// - Parameter instant: The `Instant` that is contained by the constructed `Fixed` value
     public init(region: Region, instant: Instant) {
-        self.init(region: region, date: instant.date)
+        let dateComponents = region.calendar.dateComponents(Self.representedComponents, from: instant.date)
+        self.init(region: region, instant: instant, components: dateComponents)
     }
     
     /// Construct a `Fixed` value from an instantaneous point in time.
     /// - Parameter region: The `Region` in which to interpret the point in time
     /// - Parameter instant: The `Date` that is contained by the constructed `Fixed` value
     public init(region: Region, date: Foundation.Date) {
-        self.region = region
-        self.date = date
-        self.dateComponents = region.calendar.dateComponents(Self.representedComponents, from: date)
+        let dateComponents = region.calendar.dateComponents(Self.representedComponents, from: date)
+        self.init(region: region, instant: Instant(date: date), components: dateComponents)
     }
     
-    /// Construct an absolute `Fixed` value from a set of `DateComponents`.
+    /// Construct a `Fixed` value from a set of `DateComponents`.
     ///
     /// This method is "strict" because it is fairly easy for it to produce an error.
     /// For example, if you are attempting to construct an `Fixed<Month>` but only provide
@@ -79,8 +88,9 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     /// - Parameter region: The `Region` in which to interpret the date components
     /// - Parameter strictDateComponents: The `DateComponents` describing the desired calendrical date
     public init(region: Region, strictDateComponents: DateComponents) throws {
-        let next = try region.calendar.exactDate(from: strictDateComponents, matching: Self.representedComponents)
-        self.init(region: region, date: next)
+        let date = try region.calendar.exactDate(from: strictDateComponents, 
+                                                 matching: Self.representedComponents)
+        self.init(region: region, date: date)
     }
     
     private init(region: Region, dateComponents: DateComponents) throws {
@@ -102,7 +112,7 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     /// Construct a new `Fixed` value by converting the receiver to a new `Region`.
     public func setting(region: Region) -> Self {
         if region == self.region { return self }
-        return Self.init(region: region, date: self.date)
+        return Self.init(region: region, instant: self.instant)
     }
     
     /// Construct a new `Fixed` value by converting the receiver to a new `Calendar`.
@@ -160,10 +170,10 @@ extension Fixed: Comparable {
     /// - Parameter rhs: a `Fixed` value
     public static func > (lhs: Self, rhs: Self) -> Bool {
         guard lhs.region == rhs.region else { return false }
-        let leftRange = lhs.calendar.range(containing: lhs.date, in: lhs.representedComponents)
-        let rightRange = rhs.calendar.range(containing: rhs.date, in: rhs.representedComponents)
         
-        return leftRange.lowerBound > rightRange.lowerBound
+        // since we're comparing two Fixed values of the same granularity,
+        // we can confidently retrieve their respective `firstInstants` and compare those
+        return lhs.firstInstant > rhs.firstInstant
     }
     
     /// Determine if one `Fixed` value is less than another `Fixed` value.
@@ -174,10 +184,8 @@ extension Fixed: Comparable {
     /// - Parameter rhs: a `Fixed` value
     public static func < (lhs: Self, rhs: Self) -> Bool {
         guard lhs.region == rhs.region else { return false }
-        let leftRange = lhs.calendar.range(containing: lhs.date, in: lhs.representedComponents)
-        let rightRange = rhs.calendar.range(containing: rhs.date, in: rhs.representedComponents)
         
-        return leftRange.lowerBound < rightRange.lowerBound
+        return lhs.firstInstant < rhs.firstInstant
     }
     
 }

@@ -88,4 +88,17 @@ class FixedTests: XCTestCase {
         XCTAssertEqual(todayAt12.hour, 12)
         XCTAssertEqual(todayAt12.minute, 0)
     }
+    
+    func testValuesWithDifferentInstantsAreStillEqual() throws {
+        let thisMinute = Clocks.system.thisMinute
+        
+        let firstSecond = thisMinute.firstSecond
+        let secondSecond = firstSecond.nextSecond
+        
+        XCTAssertNotEqual(firstSecond, secondSecond)
+        
+        let minuteOfFirstSecond = firstSecond.fixedMinute
+        let minuteOfSecondSecond = secondSecond.fixedMinute
+        XCTAssertEqual(minuteOfFirstSecond, minuteOfSecondSecond)
+    }
 }

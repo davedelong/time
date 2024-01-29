@@ -39,10 +39,11 @@ class SerializationTests: XCTestCase {
         try testRoundTrip(of: clock.thisNanosecond)
     }
 
-    private func testRoundTrip<U: Unit>(of timePeriod: Fixed<U>) throws {
+    private func testRoundTrip<U: Unit>(of timePeriod: Fixed<U>, file: StaticString = #file, line: UInt = #line) throws {
         let encoded = try JSONEncoder().encode(timePeriod)
+        print("JSON: \(String(data: encoded, encoding: .utf8)!)")
         let decoded = try JSONDecoder().decode(Fixed<U>.self, from: encoded)
-        XCTAssertEqual(timePeriod, decoded)
+        XCTAssertEqual(timePeriod, decoded, file: file, line: line)
     }
 
 //    func testNonEraTimePeriod() throws {
@@ -71,59 +72,57 @@ class SerializationTests: XCTestCase {
         let _ = try decoder.decode(Fixed<Second>.self, from: validPayload)
 
         let invalidMonthPayload = generatePayloadFor(year: 2023, month: -4, day: 01, hour: 11, minute: 00, second: 00)
-        let _ = try decoder.decode(Fixed<Second>.self, from: invalidMonthPayload)
-        // TODO: Should this be valid? It spits out August 2022.
+        XCTAssertThrowsError(try decoder.decode(Fixed<Second>.self, from: invalidMonthPayload), "-4 is an invalid calendar month")
 
         let invalidHourPayload = generatePayloadFor(year: 2023, month: 01, day: 01, hour: 27, minute: 00, second: 00)
-        let _ = try decoder.decode(Fixed<Second>.self, from: invalidHourPayload)
-        // TODO: Should this be valid? It spits out 2nd January at 3am.
+        XCTAssertThrowsError(try decoder.decode(Fixed<Second>.self, from: invalidHourPayload), "27 is an invalid hour")
 
         let invalidDayPayload = generatePayloadFor(year: 2023, month: 01, day: 00, hour: 01, minute: 00, second: 00)
-        let _ = try decoder.decode(Fixed<Second>.self, from: invalidDayPayload)
-        // TODO: Should this be valid? It spits out 31st December 2022.
+        XCTAssertThrowsError(try decoder.decode(Fixed<Second>.self, from: invalidDayPayload), "0 is an invalid day")
 
         let payloadMissingPayload = generatePayloadFor(year: 2023, month: 01, day: 01, hour: 01, minute: 00, second: 00)
-        let _ = try decoder.decode(Fixed<Nanosecond>.self, from: payloadMissingPayload)
-        // TODO: This payload is missing the nanoseconds component, which gets intepreted as "zero". Should this be valid?
+        XCTAssertThrowsError(try decoder.decode(Fixed<Nanosecond>.self, from: payloadMissingPayload), "Nanoseconds are missing")
     }
 
     private func generatePayloadFor(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) -> Data {
         // This is very crude.
         
         let string = #"""
-        {"region":{
-            "locale":{
-                "current":2,
-                "identifier":"en_SE"
-            },
-            "timeZone":{
-                "autoupdating":true,
-                "identifier":"Europe\/Stockholm"
-            },
-            "calendar":{
-                "locale":{
-                    "current":2,
-                    "identifier":"en_SE"
+        {
+            "region": {
+                "locale": {
+                    "current": 2,
+                    "identifier": "en_SE"
                 },
-                "timeZone":{
-                    "autoupdating":true,
-                    "identifier":"Europe\/Stockholm"
+                "timeZone": {
+                    "autoupdating": true,
+                    "identifier": "Europe\/Stockholm"
                 },
-                "current":0,
-                "identifier":"gregorian",
-                "minimumDaysInFirstWeek":4,
-                "firstWeekday":2
+                "calendar": {
+                    "locale": {
+                        "current": 2,
+                        "identifier": "en_SE"
+                    },
+                    "timeZone": {
+                        "autoupdating": true,
+                        "identifier": "Europe\/Stockholm"
+                    },
+                    "current": 0,
+                    "identifier": "gregorian",
+                    "minimumDaysInFirstWeek": 4,
+                    "firstWeekday": 2
+                }
+            },
+            "components": {
+                "era": 1,
+                "year": \#(year),
+                "month": \#(month),
+                "day": \#(day),
+                "hour": \#(hour),
+                "minute": \#(minute),
+                "second": \#(second)
             }
-        },
-        "components":{
-            "era":\#(1),
-            "year":\#(year),
-            "month":\#(month),
-            "day":\#(day),
-            "hour":\#(hour),
-            "minute":\#(minute),
-            "second":\#(second)
-        }}
+        }
         """#
         
         return Data(string.utf8)

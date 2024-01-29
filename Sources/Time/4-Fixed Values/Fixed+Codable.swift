@@ -39,61 +39,24 @@ extension Fixed: Codable {
         // old key
         case components
     }
-    
-    private enum TimePeriodStorage: Codable {
-        case absolute(Foundation.Date)
-        case relative(Foundation.DateComponents)
-        
-        init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            do {
-                let date = try container.decode(Date.self)
-                self = .absolute(date)
-            } catch let absoluteError {
-                do {
-                    let components = try container.decode(DateComponents.self)
-                    self = .relative(components)
-                } catch let relativeError {
-                    throw TimeError.cannotDecodeTimePeriod(absoluteError, relativeError)
-                }
-            }
-        }
-        
-        func encode(to encoder: Encoder) throws {
-            var container = encoder.singleValueContainer()
-            switch self {
-                case .absolute(let date):
-                    try container.encode(date)
-                case .relative(let dc):
-                    try container.encode(dc)
-            }
-        }
-    }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let region = try container.decode(Region.self, forKey: .region)
         
-        let key = container.contains(.components) ? CodingKeys.components : .value
-        let storage = try container.decode(TimePeriodStorage.self, forKey: key)
-        
-        let date: Date
-        switch storage {
-        case .absolute(let d):
-            date = d
-        case .relative(let components):
-            // When decoding absolute values, we need to convert the storage to the newer instant-based storage.
-            guard let d = region.calendar.date(from: components) else {
-                throw TimeError.invalidDateComponents(components, in: region, description: "Decoding a Fixed value")
-            }
-            date = d
+        do {
+            let instant = try container.decode(Instant.self, forKey: .value)
+            self.init(region: region, instant: instant)
+        } catch {
+            // older format, does not have an instant; look for date components
+            let components = try container.decode(DateComponents.self, forKey: .components)
+            try self.init(region: region, strictDateComponents: components)
         }
-        self.init(region: region, date: date)
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(region, forKey: .region)
-        try container.encode(date, forKey: .value)
+        try container.encode(instant, forKey: .value)
     }
 }

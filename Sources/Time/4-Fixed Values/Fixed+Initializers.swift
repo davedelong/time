@@ -157,7 +157,8 @@ extension Fixed {
     /// Note that modern Apple platforms (iOS, macOS, etc) have thread-safe `Calendar`/`NSCalendar` implementations
     /// and don't suffer from this particular problem.
     public func _forcedCopy() -> Self {
-        return Self(region: region._forcedCopy(), date: Date(timeIntervalSince1970: date.timeIntervalSince1970))
+        return Self(region: region._forcedCopy(), 
+                    instant: Instant(interval: instant.intervalSinceEpoch, since: instant.epoch))
     }
     
 }

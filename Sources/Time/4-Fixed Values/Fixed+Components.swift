@@ -26,7 +26,7 @@ extension Fixed {
     /// - is this calendar value contained within this other calendar value?
     /// - etc
     public var range: Range<Instant> {
-        let range = calendar.range(containing: self.date, in: self.representedComponents)
+        let range = calendar.range(containing: self.instant.date, in: self.representedComponents)
         
         return Instant(date: range.lowerBound) ..< Instant(date: range.upperBound)
     }

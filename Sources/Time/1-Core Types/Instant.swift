@@ -96,3 +96,36 @@ public struct Instant: Hashable, Comparable, InstantProtocol, Sendable {
     }
     
 }
+
+extension Instant: Codable {
+    
+    private enum CodingKeys: String, CodingKey {
+        case epoch = "epoch"
+        case offset = "offset"
+    }
+    
+    public init(from decoder: Decoder) throws {
+        do {
+            // first, see if we can decode a Foundation.Date
+            let container = try decoder.singleValueContainer()
+            let date = try container.decode(Date.self)
+            self.init(date: date)
+        } catch {
+            // can't decode a Foundation.Date. Try decoding a proper Instant
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            let epoch = try container.decodeIfPresent(Epoch.self, forKey: .epoch) ?? .reference
+            let seconds = try container.decode(SISeconds.self, forKey: .offset)
+            
+            self.init(interval: seconds, since: epoch)
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(epoch, forKey: .epoch)
+        try container.encode(intervalSinceEpoch, forKey: .offset)
+    }
+    
+}

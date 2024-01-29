@@ -130,3 +130,37 @@ extension SISeconds: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
         self.init(value)
     }
 }
+
+extension SISeconds: Codable {
+    
+    private enum CodingKeys: String, CodingKey {
+        case seconds = "seconds"
+        case attoseconds = "attoseconds"
+    }
+    
+    public init(from decoder: Decoder) throws {
+        do {
+            // try to decode a single TimeInterval
+            let container = try decoder.singleValueContainer()
+            self.init(try container.decode(TimeInterval.self))
+        } catch {
+            // decode the separate components
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let seconds = try container.decode(Int64.self, forKey: .seconds)
+            let attoseconds = try container.decodeIfPresent(Int64.self, forKey: .attoseconds) ?? 0
+            
+            let duration = Duration(secondsComponent: seconds, attosecondsComponent: attoseconds)
+            self.init(rawValue: duration)
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        let (seconds, attoseconds) = rawValue.components
+        try container.encode(seconds, forKey: .seconds)
+        if attoseconds != 0 {
+            try container.encode(attoseconds, forKey: .attoseconds)
+        }
+    }
+    
+}
