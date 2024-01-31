@@ -127,5 +127,416 @@ class SerializationTests: XCTestCase {
         
         return Data(string.utf8)
     }
+    
+    func testOldSerializationFormat() throws {
+        let jsonString = """
+        [
+            {
+                "value": 728405072,
+                "region": {
+                    "calendar": {
+                        "firstWeekday": 1,
+                        "minimumDaysInFirstWeek": 1,
+                        "identifier": "gregorian",
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        }
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    }
+                }
+            },
+            {
+                "value": 728406872,
+                "region": {
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "calendar": {
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "minimumDaysInFirstWeek": 1,
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "firstWeekday": 1,
+                        "identifier": "gregorian"
+                    }
+                }
+            },
+            {
+                "region": {
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "calendar": {
+                        "identifier": "gregorian",
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "firstWeekday": 1,
+                        "minimumDaysInFirstWeek": 1,
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        }
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    }
+                },
+                "value": 728405072
+            },
+            {
+                "region": {
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "calendar": {
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "minimumDaysInFirstWeek": 1,
+                        "firstWeekday": 1,
+                        "identifier": "gregorian"
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    }
+                },
+                "value": 728406872
+            },
+            {
+                "value": 728175606.030619,
+                "region": {
+                    "calendar": {
+                        "firstWeekday": 2,
+                        "minimumDaysInFirstWeek": 4,
+                        "identifier": "gregorian",
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        }
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    }
+                }
+            },
+            {
+                "region": {
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "calendar": {
+                        "firstWeekday": 2,
+                        "identifier": "gregorian",
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "minimumDaysInFirstWeek": 4
+                    }
+                },
+                "value": 728262004.728645
+            },
+            {
+                "value": 728406871,
+                "region": {
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "calendar": {
+                        "firstWeekday": 1,
+                        "minimumDaysInFirstWeek": 1,
+                        "identifier": "gregorian",
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        }
+                    }
+                }
+            },
+            {
+                "value": 728319007.785119,
+                "region": {
+                    "calendar": {
+                        "firstWeekday": 2,
+                        "identifier": "gregorian",
+                        "minimumDaysInFirstWeek": 4,
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "locale": {
+                            "identifier": "en_SE"
+                        }
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    }
+                }
+            },
+            {
+                "value": 728491625,
+                "region": {
+                    "calendar": {
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "minimumDaysInFirstWeek": 1,
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "identifier": "gregorian",
+                        "firstWeekday": 1
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    }
+                }
+            },
+            {
+                "value": 728493425,
+                "region": {
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "calendar": {
+                        "identifier": "gregorian",
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "firstWeekday": 1,
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "minimumDaysInFirstWeek": 1
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    }
+                }
+            },
+            {
+                "value": 728491625,
+                "region": {
+                    "calendar": {
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "firstWeekday": 1,
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "identifier": "gregorian",
+                        "minimumDaysInFirstWeek": 1
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    }
+                }
+            },
+            {
+                "value": 728493425,
+                "region": {
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "calendar": {
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "firstWeekday": 1,
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "identifier": "gregorian",
+                        "minimumDaysInFirstWeek": 1
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    }
+                }
+            },
+            {
+                "value": 728370608.047602,
+                "region": {
+                    "calendar": {
+                        "firstWeekday": 2,
+                        "minimumDaysInFirstWeek": 4,
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "identifier": "gregorian"
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    }
+                }
+            },
+            {
+                "value": 728578177,
+                "region": {
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "calendar": {
+                        "firstWeekday": 1,
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "minimumDaysInFirstWeek": 1,
+                        "identifier": "gregorian",
+                        "locale": {
+                            "identifier": "en_SE"
+                        }
+                    }
+                }
+            },
+            {
+                "value": 728579977,
+                "region": {
+                    "calendar": {
+                        "firstWeekday": 1,
+                        "minimumDaysInFirstWeek": 1,
+                        "identifier": "gregorian",
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "locale": {
+                            "identifier": "en_SE"
+                        }
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    }
+                }
+            },
+            {
+                "region": {
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    },
+                    "calendar": {
+                        "identifier": "gregorian",
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "minimumDaysInFirstWeek": 1,
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "firstWeekday": 1
+                    }
+                },
+                "value": 728578177
+            },
+            {
+                "region": {
+                    "calendar": {
+                        "identifier": "gregorian",
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        },
+                        "minimumDaysInFirstWeek": 1,
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "firstWeekday": 1
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    }
+                },
+                "value": 728579977
+            },
+            {
+                "region": {
+                    "calendar": {
+                        "firstWeekday": 2,
+                        "minimumDaysInFirstWeek": 4,
+                        "identifier": "gregorian",
+                        "locale": {
+                            "identifier": "en_SE"
+                        },
+                        "timeZone": {
+                            "identifier": "Europe\\/Stockholm"
+                        }
+                    },
+                    "locale": {
+                        "identifier": "en_SE"
+                    },
+                    "timeZone": {
+                        "identifier": "Europe\\/Stockholm"
+                    }
+                },
+                "value": 728392809.920091
+            }
+        ]
+"""
+        let jsonData = Data(jsonString.utf8)
+        
+        do {
+            let timestamps = try JSONDecoder().decode(Array<Fixed<Nanosecond>>.self, from: jsonData)
+            XCTAssertEqual(timestamps.count, 18)
+        } catch {
+            XCTFail("Cannot decode json: \(error)")
+        }
+    }
 
 }
