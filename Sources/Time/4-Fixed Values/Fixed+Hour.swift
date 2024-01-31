@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest == Hour {
+extension Fixed where Smallest: GTOEHour {
     
     public var firstMinute: Fixed<Minute> { return first() }
     public var lastMinute: Fixed<Minute> { return last() }
@@ -15,12 +15,6 @@ extension Fixed where Smallest == Hour {
     public func minute(_ number: Int) -> Fixed<Minute>? { return numbered(number) }
     
     public var minutes: FixedSequence<Minute> {
-        return FixedSequence(parent: self)
-    }
-    
-    public var firstSecond: Fixed<Second> { return first() }
-    public var lastSecond: Fixed<Second> { return last() }
-    public var seconds: FixedSequence<Second> {
         return FixedSequence(parent: self)
     }
 }

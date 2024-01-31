@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest == Month {
+extension Fixed where Smallest: GTOEMonth {
     
     public var firstDay: Fixed<Day> { return first() }
     public var lastDay: Fixed<Day> { return last() }
@@ -16,12 +16,6 @@ extension Fixed where Smallest == Month {
     
     public var days: FixedSequence<Day> {
         return FixedSequence<Day>(parent: self)
-    }
-    
-    public var firstHour: Fixed<Hour> { return first() }
-    public var lastHour: Fixed<Hour> { return last() }
-    public var hours: FixedSequence<Hour> {
-        return FixedSequence<Hour>(parent: self)
     }
     
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest == Day {
+extension Fixed where Smallest: GTOEDay {
     
     public var firstHour: Fixed<Hour> { return first() }
     public var lastHour: Fixed<Hour> { return last() }
@@ -18,14 +18,6 @@ extension Fixed where Smallest == Day {
         return FixedSequence(parent: self)
     }
     
-    public var firstMinute: Fixed<Minute> { return first() }
-    public var lastMinute: Fixed<Minute> { return last() }
-    public var minutes: FixedSequence<Minute> {
-        return FixedSequence(parent: self)
-    }
-    
-    public var firstSecond: Fixed<Second> { return first() }
-    public var lastSecond: Fixed<Second> { return last() }
 }
 
 extension Fixed where Smallest: LTOEDay {

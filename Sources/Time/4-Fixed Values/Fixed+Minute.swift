@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest == Minute {
+extension Fixed where Smallest: GTOEMinute {
     
     public var firstSecond: Fixed<Second> { return first() }
     public var lastSecond: Fixed<Second> { return last() }
@@ -17,4 +17,5 @@ extension Fixed where Smallest == Minute {
     public var seconds: FixedSequence<Second> {
         return FixedSequence(parent: self)
     }
+    
 }

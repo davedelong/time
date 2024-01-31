@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest == Year {
+extension Fixed where Smallest: GTOEYear {
     
     public var firstMonth: Fixed<Month> { return first() }
     public var lastMonth: Fixed<Month> { return last() }
@@ -15,12 +15,6 @@ extension Fixed where Smallest == Year {
     public func month(_ number: Int) -> Fixed<Month>? { return numbered(number) }
     
     public var months: FixedSequence<Month> {
-        return FixedSequence(parent: self)
-    }
-    
-    public var firstDay: Fixed<Day> { return first() }
-    public var lastDay: Fixed<Day> { return last() }
-    public var days: FixedSequence<Day> {
         return FixedSequence(parent: self)
     }
     
