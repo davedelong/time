@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 extension Locale {
     
@@ -81,7 +80,7 @@ private class Snapshot<T> {
     private let createSnapshot: () -> T
     
     private var _snapshot: T?
-    private var notificationSink: AnyCancellable?
+    private var observationToken: NSObjectProtocol?
     
     private let lock = NSLock()
     
@@ -100,11 +99,16 @@ private class Snapshot<T> {
     
     init(notification: Notification.Name, createSnapshot: @escaping () -> T) {
         self.createSnapshot = createSnapshot
-        self.notificationSink = NotificationCenter.default
-            .publisher(for: notification)
-            .sink(receiveValue: { [unowned self] note in
+        self.observationToken = NotificationCenter.default
+            .addObserver(forName: notification, object: nil, queue: .main, using: { [unowned self] _ in
                 self.resetSnapshot()
             })
+    }
+    
+    deinit {
+        if let observationToken {
+            NotificationCenter.default.removeObserver(observationToken)
+        }
     }
     
     private func resetSnapshot() {
