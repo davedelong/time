@@ -101,4 +101,60 @@ class FixedTests: XCTestCase {
         let minuteOfSecondSecond = secondSecond.fixedMinute
         XCTAssertEqual(minuteOfFirstSecond, minuteOfSecondSecond)
     }
+    
+    func testRounding() throws {
+        let t = try! Fixed<Nanosecond>(region: .posix, era: 1, year: 2024, month: 2, day: 3, hour: 14, minute: 27, second: 43, nanosecond: 499_000_000)
+        
+        XCTAssertEqual(t.nearestEra.era, 1)
+        XCTAssertEqual(t.nearestYear.year, 2024)
+        XCTAssertEqual(t.nearestMonth.month, 2)
+        XCTAssertEqual(t.nearestDay.day, 4)
+        XCTAssertEqual(t.nearestHour.hour, 14)
+        XCTAssertEqual(t.nearestMinute.minute, 28)
+        XCTAssertEqual(t.nearestSecond.second, 43)
+        
+        XCTAssertEqual(t.roundedToEra(direction: .forward).era, 1)
+        XCTAssertEqual(t.roundedToYear(direction: .forward).year, 2025)
+        XCTAssertEqual(t.roundedToMonth(direction: .forward).month, 3)
+        XCTAssertEqual(t.roundedToDay(direction: .forward).day, 4)
+        XCTAssertEqual(t.roundedToHour(direction: .forward).hour, 15)
+        XCTAssertEqual(t.roundedToMinute(direction: .forward).minute, 28)
+        XCTAssertEqual(t.roundedToSecond(direction: .forward).second, 44)
+        
+        XCTAssertEqual(t.roundedToEra(direction: .backward).era, 1)
+        XCTAssertEqual(t.roundedToYear(direction: .backward).year, 2024)
+        XCTAssertEqual(t.roundedToMonth(direction: .backward).month, 2)
+        XCTAssertEqual(t.roundedToDay(direction: .backward).day, 3)
+        XCTAssertEqual(t.roundedToHour(direction: .backward).hour, 14)
+        XCTAssertEqual(t.roundedToMinute(direction: .backward).minute, 27)
+        XCTAssertEqual(t.roundedToSecond(direction: .backward).second, 43)
+    }
+    
+    func testSimpleMultipleRounding() throws {
+        let t = try! Fixed(region: .posix, year: 2024, month: 2, day: 10, hour: 18, minute: 52, second: 13)
+        
+        let r1 = t.roundedToNearestMultiple(of: .minutes(15))
+        XCTAssertTime(r1, era: 1, year: 2024, month: 2, day: 10, hour: 18, minute: 45, second: 0)
+        
+        let r2 = t.roundedToNearestMultiple(of: .hours(3))
+        XCTAssertTime(r2, era: 1, year: 2024, month: 2, day: 10, hour: 18, minute: 0, second: 0)
+        
+        let r3 = t.roundedToNearestMultiple(of: .minutes(29))
+        XCTAssertTime(r3, era: 1, year: 2024, month: 2, day: 10, hour: 18, minute: 58, second: 0)
+    }
+    
+    func testBoundarySequence() {
+        let start = try! Fixed(region: .posix, year: 2024, month: 2, day: 1, hour: 0, minute: 0, second: 0)
+        let s = BoundaryAlignedSequence(start: start, stride: .minutes(29), boundaryStride: .hours(1))
+        
+        let values = Array(s.prefix(6))
+        
+        XCTAssertEqual(values.count, 6)
+        XCTAssertTime(values[0], era: 1, year: 2024, month: 2, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(values[1], era: 1, year: 2024, month: 2, day: 1, hour: 0, minute: 29, second: 0)
+        XCTAssertTime(values[2], era: 1, year: 2024, month: 2, day: 1, hour: 0, minute: 58, second: 0)
+        XCTAssertTime(values[3], era: 1, year: 2024, month: 2, day: 1, hour: 1, minute: 0, second: 0)
+        XCTAssertTime(values[4], era: 1, year: 2024, month: 2, day: 1, hour: 1, minute: 29, second: 0)
+        XCTAssertTime(values[5], era: 1, year: 2024, month: 2, day: 1, hour: 1, minute: 58, second: 0)
+    }
 }

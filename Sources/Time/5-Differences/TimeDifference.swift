@@ -24,6 +24,11 @@ public struct TimeDifference<Smallest: Unit, Largest: Unit> {
     internal func negated() -> TimeDifference {
         return TimeDifference(dateComponents.scale(by: -1))
     }
+    
+    internal func scale(by scale: Int) -> Self {
+        if scale == 1 { return self }
+        return Self(dateComponents.scale(by: scale))
+    }
 }
 
 extension TimeDifference where Smallest: LTOEYear, Largest: GTOEYear {
