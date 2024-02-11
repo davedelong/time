@@ -16,8 +16,7 @@ extension RegionalClock {
     
     /// Retrieve the current `Fixed` calendrical value, accurate down to the specified unit.
     public func this<C: Unit>(_ unit: C.Type = C.self) -> Fixed<C> {
-        return Fixed(region: region.snapshot(), 
-                     instant: thisInstant())
+        return Fixed(region: region, instant: thisInstant())
     }
     
     /// Retrieve the current calendar day of the `RegionalClock`.

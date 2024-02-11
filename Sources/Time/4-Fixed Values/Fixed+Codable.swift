@@ -13,6 +13,8 @@ extension Region: Codable {
         case locale
         case calendar
     }
+    
+    #warning("TODO: if the c/l/tz are unchanged from default, only encode the identifiers")
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

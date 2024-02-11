@@ -52,7 +52,7 @@ extension Fixed where Smallest: LTOEDay {
     /// Returns the ordinal of the receiver's weekday within its month.
     ///
     /// For example, if the receiver falls on the second "Friday" of a month on the Gregorian calendar,
-    /// then `dayOfWeek` returns `6` ("Friday"), and this property returns `2` (the second Friday).
+    /// then `dayOfWeek` returns `6` ("Friday"), and this property returns `2` (the "second" Friday).
     public var dayOfWeekOrdinal: Int { return calendar.component(.weekdayOrdinal, from: approximateMidPoint.date) }
     
     public var weekOfYear: Int { return calendar.component(.weekOfYear, from: approximateMidPoint.date) }

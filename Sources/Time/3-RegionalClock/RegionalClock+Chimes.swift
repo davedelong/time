@@ -5,10 +5,8 @@
 //  Created by James Robinson on 4/11/20.
 //
 
-#if canImport(Combine)
 import Foundation
 import Dispatch
-import Combine
 
 extension RegionalClock {
     
@@ -125,20 +123,6 @@ public struct ClockChime<U: Unit & LTOEEra> {
     
 }
 
-extension ClockChime: Combine.Publisher {
-    
-    public typealias Output = Fixed<U>
-    public typealias Failure = Never
-    
-    public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
-        let subscription = ChimeSubscription(subscriber: subscriber,
-                                             clock: clock,
-                                             iterator: values)
-        subscriber.receive(subscription: subscription)
-    }
-    
-}
-
 extension ClockChime: AsyncSequence {
     
     public typealias Element = Fixed<U>
@@ -166,6 +150,24 @@ extension ClockChime: AsyncSequence {
     
     public func makeAsyncIterator() -> AsyncIterator {
         return AsyncIterator(clock: self.clock, baseIterator: self.values)
+    }
+    
+}
+
+#if canImport(Combine)
+
+import Combine
+
+extension ClockChime: Combine.Publisher {
+    
+    public typealias Output = Fixed<U>
+    public typealias Failure = Never
+    
+    public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+        let subscription = ChimeSubscription(subscriber: subscriber,
+                                             clock: clock,
+                                             iterator: values)
+        subscriber.receive(subscription: subscription)
     }
     
 }

@@ -4,20 +4,11 @@
 
 ## Overview
 
+Date and time programming is notorious for being a difficult and complicated topic for programmers to deal with. This package aims to ease those pains.
+
+**Time** is built on top of Apple's [Foundation framework](https://github.com/apple/swift-foundation) and provides a robust and type-safe API for working with dates and times in code. Where possible, **Time** guides programmers down the correct path of manipulating values, so that the resulting answers are calendrically correct and match user expectations. 
+
 In order to properly use this package, it's helpful to understand some underlying concepts about measuring and representing time.
-
-### There is only a single unit of time
-
-When it comes to the physical world around us, there is one (and only one) measurement of "physical" time,
-and that is the [SI Second](https://en.wikipedia.org/wiki/SI_base_unit),
-which is represented in this package via the ``SISeconds`` type.
-
-An SI Second is defined a "the length of time it takes for a particular kind of atom to perform a specific number of state transitions."
-
-All other measurements of time (calendrical seconds, minutes, days, years, etc) are completely arbitrary and made up.
-They are often based on naturally occurring periods (such as "how long it takes the moon to orbit the earth"
-or "how long it takes the earth to orbit the sun"),
-but there is not a strict relationship between those "natural" periods and the calendar units with which we're familiar.
 
 ### Convenience, not precision
 
@@ -72,6 +63,12 @@ A valid calendar value always contains contiguous ranges of units.
 
 ### Usage Guides
 
+- <doc:1-Core-Concepts>
+- <doc:2-Clocks>
+- <doc:3-FixedValues>
+
+### Other
+
 - <doc:Using-Clocks>
 - <doc:Using-TimePeriod>
 - <doc:Adjustments>
@@ -89,3 +86,5 @@ A valid calendar value always contains contiguous ranges of units.
 - ``Instant``
 - ``TimePeriod``
 - ``Epoch``
+
+

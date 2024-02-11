@@ -109,6 +109,8 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
         return Fixed<U>(region: region, instant: self.instant)
     }
     
+    #warning("TODO: verify these for correctness")
+    
     /// Construct a new `Fixed` value by converting the receiver to a new `Region`.
     public func setting(region: Region) -> Self {
         if region == self.region { return self }

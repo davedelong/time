@@ -38,7 +38,7 @@ Iterative mathematics can also produce issues in calendrical code.
 For example:
 
 ```swift
-let today: Absolute<Day> = ...
+let today: Fixed<Day> = ...
 
 let answer1 = today + .months(1) + .months(1)
 let answer2 = today + .months(2)
@@ -48,7 +48,7 @@ If `today` is `January 31st, 2020`, then:
 - `answer1` will produce `March 29th, 2020` (31 Jan + 1 month = 29 Feb; 29 Feb + 1 month = 29 Mar)
 - `answer2` will produce `March 31st, 2020` (31 Jan + 2 months = 31 Mar)
 
-In **Time**, iterative addition is handled by the ``AbsoluteTimePeriodSequence`` (and its underlying ``AbsoluteTimePeriodIterator``).
+In **Time**, iterative addition is handled by the ``FixedSequence`` (and its underlying ``FixedIterator``).
 
 The implementation of this type uses the second approach,
 which involves *scaling* the "stride" value for each successive iteration,
