@@ -217,3 +217,46 @@ extension ClockTests {
     }
     
 }
+
+// MARK: Autoupdating Clocks
+
+extension ClockTests {
+    
+    func testAutoupdatingCalendarProducesStaticCalendar() {
+        let calendar = Calendar.autoupdatingCurrent
+        let r = Region(calendar: calendar, timeZone: .current, locale: .current)
+        let c = Clocks.system(in: r)
+        
+        let now = c.thisSecond
+        
+        XCTAssertNotEqual(now.calendar, calendar)
+    }
+    
+    func testAutoupdatingTimeZoneProducesStaticTimeZone() {
+        let r = Region(calendar: .current, timeZone: .autoupdatingCurrent, locale: .current)
+        let c = Clocks.system(in: r)
+        
+        let now = c.thisSecond
+        
+        XCTAssertNotEqual(now.timeZone, r.timeZone)
+    }
+    
+    func testAutoupdatingLocaleProducesStaticLocale() {
+        let r = Region(calendar: .current, timeZone: .current, locale: .autoupdatingCurrent)
+        let c = Clocks.system(in: r)
+        
+        let now = c.thisSecond
+        
+        XCTAssertNotEqual(now.locale, r.locale)
+    }
+    
+    func testAutoupdatingRegionProducesStaticRegion() {
+        let r = Region.autoupdatingCurrent
+        let c = Clocks.system(in: r)
+        
+        let now = c.thisSecond
+        
+        XCTAssertNotEqual(now.region, r)
+    }
+    
+}

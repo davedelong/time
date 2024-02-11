@@ -39,11 +39,15 @@ public struct Region: Hashable, Sendable {
     
     /// Construct a `Region` given a `Calendar`, `TimeZone`, and `Locale`.
     public init(calendar: Calendar, timeZone: TimeZone, locale: Locale) {
-        var actualCalendar = calendar
-        actualCalendar.timeZone = timeZone
-        actualCalendar.locale = locale
-        
-        self.calendar = actualCalendar
+        if calendar.timeZone != timeZone || calendar.locale != locale {
+            var actualCalendar = calendar
+            actualCalendar.timeZone = timeZone
+            actualCalendar.locale = locale
+            
+            self.calendar = actualCalendar
+        } else {
+            self.calendar = calendar
+        }
         self.timeZone = timeZone
         self.locale = locale
     }
@@ -56,9 +60,7 @@ public struct Region: Hashable, Sendable {
     ///
     /// For more detail, see the discussion on `Fixed<Unit>._forcedCopy()`.
     public func _forcedCopy() -> Self {
-        return Self(calendar: Calendar(identifier: calendar.identifier),
-                    timeZone: TimeZone(identifier: timeZone.identifier) ?? TimeZone(secondsFromGMT: timeZone.secondsFromGMT()) ?? timeZone,
-                    locale: Locale(identifier: locale.identifier))
+        return self.snapshot()
     }
     
     /// Indicates whether time values in this region will be formatted using 12-hour ("1:00 PM") or 24-hour ("13:00") time.
@@ -80,5 +82,11 @@ public struct Region: Hashable, Sendable {
     public func setLocale(_ locale: Locale) -> Region {
         if locale == self.locale { return self }
         return Region(calendar: self.calendar, timeZone: self.timeZone, locale: locale)
+    }
+    
+    internal func snapshot() -> Region {
+        return Region(calendar: calendar.snapshot(),
+                      timeZone: timeZone.snapshot(),
+                      locale: locale.snapshot())
     }
 }

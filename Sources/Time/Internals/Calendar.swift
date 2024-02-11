@@ -46,9 +46,18 @@ extension Calendar {
             restricted.era = proposedComponents.era
         }
         
-        guard proposedComponents == restricted else {
-            let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)
-            throw TimeError.invalidDateComponents(restricted, in: r)
+        for unit in matching {
+            // we'll skip validating nanoseconds, because the precision of the Double backing a Foundation.Date
+            // is not enough to fully and completely represent all nanoseconds
+            
+            // however, basic experimentation shows that the drift from "requested" to "actual" nanoseconds
+            // appears to be restricted to within about 24,000 nanoseconds
+            if unit == .nanosecond { continue }
+            
+            guard proposedComponents.value(for: unit) == restricted.value(for: unit) else {
+                let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)
+                throw TimeError.invalidDateComponents(restricted, in: r)
+            }
         }
         
         return proposed

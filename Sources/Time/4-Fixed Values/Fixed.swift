@@ -52,7 +52,7 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     ///
     /// All initializers must funnel through this one. By the time this is called, the components should already be extracted
     internal init(region: Region, instant: Instant, components: Foundation.DateComponents) {
-        self.region = region
+        self.region = region.snapshot()
         self.instant = instant
         self.dateComponents = components
     }
@@ -90,7 +90,7 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     public init(region: Region, strictDateComponents: DateComponents) throws {
         let date = try region.calendar.exactDate(from: strictDateComponents, 
                                                  matching: Self.representedComponents)
-        self.init(region: region, date: date)
+        self.init(region: region, instant: Instant(date: date), components: strictDateComponents)
     }
     
     private init(region: Region, dateComponents: DateComponents) throws {
