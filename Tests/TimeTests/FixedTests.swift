@@ -128,6 +128,25 @@ class FixedTests: XCTestCase {
         XCTAssertEqual(t.roundedToHour(direction: .backward).hour, 14)
         XCTAssertEqual(t.roundedToMinute(direction: .backward).minute, 27)
         XCTAssertEqual(t.roundedToSecond(direction: .backward).second, 43)
+        
+        let t2 = try! Fixed(region: .posix, year: 2023, month: 12, day: 31, hour: 23, minute: 59, second: 42)
+        XCTAssertTime(t2.roundedToYear(direction: .backward), era: 1, year: 2023, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToMonth(direction: .backward), era: 1, year: 2023, month: 12, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToDay(direction: .backward), era: 1, year: 2023, month: 12, day: 31, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToHour(direction: .backward), era: 1, year: 2023, month: 12, day: 31, hour: 23, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToMinute(direction: .backward), era: 1, year: 2023, month: 12, day: 31, hour: 23, minute: 59, second: 0)
+        
+        XCTAssertTime(t2.roundedToYear(direction: .forward), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToMonth(direction: .forward), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToDay(direction: .forward), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToHour(direction: .forward), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToMinute(direction: .forward), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        
+        XCTAssertTime(t2.roundedToYear(direction: .nearest), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToMonth(direction: .nearest), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToDay(direction: .nearest), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToHour(direction: .nearest), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
+        XCTAssertTime(t2.roundedToMinute(direction: .nearest), era: 1, year: 2024, month: 1, day: 1, hour: 0, minute: 0, second: 0)
     }
     
     func testSimpleMultipleRounding() throws {
@@ -143,7 +162,7 @@ class FixedTests: XCTestCase {
         XCTAssertTime(r3, era: 1, year: 2024, month: 2, day: 10, hour: 18, minute: 58, second: 0)
     }
     
-    func testBoundarySequence() {
+    func testBoundaryAlignedSequence() {
         let start = try! Fixed(region: .posix, year: 2024, month: 2, day: 1, hour: 0, minute: 0, second: 0)
         let s = BoundaryAlignedSequence(start: start, stride: .minutes(29), boundaryStride: .hours(1))
         

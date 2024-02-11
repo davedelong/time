@@ -91,10 +91,12 @@ extension Fixed {
         let roundedDown: Fixed<U> = self.truncated()
         let roundedDownStart = roundedDown.firstInstant
         
-        let closedMaxRange = maxRange.lowerBound ... (maxRange.upperBound - 1)
-        
-        if self.value(for: unit) == closedMaxRange.upperBound {
-            return Self(region: self.region, instant: roundedDownStart)
+        if unit == Era.self {
+            let closedMaxRange = maxRange.lowerBound ... (maxRange.upperBound - 1)
+            
+            if self.value(for: unit) == closedMaxRange.upperBound {
+                return Self(region: self.region, instant: roundedDownStart)
+            }
         }
         
         if direction == .backward {
