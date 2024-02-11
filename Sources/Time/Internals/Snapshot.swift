@@ -11,6 +11,10 @@ extension Locale {
     
     private static let currentSnapshot: Snapshot<Locale> = Snapshot(notification: NSLocale.currentLocaleDidChangeNotification, createSnapshot: {
         let auto = Locale.autoupdatingCurrent
+        
+        let standard = Locale.standard(auto.identifier)
+        if auto.isEquivalent(to: standard) { return standard }
+        
         var components = Locale.Components()
         
         components.calendar = auto.calendar.identifier
@@ -41,7 +45,7 @@ extension Locale {
 extension TimeZone {
     
     private static let currentSnapshot: Snapshot<TimeZone> = Snapshot(notification: .NSSystemTimeZoneDidChange, createSnapshot: {
-        return TimeZone(identifier: TimeZone.autoupdatingCurrent.identifier)!
+        return TimeZone.standard(TimeZone.autoupdatingCurrent.identifier)
     })
     
     func snapshot() -> Self {
@@ -55,6 +59,10 @@ extension Calendar {
     
     private static let currentSnapshot: Snapshot<Calendar> = Snapshot(notification: NSLocale.currentLocaleDidChangeNotification, createSnapshot: {
         let auto = Calendar.autoupdatingCurrent
+        
+        let standard = Calendar.standard(auto.identifier)
+        if auto.isEquivalent(to: standard) { return standard }
+        
         var snapshot = Calendar(identifier: auto.identifier)
         
         // don't bother snapshotting the timezone and locale,
@@ -82,6 +90,7 @@ private class Snapshot<T> {
     private var _snapshot: T?
     private var observationToken: NSObjectProtocol?
     
+    #warning("TODO: better synchronization primitive?")
     private let lock = NSLock()
     
     var snapshot: T {

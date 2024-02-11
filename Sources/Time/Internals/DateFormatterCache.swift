@@ -30,6 +30,7 @@ extension DateFormatter {
     
     internal static func formatter(for templates: Array<Format?>, region: Region) -> DateFormatter {
         let template = templates.compactMap { $0?.template }.joined()
+        if template.isEmpty { fatalError("Somehow have an empty template? this should not happen") }
         return self.formatter(for: .init(configuration: .template(template), region: region))
     }
 }
@@ -38,6 +39,7 @@ private class DateFormatterCache {
     
     static let shared = DateFormatterCache()
     
+    #warning("TODO: better locking primitive?")
     private let queue = DispatchQueue(label: "DateFormatterCache")
     
     private var formatters = Dictionary<DateFormatter.Key, DateFormatter>()
