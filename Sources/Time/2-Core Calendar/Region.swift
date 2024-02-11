@@ -15,6 +15,14 @@ import Foundation
 /// - a `Locale` value, which describes their preferences around formatting values
 public struct Region: Hashable, Sendable {
     
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        guard lhs.locale.identifier == rhs.locale.identifier else { return false }
+        guard lhs.timeZone.identifier == rhs.timeZone.identifier else { return false }
+        guard lhs.calendar.identifier == rhs.calendar.identifier else { return false }
+        
+        return true
+    }
+    
     /// A snapshot of the user's current `Region`.
     public static let current = Region(calendar: .current, timeZone: .current, locale: .current)
     
