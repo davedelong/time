@@ -18,10 +18,10 @@ public struct Epoch: Hashable, Sendable {
         return lhs.offsetFromReferenceDate == rhs.offsetFromReferenceDate
     }
 
-    /// The Reference epoch (rooted at 1 Jan 2001 00:00:00 UTC).
+    /// The Reference epoch (fixed at 1 Jan 2001 00:00:00 UTC).
     public static let reference = Epoch(0)
 
-    /// The Unix epoch (rooted at 1 Jan 1970 00:00:00 UTC).
+    /// The Unix epoch (fixed at 1 Jan 1970 00:00:00 UTC).
     public static let unix = Epoch(-SISeconds.secondsBetweenUnixAndReferenceEpochs)
     
     internal let offsetFromReferenceDate: SISeconds

@@ -20,13 +20,19 @@ extension RegionalClock {
     /// - Parameters:
     ///   - interval: The amount of time that should elapse before the next chime occurs.
     ///   - startTime: The time to start counting at before the first chime occurs.
-    /// - Returns: A publisher which publishes fixed time values at the moment of each chime.
+    /// - Returns: A ``ClockChime`` which emits fixed time values at the moment of each chime.
     public func chime<U: Unit>(producing unit: U.Type = U.self,
                                every interval: TimeDifference<U, Era>,
                                startingFrom startTime: Fixed<U>? = nil) -> ClockChime<U> {
         return ClockChime(clock: self, interval: interval, startTime: startTime)
     }
     
+    /// Sets up a repeating chime, optionally starting at a time other than the present instant.
+    ///
+    /// - Parameters:
+    ///   - every: The unit of time that should elapse before the next chime occurs.
+    ///   - startTime: The time to start counting at before the first chime occurs.
+    /// - Returns: A ``ClockChime`` which emits fixed time values at the moment of each chime.
     public func chime<U: Unit>(every unit: U.Type,
                                startingFrom startTime: Fixed<U>? = nil) -> ClockChime<U> {
         let interval = TimeDifference<U, Era>(value: 1, unit: U.component)
@@ -35,7 +41,6 @@ extension RegionalClock {
     
     /// Sets up a repeating chime for each unit that matches the given closure.
     ///
-    /// For example:
     /// ```
     /// // Chimes every hour at *:00, *:13, *:26, *:39, *:52
     /// clock.chime(when: { (time: Fixed<Minute>) in
@@ -48,7 +53,7 @@ extension RegionalClock {
     ///   whether it should be published.
     ///   - time: A prospective time value.
     ///
-    /// - Returns: A publisher which publishes fixed time values at the moment of each chime.
+    /// - Returns: A ``ClockChime`` which emits fixed time values at the moment of each chime.
     public func chime<U: Unit>(producing unit: U.Type = U.self,
                                when matches: @escaping (_ time: Fixed<U>) -> Bool) -> ClockChime<U> {
         return ClockChime(clock: self, when: matches)
@@ -61,7 +66,7 @@ extension RegionalClock {
     ///
     /// - Parameter time: The time at which the chime should occur.
     ///
-    /// - Returns: A publisher which publishes the current fixed time and then completes.
+    /// - Returns: A ``ClockChime`` which emits the current fixed time and then completes.
     public func chime<U: Unit>(at time: Fixed<U>) -> ClockChime<U> {
         return ClockChime(clock: self, at: time)
     }
@@ -167,9 +172,9 @@ extension ClockChime: AsyncSequence {
 
 private class ChimeSubscription<SubscriberType, U>: Subscription
     where U: Unit,
-    SubscriberType: Subscriber,
-    SubscriberType.Failure == ClockChime<U>.Failure,
-SubscriberType.Input == ClockChime<U>.Output {
+          SubscriberType: Subscriber,
+          SubscriberType.Failure == ClockChime<U>.Failure,
+          SubscriberType.Input == ClockChime<U>.Output {
     
     private var subscriber: SubscriberType?
     private let clock: any RegionalClock

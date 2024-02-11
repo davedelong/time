@@ -17,8 +17,8 @@ extension Fixed where Smallest: LTOEDay {
 }
 
 /*
- Technically using a time style requires second-level precision. However, it seems
- reasonable to assume that formatting a minute with a time should use `:00` as the seconds.
+ Technically using a time style requires second-level precision, since `.full`, `.long`, and `.medium` all display it.
+ However, it seems reasonable to assume that formatting a minute with a time should use `:00` as the seconds if requested.
  
  Formatting happens using the `dateForFormatting()`, which picks the first instant of the represented range.
  */

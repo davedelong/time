@@ -44,6 +44,7 @@ public struct Instant: Hashable, Comparable, InstantProtocol, Sendable {
     /// The number of seconds between the `Epoch` and the `Instant`.
     public let intervalSinceEpoch: SISeconds
     
+    /// The number seconds between the reference epoch and the `Instant`
     public var intervalSinceReferenceEpoch: SISeconds { epoch.offsetFromReferenceDate + intervalSinceEpoch }
 
     /// Convert the `Instant` into its `Foundation.Date` representation.

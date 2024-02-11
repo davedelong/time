@@ -118,6 +118,11 @@ public struct SISeconds: RawRepresentable, Hashable, Comparable, DurationProtoco
         hasher.combine(rawValue)
     }
     
+    public var magnitude: Self {
+        if rawValue >= .zero { return self }
+        return SISeconds(-rawValue)
+    }
+    
 }
 
 extension SISeconds: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {

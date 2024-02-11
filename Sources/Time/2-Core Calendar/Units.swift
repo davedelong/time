@@ -15,78 +15,108 @@ import Foundation
  
  */
 
+// the @_documentation attribute is from https://github.com/apple/swift/pull/60242
+
 public protocol Unit {
+    @_documentation(visibility: internal)
     static var _closer: ProtocolCloser<Self> { get }
     static var component: Calendar.Component { get }
 }
 
-public struct Nanosecond: Unit, LTOENanosecond, GTOENanosecond {
+public enum Nanosecond: Unit, LTOENanosecond, GTOENanosecond {
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
     public static let component: Calendar.Component = .nanosecond
-    private init() { }
 }
 
-public struct Second: Unit, LTOESecond, GTOESecond {
+public enum Second: Unit, LTOESecond, GTOESecond {
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
     public static let component: Calendar.Component = .second
-    private init() { }
 }
 
-public struct Minute: Unit, LTOEMinute, GTOEMinute {
+public enum Minute: Unit, LTOEMinute, GTOEMinute {
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
     public static let component: Calendar.Component = .minute
-    private init() { }
 }
 
-public struct Hour: Unit, LTOEHour, GTOEHour {
+public enum Hour: Unit, LTOEHour, GTOEHour {
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
     public static let component: Calendar.Component = .hour
-    private init() { }
 }
 
-public struct Day: Unit, LTOEDay, GTOEDay {
+public enum Day: Unit, LTOEDay, GTOEDay {
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
     public static let component: Calendar.Component = .day
-    private init() { }
 }
 
-public struct Month: Unit, LTOEMonth, GTOEMonth {
+public enum Month: Unit, LTOEMonth, GTOEMonth {
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
     public static let component: Calendar.Component = .month
-    private init() { }
 }
 
-public struct Year: Unit, LTOEYear, GTOEYear {
+public enum Year: Unit, LTOEYear, GTOEYear {
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
     public static let component: Calendar.Component = .year
-    private init() { }
 }
 
-public struct Era: Unit, LTOEEra, GTOEEra {
+public enum Era: Unit, LTOEEra, GTOEEra {
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
     public static let component: Calendar.Component = .era
-    private init() { }
 }
 
 // protocols used to define relative unit durations
+
+@_documentation(visibility: internal)
 public protocol LTOEEra: Unit { }
+
+@_documentation(visibility: internal)
 public protocol LTOEYear: LTOEEra { }
+
+@_documentation(visibility: internal)
 public protocol LTOEMonth: LTOEYear { }
+
+@_documentation(visibility: internal)
 public protocol LTOEDay: LTOEMonth { }
+
+@_documentation(visibility: internal)
 public protocol LTOEHour: LTOEDay { }
+
+@_documentation(visibility: internal)
 public protocol LTOEMinute: LTOEHour { }
+
+@_documentation(visibility: internal)
 public protocol LTOESecond: LTOEMinute { }
+
+@_documentation(visibility: internal)
 public protocol LTOENanosecond: LTOESecond { }
 
+
+@_documentation(visibility: internal)
 public protocol GTOENanosecond: Unit { }
+
+@_documentation(visibility: internal)
 public protocol GTOESecond: GTOENanosecond { }
+
+@_documentation(visibility: internal)
 public protocol GTOEMinute: GTOESecond { }
+
+@_documentation(visibility: internal)
 public protocol GTOEHour: GTOEMinute { }
+
+@_documentation(visibility: internal)
 public protocol GTOEDay: GTOEHour { }
+
+@_documentation(visibility: internal)
 public protocol GTOEMonth: GTOEDay { }
+
+@_documentation(visibility: internal)
 public protocol GTOEYear: GTOEMonth { }
+
+@_documentation(visibility: internal)
 public protocol GTOEEra: GTOEYear { }
 
+// A type used to prevent types outside of this package from adopting the Unit protocol
+
+@_documentation(visibility: internal)
 public struct ProtocolCloser<U: Unit> {
     fileprivate init() { }
 }
