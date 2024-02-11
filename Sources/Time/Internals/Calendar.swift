@@ -54,14 +54,18 @@ extension Calendar {
         return proposed
     }
     
-    internal func range(containing date: Date, in units: Set<Calendar.Component>) -> Range<Date> {
+    internal func range(of unit: Calendar.Component, containing date: Date) -> Range<Date> {
         var start = Date()
         var length: TimeInterval = 0
-        let smallest = Calendar.Component.smallest(from: units)
-        let succeeded = self.dateInterval(of: smallest, start: &start, interval: &length, for: date)
+        let succeeded = self.dateInterval(of: unit, start: &start, interval: &length, for: date)
         require(succeeded, "We should always be able to get the range of a calendar component")
         
         return start ..< start.addingTimeInterval(length)
+    }
+    
+    internal func range(containing date: Date, in units: Set<Calendar.Component>) -> Range<Date> {
+        let smallest = Calendar.Component.smallest(from: units)
+        return self.range(of: smallest, containing: date)
     }
     
 }

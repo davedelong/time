@@ -77,9 +77,18 @@ internal extension DateComponents {
                               yearForWeekOfYear: s(yearForWeekOfYear))
     }
     
+    func has(component: Calendar.Component) -> Bool {
+        let val = self.value(for: component)
+        return val != nil && val != NSNotFound
+    }
+    
     var representedComponents: Set<Calendar.Component> {
-        let contained = Calendar.Component.ascendingOrder.filter { self.value(for: $0) != nil }
+        let contained = Calendar.Component.ascendingOrder.filter { self.has(component: $0) }
         return Set(contained)
+    }
+    
+    var smallestRepresentedComponent: Calendar.Component? {
+        return Calendar.Component.ascendingOrder.first(where: { self.has(component: $0) })
     }
     
     func isLessThan(other: DateComponents) -> Bool {

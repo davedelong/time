@@ -91,4 +91,17 @@ extension Calendar.Component {
         return components
     }
     
+    internal var nextLargest: Self? {
+        guard let index = Self.ascendingOrder.firstIndex(of: self) else { return nil }
+        let nextIndex = index + 1
+        guard nextIndex < Self.ascendingOrder.endIndex else { return nil }
+        return Self.ascendingOrder[nextIndex]
+    }
+    
+    internal var nextSmallest: Self? {
+        guard let index = Self.ascendingOrder.firstIndex(of: self) else { return nil }
+        let nextIndex = index - 1
+        guard nextIndex > 0 else { return nil }
+        return Self.ascendingOrder[nextIndex]
+    }
 }

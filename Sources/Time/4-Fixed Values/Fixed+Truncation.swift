@@ -13,7 +13,7 @@ extension Fixed where Smallest: LTOEYear {
     ///
     /// In effect, this property returns a truncated version of the receiver;
     /// all of the calendar units smaller than the era will be removed.
-    public var fixedEra: Fixed<Era> { subComponents() }
+    public var fixedEra: Fixed<Era> { truncated() }
 }
 
 extension Fixed where Smallest: LTOEMonth {
@@ -22,7 +22,7 @@ extension Fixed where Smallest: LTOEMonth {
     ///
     /// In effect, this property returns a truncated version of the receiver;
     /// all of the calendar units smaller than the year will be removed.
-    public var fixedYear: Fixed<Year> { subComponents() }
+    public var fixedYear: Fixed<Year> { truncated() }
 }
 
 extension Fixed where Smallest: LTOEDay {
@@ -31,7 +31,7 @@ extension Fixed where Smallest: LTOEDay {
     ///
     /// In effect, this property returns a truncated version of the receiver;
     /// all of the calendar units smaller than the month will be removed.
-    public var fixedMonth: Fixed<Month> { subComponents() }
+    public var fixedMonth: Fixed<Month> { truncated() }
 }
 
 extension Fixed where Smallest: LTOEHour {
@@ -40,7 +40,7 @@ extension Fixed where Smallest: LTOEHour {
     ///
     /// In effect, this property returns a truncated version of the receiver;
     /// all of the calendar units smaller than the day will be removed.
-    public var fixedDay: Fixed<Day> { subComponents() }
+    public var fixedDay: Fixed<Day> { truncated() }
 }
 
 extension Fixed where Smallest: LTOEMinute {
@@ -49,7 +49,7 @@ extension Fixed where Smallest: LTOEMinute {
     ///
     /// In effect, this property returns a truncated version of the receiver;
     /// all of the calendar units smaller than the hour will be removed.
-    public var fixedHour: Fixed<Hour> { subComponents() }
+    public var fixedHour: Fixed<Hour> { truncated() }
 }
 
 extension Fixed where Smallest: LTOESecond {
@@ -58,7 +58,7 @@ extension Fixed where Smallest: LTOESecond {
     ///
     /// In effect, this property returns a truncated version of the receiver;
     /// all of the calendar units smaller than the minute will be removed.
-    public var fixedMinute: Fixed<Minute> { subComponents() }
+    public var fixedMinute: Fixed<Minute> { truncated() }
 }
 
 extension Fixed where Smallest: LTOENanosecond {
@@ -67,5 +67,5 @@ extension Fixed where Smallest: LTOENanosecond {
     ///
     /// In effect, this property returns a truncated version of the receiver;
     /// all of the calendar units smaller than the second will be removed.
-    public var fixedSecond: Fixed<Second> { subComponents() }
+    public var fixedSecond: Fixed<Second> { truncated() }
 }

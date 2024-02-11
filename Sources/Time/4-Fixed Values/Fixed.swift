@@ -105,8 +105,8 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
         self.init(region: region, date: date)
     }
     
-    internal func subComponents<S: Unit>() -> Fixed<S> {
-        return try! Fixed<S>(region: region, dateComponents: dateComponents)
+    internal func truncated<U: Unit>() -> Fixed<U> {
+        return Fixed<U>(region: region, instant: self.instant)
     }
     
     /// Construct a new `Fixed` value by converting the receiver to a new `Region`.
