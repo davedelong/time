@@ -67,7 +67,7 @@ final class ClockChimeTests: XCTestCase {
     func testImmediateChime() {
         let chimesOnce = expectation(description: "Clock chimes immediately")
         let completes = expectation(description: "Chime completes")
-        let now = clock.thisSecond
+        let now = clock.currentSecond
         
         clock
             .chime(at: now) // Should fire immediately
@@ -83,11 +83,11 @@ final class ClockChimeTests: XCTestCase {
     }
     
     func testImmediateChimeAsync() async throws {
-        let start = clock.thisSecond
+        let start = clock.currentSecond
         
         var chimeCount = 0
         for try await time in clock.chime(at: start) {
-            let now = clock.thisSecond
+            let now = clock.currentSecond
             XCTAssertEqual(start, now)
             XCTAssertEqual(time, now)
             chimeCount += 1
@@ -209,7 +209,7 @@ final class ClockChimeTests: XCTestCase {
     func testIntervalChimeWithPastStart() {
         let chimes = expectation(description: "Clock chimes once")
         
-        let thisSecond = clock.thisSecond
+        let thisSecond = clock.currentSecond
         let aMinuteAgo = thisSecond.subtracting(minutes: 1)
         
         clock
@@ -226,7 +226,7 @@ final class ClockChimeTests: XCTestCase {
     }
     
     func testIntervalChimeWithPastStartAsync() async throws {
-        let thisSecond = clock.thisSecond
+        let thisSecond = clock.currentSecond
         let aMinuteAgo = thisSecond.subtracting(minutes: 1)
         
         var chimeCount = 0
