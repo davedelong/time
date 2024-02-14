@@ -7,16 +7,52 @@
 
 import Foundation
 
-extension Fixed where Granularity: GTOEDay {
+extension Fixed where Granularity: GTOEDay, Granularity: LTOEYear {
     
+    /// Retrieve the first hour of this fixed value
     public var firstHour: Fixed<Hour> { return first() }
-    public var lastHour: Fixed<Hour> { return last() }
-    public func nthHour(_ ordinal: Int) throws -> Fixed<Hour> { return try nth(ordinal) }
-    public func hour(_ number: Int) -> Fixed<Hour>? { return numbered(number) }
     
+    /// Retrieve the last hour of this fixed value
+    public var lastHour: Fixed<Hour> { return last() }
+    
+    /// Retrieve a specific 1-based hour from this fixed value.
+    ///
+    /// Example:
+    /// ```
+    /// let firstHour = try thisFixedDay.nthHour(1)
+    /// let secondHour = try thisFixedDay.nthHour(2)
+    /// ```
+    ///
+    /// - Parameter ordinal: The offset of the desired hour, as measured from the start of this value's range
+    /// - Returns: a fixed hour
+    /// - Throws: This method throws a ``TimeError`` if `ordinal` is outside the range of values allowed by the `.calendar`.
+    ///
+    /// - Note: The allowable values for `ordinal` depends on the fixed value's `.calendar` and granularity.
+    /// For example, getting the `.nthHour(50)` of a `Fixed<Day>` will throw an error, because no supported calendar has 50 hours in a day.
+    /// However, getting the `.nthHour(50)` of a `Fixed<Month>` is fine, because months typically have many more than 50 hours in it.
+    ///
+    /// - Warning: This method does not guarantee a correspondance between the `ordinal` and the returned value's `.hour`. Offsetting
+    /// and missing hours (or extra hours) may mean that the `.hour` value may be less than, equal to, or greater than the `ordinal` parameter.
+    public func nthHour(_ ordinal: Int) throws -> Fixed<Hour> { return try nth(ordinal) }
+    
+    /// Get a sequence of all the hours in this fixed value.
+    ///
+    /// - If this is a `Fixed<Day>`, the sequence will produce approximately 24 `Fixed<Hour>` values.
+    /// - If this is a `Fixed<Month>`, the sequence will produce between about 100 and 750 `Fixed<Hour>` values,
+    /// depending on the length of the month.
+    /// - If this value is a `Fixed<Year>`, the sequence will produce all the hours in the year
     public var hours: FixedSequence<Hour> {
         return FixedSequence(parent: self)
     }
+    
+}
+
+extension Fixed where Granularity == Day {
+    
+    /// Retrieve an hour on this day with a specific number
+    /// - Parameter number: The number of the hour (`0`, `13`, etc)
+    /// - Returns: A `Fixed<Hour>` whose `.hour` is equal to the provided `number`, or `nil` if no such hour can be found
+    public func hour(_ number: Int) -> Fixed<Hour>? { return numbered(number) }
     
 }
 

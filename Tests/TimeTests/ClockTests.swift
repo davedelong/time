@@ -54,7 +54,7 @@ class ClockTests: XCTestCase {
     ]
     
     func testWeeksInYear() {
-        let thisYear = Clocks.system.thisYear
+        let thisYear = Clocks.system.currentYear
         let daysInTheYear = Array(thisYear.days)
         
         let weeks = daysInTheYear.slice(between: { $0.weekOfYear != $1.weekOfYear })
@@ -174,7 +174,7 @@ extension ClockTests {
             locale: .autoupdatingCurrent)
         
         let clock = Clocks.system(in: region)
-        let instantNextYear = (clock.thisDay + .years(1)).firstInstant
+        let instantNextYear = (clock.currentDay + .years(1)).firstInstant
         
         let nextDSTSeconds = clock
             .nextDaylightSavingTimeTransition(after: instantNextYear)?.intervalSinceEpoch.timeInterval
@@ -208,7 +208,7 @@ extension ClockTests {
             locale: .autoupdatingCurrent)
 
         let clock = Clocks.system(in: region)
-        let instantNextYear = (clock.thisDay + .years(1)).firstInstant
+        let instantNextYear = (clock.currentDay + .years(1)).firstInstant
         
         let nextDSTSeconds = clock
             .nextDaylightSavingTimeTransition(after: instantNextYear)?.intervalSinceEpoch.rawValue
@@ -227,7 +227,7 @@ extension ClockTests {
         let r = Region(calendar: calendar, timeZone: .current, locale: .current)
         let c = Clocks.system(in: r)
         
-        let now = c.thisSecond
+        let now = c.currentSecond
         
         XCTAssertNotEqual(now.calendar, calendar)
     }
@@ -236,7 +236,7 @@ extension ClockTests {
         let r = Region(calendar: .current, timeZone: .autoupdatingCurrent, locale: .current)
         let c = Clocks.system(in: r)
         
-        let now = c.thisSecond
+        let now = c.currentSecond
         
         XCTAssertNotEqual(now.timeZone, r.timeZone)
     }
@@ -245,7 +245,7 @@ extension ClockTests {
         let r = Region(calendar: .current, timeZone: .current, locale: .autoupdatingCurrent)
         let c = Clocks.system(in: r)
         
-        let now = c.thisSecond
+        let now = c.currentSecond
         
         XCTAssertNotEqual(now.locale, r.locale)
     }
@@ -254,7 +254,7 @@ extension ClockTests {
         let r = Region.autoupdatingCurrent
         let c = Clocks.system(in: r)
         
-        let now = c.thisSecond
+        let now = c.currentSecond
         
         XCTAssertNotEqual(now.region, r)
     }

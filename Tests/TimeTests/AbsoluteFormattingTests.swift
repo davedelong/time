@@ -25,7 +25,7 @@ class FixedFormattingTests: XCTestCase {
     let clock = Clocks.custom(startingFrom: Instant(interval: 0, since: .reference), rate: 0.001, region: .posix)
     
     func testEraFormatting() {
-        let v = clock.thisEra
+        let v = clock.currentEra
         
         XCTAssertEqual(v.format(era: .wide), "Anno Domini")
         XCTAssertEqual(v.format(era: .abbreviated), "AD")
@@ -33,7 +33,7 @@ class FixedFormattingTests: XCTestCase {
     }
     
     func testYearFormatting() {
-        let v = clock.thisYear
+        let v = clock.currentYear
         
         XCTAssertEqual(v.format(year: .naturalDigits), "2001")
         XCTAssertEqual(v.format(year: .twoDigits), "01")
@@ -45,7 +45,7 @@ class FixedFormattingTests: XCTestCase {
     }
     
     func testMonthFormatting() {
-        let v = clock.thisMonth
+        let v = clock.currentMonth
         
         XCTAssertEqual(v.format(month: .naturalName), "January")
         XCTAssertEqual(v.format(month: .abbreviatedName), "Jan")
@@ -67,7 +67,7 @@ class FixedFormattingTests: XCTestCase {
     }
     
     func testDayFormatting() {
-        let v = clock.thisDay
+        let v = clock.currentDay
         
         XCTAssertEqual(v.format(weekday: .naturalName), "Monday")
         XCTAssertEqual(v.format(weekday: .abbreviatedName), "Mon")
@@ -93,7 +93,7 @@ class FixedFormattingTests: XCTestCase {
     }
     
     func testRawFormatting_Strict() {
-        let v = clock.thisMonth
+        let v = clock.currentMonth
         
         XCTAssertNoThrow(try v.format(raw: "yyyy"), "This should not throw")
         XCTAssertNoThrow(try v.format(raw: "y-MM"), "This should not throw")
@@ -108,7 +108,7 @@ class FixedFormattingTests: XCTestCase {
     }
     
     func testRawFormatting_Lenient() {
-        let v = clock.thisMonth
+        let v = clock.currentMonth
         
         XCTAssertEqual(try v.format(raw: "y-MM-dd", strict: false), "2001-01-01")
         XCTAssertEqual(try v.format(raw: "y-MM-dd 'at' HH:mm:ss", strict: false), "2001-01-01 at 00:00:00")

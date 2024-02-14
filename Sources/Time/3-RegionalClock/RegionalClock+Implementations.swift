@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// The device's wall clock
 internal struct SystemClock: RegionalClock {
 
     internal let region: Region
@@ -21,6 +22,7 @@ internal struct SystemClock: RegionalClock {
     
 }
 
+/// A clock that offsets another clock by a specified interval
 internal struct OffsetClock: RegionalClock {
     
     internal let base: any RegionalClock
@@ -40,6 +42,7 @@ internal struct OffsetClock: RegionalClock {
     
 }
 
+/// A clock that scales another clock by a specified rate
 internal struct ScaledClock: RegionalClock {
     
     internal let base: any RegionalClock
@@ -71,6 +74,7 @@ internal struct ScaledClock: RegionalClock {
     
 }
 
+/// A clock that starts from a specific instant and moves at a specific rate.
 internal struct CustomClock: RegionalClock {
     
     let systemStart: Instant
@@ -96,6 +100,7 @@ internal struct CustomClock: RegionalClock {
     
 }
 
+/// A clock that overrides another clock's region
 internal struct CustomRegionClock: RegionalClock {
     
     private let base: any RegionalClock

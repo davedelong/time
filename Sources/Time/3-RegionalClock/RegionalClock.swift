@@ -8,6 +8,11 @@
 import Foundation
 
 /// A `RegionalClock` is how you know what "now" is.
+///
+/// `RegionalClocks` conform to the `Clock` protocol from Foundation and provide a standard implementation for some of its functionality.
+/// All `RegionalClocks` use the same types for their instant and duration values (``Instant`` and ``SISeconds`` respectively).
+///
+/// When implementing a custom `RegionalClock`, the two things that must be implemented are `.region` and `.now`.
 public protocol RegionalClock: Clock where Instant == Time.Instant, Duration == Time.SISeconds {
     
     /// The clock's `Region`, used for creating calendrical values.
@@ -27,10 +32,15 @@ public protocol RegionalClock: Clock where Instant == Time.Instant, Duration == 
 
 extension RegionalClock {
     
+    /// The default implementation
     public var SISecondsPerClockSecond: Double { return 1.0 }
     
+    /// The default implementation (1e-9)
     public var minimumResolution: SISeconds { return SISeconds(1.0 / Double(NSEC_PER_SEC)) }
     
+    /// Suspend the current concurrency task until the specified deadline, relative to this clock
+    /// - Parameter deadline: The `Instant` at which this task should wake up again, relative to this clock
+    /// - Parameter tolerance: How much leeway there is in missing the deadline
     public func sleep(until deadline: Instant, tolerance: Instant.Duration?) async throws {
         let now = self.now
         let difference = now - deadline
@@ -54,13 +64,13 @@ extension RegionalClock {
 
 extension RegionalClock {
     
-    /// The `Calendar` used by the `Clock`, as defined by its `region`.
+    /// The `Calendar` used by the `RegionalClock`, as defined by its `region`.
     public var calendar: Calendar { region.calendar }
     
-    /// The `TimeZone` used by the `Clock`, as defined by its `region`.
+    /// The `TimeZone` used by the `RegionalClock`, as defined by its `region`.
     public var timeZone: TimeZone { region.timeZone }
     
-    /// The `Locale` used by the `Clock`, as defined by its `region`.
+    /// The `Locale` used by the `RegionalClock`, as defined by its `region`.
     public var locale: Locale { region.locale }
     
     /// Offset a clock.
@@ -91,7 +101,6 @@ extension RegionalClock {
         return timeZone.nextDaylightSavingTimeTransition(after: afterInstant.date).map(Instant.init)
     }
     
-    
     /// Convert a clock to a new time zone.
     ///
     /// - Parameter timeZone: The `TimeZone` of the new `RegionalClock`.
@@ -108,8 +117,8 @@ extension RegionalClock {
     /// - Returns: A new `RegionalClock` that reports values in the specified `Calendar`.
     public func converting(to calendar: Calendar) -> any RegionalClock {
         if calendar == self.calendar { return self }
-        // TODO: if the new calendar defines a different scaling of SI Seconds... ?
-        // TODO: this needs to manipulate the core `date`
+        #warning("TODO: if the new calendar defines a different scaling of SI Seconds... ?")
+        #warning("TODO: this needs to manipulate the core `date`")
         let newRegion = self.region.setCalendar(calendar)
         return self.converting(to: newRegion)
     }
@@ -129,8 +138,8 @@ extension RegionalClock {
     /// - Parameter region: The `Region` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `Region`.
     public func converting(to newRegion: Region) -> any RegionalClock {
-        // TODO: compare the existing region to the new region and short-circuit if possible
-        // TODO: if the new calendar defines a different scaling of SI Seconds... ?
+        #warning("TODO: compare the existing region to the new region and short-circuit if possible")
+        #warning("TODO: if the new calendar defines a different scaling of SI Seconds... ?")
         return CustomRegionClock(base: self, region: newRegion)
     }
 }

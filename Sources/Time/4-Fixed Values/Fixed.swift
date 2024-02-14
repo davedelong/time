@@ -7,17 +7,29 @@
 
 import Foundation
 
-/// An `Fixed<U>` is a type that corresponds to one (and only one) value
-/// on a physical calendar. For example, there is only one "October 2019 CE"
-/// on the Gregorian calendar.
+/// A `Fixed<U>` is a type that corresponds to one (and only one) value on a physical calendar. When you think of "a calendar value", you're thinking of a `Fixed<U>`.
 ///
-/// The defining characteristic of `Fixed<U>` values is that they contain
-/// all calendar components starting from their lower unit up-to-and-including
-/// the `Era` unit.
+/// Some examples of fixed values are:
+/// - The Reiwa era on the Japanese calendar (`Fixed<Era>`)
+/// - The year 2567 BE on the Buddhist calendar (`Fixed<Year>`)
+/// - The month of Magha 1945 Saka on the Indian calendar (`Fixed<Month>`)
+/// - The day Shaʻban 3, 1445 AH on the Islamic calendar (`Fixed<Day>`)
+/// - The hour Bahman 23, 1402 AP at 9 AM on the Persian calendar (`Fixed<Hour>`)
+/// - The minute Yekatit 4, 2016 ERA1 at 9:16 AM on the Ethiopic calendar (`Fixed<Minute>`)
+/// - The second February 12, 113 Minguo at 9:16:53 AM on the Republic of China calendar (`Fixed<Second>`)
+/// - The nanosecond February 12, 2024 at 9:16:53.423182374  AM on the Gregorian calendar (`Fixed<Nanosecond>`)
 ///
-/// All `Fixed` values have a `Region`, which defines the calendar, timezone, and
+/// All `Fixed` values have a ``Region``, which defines the calendar, timezone, and
 /// locale used in computing the underlying component values.
-public struct Fixed<Smallest: Unit & LTOEEra> {
+///
+/// Varying amounts of functionality are available to `Fixed` values depending on its **granularity**
+/// and some methods and properties may slightly alter their behavior and semantics depending on their receiver's specified unit.
+///
+/// Fixed values are Equatable, Hashable, Comparable, Sendable, and Codable.
+public struct Fixed<Granularity: Unit & LTOEEra> {
+    
+    @available(*, deprecated, message: "The `Smallest` generic parameter has been renamed", renamed: "Granularity")
+    public typealias Smallest = Granularity
     
     internal static func restrict(dateComponents: DateComponents, lenient: Set<Calendar.Component>) throws -> DateComponents {
         return try dateComponents.requireAndRestrict(to: representedComponents, lenient: lenient)
@@ -61,7 +73,8 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     /// - Parameter region: The `Region` in which to interpret the point in time
     /// - Parameter instant: The `Instant` that is contained by the constructed `Fixed` value
     public init(region: Region, instant: Instant) {
-        let dateComponents = region.calendar.dateComponents(Self.representedComponents, from: instant.date)
+        let dateComponents = region.calendar.dateComponents(in: region.timeZone, from: instant.date)
+                                            .restrict(to: Self.representedComponents)
         self.init(region: region, instant: instant, components: dateComponents)
     }
     
@@ -69,7 +82,8 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     /// - Parameter region: The `Region` in which to interpret the point in time
     /// - Parameter instant: The `Date` that is contained by the constructed `Fixed` value
     public init(region: Region, date: Foundation.Date) {
-        let dateComponents = region.calendar.dateComponents(Self.representedComponents, from: date)
+        let dateComponents = region.calendar.dateComponents(in: region.timeZone, from: date)
+                                            .restrict(to: Self.representedComponents)
         self.init(region: region, instant: Instant(date: date), components: dateComponents)
     }
     
@@ -89,6 +103,7 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     /// - Parameter strictDateComponents: The `DateComponents` describing the desired calendrical date
     public init(region: Region, strictDateComponents: DateComponents) throws {
         let date = try region.calendar.exactDate(from: strictDateComponents, 
+                                                 in: region.timeZone,
                                                  matching: Self.representedComponents)
         self.init(region: region, instant: Instant(date: date), components: strictDateComponents)
     }

@@ -25,43 +25,93 @@ public protocol Unit {
     static var component: Calendar.Component { get }
 }
 
+/// The representation of nanoseconds to the Swift type system
+///
+/// This type is always used as a generic parameter, such as in `Fixed<Nanosecond>`.
 public enum Nanosecond: Unit, LTOENanosecond, GTOENanosecond {
+    #if swift(>=5.8)
+    @_documentation(visibility: internal)
+    #endif
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
+    
+    /// This type represents the `.nanosecond` calendar component
     public static let component: Calendar.Component = .nanosecond
 }
 
+/// The representation of seconds to the Swift type system
 public enum Second: Unit, LTOESecond, GTOESecond {
+    #if swift(>=5.8)
+    @_documentation(visibility: internal)
+    #endif
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
+    
+    /// This type represents the `.second` calendar component
     public static let component: Calendar.Component = .second
 }
 
+/// The representation of minutes to the Swift type system
 public enum Minute: Unit, LTOEMinute, GTOEMinute {
+    #if swift(>=5.8)
+    @_documentation(visibility: internal)
+    #endif
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
+    
+    /// This type represents the `.minute` calendar component
     public static let component: Calendar.Component = .minute
 }
 
+/// The representation of hours to the Swift type system
 public enum Hour: Unit, LTOEHour, GTOEHour {
+    #if swift(>=5.8)
+    @_documentation(visibility: internal)
+    #endif
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
+    
+    /// This type represents the `.hour` calendar component
     public static let component: Calendar.Component = .hour
 }
 
+/// The representation of days to the Swift type system
 public enum Day: Unit, LTOEDay, GTOEDay {
+    #if swift(>=5.8)
+    @_documentation(visibility: internal)
+    #endif
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
+    
+    /// This type represents the `.day` calendar component
     public static let component: Calendar.Component = .day
 }
 
+/// The representation of months to the Swift type system
 public enum Month: Unit, LTOEMonth, GTOEMonth {
+    #if swift(>=5.8)
+    @_documentation(visibility: internal)
+    #endif
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
+    
+    /// This type represents the `.month` calendar component
     public static let component: Calendar.Component = .month
 }
 
+/// The representation of years to the Swift type system
 public enum Year: Unit, LTOEYear, GTOEYear {
+    #if swift(>=5.8)
+    @_documentation(visibility: internal)
+    #endif
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
+    
+    /// This type represents the `.year` calendar component
     public static let component: Calendar.Component = .year
 }
 
+/// The representation of eras to the Swift type system
 public enum Era: Unit, LTOEEra, GTOEEra {
+    #if swift(>=5.8)
+    @_documentation(visibility: internal)
+    #endif
     public static let _closer: ProtocolCloser<Self> = ProtocolCloser()
+    
+    /// This type represents the `.era` calendar component
     public static let component: Calendar.Component = .era
 }
 

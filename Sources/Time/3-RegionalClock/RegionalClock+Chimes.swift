@@ -27,6 +27,11 @@ extension RegionalClock {
     
     /// Sets up a repeating chime, optionally starting at a time other than the present instant.
     ///
+    /// ```
+    /// // Chime every minute
+    /// clock.chime(every: Minute.self)
+    /// ```
+    ///
     /// - Parameters:
     ///   - every: The unit of time that should elapse before the next chime occurs.
     ///   - startTime: The time to start counting at before the first chime occurs.
@@ -71,6 +76,29 @@ extension RegionalClock {
     
 }
 
+#warning("TODO: rename Chime -> Strike?")
+#warning("TODO: conform Chime: Sequence?")
+
+/// A type representing zero or more times at which a ``RegionalClock`` will "chime".
+///
+/// ``ClockChime`` conforms to the `AsyncSequence` protocol and can be used in async for loops:
+///
+/// ```
+/// for try await nextMinute in someClock.chime(every: Minute.self) {
+///    // one clock minute has passed since the previous chime
+///    print("The time is now \(nextMinute)")
+/// }
+/// ```
+///
+/// On platforms where the Combine framework is available, ``ClockChime`` also conforms to the `Publisher` protocol:
+///
+/// ```
+/// someClock.chime(every: Minute.self)
+///          .sink { nextMinute in
+///            print("The time is now \(nextMinute")
+///          }
+///          .store(in: &someCancellableSet)
+/// ```
 public struct ClockChime<U: Unit & LTOEEra> {
     
     fileprivate let clock: any RegionalClock
@@ -81,7 +109,7 @@ public struct ClockChime<U: Unit & LTOEEra> {
         self.values = AnyIterator(iterator)
     }
     
-    /// Create a publisher that will emit a value after a specified calendar interval,
+    /// Create a chime that will emit a value after a specified calendar interval,
     /// when that value matches the provided predicate.
     ///
     /// - Parameters:
@@ -94,12 +122,12 @@ public struct ClockChime<U: Unit & LTOEEra> {
                 startTime: Fixed<U>?,
                 predicate: @escaping (_ time: Fixed<U>) -> Bool = { _ in true }) {
         
-        let start = startTime ?? clock.this()
+        let start = startTime ?? clock.current()
         let i = FixedSequence(start: start, stride: interval).lazy.filter(predicate).makeIterator()
         self.init(clock: clock, iterator: i)
     }
     
-    /// Create a publisher that emits values that match a provided predicate.
+    /// Create a chime that emits values that match a provided predicate.
     /// - Parameters:
     ///   - clock: The `RegionalClock` to use for producing calendar values
     ///   - matches: Only values matching this predicate will be emitted.
@@ -108,12 +136,12 @@ public struct ClockChime<U: Unit & LTOEEra> {
         self.init(clock: clock, interval: interval, startTime: nil, predicate: matches)
     }
     
-    /// Create a publisher that emits at most one value at the specified time.
+    /// Create a chime that emits at most one value at the specified time.
     /// - Parameters:
     ///   - clock: The `RegionalClock` to use for producing calendar values.
     ///   - time: The time at which to emit the value. If this value is in the past, then the publisher immediately completes.
     public init(clock: any RegionalClock, at time: Fixed<U>) {
-        let current = clock.this(U.self)
+        let current = clock.current(U.self)
         var values = Array<Fixed<U>>()
         if time >= current {
             values = [time]
@@ -135,7 +163,7 @@ extension ClockChime: AsyncSequence {
         
         public mutating func next() async throws -> Fixed<U>? {
             var nextTime: Fixed<U>? = baseIterator.next()
-            let now = clock.this(U.self)
+            let now = clock.current(U.self)
             while let next = nextTime, next < now {
                 nextTime = baseIterator.next()
             }
@@ -163,6 +191,8 @@ extension ClockChime: Combine.Publisher {
     public typealias Output = Fixed<U>
     public typealias Failure = Never
     
+    /// Set up a new Combine subscription for this `ClockChime`
+    /// - Parameter subscriber: The subscriber that receives chime events
     public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
         let subscription = ChimeSubscription(subscriber: subscriber,
                                              clock: clock,
@@ -193,7 +223,7 @@ private class ChimeSubscription<SubscriberType, U>: Subscription
     
     private func scheduleNextChime() {
         var nextTime: Fixed<U>? = timeIterator.next()
-        let now = clock.this(U.self)
+        let now = clock.current(U.self)
         while let next = nextTime, next < now {
             // make sure we never chime anything in the past
             nextTime = timeIterator.next()

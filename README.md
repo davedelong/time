@@ -34,7 +34,7 @@ There are some examples below showing a sneak peek of what you can do with `Time
 let clock = Clocks.system
 
 // retrieve the current instantaneous time from the clock
-let now = clock.thisInstant()
+let now = clock.now
 
 // retrieve the current calendar day, as defined by the user's region
 let today = clock.today()

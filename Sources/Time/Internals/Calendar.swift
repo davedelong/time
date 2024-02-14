@@ -32,7 +32,7 @@ extension Calendar {
         return [.era]
     }
     
-    internal func exactDate(from components: DateComponents, matching: Set<Calendar.Component>) throws -> Date {
+    internal func exactDate(from components: DateComponents, in timeZone: TimeZone, matching: Set<Calendar.Component>) throws -> Date {
         var restricted = try components.requireAndRestrict(to: matching, lenient: self.lenientUnitsForFixedTimePeriods)
         
         guard let proposed = self.date(from: restricted) else {
@@ -40,7 +40,7 @@ extension Calendar {
             throw TimeError.invalidDateComponents(restricted, in: r)
         }
         
-        let proposedComponents = self.dateComponents(matching, from: proposed)
+        let proposedComponents = self.dateComponents(in: timeZone, from: proposed)
         
         if isEraRelevant == false && restricted.era == nil {
             restricted.era = proposedComponents.era

@@ -90,7 +90,7 @@ class FixedTests: XCTestCase {
     }
     
     func testValuesWithDifferentInstantsAreStillEqual() throws {
-        let thisMinute = Clocks.system.thisMinute
+        let thisMinute = Clocks.system.currentMinute
         
         let firstSecond = thisMinute.firstSecond
         let secondSecond = firstSecond.nextSecond

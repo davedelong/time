@@ -38,6 +38,8 @@ extension Fixed {
     public var lastInstant: Instant { fatalError() }
     
     /// Retrieve the numeric era of a fixed calendrical value.
+    ///
+    /// This value is typically very low (`0` or `1`), but some calendars use eras extensively and can return values much larger.
     public var era: Int { dateComponents.era.unwrap("A Fixed<\(Granularity.self)> must have an era value") }
 }
 

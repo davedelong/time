@@ -37,23 +37,23 @@ class SerializationTests: XCTestCase {
             XCTAssertEqual(timePeriod, decoded, file: file, line: line)
         }
 
-        try testRoundTrip(of: clock.thisYear)
-        try testRoundTrip(of: clock.thisMonth)
-        try testRoundTrip(of: clock.thisDay)
-        try testRoundTrip(of: clock.thisHour)
-        try testRoundTrip(of: clock.thisMinute)
-        try testRoundTrip(of: clock.thisSecond)
-        try testRoundTrip(of: clock.thisNanosecond)
+        try testRoundTrip(of: clock.currentYear)
+        try testRoundTrip(of: clock.currentMonth)
+        try testRoundTrip(of: clock.currentDay)
+        try testRoundTrip(of: clock.currentHour)
+        try testRoundTrip(of: clock.currentMinute)
+        try testRoundTrip(of: clock.currentSecond)
+        try testRoundTrip(of: clock.currentNanosecond)
     }
 
 //    func testNonEraTimePeriod() throws {
-//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Year, Year>(region: .current, instant: Clocks.system.thisInstant()))
-//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Month, Month>(region: .current, instant: Clocks.system.thisInstant()))
-//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Day, Day>(region: .current, instant: Clocks.system.thisInstant()))
-//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Hour, Hour>(region: .current, instant: Clocks.system.thisInstant()))
-//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Minute, Minute>(region: .current, instant: Clocks.system.thisInstant()))
-//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Second, Second>(region: .current, instant: Clocks.system.thisInstant()))
-//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Nanosecond, Nanosecond>(region: .current, instant: Clocks.system.thisInstant()))
+//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Year, Year>(region: .current, instant: Clocks.system.now))
+//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Month, Month>(region: .current, instant: Clocks.system.now))
+//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Day, Day>(region: .current, instant: Clocks.system.now))
+//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Hour, Hour>(region: .current, instant: Clocks.system.now))
+//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Minute, Minute>(region: .current, instant: Clocks.system.now))
+//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Second, Second>(region: .current, instant: Clocks.system.now))
+//        try testRoundTripOfNonEraPeriod(of: TimePeriod<Nanosecond, Nanosecond>(region: .current, instant: Clocks.system.now))
 //
 //    }
 //
