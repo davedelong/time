@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest: GTOEYear {
+extension Fixed where Granularity: GTOEYear {
     
     public var firstMonth: Fixed<Month> { return first() }
     public var lastMonth: Fixed<Month> { return last() }

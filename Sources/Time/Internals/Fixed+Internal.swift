@@ -122,7 +122,7 @@ extension Fixed {
         return Self(region: self.region, instant: nearestStart)
     }
     
-    internal func roundToMultiple(of match: TimeDifference<Smallest, Era>, direction: RoundingDirection) -> Self where Smallest: LTOEYear {
+    internal func roundToMultiple(of match: TimeDifference<Granularity, Era>, direction: RoundingDirection) -> Self where Granularity: LTOEYear {
         /*
          PREMISE:
          - figure out the smallest represented unit in the matching components
@@ -150,8 +150,8 @@ extension Fixed {
         
         let iterationStart = Self(region: self.region, date: baseIterationRange.lowerBound)
         
-        let stride: TimeDifference<Smallest, Era>
-        let boundaryStride = TimeDifference<Smallest, Era>(value: 1, unit: nextLargest)
+        let stride: TimeDifference<Granularity, Era>
+        let boundaryStride = TimeDifference<Granularity, Era>(value: 1, unit: nextLargest)
         
         if represented.count == 1 {
             // this is the simplest case where we can do direct iteration by the specified stride

@@ -15,7 +15,7 @@ extension Fixed {
     
 }
 
-extension Fixed where Smallest: LTOEYear {
+extension Fixed where Granularity: LTOEYear {
     
     public func format(year: Template<Year>,
                        timeZone: Template<TimeZone>? = nil) -> String {
@@ -24,7 +24,7 @@ extension Fixed where Smallest: LTOEYear {
     
 }
 
-extension Fixed where Smallest: LTOEMonth {
+extension Fixed where Granularity: LTOEMonth {
     
     public func format(month: Template<Standalone<Month>>,
                        timeZone: Template<TimeZone>? = nil) -> String {
@@ -33,7 +33,7 @@ extension Fixed where Smallest: LTOEMonth {
     
 }
 
-extension Fixed where Smallest: LTOEDay {
+extension Fixed where Granularity: LTOEDay {
     
     public func format(day: Template<Day>,
                        timeZone: Template<TimeZone>? = nil) -> String {
@@ -47,7 +47,7 @@ extension Fixed where Smallest: LTOEDay {
     
 }
 
-extension Fixed where Smallest: LTOEHour {
+extension Fixed where Granularity: LTOEHour {
     
     public func format(hour: Template<Hour>,
                        timeZone: Template<TimeZone>? = nil) -> String {
@@ -56,7 +56,7 @@ extension Fixed where Smallest: LTOEHour {
     
 }
 
-extension Fixed where Smallest: LTOEMinute {
+extension Fixed where Granularity: LTOEMinute {
     
     public func format(minute: Template<Minute>,
                        timeZone: Template<TimeZone>? = nil) -> String {
@@ -65,7 +65,7 @@ extension Fixed where Smallest: LTOEMinute {
     
 }
 
-extension Fixed where Smallest: LTOESecond {
+extension Fixed where Granularity: LTOESecond {
     
     public func format(second: Template<Second>,
                        timeZone: Template<TimeZone>? = nil) -> String {
@@ -74,7 +74,7 @@ extension Fixed where Smallest: LTOESecond {
     
 }
 
-extension Fixed where Smallest: LTOENanosecond {
+extension Fixed where Granularity: LTOENanosecond {
     
     public func format(nanosecond: Template<Nanosecond>,
                        timeZone: Template<TimeZone>? = nil) -> String {

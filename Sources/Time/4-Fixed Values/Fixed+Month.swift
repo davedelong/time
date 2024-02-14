@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest: GTOEMonth {
+extension Fixed where Granularity: GTOEMonth {
     
     public var firstDay: Fixed<Day> { return first() }
     public var lastDay: Fixed<Day> { return last() }

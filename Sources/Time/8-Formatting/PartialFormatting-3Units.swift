@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest: LTOEDay {
+extension Fixed where Granularity: LTOEDay {
     
     public func format(year: Template<Year>,
                        month: Template<Month>,
@@ -18,7 +18,7 @@ extension Fixed where Smallest: LTOEDay {
     
 }
 
-extension Fixed where Smallest: LTOEHour {
+extension Fixed where Granularity: LTOEHour {
     
     public func format(month: Template<Month>,
                        day: Template<Day>,
@@ -29,7 +29,7 @@ extension Fixed where Smallest: LTOEHour {
     
 }
 
-extension Fixed where Smallest: LTOEMinute {
+extension Fixed where Granularity: LTOEMinute {
     
     public func format(day: Template<Day>,
                        hour: Template<Hour>,
@@ -40,7 +40,7 @@ extension Fixed where Smallest: LTOEMinute {
     
 }
 
-extension Fixed where Smallest: LTOESecond {
+extension Fixed where Granularity: LTOESecond {
     
     public func format(hour: Template<Hour>,
                        minute: Template<Minute>,
@@ -51,7 +51,7 @@ extension Fixed where Smallest: LTOESecond {
     
 }
 
-extension Fixed where Smallest: LTOENanosecond {
+extension Fixed where Granularity: LTOENanosecond {
     
     public func format(minute:Template<Minute>,
                        second: Template<Second>,

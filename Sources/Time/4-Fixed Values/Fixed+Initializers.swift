@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest == Year {
+extension Fixed where Granularity == Year {
     
     /// Construct an `Fixed<Year>` from the specified numeric components.
     /// - Parameters:
@@ -22,7 +22,7 @@ extension Fixed where Smallest == Year {
     
 }
 
-extension Fixed where Smallest == Month {
+extension Fixed where Granularity == Month {
     
     /// Construct an `Fixed<Month>` from the specified numeric components.
     /// - Parameters:
@@ -38,7 +38,7 @@ extension Fixed where Smallest == Month {
     
 }
 
-extension Fixed where Smallest == Day {
+extension Fixed where Granularity == Day {
     
     /// Construct an `Fixed<Day>` from the specified numeric components.
     /// - Parameters:
@@ -55,7 +55,7 @@ extension Fixed where Smallest == Day {
     
 }
 
-extension Fixed where Smallest == Hour {
+extension Fixed where Granularity == Hour {
     
     /// Construct an `Fixed<Hour>` from the specified numeric components.
     /// - Parameters:
@@ -73,7 +73,7 @@ extension Fixed where Smallest == Hour {
     
 }
 
-extension Fixed where Smallest == Minute {
+extension Fixed where Granularity == Minute {
     
     /// Construct an `Fixed<Minute>` from the specified numeric components.
     /// - Parameters:
@@ -92,7 +92,7 @@ extension Fixed where Smallest == Minute {
     
 }
 
-extension Fixed where Smallest == Second {
+extension Fixed where Granularity == Second {
     
     /// Construct an `Fixed<Second>` from the specified numeric components.
     /// - Parameters:
@@ -112,7 +112,7 @@ extension Fixed where Smallest == Second {
     
 }
 
-extension Fixed where Smallest == Nanosecond {
+extension Fixed where Granularity == Nanosecond {
     
     /// Construct an `Fixed<Nanosecond>` from the specified numeric components.
     /// - Parameters:

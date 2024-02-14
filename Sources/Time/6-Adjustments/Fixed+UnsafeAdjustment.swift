@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest: LTOEYear {
+extension Fixed where Granularity: LTOEYear {
     
     public func setting(year: Int) throws -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year))
@@ -15,7 +15,7 @@ extension Fixed where Smallest: LTOEYear {
     
 }
 
-extension Fixed where Smallest: LTOEMonth {
+extension Fixed where Granularity: LTOEMonth {
     
     public func setting(year: Int, month: Int) throws -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month))
@@ -27,7 +27,7 @@ extension Fixed where Smallest: LTOEMonth {
     
 }
 
-extension Fixed where Smallest: LTOEDay {
+extension Fixed where Granularity: LTOEDay {
     
     public func setting(year: Int, month: Int, day: Int) throws -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day))
@@ -43,7 +43,7 @@ extension Fixed where Smallest: LTOEDay {
     
 }
 
-extension Fixed where Smallest: LTOEHour {
+extension Fixed where Granularity: LTOEHour {
     
     public func setting(year: Int, month: Int, day: Int, hour: Int) throws -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day, hour: hour))
@@ -63,7 +63,7 @@ extension Fixed where Smallest: LTOEHour {
     
 }
 
-extension Fixed where Smallest: LTOEMinute {
+extension Fixed where Granularity: LTOEMinute {
     
     public func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int) throws -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute))
@@ -87,7 +87,7 @@ extension Fixed where Smallest: LTOEMinute {
     
 }
 
-extension Fixed where Smallest: LTOESecond {
+extension Fixed where Granularity: LTOESecond {
     
     public func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) throws -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute, second: second))
@@ -115,7 +115,7 @@ extension Fixed where Smallest: LTOESecond {
     
 }
 
-extension Fixed where Smallest: LTOENanosecond {
+extension Fixed where Granularity: LTOENanosecond {
     
     public func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond))
@@ -146,7 +146,7 @@ extension Fixed where Smallest: LTOENanosecond {
     }
 }
 
-extension Fixed where Smallest == Year {
+extension Fixed where Granularity == Year {
     
     public func setting(month: Int) throws -> Fixed<Month> {
         return try Fixed<Month>(region: region, strictDateComponents: dateComponents.setting(month: month))
@@ -173,7 +173,7 @@ extension Fixed where Smallest == Year {
     }
 }
 
-extension Fixed where Smallest == Month {
+extension Fixed where Granularity == Month {
     
     public func setting(day: Int) throws -> Fixed<Day> {
         return try Fixed<Day>(region: region, strictDateComponents: dateComponents.setting(day: day))
@@ -196,7 +196,7 @@ extension Fixed where Smallest == Month {
     }
 }
 
-extension Fixed where Smallest == Day {
+extension Fixed where Granularity == Day {
     
     public func setting(hour: Int) throws -> Fixed<Hour> {
         return try Fixed<Hour>(region: region, strictDateComponents: dateComponents.setting(hour: hour))
@@ -215,7 +215,7 @@ extension Fixed where Smallest == Day {
     }
 }
 
-extension Fixed where Smallest == Hour {
+extension Fixed where Granularity == Hour {
     
     public func setting(minute: Int) throws -> Fixed<Minute> {
         return try Fixed<Minute>(region: region, strictDateComponents: dateComponents.setting(minute: minute))
@@ -230,7 +230,7 @@ extension Fixed where Smallest == Hour {
     }
 }
 
-extension Fixed where Smallest == Minute {
+extension Fixed where Granularity == Minute {
     
     public func setting(second: Int) throws -> Fixed<Second> {
         return try Fixed<Second>(region: region, strictDateComponents: dateComponents.setting(second: second))
@@ -241,7 +241,7 @@ extension Fixed where Smallest == Minute {
     }
 }
 
-extension Fixed where Smallest == Second {
+extension Fixed where Granularity == Second {
     
     public func setting(nanosecond: Int) throws -> Fixed<Nanosecond> {
         return try Fixed<Nanosecond>(region: region, strictDateComponents: dateComponents.setting(nanosecond: nanosecond))

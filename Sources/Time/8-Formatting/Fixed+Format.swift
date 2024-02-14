@@ -7,9 +7,7 @@
 
 import Foundation
 
-#warning("TODO: ISO8601 Formatting")
-
-public struct FixedFormatStyle<Smallest: Unit & LTOEEra> {
+public struct FixedFormatStyle<Granularity: Unit & LTOEEra> {
     
     internal let configuration: FormatConfiguration
     
@@ -26,7 +24,7 @@ public struct FixedFormatStyle<Smallest: Unit & LTOEEra> {
     }
     
     init(naturalFormats calendar: Calendar) {
-        let formats = Fixed<Smallest>.naturalFormats(in: calendar)
+        let formats = Fixed<Granularity>.naturalFormats(in: calendar)
         self.init(templates: formats)
     }
     
@@ -44,39 +42,39 @@ extension Fixed {
     }
     
     internal func format(_ templates: Array<Format?>) -> String {
-        let style = FixedFormatStyle<Smallest>(templates: templates)
+        let style = FixedFormatStyle<Granularity>(templates: templates)
         return format(style)
     }
     
-    public func format(using style: FixedFormatStyle<Smallest>) -> String {
+    public func format(using style: FixedFormatStyle<Granularity>) -> String {
         return format(style)
     }
     
-    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEYear, U: LTOEEra {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Granularity: LTOEYear, U: LTOEEra {
         return format(style)
     }
     
-    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEMonth, U: LTOEYear {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Granularity: LTOEMonth, U: LTOEYear {
         return format(style)
     }
     
-    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEDay, U: LTOEMonth {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Granularity: LTOEDay, U: LTOEMonth {
         return format(style)
     }
     
-    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEHour, U: LTOEDay {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Granularity: LTOEHour, U: LTOEDay {
         return format(style)
     }
     
-    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOEMinute, U: LTOEHour {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Granularity: LTOEMinute, U: LTOEHour {
         return format(style)
     }
     
-    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOESecond, U: LTOEMinute {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Granularity: LTOESecond, U: LTOEMinute {
         return format(style)
     }
     
-    public func format<U>(using style: FixedFormatStyle<U>) -> String where Smallest: LTOENanosecond, U: LTOESecond {
+    public func format<U>(using style: FixedFormatStyle<U>) -> String where Granularity: LTOENanosecond, U: LTOESecond {
         return format(style)
     }
     

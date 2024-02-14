@@ -11,7 +11,7 @@ extension Fixed {
     
     internal func value(for unit: Calendar.Component) -> Int {
         // TODO: what if it's a pseudo unit?
-        return dateComponents.value(for: unit).unwrap("A Fixed<\(Smallest.self)> does not contain a represented \(unit)")
+        return dateComponents.value(for: unit).unwrap("A Fixed<\(Granularity.self)> does not contain a represented \(unit)")
     }
     
 }
@@ -38,47 +38,47 @@ extension Fixed {
     public var lastInstant: Instant { fatalError() }
     
     /// Retrieve the numeric era of a fixed calendrical value.
-    public var era: Int { dateComponents.era.unwrap("A Fixed<\(Smallest.self)> must have an era value") }
+    public var era: Int { dateComponents.era.unwrap("A Fixed<\(Granularity.self)> must have an era value") }
 }
 
-extension Fixed where Smallest: LTOEYear {
+extension Fixed where Granularity: LTOEYear {
     
     /// Retrieve the numeric year of a fixed calendrical value.
-    public var year: Int { dateComponents.year.unwrap("A Fixed<\(Smallest.self)> must have a year value") }
+    public var year: Int { dateComponents.year.unwrap("A Fixed<\(Granularity.self)> must have a year value") }
 }
 
-extension Fixed where Smallest: LTOEMonth {
+extension Fixed where Granularity: LTOEMonth {
     
     /// Retrieve the numeric month of a fixed calendrical value.
-    public var month: Int { dateComponents.month.unwrap("A Fixed<\(Smallest.self)> must have a month value") }
+    public var month: Int { dateComponents.month.unwrap("A Fixed<\(Granularity.self)> must have a month value") }
 }
 
-extension Fixed where Smallest: LTOEDay {
+extension Fixed where Granularity: LTOEDay {
     
     /// Retrieve the numeric day of a fixed calendrical value.
-    public var day: Int { dateComponents.day.unwrap("A Fixed<\(Smallest.self)> must have a day value") }
+    public var day: Int { dateComponents.day.unwrap("A Fixed<\(Granularity.self)> must have a day value") }
 }
 
-extension Fixed where Smallest: LTOEHour {
+extension Fixed where Granularity: LTOEHour {
     
     /// Retrieve the numeric hour of a fixed calendrical value.
-    public var hour: Int { dateComponents.hour.unwrap("A Fixed<\(Smallest.self)> must have an hour value") }
+    public var hour: Int { dateComponents.hour.unwrap("A Fixed<\(Granularity.self)> must have an hour value") }
 }
 
-extension Fixed where Smallest: LTOEMinute {
+extension Fixed where Granularity: LTOEMinute {
     
     /// Retrieve the numeric minute of a fixed calendrical value
-    public var minute: Int { dateComponents.minute.unwrap("A Fixed<\(Smallest.self)> must have a minute value") }
+    public var minute: Int { dateComponents.minute.unwrap("A Fixed<\(Granularity.self)> must have a minute value") }
 }
 
-extension Fixed where Smallest: LTOESecond {
+extension Fixed where Granularity: LTOESecond {
     
     /// Retrieve the numeric second of a fixed calendrical value.
-    public var second: Int { dateComponents.second.unwrap("A Fixed<\(Smallest.self)> must have a second value") }
+    public var second: Int { dateComponents.second.unwrap("A Fixed<\(Granularity.self)> must have a second value") }
 }
 
-extension Fixed where Smallest: LTOENanosecond {
+extension Fixed where Granularity: LTOENanosecond {
     
     /// Retrieve the numeric nanosecond of a fixed calendrical value.
-    public var nanosecond: Int { dateComponents.nanosecond.unwrap("A Fixed<\(Smallest.self)> must have a nanosecond value") }
+    public var nanosecond: Int { dateComponents.nanosecond.unwrap("A Fixed<\(Granularity.self)> must have a nanosecond value") }
 }

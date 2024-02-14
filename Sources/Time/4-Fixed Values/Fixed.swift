@@ -25,7 +25,7 @@ public struct Fixed<Smallest: Unit & LTOEEra> {
     
     /// The set of `Calendar.Components` represented by this particular `Fixed` value
     public static var representedComponents: Set<Calendar.Component> {
-        return Calendar.Component.from(lower: Smallest.self, to: Era.self)
+        return Calendar.Component.from(lower: Granularity.self, to: Era.self)
     }
         
     /// The `Region` value used in computing this `Fixed` value's components.
@@ -173,7 +173,7 @@ extension Fixed: CustomStringConvertible {
     ///
     /// The description is a localized "natural" formatting of the calendar value.
     public var description: String {
-        let style = FixedFormatStyle<Smallest>(naturalFormats: calendar)
+        let style = FixedFormatStyle<Granularity>(naturalFormats: calendar)
         return format(using: style)
     }
     

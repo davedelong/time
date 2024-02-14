@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest: GTOEMinute {
+extension Fixed where Granularity: GTOEMinute {
     
     public var firstSecond: Fixed<Second> { return first() }
     public var lastSecond: Fixed<Second> { return last() }

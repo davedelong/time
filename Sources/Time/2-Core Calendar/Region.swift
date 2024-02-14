@@ -60,7 +60,7 @@ public struct Region: Hashable, Sendable {
         self.locale = locale
     }
 
-    /// Create a "deep" copy of the receiver. This is a reasonably expensive operation, and should be used with care.
+    /// Create a "deep" copy of the receiver.
     ///
     /// This method is useful if you're on a platform that doesn't provide thread safety for the underlying date
     /// primatives, most notably Linux at the time of writing (mid-2023). If you're using `Region` objects in a

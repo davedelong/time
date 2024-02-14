@@ -9,11 +9,11 @@ import Foundation
 
 extension Fixed {
     
-    public static func +(lhs: Self, rhs: TimeDifference<Smallest, Era>) -> Self {
+    public static func +(lhs: Self, rhs: TimeDifference<Granularity, Era>) -> Self {
         return lhs.applying(difference: rhs)
     }
 
-    public static func -(lhs: Self, rhs: TimeDifference<Smallest, Era>) -> Self {
+    public static func -(lhs: Self, rhs: TimeDifference<Granularity, Era>) -> Self {
         return lhs.applying(difference: rhs.negated())
     }
     
@@ -21,7 +21,7 @@ extension Fixed {
     ///
     /// - Parameter difference: The `TimeDifference` that describes the difference between the receiver
     ///    and the produced value.
-    public func applying(difference: TimeDifference<Smallest, Era>) -> Self {
+    public func applying(difference: TimeDifference<Granularity, Era>) -> Self {
         let d = self.range.lowerBound.date
         let diff = difference.dateComponents
         let newDate = self.calendar.date(byAdding: diff, to: d).unwrap("Unable to add \(diff) to \(self)")
@@ -31,7 +31,7 @@ extension Fixed {
     public func offset(by count: Int) -> Self {
         guard count != 0 else { return self }
         
-        let difference = TimeDifference<Smallest, Era>(value: count, unit: Smallest.component)
+        let difference = TimeDifference<Granularity, Era>(value: count, unit: Granularity.component)
         return applying(difference: difference)
     }
     
@@ -41,7 +41,7 @@ extension Fixed {
 
 }
 
-extension Fixed where Smallest: LTOEYear {
+extension Fixed where Granularity: LTOEYear {
     
     /// Create a new `Fixed` value by moving forward one year.
     public var nextYear: Self { return adding(years: 1) }
@@ -59,7 +59,7 @@ extension Fixed where Smallest: LTOEYear {
     
 }
 
-extension Fixed where Smallest: LTOEMonth {
+extension Fixed where Granularity: LTOEMonth {
     
     /// Create a new `Fixed` value by moving forward one month.
     public var nextMonth: Self { return adding(months: 1) }
@@ -77,7 +77,7 @@ extension Fixed where Smallest: LTOEMonth {
     
 }
 
-extension Fixed where Smallest: LTOEDay {
+extension Fixed where Granularity: LTOEDay {
     
     /// Adjust the date to the beginning of the calendar's week.
     public var startOfWeek: Self {
@@ -136,7 +136,7 @@ extension Fixed where Smallest: LTOEDay {
     
 }
 
-extension Fixed where Smallest: LTOEHour {
+extension Fixed where Granularity: LTOEHour {
     
     /// Create a new `Fixed` value by moving forward one hour.
     public var nextHour: Self { return adding(hours: 1) }
@@ -154,7 +154,7 @@ extension Fixed where Smallest: LTOEHour {
     
 }
 
-extension Fixed where Smallest: LTOEMinute {
+extension Fixed where Granularity: LTOEMinute {
     
     /// Create a new `Fixed` value by moving forward one minute.
     public var nextMinute: Self { return adding(minutes: 1) }
@@ -172,7 +172,7 @@ extension Fixed where Smallest: LTOEMinute {
     
 }
 
-extension Fixed where Smallest: LTOESecond {
+extension Fixed where Granularity: LTOESecond {
     
     /// Create a new `Fixed` value by moving forward one second.
     public var nextSecond: Self { return adding(seconds: 1) }
@@ -190,7 +190,7 @@ extension Fixed where Smallest: LTOESecond {
     
 }
 
-extension Fixed where Smallest: LTOENanosecond {
+extension Fixed where Granularity: LTOENanosecond {
     
     /// Create a new `Fixed` value by moving forward one nanosecond.
     public var nextNanosecond: Self { return adding(nanoseconds: 1) }

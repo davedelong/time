@@ -15,13 +15,13 @@ public enum RoundingDirection {
     case nearest
 }
 
-extension Fixed where Smallest: LTOEYear {
+extension Fixed where Granularity: LTOEYear {
     
-    public func roundedToNearestMultiple(of match: TimeDifference<Smallest, Era>) -> Self {
+    public func roundedToNearestMultiple(of match: TimeDifference<Granularity, Era>) -> Self {
         return self.roundToMultiple(of: match, direction: .nearest)
     }
     
-    public func roundedToMultiple(of match: TimeDifference<Smallest, Era>, direction: RoundingDirection) -> Self {
+    public func roundedToMultiple(of match: TimeDifference<Granularity, Era>, direction: RoundingDirection) -> Self {
         return self.roundToMultiple(of: match, direction: direction)
     }
     
@@ -45,7 +45,7 @@ extension Fixed where Smallest: LTOEYear {
     public var nearestEra: Fixed<Era> { roundedToNearestEra().fixedEra }
 }
 
-extension Fixed where Smallest: LTOEMonth {
+extension Fixed where Granularity: LTOEMonth {
     // round to year
     
     public func roundedToYear(direction: RoundingDirection) -> Self {
@@ -59,7 +59,7 @@ extension Fixed where Smallest: LTOEMonth {
     public var nearestYear: Fixed<Year> { roundedToNearestYear().fixedYear }
 }
 
-extension Fixed where Smallest: LTOEDay {
+extension Fixed where Granularity: LTOEDay {
     // round to month
     
     public func roundedToMonth(direction: RoundingDirection) -> Self {
@@ -73,7 +73,7 @@ extension Fixed where Smallest: LTOEDay {
     public var nearestMonth: Fixed<Month> { roundedToNearestMonth().fixedMonth }
 }
 
-extension Fixed where Smallest: LTOEHour {
+extension Fixed where Granularity: LTOEHour {
     // round to day
     
     public func roundedToDay(direction: RoundingDirection) -> Self {
@@ -87,7 +87,7 @@ extension Fixed where Smallest: LTOEHour {
     public var nearestDay: Fixed<Day> { roundedToNearestDay().fixedDay }
 }
 
-extension Fixed where Smallest: LTOEMinute {
+extension Fixed where Granularity: LTOEMinute {
     // round to hour
     
     public func roundedToHour(direction: RoundingDirection) -> Self {
@@ -101,7 +101,7 @@ extension Fixed where Smallest: LTOEMinute {
     public var nearestHour: Fixed<Hour> { roundedToNearestHour().fixedHour }
 }
 
-extension Fixed where Smallest: LTOESecond {
+extension Fixed where Granularity: LTOESecond {
     // round to minute
     
     public func roundedToMinute(direction: RoundingDirection) -> Self {
@@ -115,7 +115,7 @@ extension Fixed where Smallest: LTOESecond {
     public var nearestMinute: Fixed<Minute> { roundedToNearestMinute().fixedMinute }
 }
 
-extension Fixed where Smallest: LTOENanosecond {
+extension Fixed where Granularity: LTOENanosecond {
     // round to second
     
     public func roundedToSecond(direction: RoundingDirection) -> Self {

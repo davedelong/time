@@ -11,15 +11,15 @@ extension Fixed {
     
     // Fixed differences
 
-    public static func - (lhs: Self, rhs: Self) -> TimeDifference<Smallest, Era> {
+    public static func - (lhs: Self, rhs: Self) -> TimeDifference<Granularity, Era> {
         return lhs.difference(to: rhs)
     }
     
-    public func difference(to other: Self) -> TimeDifference<Smallest, Era> {
+    public func difference(to other: Self) -> TimeDifference<Granularity, Era> {
         return computeDifference(to: other)
     }
     
-    internal func computeDifference<S: Unit, L: Unit>(to other: Fixed<Smallest>) -> TimeDifference<S, L> {
+    internal func computeDifference<S: Unit, L: Unit>(to other: Fixed<Granularity>) -> TimeDifference<S, L> {
         
         let thisMid = self.approximateMidPoint.date
         let otherMid = other.approximateMidPoint.date
@@ -31,7 +31,7 @@ extension Fixed {
     
 }
 
-extension Fixed where Smallest: LTOEYear {
+extension Fixed where Granularity: LTOEYear {
     
     public func differenceInYears(to other: Self) -> TimeDifference<Year, Year> {
         return computeDifference(to: other)
@@ -39,7 +39,7 @@ extension Fixed where Smallest: LTOEYear {
     
 }
 
-extension Fixed where Smallest: LTOEMonth {
+extension Fixed where Granularity: LTOEMonth {
     
     public func differenceInMonths(to other: Self) -> TimeDifference<Month, Month> {
         return computeDifference(to: other)
@@ -47,7 +47,7 @@ extension Fixed where Smallest: LTOEMonth {
     
 }
 
-extension Fixed where Smallest: LTOEDay {
+extension Fixed where Granularity: LTOEDay {
     
     public func differenceInDays(to other: Self) -> TimeDifference<Day, Day> {
         return computeDifference(to: other)
@@ -55,7 +55,7 @@ extension Fixed where Smallest: LTOEDay {
     
 }
 
-extension Fixed where Smallest: LTOEHour {
+extension Fixed where Granularity: LTOEHour {
     
     public func differenceInHours(to other: Self) -> TimeDifference<Hour, Hour> {
         return computeDifference(to: other)
@@ -63,7 +63,7 @@ extension Fixed where Smallest: LTOEHour {
     
 }
 
-extension Fixed where Smallest: LTOEMinute {
+extension Fixed where Granularity: LTOEMinute {
     
     public func differenceInMinutes(to other: Self) -> TimeDifference<Minute, Minute> {
         return computeDifference(to: other)
@@ -71,7 +71,7 @@ extension Fixed where Smallest: LTOEMinute {
     
 }
 
-extension Fixed where Smallest: LTOESecond {
+extension Fixed where Granularity: LTOESecond {
     
     public func differenceInSeconds(to other: Self) -> TimeDifference<Second, Second> {
         return computeDifference(to: other)
@@ -79,7 +79,7 @@ extension Fixed where Smallest: LTOESecond {
     
 }
 
-extension Fixed where Smallest: LTOENanosecond {
+extension Fixed where Granularity: LTOENanosecond {
     
     public func differenceInNanoseconds(to other: Self) -> TimeDifference<Nanosecond, Nanosecond> {
         return computeDifference(to: other)

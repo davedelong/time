@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest: GTOEHour {
+extension Fixed where Granularity: GTOEHour {
     
     public var firstMinute: Fixed<Minute> { return first() }
     public var lastMinute: Fixed<Minute> { return last() }

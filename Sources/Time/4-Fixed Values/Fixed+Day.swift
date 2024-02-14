@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest: GTOEDay {
+extension Fixed where Granularity: GTOEDay {
     
     public var firstHour: Fixed<Hour> { return first() }
     public var lastHour: Fixed<Hour> { return last() }
@@ -20,7 +20,7 @@ extension Fixed where Smallest: GTOEDay {
     
 }
 
-extension Fixed where Smallest: LTOEDay {
+extension Fixed where Granularity: LTOEDay {
     
     /// Returns `true` if the receiver is known to occur during the weekend.
     ///

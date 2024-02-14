@@ -20,7 +20,7 @@ extension Fixed {
     
 }
 
-extension Fixed where Smallest == Era {
+extension Fixed where Granularity == Era {
     public init(stringValue: String, region: Region,
                 era: Template<Era>) throws {
         
@@ -28,7 +28,7 @@ extension Fixed where Smallest == Era {
     }
 }
 
-extension Fixed where Smallest == Year {
+extension Fixed where Granularity == Year {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -38,7 +38,7 @@ extension Fixed where Smallest == Year {
     }
 }
 
-extension Fixed where Smallest == Month {
+extension Fixed where Granularity == Month {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -49,7 +49,7 @@ extension Fixed where Smallest == Month {
     }
 }
 
-extension Fixed where Smallest == Day {
+extension Fixed where Granularity == Day {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -62,7 +62,7 @@ extension Fixed where Smallest == Day {
     }
 }
 
-extension Fixed where Smallest == Hour {
+extension Fixed where Granularity == Hour {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -76,7 +76,7 @@ extension Fixed where Smallest == Hour {
     }
 }
 
-extension Fixed where Smallest == Minute {
+extension Fixed where Granularity == Minute {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -91,7 +91,7 @@ extension Fixed where Smallest == Minute {
     }
 }
 
-extension Fixed where Smallest == Second {
+extension Fixed where Granularity == Second {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,
@@ -107,7 +107,7 @@ extension Fixed where Smallest == Second {
     }
 }
 
-extension Fixed where Smallest == Nanosecond {
+extension Fixed where Granularity == Nanosecond {
     public init(stringValue: String, region: Region,
                 era: Template<Era>? = nil,
                 year: Template<Year>,

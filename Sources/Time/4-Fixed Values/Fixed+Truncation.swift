@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Fixed where Smallest: LTOEYear {
+extension Fixed where Granularity: LTOEYear {
     
     /// Retrieve the fixed era described by this calendar value.
     ///
@@ -16,7 +16,7 @@ extension Fixed where Smallest: LTOEYear {
     public var fixedEra: Fixed<Era> { truncated() }
 }
 
-extension Fixed where Smallest: LTOEMonth {
+extension Fixed where Granularity: LTOEMonth {
     
     /// Retrieve the fixed year described by this calendar value.
     ///
@@ -25,7 +25,7 @@ extension Fixed where Smallest: LTOEMonth {
     public var fixedYear: Fixed<Year> { truncated() }
 }
 
-extension Fixed where Smallest: LTOEDay {
+extension Fixed where Granularity: LTOEDay {
     
     /// Retrieve the fixed month described by this calendar value.
     ///
@@ -34,7 +34,7 @@ extension Fixed where Smallest: LTOEDay {
     public var fixedMonth: Fixed<Month> { truncated() }
 }
 
-extension Fixed where Smallest: LTOEHour {
+extension Fixed where Granularity: LTOEHour {
     
     /// Retrieve the fixed day described by this calendar value.
     ///
@@ -43,7 +43,7 @@ extension Fixed where Smallest: LTOEHour {
     public var fixedDay: Fixed<Day> { truncated() }
 }
 
-extension Fixed where Smallest: LTOEMinute {
+extension Fixed where Granularity: LTOEMinute {
     
     /// Retrieve the fixed hour described by this calendar value.
     ///
@@ -52,7 +52,7 @@ extension Fixed where Smallest: LTOEMinute {
     public var fixedHour: Fixed<Hour> { truncated() }
 }
 
-extension Fixed where Smallest: LTOESecond {
+extension Fixed where Granularity: LTOESecond {
     
     /// Retrieve the fixed minute described by this calendar value.
     ///
@@ -61,7 +61,7 @@ extension Fixed where Smallest: LTOESecond {
     public var fixedMinute: Fixed<Minute> { truncated() }
 }
 
-extension Fixed where Smallest: LTOENanosecond {
+extension Fixed where Granularity: LTOENanosecond {
     
     /// Retrieve the fixed second described by this calendar value.
     ///

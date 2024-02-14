@@ -9,7 +9,7 @@ import Foundation
 
 /// INVALID ADDITION OPERATORS
 
-extension Fixed where Smallest == Year {
+extension Fixed where Granularity == Year {
     
     @available(*, unavailable, message: "Adding months to a year is invalid")
     public static func +<L>(lhs: Self, rhs: TimeDifference<Month, L>) -> Never { invalid() }
@@ -38,7 +38,7 @@ extension Fixed where Smallest == Year {
     public static func -<L>(lhs: Self, rhs: TimeDifference<Nanosecond, L>) -> Never { invalid() }
 }
 
-extension Fixed where Smallest == Month {
+extension Fixed where Granularity == Month {
     
     @available(*, unavailable, message: "Adding days to a month is invalid")
     public static func +<L>(lhs: Self, rhs: TimeDifference<Day, L>) -> Never { invalid() }
@@ -64,7 +64,7 @@ extension Fixed where Smallest == Month {
     
 }
 
-extension Fixed where Smallest == Day {
+extension Fixed where Granularity == Day {
     
     @available(*, unavailable, message: "Adding hours to a day is invalid")
     public static func +<L>(lhs: Self, rhs: TimeDifference<Hour, L>) -> Never { invalid() }
@@ -86,7 +86,7 @@ extension Fixed where Smallest == Day {
     
 }
 
-extension Fixed where Smallest == Hour {
+extension Fixed where Granularity == Hour {
     
     @available(*, unavailable, message: "Adding minutes to an hour is invalid")
     public static func +<L>(lhs: Self, rhs: TimeDifference<Minute, L>) -> Never { invalid() }
@@ -104,7 +104,7 @@ extension Fixed where Smallest == Hour {
     
 }
 
-extension Fixed where Smallest == Minute {
+extension Fixed where Granularity == Minute {
     
     @available(*, unavailable, message: "Adding seconds to a minute is invalid")
     public static func +<L>(lhs: Self, rhs: TimeDifference<Second, L>) -> Never { invalid() }
@@ -118,7 +118,7 @@ extension Fixed where Smallest == Minute {
     
 }
 
-extension Fixed where Smallest == Second {
+extension Fixed where Granularity == Second {
     
     @available(*, unavailable, message: "Adding nanoseconds to a second is invalid")
     public static func +<L>(lhs: Self, rhs: TimeDifference<Nanosecond, L>) -> Never { invalid() }
