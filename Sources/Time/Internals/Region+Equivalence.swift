@@ -1,11 +1,21 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Dave DeLong on 2/11/24.
 //
 
 import Foundation
+
+extension Region {
+    
+    func isEquivalent(to other: Region) -> Bool {
+        return calendar.isEquivalent(to: other.calendar) &&
+               timeZone.isEquivalent(to: other.timeZone) &&
+               locale.isEquivalent(to: other.locale)
+    }
+    
+}
 
 extension Calendar {
     

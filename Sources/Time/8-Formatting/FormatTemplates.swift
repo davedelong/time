@@ -7,7 +7,7 @@
 
 import Foundation
 
-#warning("TODO: document these")
+#warning("1.0: document these")
 
 public struct Template<F>: Format {
     internal let template: String

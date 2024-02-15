@@ -76,8 +76,8 @@ extension RegionalClock {
     
 }
 
-#warning("TODO: rename Chime -> Strike?")
-#warning("TODO: conform Chime: Sequence?")
+#warning("1.0: rename Chime -> Strike?")
+#warning("1.0: conform Chime: Sequence?")
 
 /// A type representing zero or more times at which a ``RegionalClock`` will "chime".
 ///

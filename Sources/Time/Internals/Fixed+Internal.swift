@@ -160,7 +160,7 @@ extension Fixed {
          we'll iterate and check :00, :13, :26, :39, :52, :00, :13 ... etc
          */
         
-        #warning("TODO: this could be optimized by using modulo arithmetic to try and 'jump' to the rounded values")
+        #warning("FUTURE: this could be optimized by using modulo arithmetic to try and 'jump' to the rounded values")
         
         let represented = match.dateComponents.representedComponents
         guard let smallest = Calendar.Component.ascendingOrder.first(where: { represented.contains($0) }) else {

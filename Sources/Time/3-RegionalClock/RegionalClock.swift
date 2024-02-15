@@ -106,7 +106,7 @@ extension RegionalClock {
     /// - Parameter timeZone: The `TimeZone` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `TimeZone`.
     public func converting(to timeZone: TimeZone) -> any RegionalClock {
-        if timeZone == self.timeZone { return self }
+        if timeZone.isEquivalent(to: self.timeZone) { return self }
         let newRegion = self.region.setTimeZone(timeZone)
         return self.converting(to: newRegion)
     }
@@ -116,9 +116,9 @@ extension RegionalClock {
     /// - Parameter calendar: The `Calendar` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `Calendar`.
     public func converting(to calendar: Calendar) -> any RegionalClock {
-        if calendar == self.calendar { return self }
-        #warning("TODO: if the new calendar defines a different scaling of SI Seconds... ?")
-        #warning("TODO: this needs to manipulate the core `date`")
+        if calendar.isEquivalent(to: self.calendar) { return self }
+        #warning("1.0: if the new calendar defines a different scaling of SI Seconds... ?")
+        #warning("1.0: this needs to manipulate the core `date`")
         let newRegion = self.region.setCalendar(calendar)
         return self.converting(to: newRegion)
     }
@@ -128,7 +128,7 @@ extension RegionalClock {
     /// - Parameter locale: The `Locale` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `Locale`.
     public func converting(to locale: Locale) -> any RegionalClock {
-        if locale == self.locale { return self }
+        if locale.isEquivalent(to: self.locale) { return self }
         let newRegion = self.region.setLocale(locale)
         return self.converting(to: newRegion)
     }
@@ -138,8 +138,8 @@ extension RegionalClock {
     /// - Parameter region: The `Region` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `Region`.
     public func converting(to newRegion: Region) -> any RegionalClock {
-        #warning("TODO: compare the existing region to the new region and short-circuit if possible")
-        #warning("TODO: if the new calendar defines a different scaling of SI Seconds... ?")
+        if newRegion.isEquivalent(to: self.region) { return self }
+        #warning("1.0: if the new calendar defines a different scaling of SI Seconds... ?")
         return CustomRegionClock(base: self, region: newRegion)
     }
 }

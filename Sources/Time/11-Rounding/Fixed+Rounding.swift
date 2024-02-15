@@ -51,7 +51,7 @@ extension Fixed where Granularity: LTOEYear {
         return self.roundToMultiple(of: match, direction: direction)
     }
     
-    /// Round the receiver towards an Era boundary
+    /// Round this fixed value towards an Era boundary
     ///
     /// - Warning: This method may end up rounding backwards (down), even if the `direction` is `.forward`.
     /// This happens if there is no "next" era. For example, on the Gregorian calendar, there are only two
@@ -64,7 +64,7 @@ extension Fixed where Granularity: LTOEYear {
         round(to: Era.self, direction: direction)
     }
     
-    /// Round the receiver towards the nearest Era boundary
+    /// Round this fixed value towards the nearest Era boundary
     ///
     /// Equivalent to `.roundedToEra(direction: .nearest)`
     ///

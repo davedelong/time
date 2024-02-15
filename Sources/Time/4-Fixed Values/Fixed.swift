@@ -28,6 +28,7 @@ import Foundation
 /// Fixed values are Equatable, Hashable, Comparable, Sendable, and Codable.
 public struct Fixed<Granularity: Unit & LTOEEra> {
     
+    #warning("1.0: remove this")
     @available(*, deprecated, message: "The `Smallest` generic parameter has been renamed", renamed: "Granularity")
     public typealias Smallest = Granularity
     
@@ -120,27 +121,27 @@ public struct Fixed<Granularity: Unit & LTOEEra> {
         self.init(region: region, date: date)
     }
     
-    #warning("TODO: verify these for correctness")
+    #warning("1.0: verify these for correctness")
     
-    /// Construct a new `Fixed` value by converting the receiver to a new `Region`.
+    /// Construct a new `Fixed` value by converting this fixed value to a new `Region`.
     public func setting(region: Region) -> Self {
         if region == self.region { return self }
         return Self.init(region: region, instant: self.instant)
     }
     
-    /// Construct a new `Fixed` value by converting the receiver to a new `Calendar`.
+    /// Construct a new `Fixed` value by converting this fixed value to a new `Calendar`.
     public func setting(calendar: Calendar) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return self.setting(region: newRegion)
     }
     
-    /// Construct a new `Fixed` value by converting the receiver to a new `TimeZone`.
+    /// Construct a new `Fixed` value by converting this fixed value to a new `TimeZone`.
     public func converting(to timeZone: TimeZone) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return self.setting(region: newRegion)
     }
     
-    /// Construct a new `Fixed` value by converting the receiver to a new `Locale`.
+    /// Construct a new `Fixed` value by converting this fixed value to a new `Locale`.
     public func converting(to locale: Locale) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return self.setting(region: newRegion)

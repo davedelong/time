@@ -35,7 +35,7 @@ extension Fixed {
     
     /// Adjust a fixed value by applying a temporal delta value.
     ///
-    /// - Parameter difference: The `TimeDifference` that describes the difference between the receiver
+    /// - Parameter difference: The `TimeDifference` that describes the difference between the fixed value
     /// and the produced value.
     /// - Returns: A new fixed value that has been adjusted forwards or backwards in time
     public func applying(difference: TimeDifference<Granularity, Era>) -> Self {
@@ -114,7 +114,7 @@ extension Fixed where Granularity: LTOEDay {
         var s = self
         let targetWeekday = region.calendar.firstWeekday
         
-        #warning("TODO: this is O(n). Could this be done in O(1) by pre-computing the number of days to move backwards?")
+        #warning("FUTURE: this is O(n). Could this be done in O(1) by pre-computing the number of days to move backwards?")
         while s.dayOfWeek != targetWeekday {
             s = s.previousDay
         }
@@ -166,6 +166,13 @@ extension Fixed where Granularity: LTOEDay {
             current = current.nextDay
         }
         return current
+    }
+    
+    /// Create a new `Fixed` value that corresponds to the specified weekday
+    /// - Parameter weekday: The day of the week.
+    /// - Returns: A fixed value whose `.weekday` is equal to the `weekday` parameter.
+    public func next(weekday: Locale.Weekday) -> Self {
+        return self.next(dayOfWeek: weekday.dayOfWeek)
     }
     
 }

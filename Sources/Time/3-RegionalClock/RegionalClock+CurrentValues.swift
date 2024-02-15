@@ -87,7 +87,7 @@ extension RegionalClock {
     
 }
 
-#warning("TODO: remove these for 1.0")
+#warning("1.0: remove these")
 extension RegionalClock {
     
     /// Retrieve the current `Fixed` calendrical value, accurate down to the specified unit.
