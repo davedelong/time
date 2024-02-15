@@ -65,7 +65,7 @@ extension RegionalClock {
     /// Sets up a single chime (ex: "at 12:00 PM").
     ///
     /// Useful, for example, when you want the `RegionalClock` to "tell me when it's 3:00 PM."
-    /// If the time has already passed, then the publisher completes immediately without sending a value.
+    /// If the time has already passed, then the `ClockChime` completes immediately without sending a value.
     ///
     /// - Parameter time: The time at which the chime should occur.
     ///
@@ -139,7 +139,7 @@ public struct ClockChime<U: Unit & LTOEEra> {
     /// Create a chime that emits at most one value at the specified time.
     /// - Parameters:
     ///   - clock: The `RegionalClock` to use for producing calendar values.
-    ///   - time: The time at which to emit the value. If this value is in the past, then the publisher immediately completes.
+    ///   - time: The time at which to emit the value. If this value is in the past, then the `ClockChime` emits no values.
     public init(clock: any RegionalClock, at time: Fixed<U>) {
         let current = clock.current(U.self)
         var values = Array<Fixed<U>>()
