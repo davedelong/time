@@ -7,6 +7,8 @@
 
 import Foundation
 
+#warning("TODO: document these")
+
 public struct Template<F>: Format {
     internal let template: String
     internal init(_ template: String) {

@@ -34,8 +34,6 @@ extension TimeZone {
 private class SimpleCache<Key: Hashable, T> {
     
     private var storage = Dictionary<Key, T>()
-    
-    #warning("TODO: better synchronization primitive?")
     private let lock = NSLock()
     
     init() { }

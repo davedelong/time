@@ -89,8 +89,6 @@ private class Snapshot<T> {
     
     private var _snapshot: T?
     private var observationToken: NSObjectProtocol?
-    
-    #warning("TODO: better synchronization primitive?")
     private let lock = NSLock()
     
     var snapshot: T {

@@ -39,38 +39,37 @@ private class DateFormatterCache {
     
     static let shared = DateFormatterCache()
     
-    #warning("TODO: better locking primitive?")
-    private let queue = DispatchQueue(label: "DateFormatterCache")
-    
+    private let lock = NSLock()
     private var formatters = Dictionary<DateFormatter.Key, DateFormatter>()
     
     private init() { }
     
-    private func onqueue_nonupdatingFormatter(for key: DateFormatter.Key) -> DateFormatter {
-        if let existing = formatters[key] { return existing }
-        
-        let formatter = DateFormatter()
-        formatter.locale = key.region.locale
-        formatter.calendar = key.region.calendar
-        formatter.timeZone = key.region.timeZone
-        switch key.configuration {
-            case .template(let template):
-                formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: key.region.locale)
-            case .raw(let format):
-                formatter.dateFormat = format
-            case .styles(let date, let time):
-                formatter.dateStyle = date
-                formatter.timeStyle = time
-        }
-        formatters[key] = formatter
-        
-        return formatter
-    }
-    
     func formatter(for key: DateFormatter.Key) -> DateFormatter {
-        return queue.sync {
-            return onqueue_nonupdatingFormatter(for: key)
+        lock.lock()
+        let returnValue: DateFormatter
+        
+        if let existing = formatters[key] {
+            returnValue = existing
+        } else {
+            let formatter = DateFormatter()
+            formatter.locale = key.region.locale
+            formatter.calendar = key.region.calendar
+            formatter.timeZone = key.region.timeZone
+            switch key.configuration {
+                case .template(let template):
+                    formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: key.region.locale)
+                case .raw(let format):
+                    formatter.dateFormat = format
+                case .styles(let date, let time):
+                    formatter.dateStyle = date
+                    formatter.timeStyle = time
+            }
+            formatters[key] = formatter
+            returnValue = formatter
         }
+        
+        lock.unlock()
+        return returnValue
     }
     
 }
