@@ -120,10 +120,6 @@ public struct Fixed<Granularity: Unit & LTOEEra> {
         self.init(region: region, date: date)
     }
     
-    internal func truncated<U: Unit>() -> Fixed<U> {
-        return Fixed<U>(region: region, instant: self.instant)
-    }
-    
     #warning("TODO: verify these for correctness")
     
     /// Construct a new `Fixed` value by converting the receiver to a new `Region`.
@@ -188,8 +184,8 @@ extension Fixed: CustomStringConvertible {
     ///
     /// The description is a localized "natural" formatting of the calendar value.
     public var description: String {
-        let style = FixedFormatStyle<Granularity>(naturalFormats: calendar)
-        return format(using: style)
+        let style = FixedFormat<Granularity>(naturalFormats: calendar)
+        return format(style)
     }
     
 }

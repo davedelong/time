@@ -7,8 +7,6 @@
 
 import Foundation
 
-// https://en.wikipedia.org/wiki/Allen%27s_interval_algebra
-
 /// The relationship between two calendar values
 ///
 /// There are 13 possible ways in which two values may be related to each other.

@@ -25,7 +25,7 @@ extension Calendar {
     /// (most notably the Japanese calendar) for which the era is extremely relevant.
     /// The relevancy of the era is taken into account when doing default formatting
     /// of calendar Values.
-    internal var isEraRelevant: Bool { return identifier == .japanese }
+    internal var isEraRelevant: Bool { return (maximumRange(of: .era)?.upperBound ?? 0) > 2 }
     
     internal var lenientUnitsForFixedTimePeriods: Set<Calendar.Component> {
         if isEraRelevant { return [] }

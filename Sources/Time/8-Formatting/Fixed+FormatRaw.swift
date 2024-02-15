@@ -30,13 +30,13 @@ extension Fixed {
     ///
     /// - Parameters:
     ///   - rawFormatString: The raw, unlocalized format string to be used for formatting.
-    ///   - strict: Whether or not this method should throw a `TimeError` if the format string specifies
+    ///   - strict: Whether or not this method should throw a ``TimeError`` if the format string specifies
     ///     unrepresented calendar components.
     public func format(raw rawFormatString: String, strict: Bool = true) throws -> String {
         let desiredUnits = Calendar.Component.components(in: rawFormatString)
         let missingUnits = desiredUnits.subtracting(representedComponents)
         
-        let style: FixedFormatStyle<Granularity>
+        let style: FixedFormat<Granularity>
         if missingUnits.isEmpty == false {
             if strict == true {
                 // the format string specified units that are not represented by this value
@@ -48,6 +48,6 @@ extension Fixed {
         } else {
             style = .init(raw: rawFormatString)
         }
-        return self.format(using: style)
+        return self.format(style)
     }
 }

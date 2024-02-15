@@ -9,6 +9,15 @@ import Foundation
 
 extension Fixed {
     
+    internal func truncated<U: Unit>() -> Fixed<U> {
+        return Fixed<U>(region: region, instant: self.instant)
+    }
+    
+    internal func value(for unit: Calendar.Component) -> Int {
+        // TODO: what if it's a pseudo unit?
+        return dateComponents.value(for: unit).unwrap("A Fixed<\(Granularity.self)> does not contain a represented \(unit)")
+    }
+    
     internal var approximateMidPoint: Instant {
         let r = self.range
         let lower = r.lowerBound
@@ -66,6 +75,22 @@ extension Fixed {
             current = next
         }
         return nil
+    }
+    
+    internal func computeDifference<Min: Unit, Max: Unit>(to other: Fixed<Granularity>) -> TimeDifference<Min, Max> {
+        
+        let thisRange = self.range
+        let otherRange = other.range
+        
+        let minRange = thisRange.lowerBound < otherRange.lowerBound ? thisRange : otherRange
+        let maxRange = thisRange.upperBound > otherRange.upperBound ? thisRange : otherRange
+        
+        let min = minRange.lowerBound.date
+        let max = maxRange.upperBound.date
+        
+        let units = Calendar.Component.from(lower: Min.self, to: Max.self)
+        let difference = calendar.dateComponents(units, from: min, to: max)
+        return TimeDifference(difference)
     }
     
     internal func roundEra(direction: RoundingDirection) -> Self {
@@ -187,6 +212,20 @@ extension Fixed {
                 return larger!
             }
         }
+    }
+    
+    internal func format<S>(_ style: FixedFormat<S>) -> String {
+        let key = DateFormatter.Key(configuration: style.configuration,
+                                    region: self.region)
+        
+        let formatter = DateFormatter.formatter(for: key)
+        
+        return formatter.string(from: self.dateForFormatting())
+    }
+    
+    internal func format(_ templates: Array<Format?>) -> String {
+        let style = FixedFormat<Granularity>(templates: templates)
+        return format(style)
     }
     
 }

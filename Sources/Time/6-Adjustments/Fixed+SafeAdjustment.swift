@@ -9,18 +9,35 @@ import Foundation
 
 extension Fixed {
     
+    /// Apply a time difference to a fixed value
+    ///
+    /// This operator is equivalent to `lhs.applying(difference: rhs)`
+    ///
+    /// - Parameters:
+    ///   - lhs: A fixed value
+    ///   - rhs: A time difference
+    /// - Returns: A new fixed value that has been adjusted forward or backwards in time
     public static func +(lhs: Self, rhs: TimeDifference<Granularity, Era>) -> Self {
         return lhs.applying(difference: rhs)
     }
-
+    
+    /// Apply a time difference to a fixed value
+    ///
+    /// This operator is equivalent to `lhs.applying(difference: rhs.negated)`
+    ///
+    /// - Parameters:
+    ///   - lhs: A fixed value
+    ///   - rhs: A time difference
+    /// - Returns: A new fixed value that has been adjusted forward or backwards in time
     public static func -(lhs: Self, rhs: TimeDifference<Granularity, Era>) -> Self {
-        return lhs.applying(difference: rhs.negated())
+        return lhs.applying(difference: rhs.negated)
     }
     
     /// Adjust a fixed value by applying a temporal delta value.
     ///
     /// - Parameter difference: The `TimeDifference` that describes the difference between the receiver
-    ///    and the produced value.
+    /// and the produced value.
+    /// - Returns: A new fixed value that has been adjusted forwards or backwards in time
     public func applying(difference: TimeDifference<Granularity, Era>) -> Self {
         let d = self.range.lowerBound.date
         let diff = difference.dateComponents
@@ -28,6 +45,13 @@ extension Fixed {
         return Self(region: self.region, date: newDate)
     }
     
+    /// Adjust the fixed value forwards or backwards.
+    ///
+    /// The amount of adjustment depends on the value's granularity. For example, if you have a `Fixed<Day>`, then `.offset(by: 2)`
+    /// moves the value 2 days forward in time. If you have a `Fixed<Month>`, then `.offset(by: 2)` moves the value 2 *months* forward
+    /// in time.
+    /// - Parameter count: The number of units by which to adjust this fixed value.
+    /// - Returns: A new fixed value that has been adjusted forward or backwards in time.
     public func offset(by count: Int) -> Self {
         guard count != 0 else { return self }
         
@@ -35,8 +59,14 @@ extension Fixed {
         return applying(difference: difference)
     }
     
+    /// Adjust the fixed value forward by one `Granularity` unit.
+    ///
+    /// This is equivalent to `.offset(by: 1)`
     public var next: Self { offset(by: 1) }
     
+    /// Adjust the fixed value backward by one `Granularity` unit.
+    ///
+    /// This is equivalent to `.offset(by: -1)`
     public var previous: Self { offset(by: -1) }
 
 }
@@ -84,7 +114,7 @@ extension Fixed where Granularity: LTOEDay {
         var s = self
         let targetWeekday = region.calendar.firstWeekday
         
-        // TODO: this is O(n). Could this be done in O(1) by pre-computing the number of days to move backwards?
+        #warning("TODO: this is O(n). Could this be done in O(1) by pre-computing the number of days to move backwards?")
         while s.dayOfWeek != targetWeekday {
             s = s.previousDay
         }
@@ -105,6 +135,10 @@ extension Fixed where Granularity: LTOEDay {
     /// - Parameter days: The number of days by which to move backward.
     public func subtracting(days: Int) -> Self { return applying(difference: .days(-days)) }
     
+    /// Create a new `Fixed` value that corresponds to the specified day of the week
+    /// - Parameter dayOfWeek: The numeric value for the day of the week. 
+    /// For the Gregorian calendar, 1 = Sunday, 2 = Monday, ... 7 = Saturday
+    /// - Returns: A fixed value whose `.dayOfWeek` is equal to the `dayOfWeek` parameter.
     public func next(dayOfWeek: Int) -> Self {
         let daysInWeek = calendar.maximumRange(of: .weekday) ?? 1 ..< 8
         var day = dayOfWeek

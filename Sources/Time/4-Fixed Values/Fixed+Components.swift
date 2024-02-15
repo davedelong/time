@@ -9,15 +9,6 @@ import Foundation
 
 extension Fixed {
     
-    internal func value(for unit: Calendar.Component) -> Int {
-        // TODO: what if it's a pseudo unit?
-        return dateComponents.value(for: unit).unwrap("A Fixed<\(Granularity.self)> does not contain a represented \(unit)")
-    }
-    
-}
-
-extension Fixed {
-    
     /// Retrieve the `Range` of `Instants` described by this `Fixed` value.
     ///
     /// All fixed values contain many possible `Instants`. This property allows you
