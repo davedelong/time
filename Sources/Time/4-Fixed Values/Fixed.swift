@@ -19,7 +19,7 @@ import Foundation
 /// - The second February 12, 113 Minguo at 9:16:53 AM on the Republic of China calendar (`Fixed<Second>`)
 /// - The nanosecond February 12, 2024 at 9:16:53.423182374  AM on the Gregorian calendar (`Fixed<Nanosecond>`)
 ///
-/// All `Fixed` values have a ``Region``, which defines the calendar, timezone, and
+/// All `Fixed` values have a ``Region``, which defines the calendar, time zone, and
 /// locale used in computing the underlying component values.
 ///
 /// Varying amounts of functionality are available to `Fixed` values depending on its **granularity**

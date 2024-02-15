@@ -15,7 +15,7 @@ public struct FixedFormatStyle: Hashable {
     ///
     /// Example: `Monday, January 1, 2024`
     ///
-    /// When applied to time values, it includes the time down to the second a fully-spelled-out timezone names.
+    /// When applied to time values, it includes the time down to the second a fully-spelled-out time zone names.
     ///
     /// Example: `3:12:43 AM Central Standard Time`
     public static let full = FixedFormatStyle(style: .full)
@@ -26,7 +26,7 @@ public struct FixedFormatStyle: Hashable {
     ///
     /// Example: `January 1, 2024`
     ///
-    /// When applied to time values, it includes the time down to the second and abbreviated timezone information.
+    /// When applied to time values, it includes the time down to the second and abbreviated time zone information.
     ///
     /// Example: `3:12:43 AM CST`
     public static let long = FixedFormatStyle(style: .long)

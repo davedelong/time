@@ -65,7 +65,7 @@ extension Calendar {
         
         var snapshot = Calendar(identifier: auto.identifier)
         
-        // don't bother snapshotting the timezone and locale,
+        // don't bother snapshotting the time zone and locale,
         // because the values in the region itself take precedence
         
         snapshot.firstWeekday = auto.firstWeekday

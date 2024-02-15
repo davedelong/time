@@ -256,6 +256,7 @@ extension ClockTests {
         
         let now = c.currentSecond
         
+        #warning("1.0: How to detect autoupdating region values?")
         XCTAssertNotEqual(now.region, r)
     }
     
