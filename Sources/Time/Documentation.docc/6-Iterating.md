@@ -1,4 +1,4 @@
-# Iterating Over Values
+#  Iterating Fixed Values
 
 Iterating over calendrical values is a common problem, especially when it comes to building a UI around calendars.
 
@@ -40,3 +40,5 @@ The `AbsoluteTimePeriodSequence` type provides several convenience constructors 
 ### Iterating Time Periods
 
 - ``AbsoluteTimePeriodSequence``
+
+

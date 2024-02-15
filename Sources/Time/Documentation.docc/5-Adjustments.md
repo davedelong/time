@@ -1,4 +1,4 @@
-# Adjusting TimePeriods
+#  Adjusting Fixed Values
 
 An overview of how to mutate instances of ``TimePeriod`` to form new values.
 
@@ -70,3 +70,5 @@ When a strict adjustment fails, it throws a ``TimeError``.
 ### Adjustments
 
 - ``TimeError``
+
+

@@ -1,4 +1,4 @@
-#  Core Concepts
+# Core Concepts
 
 ### All temporal values are measured from a "known" point in time.
 

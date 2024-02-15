@@ -63,28 +63,24 @@ A valid calendar value always contains contiguous ranges of units.
 
 ### Usage Guides
 
+- <doc:0-BasicUsage>
 - <doc:1-Core-Concepts>
 - <doc:2-Clocks>
 - <doc:3-FixedValues>
 
+### Tasks
+
+- <doc:4-Differences>
+- <doc:5-Adjustments>
+- <doc:6-Iterating>
+- <doc:7-Formatting>
+- <doc:8-Parsing>
+- <doc:9-Relations>
+- <doc:10-Rounding>
+
 ### Other
 
-- <doc:Using-Clocks>
-- <doc:Using-TimePeriod>
-- <doc:Adjustments>
-- <doc:Differences>
-- <doc:Iteration>
-- <doc:Formatting>
-- <doc:Observation>
+- <doc:11-FutureDirections>
 - <doc:Common-Mistakes>
-
-### Core Concepts
-
-- ``SISeconds``
-- ``Clock``
-- ``Region``
-- ``Instant``
-- ``TimePeriod``
-- ``Epoch``
 
 

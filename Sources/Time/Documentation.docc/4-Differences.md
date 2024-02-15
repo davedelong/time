@@ -1,4 +1,4 @@
-# Differences
+#  Differences Between Fixed Values
 
 An overview of calendrical arithmetic using two ``TimePeriod`` instances.
 
@@ -45,3 +45,5 @@ let difference: TimeDifference<Day, Month> = day1 - day2
 ### Representing Differences
 
 - ``TimeDifference``
+
+

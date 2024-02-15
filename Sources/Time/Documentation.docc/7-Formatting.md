@@ -1,4 +1,4 @@
-# Formatting TimePeriods
+#  Formatting Fixed Values
 
 Formatting is the process of taking a ``TimePeriod`` and turning it into a human-readable form.
 
@@ -17,3 +17,5 @@ let today: Absolute<Day> = ...
 
 let string = today.format(year: .twoDigits, month: .naturalName) // Ex: February '20
 ```
+
+
