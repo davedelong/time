@@ -2,8 +2,6 @@
 //  PartialFormatting-Others.swift
 //  Time
 //
-//  Created by Dave DeLong on 5/18/18.
-//
 
 import Foundation
 

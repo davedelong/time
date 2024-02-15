@@ -1,10 +1,6 @@
 //
 //  XCTestCase+Convenience.swift
-//  
 //
-//  Created by Dave DeLong on 10/28/19.
-//
-
 import XCTest
 
 extension XCTestCase {

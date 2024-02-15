@@ -1,9 +1,6 @@
 //
 //  FixedSequence.swift
 //
-//
-//  Created by Dave DeLong on 10/5/19.
-//
 
 import Foundation
 

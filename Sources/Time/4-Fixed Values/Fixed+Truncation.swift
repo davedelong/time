@@ -1,8 +1,5 @@
 //
 //  Fixed+Truncation.swift
-//  
-//
-//  Created by Dave DeLong on 2/12/20.
 //
 
 import Foundation

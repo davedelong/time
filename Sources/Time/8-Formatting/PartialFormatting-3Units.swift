@@ -2,8 +2,6 @@
 //  PartialFormatting-3Units.swift
 //  Time
 //
-//  Created by Dave DeLong on 5/18/18.
-//
 
 import Foundation
 

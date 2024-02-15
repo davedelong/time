@@ -1,8 +1,5 @@
 //
 //  File.swift
-//  
-//
-//  Created by Dave DeLong on 2/10/24.
 //
 
 import Foundation

@@ -1,8 +1,5 @@
 //
 //  Codable.swift
-//  
-//
-//  Created by Daniel Kennett on 2023-01-09.
 //
 
 import Foundation

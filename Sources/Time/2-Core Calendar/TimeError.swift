@@ -1,8 +1,5 @@
 //
 //  TimeError.swift
-//  
-//
-//  Created by Dave DeLong on 4/11/20.
 //
 
 import Foundation

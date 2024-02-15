@@ -1,8 +1,5 @@
 //
 //  Relations+Ranges.swift
-//  
-//
-//  Created by Dave DeLong on 3/7/20.
 //
 
 import Foundation

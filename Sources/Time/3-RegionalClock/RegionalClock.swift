@@ -2,8 +2,6 @@
 //  RegionalClock.swift
 //  Time
 //
-//  Created by Dave DeLong on 11/22/17.
-//
 
 import Foundation
 

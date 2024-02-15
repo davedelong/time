@@ -1,8 +1,5 @@
 //
 //  Fixed+Day.swift
-//  
-//
-//  Created by Dave DeLong on 10/3/19.
 //
 
 import Foundation

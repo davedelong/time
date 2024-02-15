@@ -2,8 +2,6 @@
 //  Calendar.swift
 //  Time
 //
-//  Created by Dave DeLong on 2/17/18.
-//
 
 import Foundation
 

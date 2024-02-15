@@ -1,10 +1,6 @@
 //
 //  File.swift
-//  
 //
-//  Created by Dave DeLong on 5/24/23.
-//
-
 import XCTest
 import Time
 

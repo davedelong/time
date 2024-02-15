@@ -1,8 +1,5 @@
 //
 //  DateFormatterCache.swift
-//  
-//
-//  Created by Dave DeLong on 10/6/19.
 //
 
 import Foundation

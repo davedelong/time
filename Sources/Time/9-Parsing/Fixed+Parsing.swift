@@ -1,9 +1,6 @@
 //
 //  Fixed+Parsing.swift
 //
-//
-//  Created by Dave DeLong on 2/4/20.
-//
 
 import Foundation
 

@@ -1,9 +1,6 @@
 //
 //  Relations+Fixed.swift
 //
-//
-//  Created by Dave DeLong on 3/7/20.
-//
 
 extension Fixed {
     

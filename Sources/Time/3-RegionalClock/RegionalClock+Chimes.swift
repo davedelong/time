@@ -2,8 +2,6 @@
 //  RegionalClock+Chimes.swift
 //  Time
 //
-//  Created by James Robinson on 4/11/20.
-//
 
 import Foundation
 import Dispatch

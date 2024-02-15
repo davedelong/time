@@ -2,8 +2,6 @@
 //  ClockChimeTests.swift
 //  TimeTests
 //
-//  Created by James Robinson on 4/11/20.
-//
 
 import XCTest
 import Time

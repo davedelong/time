@@ -2,8 +2,6 @@
 //  Fixed+Internal.swift
 //  Time
 //
-//  Created by Dave DeLong on 10/4/18.
-//
 
 import Foundation
 
