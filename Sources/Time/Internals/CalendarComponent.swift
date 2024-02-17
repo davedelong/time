@@ -138,7 +138,9 @@ extension Calendar.Component {
             case "w": self = .weekOfYear
             case "W": self = .weekOfMonth
             case "d": self = .day
-            case "D": self = .day // TODO: dayOfYear
+                
+            // TODO: dayOfYear: https://github.com/apple/swift-foundation/blob/main/Proposals/0001-calendar-improvements.md
+            case "D": self = .day
             case "F": self = .weekdayOrdinal
             case "g": self = .day // Julian day, technically
             case "E": self = .weekday

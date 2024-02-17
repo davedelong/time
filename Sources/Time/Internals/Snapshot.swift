@@ -68,8 +68,6 @@ extension Calendar {
         snapshot.firstWeekday = auto.firstWeekday
         snapshot.minimumDaysInFirstWeek = auto.minimumDaysInFirstWeek
         
-        // TODO: copy over the various symbols?
-        
         return snapshot
     })
     

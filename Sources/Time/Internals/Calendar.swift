@@ -32,6 +32,7 @@ extension Calendar {
     
     internal func exactDate(from components: DateComponents, in timeZone: TimeZone, matching: Set<Calendar.Component>) throws -> Date {
         var restricted = try components.requireAndRestrict(to: matching, lenient: self.lenientUnitsForFixedTimePeriods)
+        restricted.timeZone = timeZone
         
         guard let proposed = self.date(from: restricted) else {
             let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)
@@ -62,6 +63,7 @@ extension Calendar {
     }
     
     internal func range(of unit: Calendar.Component, containing date: Date) -> Range<Date> {
+        #warning("1.0: will this consider the time zone?")
         var start = Date()
         var length: TimeInterval = 0
         let succeeded = self.dateInterval(of: unit, start: &start, interval: &length, for: date)

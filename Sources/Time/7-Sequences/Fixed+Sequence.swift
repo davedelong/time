@@ -34,7 +34,7 @@ public struct FixedSequence<U: Unit & LTOEEra>: Sequence {
     ///   - stride: The difference between subsequent fixed values.
     public init<S>(range: Range<Fixed<S>>, stride: TimeDifference<U, Era>) {
         let lower = range.lowerBound
-        let upper = range.upperBound.setting(region: lower.region)
+        let upper = range.upperBound.region.isEquivalent(to: lower.region) ? range.upperBound : Fixed<S>(region: lower.region, instant: range.upperBound.firstInstant)
         constructor = { FixedIterator(region: lower.region, range: lower.firstInstant ..< upper.firstInstant, stride: stride) }
     }
     
@@ -46,7 +46,7 @@ public struct FixedSequence<U: Unit & LTOEEra>: Sequence {
     ///   - stride: The difference between subsequent fixed values.
     public init<S>(range: ClosedRange<Fixed<S>>, stride: TimeDifference<U, Era>) {
         let lower = range.lowerBound
-        let upper = range.upperBound.setting(region: lower.region)
+        let upper = range.upperBound.region.isEquivalent(to: lower.region) ? range.upperBound : Fixed<S>(region: lower.region, instant: range.upperBound.firstInstant)
         constructor = { FixedIterator(region: lower.region, range: lower.firstInstant ... upper.firstInstant, stride: stride) }
     }
     
