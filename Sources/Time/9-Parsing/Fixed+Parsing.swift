@@ -17,7 +17,7 @@ extension Fixed {
         if let date = df.date(from: stringValue) {
             self.init(region: region, date: date)
         } else {
-            throw TimeError.cannotParseString(stringValue, in: region)
+            throw TimeError.cannotParseString(stringValue, formatString: rawFormat, in: region)
         }
     }
     

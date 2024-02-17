@@ -30,7 +30,7 @@ public struct Fixed<Granularity: Unit & LTOEEra> {
     public typealias Smallest = Granularity
     
     /// The set of `Calendar.Components` represented by this particular `Fixed` value
-    public static var representedComponents: Set<Calendar.Component> {
+    internal static var representedComponents: Set<Calendar.Component> {
         return Calendar.Component.from(lower: Granularity.self, to: Era.self)
     }
     
@@ -100,18 +100,6 @@ public struct Fixed<Granularity: Unit & LTOEEra> {
                                                  in: region.timeZone,
                                                  matching: Self.representedComponents)
         self.init(region: region, instant: Instant(date: date), components: strictDateComponents)
-    }
-    
-    private init(region: Region, dateComponents: DateComponents) throws {
-        let refined = try dateComponents.requireAndRestrict(to: Self.representedComponents,
-                                                            lenient: region.calendar.lenientUnitsForFixedTimePeriods)
-        
-        // turn the date components into a date
-        guard let date = region.calendar.date(from: refined) else {
-            throw TimeError.invalidDateComponents(refined, in: region)
-        }
-        
-        self.init(region: region, date: date)
     }
     
     /// Construct a new `Fixed` value by converting this fixed value to a new `Locale`.

@@ -39,14 +39,24 @@ extension Fixed {
     
     internal func nth<U: Unit>(_ ordinal: Int) throws -> Fixed<U> {
         let target = DateComponents(value: ordinal, component: U.component)
-        guard ordinal >= 1 else { throw TimeError.invalidDateComponents(target, in: region) }
+        
+        guard ordinal >= 1 else {
+            throw TimeError.invalidDateComponents(target, in: region, description: "Invalid ordinal of \(ordinal) \(U.component)")
+        }
+        
         let offset: Fixed<U> = first() + TimeDifference<U, Era>(value: ordinal - 1, unit: U.component)
         
         let parentRange = self.range
         let childRange = offset.range
         
-        guard parentRange.lowerBound <= childRange.lowerBound else { throw TimeError.invalidDateComponents(target, in: region) }
-        guard childRange.upperBound <= parentRange.upperBound else { throw TimeError.invalidDateComponents(target, in: region) }
+        guard parentRange.lowerBound <= childRange.lowerBound else {
+            throw TimeError.invalidDateComponents(target, in: region, description: "\(U.component) #\(ordinal) is outside the range of \(self)")
+        }
+        
+        guard childRange.upperBound <= parentRange.upperBound else {
+            throw TimeError.invalidDateComponents(target, in: region, description: "\(U.component) #\(ordinal) is outside the range of \(self)")
+        }
+        
         return offset
     }
     

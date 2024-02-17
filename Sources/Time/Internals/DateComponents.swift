@@ -35,9 +35,11 @@ internal extension DateComponents {
                 missing.insert(component)
             }
         }
+        
         if missing.isEmpty == false {
-            throw TimeError.missingCalendarComponents(missing)
+            throw TimeError.missingCalendarComponents(missing, in: self)
         }
+        
         return final
     }
     

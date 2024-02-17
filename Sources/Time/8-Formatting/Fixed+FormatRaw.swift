@@ -41,7 +41,7 @@ extension Fixed {
             if strict == true {
                 // the format string specified units that are not represented by this value
                 let desc = "The provided format string '\(rawFormatString)' includes components (\(missingUnits)) that are not represented in a \(Self.self) value (\(Self.representedComponents))"
-                throw TimeError.missingCalendarComponents(missingUnits, whileParsing: true, description: desc)
+                throw TimeError.invalidFormatString(rawFormatString, units: missingUnits, description: desc)
             } else {
                 style = .init(raw: rawFormatString)
             }
