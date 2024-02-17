@@ -2,7 +2,7 @@
 //  FixedFormattingTests.swift
 //
 import XCTest
-import Time
+@testable import Time
 
 class FixedFormattingTests: XCTestCase {
     
@@ -101,6 +101,8 @@ class FixedFormattingTests: XCTestCase {
         XCTAssertThrowsError(try v.format(raw: "y-MM mm"), "This should have thrown")
         XCTAssertThrowsError(try v.format(raw: "y-MM ss"), "This should have thrown")
         XCTAssertThrowsError(try v.format(raw: "y-MM SSSSSS"), "This should have thrown")
+        
+        XCTAssertThrowsError(try v.format(raw: "y-MM 't"), "This should have thrown")
     }
     
     func testRawFormatting_Lenient() {

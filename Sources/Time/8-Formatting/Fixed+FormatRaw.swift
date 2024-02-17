@@ -22,16 +22,19 @@ extension Fixed {
     /// If the format string specifies unrepresented calendar components and `strict` is `false`, then
     /// the `firstInstant` of the value is used.
     ///
-    /// An error is thrown if-and-only-if the `strict` parameter is `true`. If you specify that `strict`
-    /// is `false`, then you may safely "`try!`" this method.
-    ///
     /// - Parameters:
     ///   - rawFormatString: The raw, unlocalized format string to be used for formatting.
     ///   - strict: Whether or not this method should throw a ``TimeError`` if the format string specifies
     ///     unrepresented calendar components.
+    /// - Throws: A `TimeError` if either the `rawFormatString` is syntactically incorrect, or the format string is
+    /// requesting units for formatting that are not represented by this fixed value *and* the `strict` parameter is `true`
     public func format(raw rawFormatString: String, strict: Bool = true) throws -> String {
-        let desiredUnits = Calendar.Component.components(in: rawFormatString)
-        let missingUnits = desiredUnits.subtracting(representedComponents)
+        let format = try ParsedFormat(formatString: rawFormatString)
+        
+        let formattedUnits = format.components.compactMap(\.unit)
+        let requiredUnits = formattedUnits.map(\.minimumRequiredComponent)
+        
+        let missingUnits = Set(requiredUnits).subtracting(self.representedComponents)
         
         let style: FixedFormat<Granularity>
         if missingUnits.isEmpty == false {

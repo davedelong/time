@@ -12,6 +12,7 @@ public struct TimeError: Error, CustomStringConvertible {
     private enum Payload {
         case missingUnits(Set<Calendar.Component>, Bool)
         case invalidComponents(DateComponents, Region)
+        case invalidFormatString(String)
         case cannotParseString(String, Region)
         case cannotDecodeTimePeriodStorage(fixed: Error, floating: Error)
     }
@@ -26,6 +27,10 @@ public struct TimeError: Error, CustomStringConvertible {
     
     public static func invalidDateComponents(_ components: DateComponents, in region: Region, description: String? = nil) -> TimeError {
         return TimeError(payload: .invalidComponents(components, region), _description: description)
+    }
+    
+    public static func invalidFormatString(_ string: String, description: String? = nil) -> TimeError {
+        return TimeError(payload: .invalidFormatString(string), _description: description)
     }
     
     public static func cannotParseString(_ string: String, in region: Region, description: String? = nil) -> TimeError {
@@ -46,6 +51,8 @@ public struct TimeError: Error, CustomStringConvertible {
                 } else {
                     return "Some required components (\(units)) were missing"
                 }
+            case .invalidFormatString(let format):
+                return "Invalid format string: '\(format)'"
             case .invalidComponents(let dc, let region):
                 return "The provided date components (\(dc)) cannot be correctly interpreted in the \(region) region"
             case .cannotParseString(let string, let region):
@@ -59,6 +66,7 @@ public struct TimeError: Error, CustomStringConvertible {
         switch payload {
             case .missingUnits(_, _): return nil
             case .invalidComponents(_, let r): return r
+            case .invalidFormatString(_): return nil
             case .cannotParseString(_, let r): return r
             case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return nil
         }
@@ -68,15 +76,25 @@ public struct TimeError: Error, CustomStringConvertible {
         switch payload {
             case .missingUnits(_, _): return nil
             case .invalidComponents(let c, _): return c
+            case .invalidFormatString(_): return nil
             case .cannotParseString(_, _): return nil
             case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return nil
         }
+    }
+    
+    public var formatString: String? {
+        if case .invalidFormatString(let string) = payload {
+            return string
+        }
+        
+        return nil
     }
     
     public var inputString: String? {
         switch payload {
             case .missingUnits(_, _): return nil
             case .invalidComponents(_, _): return nil
+            case .invalidFormatString(_): return nil
             case .cannotParseString(let s, _): return s
             case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return nil
         }
@@ -86,6 +104,7 @@ public struct TimeError: Error, CustomStringConvertible {
         switch payload {
             case .missingUnits(_, let parsing): return parsing
             case .invalidComponents(_, _): return false
+            case .invalidFormatString(_): return true
             case .cannotParseString(_, _): return true
             case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return true
         }
@@ -95,6 +114,7 @@ public struct TimeError: Error, CustomStringConvertible {
         switch payload {
             case .missingUnits(let c, _): return c
             case .invalidComponents(_, _): return []
+            case .invalidFormatString(_): return []
             case .cannotParseString(_, _): return []
             case .cannotDecodeTimePeriodStorage(fixed: _, floating: _): return []
         }
