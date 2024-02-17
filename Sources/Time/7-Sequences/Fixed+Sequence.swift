@@ -102,7 +102,7 @@ public struct FixedIterator<U: Unit & LTOEEra>: IteratorProtocol {
     /// - Note: This sequence iterates through values *up to and including* the upper bound of the range.
     /// - Parameters:
     ///   - region: The ``Region`` of the fixed values
-    ///   - range: The `ClosedRange` of ``Instants`` to iterate through.
+    ///   - range: The `ClosedRange` of ``Instant`` values to iterate through.
     ///   - stride: The difference between subsequent fixed values.
     public init(region: Region, range: ClosedRange<Instant>, stride: TimeDifference<U, Era>) {
         self.region = region

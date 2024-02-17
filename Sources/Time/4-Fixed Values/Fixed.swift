@@ -37,7 +37,7 @@ public struct Fixed<Granularity: Unit & LTOEEra> {
     public static var representedComponents: Set<Calendar.Component> {
         return Calendar.Component.from(lower: Granularity.self, to: Era.self)
     }
-        
+    
     /// The `Region` value used in computing this `Fixed` value's components.
     public let region: Region
     
@@ -100,7 +100,7 @@ public struct Fixed<Granularity: Unit & LTOEEra> {
     /// - Parameter region: The `Region` in which to interpret the date components
     /// - Parameter strictDateComponents: The `DateComponents` describing the desired calendrical date
     public init(region: Region, strictDateComponents: DateComponents) throws {
-        let date = try region.calendar.exactDate(from: strictDateComponents, 
+        let date = try region.calendar.exactDate(from: strictDateComponents,
                                                  in: region.timeZone,
                                                  matching: Self.representedComponents)
         self.init(region: region, instant: Instant(date: date), components: strictDateComponents)
@@ -118,30 +118,42 @@ public struct Fixed<Granularity: Unit & LTOEEra> {
         self.init(region: region, date: date)
     }
     
-    #warning("1.0: verify these for correctness")
-    
-    /// Construct a new `Fixed` value by converting this fixed value to a new `Region`.
-    public func setting(region: Region) -> Self {
-        if region == self.region { return self }
-        return Self.init(region: region, instant: self.instant)
+    /// Construct a new `Fixed` value by converting this fixed value to a new `Locale`.
+    ///
+    /// Changing a fixed value's locale affects how the value is formatted. It does not change the underlying components.
+    public func converted(to locale: Locale) -> Self {
+        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        return Self(region: newRegion, instant: self.instant, components: self.dateComponents)
     }
     
+    internal func setting(region newRegion: Region) -> Self {
+        return Self(region: newRegion, instant: self.firstInstant)
+    }
+    
+}
+
+extension Fixed where Granularity: LTOEHour {
+    
     /// Construct a new `Fixed` value by converting this fixed value to a new `Calendar`.
-    public func setting(calendar: Calendar) -> Self {
+    ///
+    /// - Note: This functionality is only available when dealing with fixed values that represent a day or smaller. All
+    /// supported calendars have the same basic definition of a day, being roughly `00:00:00 ... 23:59:59.999`.
+    /// Therefore, converting such a value to another calendar will result in the old temporal range being equivalent to
+    /// the new temporal range. This is not true for eras, years, and months: calendars have different definitions of when years start
+    /// and when months change, etc. Therefore, it is not possible to map "February 2024" to a non-gregorian calendar, since
+    /// there is not a guaranteed correspondance between their underlying `Range<Instant>` values.
+    public func converted(to calendar: Calendar) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return self.setting(region: newRegion)
+        return Self(region: newRegion, instant: self.firstInstant)
     }
     
     /// Construct a new `Fixed` value by converting this fixed value to a new `TimeZone`.
-    public func converting(to timeZone: TimeZone) -> Self {
+    ///
+    /// - Parameter timeZone: The new time zone of the resulting fixed value
+    /// - Returns: A fixed value where
+    public func converted(to timeZone: TimeZone) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return self.setting(region: newRegion)
-    }
-    
-    /// Construct a new `Fixed` value by converting this fixed value to a new `Locale`.
-    public func converting(to locale: Locale) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return self.setting(region: newRegion)
+        return Self(region: newRegion, instant: self.firstInstant)
     }
     
 }

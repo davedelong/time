@@ -176,4 +176,16 @@ class FixedTests: XCTestCase {
         XCTAssertTime(values[4], era: 1, year: 2024, month: 2, day: 1, hour: 1, minute: 29, second: 0)
         XCTAssertTime(values[5], era: 1, year: 2024, month: 2, day: 1, hour: 1, minute: 58, second: 0)
     }
+    
+    func testConversion() {
+        let d1 = try! Fixed(region: .posix, year: 2024, month: 2, day: 1, hour: 12)
+        
+        let d1_inPST = d1.converted(to: TimeZone(identifier: "America/Los_Angeles")!)
+        XCTAssertEqual(d1.range, d1_inPST.range)
+        XCTAssertTime(d1_inPST, era: 1, year: 2024, month: 2, day: 1, hour: 4)
+        
+        let d1_inPersian = d1.converted(to: Calendar(identifier: .persian))
+        XCTAssertEqual(d1.range, d1_inPersian.range)
+        XCTAssertTime(d1_inPersian, era: 0, year: 1402, month: 11, day: 12, hour: 12)
+    }
 }

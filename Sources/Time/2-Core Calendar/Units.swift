@@ -14,6 +14,9 @@ import Foundation
 
 // the @_documentation attribute is from https://github.com/apple/swift/pull/60242
 
+/// The base protocol for defining calendrical units
+///
+/// - Warning: You may not implement this protocol.
 public protocol Unit {
     #if swift(>=5.8)
     @_documentation(visibility: internal)
@@ -195,7 +198,7 @@ public protocol GTOEYear: GTOEMonth { }
 #endif
 public protocol GTOEEra: GTOEYear { }
 
-// A type used to prevent types outside of this package from adopting the Unit protocol
+// A type used to prevent external types from adopting the Unit protocol
 
 #if swift(>=5.8)
 @_documentation(visibility: internal)
