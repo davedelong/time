@@ -1,2 +1,0 @@
-#  Relations Between Fixed Values
-

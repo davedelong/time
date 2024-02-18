@@ -1,2 +1,0 @@
-#  Parsing Fixed Values
-

@@ -16,7 +16,7 @@ let package = Package(
         .library(name: "Time", targets: ["Time"])
     ],
     dependencies: [
-        
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.1.0")
     ],
     targets: [
         .target(name: "Time", dependencies: []),

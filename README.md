@@ -48,7 +48,7 @@ More information in ["Clock"](Documentation/2-Usage/2-Clock.md).
 let nycTimeZone = TimeZone(identifier: "America/New_York")!
 
 let myClock = Clocks.system
-let nycClock = myClock.converting(to: nycTimeZone)
+let nycClock = myClock.converted(to: nycTimeZone)
 
 let myLocalTime = myClock.thisMinute() // Ex: 28 Feb 2020 at 3:14 PM Pacific Time
 

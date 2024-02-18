@@ -25,8 +25,9 @@ Below are some of the features planned for Time:
 
 - Recurrence Rules
     - Including serialization
+    - SeeAlso: https://forums.swift.org/t/pitch-calendar-recurrencerule/70068
 - Custom Calendars
-    - ISO8601 should probably be its own calendar
+    - ISO 8601 should maybe be its own calendar
     - This would address some of the complexities around ISO 8601 formatting
     - This would enable:
         - extraterrestrial calendars, such as the [Darian calendar](https://en.wikipedia.org/wiki/Darian_calendar)
