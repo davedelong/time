@@ -58,7 +58,9 @@ extension Calendar.Component {
                 
             case .month: return .month
             case .quarter: return .month
-            case .isLeapMonth: return .month
+            
+            // for some reason, including .isLeapMonth is causing linking issues
+            // case .isLeapMonth: return .month
             
             case .day: return .day
             case .weekday: return .day
@@ -75,8 +77,9 @@ extension Calendar.Component {
             case .calendar:
                 fatalError("Invalid calendar component: .calendar")
                 
-            @unknown default:
-                return self
+            // TODO: replace @unknown after the "isLeapMonth" issue is resolved
+            /* @unknown */ default: return .day
+            
         }
     }
     
