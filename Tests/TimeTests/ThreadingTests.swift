@@ -8,8 +8,6 @@ class ThreadingTests: XCTestCase {
         ("testMultithreadingWithCopies", testMultithreadingWithCopies),
     ]
 
-#if swift(>=5.5) // Concurrency was added in Swift 5.5.
-
     func testMultithreadingWithCopies() async throws {
         // `Calendar`/`NSCalendar` aren't thread-safe on Linux, and many `TimePeriod` operations that don't
         // appear to be mutating do end up calling calendar methods that perform temporary mutations internally.
@@ -27,7 +25,9 @@ class ThreadingTests: XCTestCase {
                 let taskLocalStart = rangeStart._forcedCopy()
                 // ^ Without this copy, this test is likely to crash on Linux.
                 group.addTask {
-                    let range = taskLocalStart..<taskLocalStart.adding(hours: 4)
+                    let fourHoursLater = taskLocalStart.adding(hours: 4)
+                    print(taskLocalStart, fourHoursLater)
+                    let range = taskLocalStart ..< fourHoursLater
                     XCTAssert(range.lowerBound <= range.upperBound)
                     // ^ This assert is technially redundant since `Range` will crash if that assertion would fail.
                     return range
@@ -41,11 +41,5 @@ class ThreadingTests: XCTestCase {
 
         XCTAssertEqual(results.count, 1000)
     }
-#else
-
-    func testMultithreadingWithCopies() throws {
-        print("WARNING: Skipping testMultithreadingWithCopies() since it requires Swift >= 5.5.")
-    }
-#endif
 
 }
