@@ -65,8 +65,10 @@ extension Fixed where Granularity: LTOEDay {
     /// The definition of a "weekend" is supplied by the `Region`'s `Calendar`.
     public var isWeekday: Bool { return !isWeekend }
     
+    #if !os(Linux)
     /// Return this fixed value's day of the week
     public var weekday: Locale.Weekday { return Locale.Weekday(dayOfWeek: self.dayOfWeek) }
+    #endif
     
     /// Returns the numerical representation of the this value's day of the week.
     ///

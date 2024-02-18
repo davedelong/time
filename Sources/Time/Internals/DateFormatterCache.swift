@@ -14,7 +14,9 @@ extension DateFormatter {
     
     internal struct Key: Hashable {
         let configuration: FormatConfiguration
-        let region: Region
+        let calendar: Calendar
+        let locale: Locale
+        let timeZone: TimeZone
     }
     
     internal static func formatter(for key: Key) -> DateFormatter {
@@ -22,13 +24,15 @@ extension DateFormatter {
     }
     
     internal static func formatter(for rawFormat: String, region: Region) -> DateFormatter {
-        return self.formatter(for: .init(configuration: .raw(rawFormat), region: region))
+        let key = Key(configuration: .raw(rawFormat), calendar: region.calendar, locale: region.locale, timeZone: region.timeZone)
+        return self.formatter(for: key)
     }
     
     internal static func formatter(for templates: Array<Format?>, region: Region) -> DateFormatter {
         let template = templates.compactMap { $0?.template }.joined()
         if template.isEmpty { fatalError("Somehow have an empty template? this should not happen") }
-        return self.formatter(for: .init(configuration: .template(template), region: region))
+        let key = Key(configuration: .template(template), calendar: region.calendar, locale: region.locale, timeZone: region.timeZone)
+        return self.formatter(for: key)
     }
 }
 
@@ -49,12 +53,12 @@ private class DateFormatterCache {
             returnValue = existing
         } else {
             let formatter = DateFormatter()
-            formatter.locale = key.region.locale
-            formatter.calendar = key.region.calendar
-            formatter.timeZone = key.region.timeZone
+            formatter.locale = key.locale
+            formatter.calendar = key.calendar
+            formatter.timeZone = key.timeZone
             switch key.configuration {
                 case .template(let template):
-                    formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: key.region.locale)
+                    formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: template, options: 0, locale: key.locale)
                 case .raw(let format):
                     formatter.dateFormat = format
                 case .styles(let date, let time):

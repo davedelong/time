@@ -2,7 +2,11 @@
 //  TimeError.swift
 //
 
+#if os(Linux)
 @preconcurrency import Foundation
+#else
+import Foundation
+#endif
 
 /// A  type describing the possible ways that a calendrical operation might fail
 public struct TimeError: Error, Sendable, CustomStringConvertible {

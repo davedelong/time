@@ -225,7 +225,9 @@ extension Fixed {
     
     internal func format<S>(_ style: FixedFormat<S>) -> String {
         let key = DateFormatter.Key(configuration: style.configuration,
-                                    region: self.region)
+                                    calendar: self.region.calendar,
+                                    locale: self.region.locale,
+                                    timeZone: self.region.timeZone)
         
         let formatter = DateFormatter.formatter(for: key)
         

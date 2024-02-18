@@ -3,7 +3,11 @@
 //  Time
 //
 
+#if os(Linux)
 @preconcurrency import Foundation
+#else
+import Foundation
+#endif
 
 /// A `Region` contains all of the information necessary to refer to a user's preferences for expressing calendrical values.
 ///
@@ -90,10 +94,7 @@ public struct Region: Hashable, Sendable {
     }
     
     /// Indicates whether time values in this region will be formatted using 12-hour ("1:00 PM") or 24-hour ("13:00") time.
-    public var wants24HourTime: Bool {
-        let formatString = DateFormatter.dateFormat(fromTemplate: "J", options: 0, locale: locale)
-        return formatString?.contains("H") == true
-    }
+    public var wants24HourTime: Bool { locale.wants24HourTime }
     
     public func setTimeZone(_ timeZone: TimeZone) -> Region {
         if timeZone == self.timeZone { return self }

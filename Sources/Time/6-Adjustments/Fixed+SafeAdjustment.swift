@@ -166,12 +166,14 @@ extension Fixed where Granularity: LTOEDay {
         return current
     }
     
+    #if !os(Linux)
     /// Create a new `Fixed` value that corresponds to the specified weekday
     /// - Parameter weekday: The day of the week.
     /// - Returns: A fixed value whose `.weekday` is equal to the `weekday` parameter.
     public func next(weekday: Locale.Weekday) -> Self {
         return self.next(dayOfWeek: weekday.dayOfWeek)
     }
+    #endif
     
 }
 

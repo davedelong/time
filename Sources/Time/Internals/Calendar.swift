@@ -78,6 +78,7 @@ extension Calendar {
     
 }
 
+#if !os(Linux)
 extension Locale.Weekday {
     
     internal init(dayOfWeek: Int) {
@@ -109,3 +110,4 @@ extension Locale.Weekday {
     }
     
 }
+#endif

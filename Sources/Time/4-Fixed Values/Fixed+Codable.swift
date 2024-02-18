@@ -67,12 +67,12 @@ private struct CodableLocale: Codable {
     let locale: Locale
     
     init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
         do {
-            let container = try decoder.singleValueContainer()
             let identifier = try container.decode(String.self)
             self.locale = Locale.standard(identifier)
         } catch {
-            self.locale = try Locale(from: decoder)
+            self.locale = try container.decode(Locale.self)
         }
     }
     
@@ -94,12 +94,12 @@ private struct CodableTimeZone: Codable {
     let timeZone: TimeZone
     
     init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
         do {
-            let container = try decoder.singleValueContainer()
             let identifier = try container.decode(String.self)
             self.timeZone = TimeZone.standard(identifier)
         } catch {
-            self.timeZone = try TimeZone(from: decoder)
+            self.timeZone = try container.decode(TimeZone.self)
         }
     }
     
@@ -121,12 +121,12 @@ private struct CodableCalendar: Codable {
     let calendar: Calendar
     
     init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
         do {
-            let container = try decoder.singleValueContainer()
             let identifier = try container.decode(Calendar.Identifier.self)
-            self.calendar = Calendar(identifier: identifier)
+            self.calendar = Calendar.standard(identifier)
         } catch {
-            self.calendar = try Calendar(from: decoder)
+            self.calendar = try container.decode(Calendar.self)
         }
     }
     

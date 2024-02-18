@@ -12,11 +12,19 @@ extension Locale {
         let standard = Locale.standard(auto.identifier)
         if auto.isEquivalent(to: standard) { return standard }
         
+        #if os(Linux)
+        var components = Locale.components(fromIdentifier: auto.identifier)
+        components["ca"] = auto.calendar.identifier // calendar
+        components["fw"] = auto.bcp47FirstWeekday // first day of week
+        components["hc"] = auto.bcp47HourCycle // hour cycle
+        components["tz"] = auto.bcp47TimeZone // time zone
+        
+        let compositeIdentifier = Locale.identifier(fromComponents: components)
+        return Locale(identifier: compositeIdentifier)
+        #else
         var components = Locale.Components()
         
         components.calendar = auto.calendar.identifier
-        components.collation = auto.collation
-        components.currency = auto.currency
         components.firstDayOfWeek = auto.firstDayOfWeek
         components.hourCycle = auto.hourCycle
         components.languageComponents = .init(languageCode: auto.language.languageCode,
@@ -24,12 +32,11 @@ extension Locale {
                                               region: auto.language.region)
         components.measurementSystem = auto.measurementSystem
         components.numberingSystem = auto.numberingSystem
-        components.region = auto.region
-        components.subdivision = auto.subdivision
         components.timeZone = auto.timeZone
         components.variant = auto.variant
         
         return Locale(components: components)
+        #endif
     })
     
     func snapshot() -> Self {
@@ -37,6 +44,44 @@ extension Locale {
         return Self.currentSnapshot.snapshot
     }
     
+    internal var bcp47FirstWeekday: String? {
+        switch calendar.firstWeekday {
+            case 1: return "sun"
+            case 2: return "mon"
+            case 3: return "tue"
+            case 4: return "wed"
+            case 5: return "thu"
+            case 6: return "fri"
+            case 7: return "sat"
+            default: return nil
+        }
+    }
+    
+    internal var bcp47HourCycle: String? {
+        let formatString = DateFormatter.dateFormat(fromTemplate: "J", options: 0, locale: self)
+        switch formatString {
+            case "h": return "h12" // 1-12
+            case "H": return "h23" // 0-23
+            case "K": return "h11" // 0-11
+            case "k": return "h24" // 1-24
+            default: return nil
+        }
+    }
+    
+    internal var bcp47TimeZone: String? {
+        guard let timeZone else { return nil }
+        let key = DateFormatter.Key(configuration: .raw(Template<TimeZone>.shortID.template),
+                                    calendar: self.calendar,
+                                    locale: self,
+                                    timeZone: timeZone)
+        let df = DateFormatter.formatter(for: key)
+        return df.string(from: Date())
+    }
+    
+    internal var wants24HourTime: Bool {
+        let cycle = bcp47HourCycle
+        return cycle == "h23" || cycle == "h24"
+    }
 }
 
 extension TimeZone {
@@ -58,7 +103,9 @@ extension Calendar {
         let auto = Calendar.autoupdatingCurrent
         
         let standard = Calendar.standard(auto.identifier)
-        if auto.isEquivalent(to: standard) { return standard }
+        if auto.isEquivalent(to: standard) {
+            return standard
+        }
         
         var snapshot = Calendar(identifier: auto.identifier)
         
@@ -78,7 +125,7 @@ extension Calendar {
     
 }
 
-private class Snapshot<T> {
+private class Snapshot<T>: @unchecked Sendable {
     
     private let createSnapshot: () -> T
     
