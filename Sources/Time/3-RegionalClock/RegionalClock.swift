@@ -33,8 +33,8 @@ extension RegionalClock {
     /// The default implementation
     public var SISecondsPerClockSecond: Double { return 1.0 }
     
-    /// The default implementation (1e-9)
-    public var minimumResolution: SISeconds { return SISeconds(1.0 / Double(NSEC_PER_SEC)) }
+    /// The default implementation; one nanosecond (1e-9)
+    public var minimumResolution: SISeconds { return SISeconds(1.0 / Double(1e9)) }
     
     /// Suspend the current concurrency task until the specified deadline, relative to this clock
     /// - Parameter deadline: The `Instant` at which this task should wake up again, relative to this clock
