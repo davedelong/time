@@ -103,37 +103,37 @@ extension RegionalClock {
     ///
     /// - Parameter timeZone: The `TimeZone` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `TimeZone`.
-    public func converting(to timeZone: TimeZone) -> any RegionalClock {
+    public func converted(to timeZone: TimeZone) -> any RegionalClock {
         if timeZone.isEquivalent(to: self.timeZone) { return self }
         let newRegion = self.region.setTimeZone(timeZone)
-        return self.converting(to: newRegion)
+        return self.converted(to: newRegion)
     }
     
     /// Convert a clock to a new calendar.
     ///
     /// - Parameter calendar: The `Calendar` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `Calendar`.
-    public func converting(to calendar: Calendar) -> any RegionalClock {
+    public func converted(to calendar: Calendar) -> any RegionalClock {
         if calendar.isEquivalent(to: self.calendar) { return self }
         let newRegion = self.region.setCalendar(calendar)
-        return self.converting(to: newRegion)
+        return self.converted(to: newRegion)
     }
     
     /// Convert a clock to a new locale.
     ///
     /// - Parameter locale: The `Locale` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `Locale`.
-    public func converting(to locale: Locale) -> any RegionalClock {
+    public func converted(to locale: Locale) -> any RegionalClock {
         if locale.isEquivalent(to: self.locale) { return self }
         let newRegion = self.region.setLocale(locale)
-        return self.converting(to: newRegion)
+        return self.converted(to: newRegion)
     }
     
     /// Convert a clock to a new region.
     ///
     /// - Parameter region: The `Region` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `Region`.
-    public func converting(to newRegion: Region) -> any RegionalClock {
+    public func converted(to newRegion: Region) -> any RegionalClock {
         if newRegion.isEquivalent(to: self.region) { return self }
         return CustomRegionClock(base: self, region: newRegion)
     }

@@ -67,7 +67,7 @@ public struct Instant: Hashable, Comparable, InstantProtocol, Sendable {
     ///
     /// The resulting `Instant` still refers to the *same* point in time as the original `Instant`.
     /// This method is used to retrieve an alternate *representation* of that instant.
-    public func converting(to epoch: Epoch) -> Instant {
+    public func converted(to epoch: Epoch) -> Instant {
         if epoch == self.epoch { return self }
         let epochOffset = epoch.offsetFromReferenceDate - self.epoch.offsetFromReferenceDate
         let epochInterval = intervalSinceEpoch - epochOffset

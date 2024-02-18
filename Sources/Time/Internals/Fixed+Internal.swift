@@ -18,7 +18,7 @@ extension Fixed {
     internal var approximateMidPoint: Instant {
         let r = self.range
         let lower = r.lowerBound
-        let upper = r.upperBound.converting(to: lower.epoch)
+        let upper = r.upperBound.converted(to: lower.epoch)
         let duration = upper.intervalSinceEpoch - lower.intervalSinceEpoch
         let midPoint = lower + (duration / 2.0)
         return max(lower, midPoint)
