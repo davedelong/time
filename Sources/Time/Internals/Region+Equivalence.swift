@@ -25,6 +25,8 @@ extension Calendar {
         return true
     }
     
+    var isLikelyAutoupdating: Bool { self == .autoupdatingCurrent }
+    
 }
 
 extension TimeZone {
@@ -34,6 +36,8 @@ extension TimeZone {
         
         return true
     }
+    
+    var isLikelyAutoupdating: Bool { self == .autoupdatingCurrent }
     
 }
 
@@ -56,5 +60,7 @@ extension Locale {
         
         return true
     }
+    
+    var isLikelyAutoupdating: Bool { self == .autoupdatingCurrent }
     
 }

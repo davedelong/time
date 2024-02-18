@@ -4,46 +4,6 @@
 
 import Foundation
 
-private let minimumRequiredComponent: Dictionary<Character, Calendar.Component> = [
-    "G": .era,
-    "y": .year,
-    "Y": .year,
-    "u": .year,
-    "U": .year,
-    "r": .year,
-    "Q": .month,
-    "q": .month,
-    "M": .month,
-    "L": .month,
-    "w": .day,
-    "W": .day,
-    "d": .day,
-    "D": .day,
-    "F": .day,
-    "g": .day,
-    "E": .day,
-    "e": .day,
-    "c": .day,
-    "a": .hour,
-    "b": .hour,
-    "B": .hour,
-    "h": .hour,
-    "H": .hour,
-    "k": .hour,
-    "K": .hour,
-    "m": .minute,
-    "s": .second,
-    "S": .nanosecond,
-// these are ignored because we can always format a time zone, because all Fixed<U> have a time zone
-//    "z": .timeZone,
-//    "Z": .timeZone,
-//    "O": .timeZone,
-//    "v": .timeZone,
-//    "V": .timeZone,
-//    "X": .timeZone,
-//    "x": .timeZone
-]
-
 extension Calendar.Component {
     
     internal static let ascendingOrder: Array<Calendar.Component> = [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]

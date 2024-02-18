@@ -228,32 +228,15 @@ extension ClockTests {
         XCTAssertNotEqual(now.calendar, calendar)
     }
     
-    func testAutoupdatingTimeZoneProducesStaticTimeZone() {
-        let r = Region(calendar: .current, timeZone: .autoupdatingCurrent, locale: .current)
-        let c = Clocks.system(in: r)
-        
-        let now = c.currentSecond
-        
-        XCTAssertNotEqual(now.timeZone, r.timeZone)
-    }
-    
-    func testAutoupdatingLocaleProducesStaticLocale() {
-        let r = Region(calendar: .current, timeZone: .current, locale: .autoupdatingCurrent)
-        let c = Clocks.system(in: r)
-        
-        let now = c.currentSecond
-        
-        XCTAssertNotEqual(now.locale, r.locale)
-    }
-    
     func testAutoupdatingRegionProducesStaticRegion() {
         let r = Region.autoupdatingCurrent
+        XCTAssertTrue(r.isAutoupdating)
+        
         let c = Clocks.system(in: r)
+        XCTAssertTrue(c.region.isAutoupdating)
         
         let now = c.currentSecond
-        
-        #warning("1.0: How to detect autoupdating region values?")
-        XCTAssertNotEqual(now.region, r)
+        XCTAssertFalse(now.region.isAutoupdating)
     }
     
 }

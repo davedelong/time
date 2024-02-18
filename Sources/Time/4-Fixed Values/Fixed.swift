@@ -58,7 +58,7 @@ public struct Fixed<Granularity: Unit & LTOEEra> {
     ///
     /// All initializers must funnel through this one. By the time this is called, the components should already be extracted
     internal init(region: Region, instant: Instant, components: Foundation.DateComponents) {
-        self.region = region.snapshot()
+        self.region = region.snapshot(forced: false)
         self.instant = instant
         self.dateComponents = components
     }
