@@ -123,7 +123,14 @@ private struct CodableCalendar: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         do {
+            #if os(Linux)
+            // on Linux, Calendar.Identifier does not appear to be Codable
+            // therefore, we must manually decode its value
+            let encodingIdentifier = try container.decode(String.self)
+            let identifier = try Calendar.Identifier(encodingIdentifier: encodingIdentifier)
+            #else
             let identifier = try container.decode(Calendar.Identifier.self)
+            #endif
             self.calendar = Calendar.standard(identifier)
         } catch {
             self.calendar = try container.decode(Calendar.self)
@@ -135,7 +142,14 @@ private struct CodableCalendar: Codable {
         
         if standard.isEquivalent(to: calendar) {
             var single = encoder.singleValueContainer()
+            #if os(Linux)
+            // on Linux, Calendar.Identifier does not appear to be Codable
+            // therefore, we must manually encode its value
+            let encodingIdentifier = try calendar.identifier.encodingIdentifier
+            try single.encode(encodingIdentifier)
+            #else
             try single.encode(calendar.identifier)
+            #endif
         } else {
             try calendar.encode(to: encoder)
         }

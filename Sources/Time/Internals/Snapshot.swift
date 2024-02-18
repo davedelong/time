@@ -10,18 +10,11 @@ extension Locale {
         let auto = Locale.autoupdatingCurrent
         
         let standard = Locale.standard(auto.identifier)
-        if auto.isEquivalent(to: standard) { return standard }
         
         #if os(Linux)
-        var components = Locale.components(fromIdentifier: auto.identifier)
-        components["ca"] = auto.calendar.identifier // calendar
-        components["fw"] = auto.bcp47FirstWeekday // first day of week
-        components["hc"] = auto.bcp47HourCycle // hour cycle
-        components["tz"] = auto.bcp47TimeZone // time zone
-        
-        let compositeIdentifier = Locale.identifier(fromComponents: components)
-        return Locale(identifier: compositeIdentifier)
+        return standard
         #else
+        if auto.isEquivalent(to: standard) { return standard }
         var components = Locale.Components()
         
         components.calendar = auto.calendar.identifier
@@ -68,19 +61,13 @@ extension Locale {
         }
     }
     
-    internal var bcp47TimeZone: String? {
-        guard let timeZone else { return nil }
-        let key = DateFormatter.Key(configuration: .raw(Template<TimeZone>.shortID.template),
-                                    calendar: self.calendar,
-                                    locale: self,
-                                    timeZone: timeZone)
-        let df = DateFormatter.formatter(for: key)
-        return df.string(from: Date())
-    }
-    
     internal var wants24HourTime: Bool {
-        let cycle = bcp47HourCycle
-        return cycle == "h23" || cycle == "h24"
+        if let cycle = bcp47HourCycle {
+            return cycle == "h23" || cycle == "h24"
+        }
+        
+        let hour = DateFormatter.dateFormat(fromTemplate: "J", options: 0, locale: self)
+        return hour?.contains("H") == true || hour?.contains("k") == true
     }
 }
 

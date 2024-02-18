@@ -28,6 +28,9 @@ public struct TimeError: Error, Sendable, CustomStringConvertible {
         
         /// An error occured while decoding a fixed value
         case decodingError
+        
+        /// An error occured while encoding a fixed value
+        case encodingError
     }
     
     /// The reason the operation failed
@@ -144,6 +147,17 @@ extension TimeError {
                      valueString: nil,
                      underlyingError: fixedError,
                      description: "Cannot decode value from provided data: \(fixedError)")
+    }
+    
+    internal static func encodingError(_ fixedError: Error) -> TimeError {
+        return .init(reason: .encodingError,
+                     units: nil,
+                     dateComponents: nil,
+                     region: nil,
+                     formatString: nil,
+                     valueString: nil,
+                     underlyingError: fixedError,
+                     description: "Cannot encode value: \(fixedError)")
     }
     
 }

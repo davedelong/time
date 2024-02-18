@@ -47,7 +47,6 @@ extension Locale {
         #if os(Linux)
         guard identifier == other.identifier else { return false }
         guard bcp47HourCycle == other.bcp47HourCycle else { return false }
-        guard bcp47TimeZone == other.bcp47TimeZone else { return false }
         guard bcp47FirstWeekday == other.bcp47FirstWeekday else { return false }
         
         #else
