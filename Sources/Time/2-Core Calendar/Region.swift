@@ -3,7 +3,7 @@
 //  Time
 //
 
-import Foundation
+@preconcurrency import Foundation
 
 /// A `Region` contains all of the information necessary to refer to a user's preferences for expressing calendrical values.
 ///

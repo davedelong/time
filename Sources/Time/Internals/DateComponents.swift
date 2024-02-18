@@ -7,7 +7,7 @@ import Foundation
 
 // When running tests on Github, the test runner can't find NSNotFound (_$s10Foundation10NSNotFoundSivg)
 // We'll work around it by redefining the value ourselves
-private let FoundationNotFound = NSIntegerMax
+private let FoundationNotFound = Int.max
 
 internal extension DateComponents {
     

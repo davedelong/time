@@ -2,7 +2,7 @@
 //  TimeError.swift
 //
 
-import Foundation
+@preconcurrency import Foundation
 
 /// A  type describing the possible ways that a calendrical operation might fail
 public struct TimeError: Error, Sendable, CustomStringConvertible {
