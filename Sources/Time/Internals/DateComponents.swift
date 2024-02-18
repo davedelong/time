@@ -5,6 +5,10 @@
 
 import Foundation
 
+// When running tests on Github, the test runner can't find NSNotFound (_$s10Foundation10NSNotFoundSivg)
+// We'll work around it by redefining the value ourselves
+private let FoundationNotFound = NSIntegerMax
+
 internal extension DateComponents {
     
     init(value: Int, component: Calendar.Component) {
@@ -29,7 +33,7 @@ internal extension DateComponents {
         var final = DateComponents()
         var missing = Set<Calendar.Component>()
         for component in components {
-            if let value = self.value(for: component), value != NSNotFound {
+            if let value = self.value(for: component), value != FoundationNotFound {
                 final.setValue(value, for: component)
             } else if lenient.contains(component) == false {
                 missing.insert(component)
@@ -49,7 +53,7 @@ internal extension DateComponents {
     func restrict(to components: Set<Calendar.Component>) -> DateComponents {
         var final = DateComponents()
         for component in components {
-            if let value = self.value(for: component), value != NSNotFound {
+            if let value = self.value(for: component), value != FoundationNotFound {
                 final.setValue(value, for: component)
             }
         }
@@ -79,7 +83,7 @@ internal extension DateComponents {
     
     func has(component: Calendar.Component) -> Bool {
         let val = self.value(for: component)
-        return val != nil && val != NSNotFound
+        return val != nil && val != FoundationNotFound
     }
     
     var representedComponents: Set<Calendar.Component> {
@@ -121,7 +125,7 @@ internal extension DateComponents {
     func merging(_ other: DateComponents) -> DateComponents {
         var copy = self
         for unit in Calendar.Component.descendingOrder {
-            if let value = other.value(for: unit), value != NSNotFound {
+            if let value = other.value(for: unit), value != FoundationNotFound {
                 copy.setValue(value, for: unit)
             }
         }
