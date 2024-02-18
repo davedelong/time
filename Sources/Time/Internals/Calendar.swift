@@ -63,7 +63,6 @@ extension Calendar {
     }
     
     internal func range(of unit: Calendar.Component, containing date: Date) -> Range<Date> {
-        #warning("1.0: will this consider the time zone?")
         var start = Date()
         var length: TimeInterval = 0
         let succeeded = self.dateInterval(of: unit, start: &start, interval: &length, for: date)

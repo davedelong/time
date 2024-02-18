@@ -5,7 +5,7 @@
 
 import Foundation
 
-#warning("Future: make this more resilient against overflow")
+#warning("FUTURE: make this more resilient against overflow")
 // It could be worthwhile having checks to see if it's better to convert from one epoch to another
 // based on how close to a particular epoch an Instant is.
 // For example, if we get a value in early 2038 based on the Unix epoch, we might want to consider

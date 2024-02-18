@@ -115,8 +115,6 @@ extension RegionalClock {
     /// - Returns: A new `RegionalClock` that reports values in the specified `Calendar`.
     public func converting(to calendar: Calendar) -> any RegionalClock {
         if calendar.isEquivalent(to: self.calendar) { return self }
-        #warning("1.0: if the new calendar defines a different scaling of SI Seconds... ?")
-        #warning("1.0: this needs to manipulate the core `date`")
         let newRegion = self.region.setCalendar(calendar)
         return self.converting(to: newRegion)
     }
@@ -137,7 +135,6 @@ extension RegionalClock {
     /// - Returns: A new `RegionalClock` that reports values in the specified `Region`.
     public func converting(to newRegion: Region) -> any RegionalClock {
         if newRegion.isEquivalent(to: self.region) { return self }
-        #warning("1.0: if the new calendar defines a different scaling of SI Seconds... ?")
         return CustomRegionClock(base: self, region: newRegion)
     }
 }

@@ -41,6 +41,7 @@ final class ClockStrikeTests: XCTestCase {
         
         clock
             .strike(at: lastMinute) // Should fire ASAP
+            .publisher
             .sink(receiveCompletion: { _ in
                 completes.fulfill()
             }, receiveValue: { _ in
@@ -55,7 +56,7 @@ final class ClockStrikeTests: XCTestCase {
         let lastMinute = clock.previousMinute
         
         var strikeCount = 0
-        for try await _ in clock.strike(at: lastMinute) {
+        for try await _ in clock.strike(at: lastMinute).asyncValues {
             XCTFail("Clock strikes should skip times in the past")
             strikeCount += 1
         }
@@ -69,6 +70,7 @@ final class ClockStrikeTests: XCTestCase {
         
         clock
             .strike(at: now) // Should fire immediately
+            .publisher
             .sink(receiveCompletion: { _ in
                 completes.fulfill()
             }, receiveValue: { value in
@@ -84,7 +86,7 @@ final class ClockStrikeTests: XCTestCase {
         let start = clock.currentSecond
         
         var strikeCount = 0
-        for try await time in clock.strike(at: start) {
+        for try await time in clock.strike(at: start).asyncValues {
             let now = clock.currentSecond
             XCTAssertEqual(start, now)
             XCTAssertEqual(time, now)
@@ -100,6 +102,7 @@ final class ClockStrikeTests: XCTestCase {
         let nextSecond = clock.nextSecond
         clock
             .strike(at: nextSecond)
+            .publisher
             .sink(receiveCompletion: { _ in
                 completes.fulfill()
             }, receiveValue: { value in
@@ -115,7 +118,7 @@ final class ClockStrikeTests: XCTestCase {
         let nextSecond = clock.nextSecond
         var strikeCount = 0
         
-        for try await time in clock.strike(at: nextSecond) {
+        for try await time in clock.strike(at: nextSecond).asyncValues {
             XCTAssertEqual(time, nextSecond)
             strikeCount += 1
         }
@@ -131,6 +134,7 @@ final class ClockStrikeTests: XCTestCase {
         
         sixtyXClock
             .strike(at: nextMinute)
+            .publisher
             .sink(receiveCompletion: { _ in
                 completes.fulfill()
             }, receiveValue: { value in
@@ -147,7 +151,7 @@ final class ClockStrikeTests: XCTestCase {
         let nextMinute = sixtyXClock.nextMinute
         
         var strikeCount = 0
-        for try await time in sixtyXClock.strike(at: nextMinute) {
+        for try await time in sixtyXClock.strike(at: nextMinute).asyncValues {
             XCTAssertEqual(time, nextMinute)
             strikeCount += 1
         }
@@ -158,9 +162,11 @@ final class ClockStrikeTests: XCTestCase {
         let nextSecond = clock.nextSecond
         let dontStrike = expectation(description: "Clock does not strike")
         dontStrike.isInverted = true
-        let strike = clock.strike(at: nextSecond).sink { value in
-            dontStrike.fulfill()
-        }
+        let strike = clock.strike(at: nextSecond)
+            .publisher
+            .sink { value in
+                dontStrike.fulfill()
+            }
         strike.cancel()
         wait(for: [dontStrike], timeout: 1.0)
     }
@@ -177,6 +183,7 @@ final class ClockStrikeTests: XCTestCase {
         
         clock
             .strike(every: TimeDifference<Second, Era>.seconds(1), startingFrom: start)
+            .publisher
             .sink(receiveCompletion: { (completion) in
                 XCTFail("Repeating strike completed: \(completion)")
             }, receiveValue: { value in
@@ -195,7 +202,7 @@ final class ClockStrikeTests: XCTestCase {
         var expected = [start, start.nextSecond]
         var strikeCount = 0
         
-        for try await time in clock.strike(every: .seconds(1), startingFrom: start) {
+        for try await time in clock.strike(every: .seconds(1), startingFrom: start).asyncValues {
             XCTAssertEqual(time, expected.removeFirst())
             strikeCount += 1
             if expected.isEmpty { break }
@@ -212,6 +219,7 @@ final class ClockStrikeTests: XCTestCase {
         
         clock
             .strike(every: .seconds(1), startingFrom: aMinuteAgo)
+            .publisher
             .sink(receiveCompletion: { (completion) in
                 XCTFail("Repeating strike completed: \(completion)")
             }, receiveValue: { value in
@@ -228,7 +236,7 @@ final class ClockStrikeTests: XCTestCase {
         let aMinuteAgo = thisSecond.subtracting(minutes: 1)
         
         var strikeCount = 0
-        for try await time in clock.strike(every: .seconds(1), startingFrom: aMinuteAgo) {
+        for try await time in clock.strike(every: .seconds(1), startingFrom: aMinuteAgo).asyncValues {
             XCTAssertEqual(time, thisSecond)
             strikeCount += 1
             break
@@ -240,9 +248,11 @@ final class ClockStrikeTests: XCTestCase {
         let blueMoon = TimeDifference<Nanosecond, Era>.nanoseconds(1_000_000_000 / 12)
         let bellOfStJohn = expectation(description: "The bell rings twelve times")
         bellOfStJohn.expectedFulfillmentCount = 12
-        clock.strike(every: blueMoon).sink { _ in
-            bellOfStJohn.fulfill()
-        }.store(in: &cancellables)
+        clock.strike(every: blueMoon)
+            .publisher
+            .sink { _ in
+                bellOfStJohn.fulfill()
+            }.store(in: &cancellables)
         
         wait(for: [bellOfStJohn], timeout: 2)
     }
@@ -262,6 +272,7 @@ final class ClockStrikeTests: XCTestCase {
             .strike(when: { (value: Fixed<Second>) -> Bool in
                 return value.second % 13 == 0
             })
+            .publisher
             .sink(receiveValue: { value in
                 let expected = results.removeFirst()
                 XCTAssertEqual(value.second, expected)
@@ -278,7 +289,7 @@ final class ClockStrikeTests: XCTestCase {
         let fastClock = Clocks.custom(startingFrom: justBeforeTheNextMinute.firstInstant, rate: 60.0, region: clock.region)
         var results = [0, 13, 26, 39, 52]
         
-        for try await time in fastClock.strike(producing: Second.self, when: { $0.second.isMultiple(of: 13) }) {
+        for try await time in fastClock.strike(producing: Second.self, when: { $0.second.isMultiple(of: 13) }).asyncValues {
             XCTAssertEqual(time.second, results.removeFirst())
             if results.isEmpty { break }
         }

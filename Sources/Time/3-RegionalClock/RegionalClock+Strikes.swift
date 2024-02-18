@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import Dispatch
 
 extension RegionalClock {
     
@@ -74,38 +73,37 @@ extension RegionalClock {
     
 }
 
-#warning("1.0: conform Chime: Sequence?")
-
 /// A type representing zero or more times at which a ``RegionalClock`` will "strike".
 ///
-/// ``ClockStrikes`` conforms to the `AsyncSequence` protocol and can be used in async for loops:
+/// ``ClockStrikes`` provides a value that conforms to the `AsyncSequence` protocol and can be used in for loops:
 ///
-/// ```
-/// for try await nextMinute in someClock.strike(every: Minute.self) {
+/// ```swift
+/// for try await nextMinute in someClock.strike(every: Minute.self).asyncValues {
 ///    // one clock minute has passed since the previous strike
 ///    print("The time is now \(nextMinute)")
 /// }
 /// ```
 ///
-/// On platforms where the Combine framework is available, ``ClockStrikes`` also conforms to the `Publisher` protocol:
+/// On platforms where the Combine framework is available, ``ClockStrikes`` also provides a `Publisher`:
 ///
-/// ```
+/// ```swift
 /// someClock.strike(every: Minute.self)
+///          .publisher
 ///          .sink { nextMinute in
-///            print("The time is now \(nextMinute")
+///            print("The time is now \(nextMinute)")
 ///          }
 ///          .store(in: &someCancellableSet)
 /// ```
 ///
-/// - SeeAlso: https://en.wikipedia.org/wiki/Striking_clock
+/// - SeeAlso: [Striking Clocks (Wikipedia)](https://en.wikipedia.org/wiki/Striking_clock)
 public struct ClockStrikes<U: Unit & LTOEEra> {
     
     fileprivate let clock: any RegionalClock
-    fileprivate let values: AnyIterator<Fixed<U>>
+    fileprivate let iterator: AnyIterator<Fixed<U>>
     
     private init<I: IteratorProtocol>(clock: any RegionalClock, iterator: I) where I.Element == Fixed<U> {
         self.clock = clock
-        self.values = AnyIterator(iterator)
+        self.iterator = AnyIterator(iterator)
     }
     
     /// Create a `ClockStrikes` that will emit a value after a specified calendar interval,
@@ -150,33 +148,76 @@ public struct ClockStrikes<U: Unit & LTOEEra> {
     
 }
 
-extension ClockStrikes: AsyncSequence {
+extension ClockStrikes {
     
-    public typealias Element = Fixed<U>
-    
-    public struct AsyncIterator: AsyncIteratorProtocol {
+    /// The values at which the clock will strike, as a synchronous sequence
+    public struct Values: Sequence {
         public typealias Element = Fixed<U>
         
-        fileprivate let clock: any RegionalClock
-        fileprivate var baseIterator: AnyIterator<Element>
+        let strikes: ClockStrikes
         
-        public mutating func next() async throws -> Fixed<U>? {
-            var nextTime: Fixed<U>? = baseIterator.next()
-            let now = clock.current(U.self)
-            while let next = nextTime, next < now {
-                nextTime = baseIterator.next()
-            }
-            
-            guard let next = nextTime else { return nil }
-            
-            try await clock.sleep(until: next.firstInstant, tolerance: nil)
-            return next
+        public func makeIterator() -> AnyIterator<Fixed<U>> {
+            return strikes.iterator
         }
         
     }
     
-    public func makeAsyncIterator() -> AsyncIterator {
-        return AsyncIterator(clock: self.clock, baseIterator: self.values)
+    /// Retrieve the values at which the clock will strike
+    public var values: Values {
+        Values(strikes: self)
+    }
+    
+}
+
+extension ClockStrikes {
+
+    /// The values at which the clock will strikes, as an asynchronous sequence
+    public struct AsyncValues: AsyncSequence {
+        
+        public typealias Element = Fixed<U>
+        
+        internal let strikes: ClockStrikes
+        
+        public struct AsyncIterator: AsyncIteratorProtocol {
+            public typealias Element = Fixed<U>
+            
+            fileprivate let clock: any RegionalClock
+            fileprivate var baseIterator: AnyIterator<Element>
+            
+            public mutating func next() async throws -> Fixed<U>? {
+                var nextTime: Fixed<U>? = baseIterator.next()
+                let now = clock.current(U.self)
+                while let next = nextTime, next < now {
+                    nextTime = baseIterator.next()
+                }
+                
+                guard let next = nextTime else { return nil }
+                
+                try await clock.sleep(until: next.firstInstant, tolerance: nil)
+                return next
+            }
+            
+        }
+        
+        public func makeAsyncIterator() -> AsyncIterator {
+            return AsyncIterator(clock: self.strikes.clock, baseIterator: self.strikes.iterator)
+        }
+        
+    }
+    
+    /// Retrieve the asynchronous values at which the clock will strike
+    ///
+    /// This value can be used in an async loop, such as:
+    ///
+    /// ```swift
+    /// let strikes = someClock.strike(every: Minute.self)
+    ///
+    /// for try await currentTime in strikes.asyncValues {
+    ///      print("The time is now \(currentTime)")
+    /// }
+    /// ```
+    public var asyncValues: AsyncValues {
+        return AsyncValues(strikes: self)
     }
     
 }
@@ -184,19 +225,31 @@ extension ClockStrikes: AsyncSequence {
 #if canImport(Combine)
 
 import Combine
+import Dispatch
 
-extension ClockStrikes: Combine.Publisher {
+extension ClockStrikes {
     
-    public typealias Output = Fixed<U>
-    public typealias Failure = Never
+    /// The values at which the clock will strikes, as a Combine publisher
+    public struct Publisher: Combine.Publisher {
+        
+        internal let strikes: ClockStrikes
+        
+        public typealias Output = Fixed<U>
+        public typealias Failure = Never
+        
+        /// Set up a new Combine subscription for this `ClockStrikes`
+        /// - Parameter subscriber: The subscriber that receives strike events
+        public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+            let subscription = StrikesSubscription<S, U>(subscriber: subscriber,
+                                                         clock: strikes.clock,
+                                                         iterator: strikes.iterator)
+            subscriber.receive(subscription: subscription)
+        }
+    }
     
-    /// Set up a new Combine subscription for this `ClockStrikes`
-    /// - Parameter subscriber: The subscriber that receives strike events
-    public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
-        let subscription = StrikesSubscription(subscriber: subscriber,
-                                               clock: clock,
-                                               iterator: values)
-        subscriber.receive(subscription: subscription)
+    /// Retrieve the publisher which emits the values at which the clock will strike
+    public var publisher: Publisher {
+        return Publisher(strikes: self)
     }
     
 }
@@ -204,8 +257,8 @@ extension ClockStrikes: Combine.Publisher {
 private class StrikesSubscription<SubscriberType, U>: Subscription
     where U: Unit,
           SubscriberType: Subscriber,
-          SubscriberType.Failure == ClockStrikes<U>.Failure,
-          SubscriberType.Input == ClockStrikes<U>.Output {
+          SubscriberType.Failure == ClockStrikes<U>.Publisher.Failure,
+          SubscriberType.Input == ClockStrikes<U>.Publisher.Output {
     
     private var subscriber: SubscriberType?
     private let clock: any RegionalClock
