@@ -13,7 +13,7 @@ import Foundation
 public enum Relation: Hashable, CaseIterable {
     
     internal static let meetings: Set<Relation> = [.meets, .isMetBy, .starts, .isStartedBy, .finishes, .isFinishedBy]
-    internal static let overlappings: Set<Relation> = [.overlaps, .isOverlappedBy, .during, .contains]
+    internal static let overlappings: Set<Relation> = [.overlaps, .isOverlappedBy, .during, .contains, .equal]
     
     /// The first range occurs entirely before the second range
     ///

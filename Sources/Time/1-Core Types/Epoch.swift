@@ -9,7 +9,7 @@ import Foundation
 ///
 /// In Swift, there are two well-known epochs: the Unix epoch (1 Jan 1970), and the "Reference" epoch (1 Jan 2001).
 /// All `Instant` values are defined as a number of seconds before or after their `Epoch`.
-public struct Epoch: Hashable, Sendable {
+public struct Epoch: Hashable, Sendable, CustomStringConvertible {
 
     /// Determine if two Epochs are equivalent.
     public static func ==(lhs: Epoch, rhs: Epoch) -> Bool {
@@ -30,6 +30,12 @@ public struct Epoch: Hashable, Sendable {
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(offsetFromReferenceDate)
+    }
+    
+    public var description: String {
+        if self == .unix { return "unix" }
+        if self == .reference { return "reference" }
+        return "custom(\(offsetFromReferenceDate))"
     }
     
 }

@@ -15,7 +15,7 @@ import Foundation
 /// of representation is needed.
 ///
 /// - SeeAlso: [https://en.wikipedia.org/wiki/SI_base_unit](https://en.wikipedia.org/wiki/SI_base_unit)
-public struct SISeconds: RawRepresentable, Hashable, Comparable, DurationProtocol, Sendable {
+public struct SISeconds: RawRepresentable, Hashable, Comparable, DurationProtocol, Sendable, CustomStringConvertible {
     
     internal static let secondsBetweenUnixAndReferenceEpochs = SISeconds(Date.timeIntervalBetween1970AndReferenceDate)
     
@@ -119,6 +119,10 @@ public struct SISeconds: RawRepresentable, Hashable, Comparable, DurationProtoco
     public var magnitude: Self {
         if rawValue >= .zero { return self }
         return SISeconds(-rawValue)
+    }
+    
+    public var description: String {
+        return "\(timeInterval)"
     }
     
 }

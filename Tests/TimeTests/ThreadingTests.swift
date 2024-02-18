@@ -26,7 +26,9 @@ class ThreadingTests: XCTestCase {
                 // ^ Without this copy, this test is likely to crash on Linux.
                 group.addTask {
                     let fourHoursLater = taskLocalStart.adding(hours: 4)
-                    print(taskLocalStart, fourHoursLater)
+                    if fourHoursLater <= taskLocalStart {
+                        print(taskLocalStart.debugDescription, fourHoursLater.debugDescription)
+                    }
                     let range = taskLocalStart ..< fourHoursLater
                     XCTAssert(range.lowerBound <= range.upperBound)
                     // ^ This assert is technially redundant since `Range` will crash if that assertion would fail.

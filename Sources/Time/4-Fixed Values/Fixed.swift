@@ -194,7 +194,7 @@ extension Fixed: Comparable {
     
 }
 
-extension Fixed: CustomStringConvertible {
+extension Fixed: CustomStringConvertible, CustomDebugStringConvertible {
     
     /// Provide a description of the `Fixed` value.
     ///
@@ -202,6 +202,10 @@ extension Fixed: CustomStringConvertible {
     public var description: String {
         let style = FixedFormat<Granularity>(naturalFormats: calendar)
         return format(style)
+    }
+    
+    public var debugDescription: String {
+        return "Fixed<\(Granularity.self)>{ timestamp: \(instant), components: \(dateComponents), locale: \(locale), calendar: \(calendar), timeZone: \(timeZone) }"
     }
     
 }

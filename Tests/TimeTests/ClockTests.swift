@@ -147,16 +147,21 @@ extension ClockTests {
         let instant = clock.nextDaylightSavingTimeTransition()
         XCTAssertNotNil(instant)
         
+        guard let instant else { return }
+        
+        let accuracy = 0.000001
         if #available(macOS 14, iOS 17, watchOS 11, tvOS 17, *) {
-            XCTAssertEqual(
-                instant?.intervalSinceReferenceEpoch.timeInterval,
-                timeZone.nextDaylightSavingTimeTransition?.timeIntervalSinceReferenceDate)
+            XCTAssertEqualWithAccuracyWorkaround(
+                instant.intervalSinceReferenceEpoch.timeInterval,
+                timeZone.nextDaylightSavingTimeTransition?.timeIntervalSinceReferenceDate ?? 0,
+                accuracy: accuracy
+            )
         } else {
             // https://github.com/apple/swift/pull/66111
             XCTAssertEqual(
-                instant!.intervalSinceReferenceEpoch.timeInterval,
+                instant.intervalSinceReferenceEpoch.timeInterval,
                 timeZone.nextDaylightSavingTimeTransition!.timeIntervalSinceReferenceDate,
-                accuracy: 0.000001
+                accuracy: accuracy
             )
         }
     }

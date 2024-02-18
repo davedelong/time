@@ -128,3 +128,12 @@ extension Instant: Codable {
     }
     
 }
+
+extension Instant: CustomStringConvertible {
+    
+    public var description: String {
+        let direction = self.intervalSinceEpoch >= 0 ? "+" : ""
+        return "\(epoch)\(direction)\(intervalSinceEpoch)"
+    }
+    
+}
