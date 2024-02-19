@@ -7,10 +7,10 @@ import Foundation
 /// A namespace for retrieving commonly-used clocks
 public enum Clocks {
     
-    /// The system clock. This `Clock` uses the current `Region` and follows the current device time.
+    /// The system clock. This clock uses the current `Region` and follows the current device time.
     public static let system: any RegionalClock = SystemClock(region: .autoupdatingCurrent)
     
-    /// A POSIX clock. This `Clock` uses the POSIX `Region` and follows the current device time.
+    /// A POSIX clock. This clock uses the POSIX `Region` and follows the current device time.
     public static let posix: any RegionalClock = SystemClock(region: .posix)
     
     /// Create a clock that follows the current device time,
@@ -39,7 +39,6 @@ public enum Clocks {
     }
     
     /// Create a clock with a custom start time and flow rate.
-    ///
     ///
     /// - Parameter referenceEpoch: The instantaneous "now" from which the clock will start counting.
     /// - Parameter rate: The rate at which time progresses in the clock, relative to the supplied calendar.

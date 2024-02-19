@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// A convenient way to specify general formats for fixed values.
 public struct FixedFormatStyle: Hashable {
     
     /// An extremely verbose format style.

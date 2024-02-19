@@ -102,66 +102,6 @@ public struct Fixed<Granularity: Unit & LTOEEra> {
         self.init(region: region, instant: Instant(date: date), components: strictDateComponents)
     }
     
-    /// Construct a new `Fixed` value by converting this fixed value to a new `Locale`.
-    ///
-    /// Changing a fixed value's locale affects how the value is formatted. It does not change the underlying components.
-    public func converted(to locale: Locale) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return Self(region: newRegion, instant: self.instant, components: self.dateComponents)
-    }
-    
-}
-
-extension Fixed where Granularity: GTOEDay {
-    
-    /// Convert a fixed date to another time zone
-    ///
-    /// This works by transitioning the underlying *components* to a new time zone. If successful, the resulting value
-    /// will have the same `.year`, `.month`, etc as the original value. However, the resulting `.range` will be different.
-    ///
-    /// - Parameter timeZone: The new time zone of the resulting fixed value
-    /// - Returns: A new fixed value with the same underlying components
-    /// - Throws: Throws a ``TimeError`` if the underlying components do not exist in the specified `timeZone`. For example,
-    /// converting "30 December 2011" to the `Pacific/Apia` time zone throws an error, because that day did not exist in that time zone.
-    public func converted(to timeZone: TimeZone) throws -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return try Self(region: newRegion, strictDateComponents: self.dateComponents)
-    }
-    
-}
-
-extension Fixed where Granularity: LTOEDay {
-    
-    /// Construct a new `Fixed` value by converting this fixed value to a new `Calendar`.
-    ///
-    /// - Note: This functionality is only available when dealing with fixed values that represent a day or smaller. All
-    /// supported calendars have the same basic definition of a day, being roughly `00:00:00 ... 23:59:59.999`.
-    /// Therefore, converting such a value to another calendar will result in the old temporal range being equivalent to
-    /// the new temporal range. This is not true for eras, years, and months: calendars have different definitions of when years start
-    /// and when months change, etc. Therefore, it is not possible to map "February 2024" to a non-gregorian calendar, since
-    /// there is not a guaranteed correspondance between their underlying `Range<Instant>` values.
-    public func converted(to calendar: Calendar) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return Self(region: newRegion, instant: self.approximateMidPoint)
-    }
-    
-}
-
-extension Fixed where Granularity: LTOEHour {
-    
-    /// Convert a fixed time to another time zone.
-    ///
-    /// This works by transitioning the underlying time range to the new time zone. Therefore, the resulting components
-    /// (`.hour`, `.minute`, etc) will be *different* from the original components. However, the resulting `.range` will
-    /// be the same.
-    ///
-    /// - Parameter timeZone: The new time zone of the resulting fixed value
-    /// - Returns: A fixed value representing the same range of time in a different `TimeZone`.
-    public func converted(to timeZone: TimeZone) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
-        return Self(region: newRegion, instant: self.firstInstant)
-    }
-    
 }
 
 extension Fixed: Comparable {
