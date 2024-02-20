@@ -1,7 +1,3 @@
-//
-//  File.swift
-//
-
 import Foundation
 
 /// A namespace for retrieving commonly-used clocks

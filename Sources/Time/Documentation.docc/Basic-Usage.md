@@ -62,7 +62,7 @@ This will print something similar to `The time is currently February 19, 2024 at
 
 One of the most fundamental use cases of **Time** is to be notified when the time on a clock is (or matches) a particular value. For example, you may want to know when it's 3:30 PM, or you may want to be notified at the top of an hour. This is easy in time using a ``ClockStrikes``.
 
-A clock that notifies you about time changes is called a ["striking clock"](https://en.wikipedia.org/wiki/Striking_clock), and you recreate that behavior using the variou `.strike(...)` methods on a ``RegionalClock``:
+A clock that notifies you about time changes is called a ["striking clock"](https://en.wikipedia.org/wiki/Striking_clock), and you recreate that behavior using the various `.strike(...)` methods on a ``RegionalClock``:
 
 ```swift
 for try await currentMinute in Clocks.system.strike(every: Minute.self).asyncValue {

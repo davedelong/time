@@ -1,7 +1,3 @@
-//
-//  Fixed+Day.swift
-//
-
 import Foundation
 
 extension Fixed where Granularity: GTOEDay, Granularity: LTOEYear {
@@ -67,6 +63,8 @@ extension Fixed where Granularity: LTOEDay {
     
     #if !os(Linux)
     /// Return this fixed value's day of the week
+    ///
+    /// - Warning: This property is not available on Linux
     public var weekday: Locale.Weekday { return Locale.Weekday(dayOfWeek: self.dayOfWeek) }
     #endif
     
@@ -93,13 +91,21 @@ extension Fixed where Granularity: LTOEDay {
     /// then `dayOfWeek` returns `6` ("Friday"), and this property returns `2` (the "second" Friday).
     public var dayOfWeekOrdinal: Int { return calendar.component(.weekdayOrdinal, from: approximateMidPoint.date) }
     
+    /// Returns the week of the month on which this fixed value occurs.
+    ///
+    /// - Note: Since most calendars do not use years that are evenly divisible by 7, there are days around month boundaries that are
+    /// attributed to a different "week of the month" than the month in which the day occurs. For example, if January 31st is a Friday, then
+    /// the following day (February 1st) wil likely belong to the same week of the month as the previous day (typically 4 or 5), even though they
+    /// occur in distinct calendar months. The behavior of this property is determined by the `.calendar.firstWeekday` and `.calendar.minimumDaysInFirstWeek` properties.
+    public var weekOfMonth: Int { return calendar.component(.weekOfMonth, from: approximateMidPoint.date) }
+    
     /// Returns the week of the year on which this fixed value occurs.
     ///
     /// This property is most useful for identifying the occurrence of a week boundary between two `Fixed<Day>` values.
     ///
     /// - Note: Since most calendars do not use years that are evenly divisible by 7, there are days around year boundaries that are
     /// attributed to a different "week of the year" than the year in which the day occurs. For example, if December 31st is a Friday, then
-    /// the following day (January 1st) wil likelyl belong to the same week of the year as the previous day (typically 52 or 53), even though they
+    /// the following day (January 1st) wil likely belong to the same week of the year as the previous day (typically 52 or 53), even though they
     /// occur in distinct calendar years. The behavior of this property is determined by the `.calendar.firstWeekday` and `.calendar.minimumDaysInFirstWeek` properties.
     public var weekOfYear: Int { return calendar.component(.weekOfYear, from: approximateMidPoint.date) }
 }

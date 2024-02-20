@@ -1,8 +1,3 @@
-//
-//  RegionalClock+Chimes.swift
-//  Time
-//
-
 import Foundation
 
 extension RegionalClock {
@@ -55,7 +50,7 @@ extension RegionalClock {
     ///
     /// - Returns: A ``ClockStrikes`` which emits fixed time values at the moment of each strike.
     public func strike<U: Unit>(producing unit: U.Type = U.self,
-                               when matches: @escaping (_ time: Fixed<U>) -> Bool) -> ClockStrikes<U> {
+                                when matches: @escaping (_ time: Fixed<U>) -> Bool) -> ClockStrikes<U> {
         return ClockStrikes(clock: self, when: matches)
     }
     

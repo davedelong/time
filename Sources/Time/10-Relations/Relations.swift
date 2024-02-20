@@ -1,7 +1,3 @@
-//
-//  Relations.swift
-//
-
 import Foundation
 
 /// The relationship between two calendar values

@@ -1,8 +1,3 @@
-//
-//  RegionalClock+Implementations.swift
-//  Time
-//
-
 import Foundation
 
 /// The device's wall clock

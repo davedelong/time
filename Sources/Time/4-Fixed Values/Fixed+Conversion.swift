@@ -1,7 +1,3 @@
-//
-//  File.swift
-//
-
 import Foundation
 
 /// An enum dictating how the conversion of a fixed value from one region to another should behave

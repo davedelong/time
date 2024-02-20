@@ -1,8 +1,3 @@
-//
-//  Formatting.swift
-//  Time
-//
-
 import Foundation
 
 internal protocol Format {

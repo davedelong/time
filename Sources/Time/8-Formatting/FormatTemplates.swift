@@ -1,8 +1,3 @@
-//
-//  FormatTemplates.swift
-//  Time
-//
-
 import Foundation
 
 /// A type for defining template patterns used when formatting fixed values

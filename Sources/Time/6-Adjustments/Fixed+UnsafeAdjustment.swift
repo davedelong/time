@@ -1,7 +1,3 @@
-//
-//  Fixed+StrictAdjustment.swift
-//
-
 import Foundation
 
 extension Fixed where Granularity: LTOEYear {

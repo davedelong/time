@@ -45,6 +45,7 @@ Properties related to values representing days, months, years, or eras
 - ``Fixed/isWeekday``
 - ``Fixed/isWeekend``
 - ``Fixed/startOfWeek``
+- ``Fixed/weekOfMonth``
 - ``Fixed/weekOfYear``
 - ``Fixed/weekday``
 
@@ -66,7 +67,7 @@ Properties related to specific times on a day
 - ``Fixed/minutes``
 - ``Fixed/seconds``
 
-### Locating Sub-Values
+### Locating Sub-values
 
 - ``Fixed/firstYear``
 - ``Fixed/firstMonth``
@@ -218,7 +219,7 @@ Properties related to specific times on a day
 - ``Fixed/setting(year:month:day:hour:minute:second:)``
 - ``Fixed/setting(year:month:day:hour:minute:second:nanosecond:)``
 
-### Converting values
+### Converting Values
 
 - ``Fixed/converted(to:)-1n2im``
 - ``Fixed/converted(to:)-38h1f``
@@ -228,7 +229,7 @@ Properties related to specific times on a day
 - ``Fixed/converted(to:behavior:)-3meoh``
 - ``Fixed/converted(to:behavior:)-6z6df``
 
-### Comparing values
+### Comparing Values
 
 - ``Fixed/contains(_:)``
 - ``Fixed/isAfter(_:)``
@@ -250,7 +251,7 @@ Properties related to specific times on a day
 - ``Fixed/format(date:time:)``
 - ``Fixed/format(time:)``
 
-### Formatting values
+### Formatting Values
 
 - ``Fixed/format(era:)``
 - ``Fixed/format(era:year:timeZone:)``
@@ -291,11 +292,3 @@ Properties related to specific times on a day
 - ``Fixed/format(nanosecond:timeZone:)``
 - ``Fixed/format(timeZone:)``
 - ``Fixed/format(raw:strict:)``
-
-### Typealiases
-
-- ``Fixed/Smallest``
-
-### Default Implementations
-
-- Comparable, CustomDebugStringConvertible, CustomStringConvertible, Decodable, Encodable, Equatable, Hashable

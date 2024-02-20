@@ -1,8 +1,3 @@
-//
-//  TimeDifference+Invalid.swift
-//  Time
-//
-
 import Foundation
 
 /// INVALID ADDITION OPERATORS

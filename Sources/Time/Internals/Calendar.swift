@@ -1,8 +1,3 @@
-//
-//  Calendar.swift
-//  Time
-//
-
 import Foundation
 
 extension Calendar {

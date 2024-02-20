@@ -1,7 +1,3 @@
-//
-//  TimePeriod+Components.swift
-//
-
 import Foundation
 
 extension Fixed {

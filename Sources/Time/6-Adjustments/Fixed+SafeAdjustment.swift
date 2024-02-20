@@ -1,8 +1,3 @@
-//
-//  Fixed+SafeAdjustment.swift
-//  Time
-//
-
 import Foundation
 
 extension Fixed {
@@ -170,6 +165,7 @@ extension Fixed where Granularity: LTOEDay {
     /// Create a new `Fixed` value that corresponds to the specified weekday
     /// - Parameter weekday: The day of the week.
     /// - Returns: A fixed value whose `.weekday` is equal to the `weekday` parameter.
+    /// - Warning: This property is not available on Linux
     public func next(weekday: Locale.Weekday) -> Self {
         return self.next(dayOfWeek: weekday.dayOfWeek)
     }

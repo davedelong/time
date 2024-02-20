@@ -1,7 +1,3 @@
-//
-//  Fixed+Hour.swift
-//
-
 import Foundation
 
 extension Fixed where Granularity: GTOEHour, Granularity: LTOEYear {

@@ -1,6 +1,3 @@
-//
-//  XCTestCase+Convenience.swift
-//
 import XCTest
 
 extension XCTestCase {

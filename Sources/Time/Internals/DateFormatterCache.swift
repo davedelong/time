@@ -1,7 +1,3 @@
-//
-//  DateFormatterCache.swift
-//
-
 import Foundation
 
 internal enum FormatConfiguration: Hashable {

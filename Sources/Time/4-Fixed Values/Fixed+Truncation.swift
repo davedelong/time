@@ -1,7 +1,3 @@
-//
-//  Fixed+Truncation.swift
-//
-
 import Foundation
 
 extension Fixed where Granularity: LTOEYear {

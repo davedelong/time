@@ -1,7 +1,3 @@
-//
-//  Fixed+Month.swift
-//
-
 import Foundation
 
 extension Fixed where Granularity: GTOEMonth {

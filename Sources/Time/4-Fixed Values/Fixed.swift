@@ -1,7 +1,3 @@
-//
-//  Fixed.swift
-//
-
 import Foundation
 
 /// A `Fixed<U>` is a type that corresponds to one (and only one) value on a physical calendar. When you think of "a calendar value", you're thinking of a `Fixed<U>`.

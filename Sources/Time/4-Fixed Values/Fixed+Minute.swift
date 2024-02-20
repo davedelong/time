@@ -1,7 +1,3 @@
-//
-//  Fixed+Minute.swift
-//
-
 import Foundation
 
 extension Fixed where Granularity: GTOEMinute, Granularity: LTOEYear {

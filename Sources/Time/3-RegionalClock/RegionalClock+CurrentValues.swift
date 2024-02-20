@@ -1,8 +1,3 @@
-//
-//  RegionalClock+CurrentValues.swift
-//  Time
-//
-
 import Foundation
 
 extension RegionalClock {

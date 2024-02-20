@@ -1,6 +1,3 @@
-//
-//  ClockTests.swift
-//
 import XCTest
 @testable import Time
 

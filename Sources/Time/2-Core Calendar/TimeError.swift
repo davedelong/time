@@ -1,7 +1,3 @@
-//
-//  TimeError.swift
-//
-
 #if os(Linux)
 @preconcurrency import Foundation
 #else

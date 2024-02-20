@@ -1,7 +1,3 @@
-//
-//  File.swift
-//
-
 import Foundation
 import XCTest
 @testable import Time

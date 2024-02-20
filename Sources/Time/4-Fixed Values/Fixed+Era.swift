@@ -1,7 +1,3 @@
-//
-//  File.swift
-//
-
 import Foundation
 
 extension Fixed where Granularity == Era {

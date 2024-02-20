@@ -1,7 +1,3 @@
-//
-//  File.swift
-//
-
 import Foundation
 
 /// An enum describing the direction to perform a rounding calculation

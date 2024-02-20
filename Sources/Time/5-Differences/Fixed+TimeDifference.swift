@@ -1,7 +1,3 @@
-//
-//  Fixed+TimeDifference.swift
-//
-
 import Foundation
 
 extension Fixed {

@@ -1,7 +1,3 @@
-//
-//  FixedSequence.swift
-//
-
 import Foundation
 
 /// A `Sequence` of fixed values.

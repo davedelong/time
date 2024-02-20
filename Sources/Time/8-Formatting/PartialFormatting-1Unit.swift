@@ -1,8 +1,3 @@
-//
-//  PartialFormatting-1Unit.swift
-//  Time
-//
-
 import Foundation
 
 extension Fixed {

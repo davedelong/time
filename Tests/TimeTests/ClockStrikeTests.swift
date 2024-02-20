@@ -1,8 +1,3 @@
-//
-//  ClockStrikeTests.swift
-//  TimeTests
-//
-
 import XCTest
 import Time
 

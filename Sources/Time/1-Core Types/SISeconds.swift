@@ -1,8 +1,3 @@
-//
-//  SISeconds.swift
-//  Time
-//
-
 import Foundation
 
 /// A representation of a temporal interval, as measured in seconds.

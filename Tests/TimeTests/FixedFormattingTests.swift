@@ -1,6 +1,3 @@
-//
-//  FixedFormattingTests.swift
-//
 import XCTest
 @testable import Time
 

@@ -1,8 +1,3 @@
-//
-//  DateComponents.swift
-//  Time
-//
-
 import Foundation
 
 // When running tests on Github, the test runner can't find NSNotFound (_$s10Foundation10NSNotFoundSivg)

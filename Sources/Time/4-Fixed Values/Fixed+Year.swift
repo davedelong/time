@@ -1,7 +1,3 @@
-//
-//  Fixed+Year.swift
-//
-
 import Foundation
 
 extension Fixed where Granularity == Year {

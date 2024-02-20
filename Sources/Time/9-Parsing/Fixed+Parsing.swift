@@ -1,7 +1,3 @@
-//
-//  Fixed+Parsing.swift
-//
-
 import Foundation
 
 extension Fixed {

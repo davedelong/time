@@ -4,7 +4,7 @@
 
 ## Definitions
 
-- term Adjustment: A movement or alteration. In **Time**, "adjusting" refers to the process of offsetting a calendar value. For example, starting with "today" and would require and *adjustment* of one day in order to become "tomorrow".
+- term Adjustment: A movement or alteration. In **Time**, "adjusting" refers to the process of offsetting a calendar value. For example, starting with "today" and would require an *adjustment* of one day in order to become "tomorrow".
 - term Boundary: The point at which a calendar value abuts the next calendar value. For example, `February 14, 2024 00:00:00.000` is the first instant of that day, and is that day's *boundary*. In general, all fixed values define a range, and the ``Fixed/firstInstant`` of that range is the boundary.
 - term Component: A numeric portion of a fixed value. For example, the fixed value representing `February 19, 2024` has four components: The "era" (`1` for the AD era), the "year" (`2024`), the "month" (`2` for February), and the "day" (`19`).
 - term Epoch: A specific point in time from which calendars start counting their values. While **Time** allows the definition of custom epochs, the two standard ones are the ``Epoch/unix`` and the ``Epoch/reference`` epochs.

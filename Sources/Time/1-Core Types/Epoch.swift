@@ -1,8 +1,3 @@
-//
-//  Epoch.swift
-//  Time
-//
-
 import Foundation
 
 /// An `Epoch` defines a point in time from which relative calendrical values are calculated, like a temporal Prime Meridian.

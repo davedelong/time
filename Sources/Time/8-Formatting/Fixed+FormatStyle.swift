@@ -1,7 +1,3 @@
-//
-//  File.swift
-//
-
 import Foundation
 
 /// A convenient way to specify general formats for fixed values.

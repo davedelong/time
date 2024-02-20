@@ -1,8 +1,3 @@
-//
-//  Instant.swift
-//  Time
-//
-
 import Foundation
 
 #warning("FUTURE: make this more resilient against overflow")
@@ -10,7 +5,7 @@ import Foundation
 // based on how close to a particular epoch an Instant is.
 // For example, if we get a value in early 2038 based on the Unix epoch, we might want to consider
 // recognizing this and instead basing it off the Reference epoch instead
-// (note: the 2038 problem isn't an issue with Instant because it's based on Double and not Int32, but still)
+// (note: the 2038 problem isn't an issue with Instant because it's based on Duration and not Int32, but still)
 
 /// An `Instant` is an instantaneous point in time, relative to an `Epoch`.
 public struct Instant: Hashable, Comparable, InstantProtocol, Sendable {

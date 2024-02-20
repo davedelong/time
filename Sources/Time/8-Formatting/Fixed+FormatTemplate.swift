@@ -1,8 +1,3 @@
-//
-//  Fixed+FormatTemplate.swift
-//  Time
-//
-
 import Foundation
 
 extension Fixed {

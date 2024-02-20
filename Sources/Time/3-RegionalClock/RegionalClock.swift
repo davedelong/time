@@ -1,8 +1,3 @@
-//
-//  RegionalClock.swift
-//  Time
-//
-
 import Foundation
 
 /// A `RegionalClock` is how you know what "now" is.

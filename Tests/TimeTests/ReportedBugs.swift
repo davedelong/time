@@ -1,6 +1,3 @@
-//
-//  File.swift
-//
 import XCTest
 import Time
 

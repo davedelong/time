@@ -1,7 +1,3 @@
-//
-//  File.swift
-//
-
 import Foundation
 
 /// A type that encapsulates the information necessary to format a fixed value

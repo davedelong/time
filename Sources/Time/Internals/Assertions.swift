@@ -1,8 +1,3 @@
-//
-//  Assertions.swift
-//  Time
-//
-
 import Foundation
 
 internal func require(_ condition: @autoclosure () -> Bool, _ why: @autoclosure () -> String, file: StaticString = #fileID, line: UInt = #line) {

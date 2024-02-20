@@ -1,7 +1,3 @@
-//
-//  File.swift
-//
-
 import Foundation
 
 internal struct ParsedFormat {

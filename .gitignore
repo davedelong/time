@@ -5,3 +5,4 @@
 .swiftpm
 docs
 Package.resolved
+.docs

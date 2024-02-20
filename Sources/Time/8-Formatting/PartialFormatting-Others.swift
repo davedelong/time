@@ -1,8 +1,3 @@
-//
-//  PartialFormatting-Others.swift
-//  Time
-//
-
 import Foundation
 
 extension Fixed where Granularity: LTOEMinute {

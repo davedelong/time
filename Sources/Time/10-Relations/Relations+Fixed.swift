@@ -1,7 +1,3 @@
-//
-//  Relations+Fixed.swift
-//
-
 extension Fixed {
     
     /// Find the relationship between any two `Fixed` values.

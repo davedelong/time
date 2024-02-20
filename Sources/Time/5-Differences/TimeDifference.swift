@@ -1,8 +1,3 @@
-//
-//  TimeDifference.swift
-//  Time
-//
-
 import Foundation
 
 /// `TimeDifference` is a type used for expressing the difference between two fixed values and adjusting them forward or backwards in time.

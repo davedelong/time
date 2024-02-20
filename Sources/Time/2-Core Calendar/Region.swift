@@ -1,8 +1,3 @@
-//
-//  Region.swift
-//  Time
-//
-
 #if os(Linux)
 @preconcurrency import Foundation
 #else

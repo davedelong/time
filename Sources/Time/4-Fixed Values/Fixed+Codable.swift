@@ -1,7 +1,3 @@
-//
-//  Codable.swift
-//
-
 import Foundation
 
 extension Region: Codable {

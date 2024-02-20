@@ -1,8 +1,3 @@
-//
-//  Fixed+Internal.swift
-//  Time
-//
-
 import Foundation
 
 extension Fixed {

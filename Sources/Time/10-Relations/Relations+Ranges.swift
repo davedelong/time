@@ -1,7 +1,3 @@
-//
-//  Relations+Ranges.swift
-//
-
 import Foundation
 
 internal extension Range where Bound: Comparable {
