@@ -7,7 +7,7 @@ import Foundation
 /// An enum dictating how the conversion of a fixed value from one region to another should behave
 public enum ConversionBehavior {
     
-    /// When converting a fixed value, the <doc:Terminology#Component>s (day, hour, minute, etc) should be preserved.
+    /// When converting a fixed value, the [component](<doc:Terminology>)'s (day, hour, minute, etc) should be preserved.
     ///
     /// This is a failable operation and may result in a ``TimeError`` being thrown, as the value's
     /// components may not exist in the new region. For example, a 2 AM value in a European region may

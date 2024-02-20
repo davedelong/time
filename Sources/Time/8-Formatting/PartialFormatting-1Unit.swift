@@ -49,11 +49,13 @@ extension Fixed where Granularity: LTOEDay {
     /// Format the day of a fixed value
     /// - Parameters:
     ///   - day: The template for formatting the day
+    ///   - weekday: The template for formatting the day of the week   
     ///   - timeZone: The template for formatting the time zone
     /// - Returns: A string with the formatted day information
     public func format(day: Template<Day>,
+                       weekday: Template<Weekday>? = nil,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([day, timeZone])
+        return format([day, weekday, timeZone])
     }
     
     /// Format the weekday of a fixed value

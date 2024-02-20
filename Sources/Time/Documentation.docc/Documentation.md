@@ -12,4 +12,8 @@ Date and time programming is hard. Time is swift package based on more than a de
 
 - <doc:Basic-Usage>
 - <doc:Terminology>
+
+## Other
+
 - <doc:FutureDirections>
+- <doc:ReleaseNotes>

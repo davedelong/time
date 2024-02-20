@@ -1,6 +1,6 @@
 # Future Directions
 
-Below are some of the features planned for Time:
+Planned and proposed features for **Time**.
 
 ## Short-term Features
 
