@@ -24,7 +24,7 @@ jobs:
         fetch-depth: 0
 
     - name: Build Docs
-      run: swift package --allow-writing-to-directory ./.docs generate-documentation --target Time --output-path ./.docs --emit-digest --disable-indexing --transform-for-static-hosting
+      run: swift package --allow-writing-to-directory ./.docs generate-documentation --target Time --output-path ./.docs --emit-digest --disable-indexing --transform-for-static-hosting --hosting-base-path /time
 
     - name: Setup Pages
       id: pages
