@@ -18,7 +18,7 @@ Working with calendars can be extremely complicated and error-prone. **Time** so
 
 ## Documentation
 
-**Time**'s extensive documentation is hosted at the [Swift Package Index][^spi].
+**Time**'s extensive documentation is hosted at the [Swift Package Index][spi].
 
 Additionally, an "Examples" folder in this repository contains code illustrating how to use core parts of the library.
 
@@ -38,8 +38,8 @@ For additional information, refer to the documentation and included examples.
 
 ## Contributing
 
-**Time** is fully open source, available at [https://github.com/davedelong/time][^ghi]. If you have feature requests, suggestions, or have discovered a bug, please open a [new issue][^ghi].
+**Time** is fully open source, available at [https://github.com/davedelong/time][ghi]. If you have feature requests, suggestions, or have discovered a bug, please open a [new issue][ghi].
 
-[^spi]: https://swiftpackageindex.com/davedelong/time
-[^gh]: https://github.com/davedelong/time
-[^ghi]: https://github.com/davedelong/time/issues
+[spi]: https://swiftpackageindex.com/davedelong/time
+[gh]: https://github.com/davedelong/time
+[ghi]: https://github.com/davedelong/time/issues
