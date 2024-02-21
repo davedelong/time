@@ -1,126 +1,45 @@
 # Time
 
-`Time` is a Swift package that makes dealing with calendar values a natural and straight-forward process.
+**Time** is a Swift package that makes it easy to perform robust and type-safe date and time calculations.
 
-Working with calendars can be extremely complicated and error-prone. `Time` solves these problems by clarifying concepts and restricting improper usage through type-safe APIs.
+Working with calendars can be extremely complicated and error-prone. **Time** solves these problems by clarifying concepts and restricting improper usage through type-safe APIs.
 
 ## Installing
 
-`Time` can be installed like any other Swift package. Add this to the `dependencies` section of your Package.swift:
+**Time** can be installed like any other Swift package. Add this to the `dependencies` section of your Package.swift:
 
 ```swift
-.package(url: "https://github.com/davedelong/time", from: "0.9.1")
+.package(url: "https://github.com/davedelong/time", from: "0.9.5")
 ```
+
+## Platform Support
+
+**Time** requires Swift 5.7 or later, as well as macOS 13/iOS 16 (or equivalent) or later. Core parts of the library are built on Swift's `Duration` type, which was introduced in macOS 13/iOS 16.
+
+## Documentation
+
+**Time**'s extensive documentation is hosted at the [Swift Package Index][^spi].
+
+Additionally, an "Examples" folder in this repository contains code illustrating how to use core parts of the library.
 
 ## The Basics
 
 Here's the TL;DR of the documentation:
 
-- If you want to know what time it is, you need a `Clock`. You can get the device's clock by using `Clocks.system`.
+- If you want to know what time it is, you need the device's `RegionalClock`, which you get by using `Clocks.system`.
 
-- A `Clock` can tell you the current time via some functions. For example, `.today()` will give you the current calendar day. `.thisMinute()` will give you the current time, accurate down to the _minute_ level.
+- A `RegionalClock` tells you the current time. For example, `.today` will give you the current calendar day. `.currentMinute` will give you the current time, accurate down to the _minute_ level.
 
-- Each of these returned values has methods to retrieve more- and less- precise values. For example, `today.hours()` will give you a sequence of all the "Hour" values in the day.
+- Each of these returned values has methods to retrieve more- and less- precise values. For example, `today.hours` will give you a sequence of all the "Hour" values in the day.
 
-- These values also are how you _format_ them into human-readable strings (via the `.format(...)` method)
+- These values can be _formatted_ into human-readable strings via their `.format(...)` methods.
 
-### Some Small Examples
+For additional information, refer to the documentation and included examples.
 
-There are some examples below showing a sneak peek of what you can do with `Time`.
+## Contributing
 
-#### Fetching the Current Time
+**Time** is fully open source, available at [https://github.com/davedelong/time][^ghi]. If you have feature requests, suggestions, or have discovered a bug, please open a [new issue][^ghi].
 
-```swift
-let clock = Clocks.system
-
-// retrieve the current instantaneous time from the clock
-let now = clock.now
-
-// retrieve the current calendar day, as defined by the user's region
-let today = clock.today()
-```
-
-More information in ["Clock"](Documentation/2-Usage/2-Clock.md).
-
-#### Converting Between Regions
-
-```swift
-let nycTimeZone = TimeZone(identifier: "America/New_York")!
-
-let myClock = Clocks.system
-let nycClock = myClock.converted(to: nycTimeZone)
-
-let myLocalTime = myClock.thisMinute() // Ex: 28 Feb 2020 at 3:14 PM Pacific Time
-
-let nycLocalTime = nycClock.thisMinute() // Ex: 28 Feb 2020 at 6:14 PM Eastern Time
-```
-
-More information in ["Clock"](Documentation/2-Usage/2-Clock.md).
-
-#### Retrieving Components
-
-```swift
-let today: Absolute<Day> = myClock.today()
-let year = today.year // Ex: 2020
-let month = today.month // Ex: 2
-let day = today.day // Ex: 28
-```
-
-More information in ["TimePeriod"](Documentation/2-Usage/3-TimePeriod.md).
-
-#### Calculating Differences
-
-```swift
-let day1: Absolute<Day> = ...
-let day2: Absolute<Day> = ...
-
-// compute the difference in days, months, years, and eras
-let difference: TimeDifference<Day, Era> = day1.difference(to: day2)
-
-// or conveniently the number of calendar days between the two values
-let daysDifference = day1.differenceInDays(to: day2)
-```
-
-More information in ["Differences"](Documentation/2-Usage/5-Differences.md).
-
-#### Iterating Over TimePeriods
-
-```swift
-let thisMonth = Clocks.system.thisMonth()
-let daysInThisMonth = thisMonth.days()
-
-for day in daysInThisMonth {
-    // …
-}
-```
-
-More information in ["Iterating Over TimePeriods"](Documentation/2-Usage/6-Iteration.md).
-
-#### Formatting TimePeriods
-
-```swift
-let today: Absolute<Day> = ...
-
-let fullYearString = today.format(date: .full) // Ex: February 28, 2020
-let shortYearString = today.format(year: .twoDigits, month: .full) // Ex: February '20
-```
-
-More information in ["Formatting TimePeriods"](Documentation/2-Usage/7-Formatting.md).
-
-#### Observing time changes
-
-```swift
-let clock: Clock = ...
-clock
-    .chime(every: .seconds(5))
-    .sink { (value: Absolute<Second>) in
-        print("Another 5 seconds have passed")
-    }
-    .store(in: &cancellables)
-```
-
-More information in ["Observing time changes"](Documentation/2-Usage/8-Observation.md).
-
-## Detailed Information
-
-For more information, [please see the documentation](Documentation).
+[^spi]: https://swiftpackageindex.com/davedelong/time
+[^gh]: https://github.com/davedelong/time
+[^ghi]: https://github.com/davedelong/time/issues

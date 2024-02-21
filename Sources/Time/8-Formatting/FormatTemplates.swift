@@ -63,6 +63,9 @@ extension Template where Unit == Month {
 }
 
 /// A type used in conjunction with defining templates that are used by themselves.
+///
+/// - SeeAlso: ``Template``, "Formatting Standalone Months"
+/// - SeeAlso: ``Template``, "Formatting Standalone Weekdays"
 public enum Standalone<Field> { }
 
 extension Template where Unit == Standalone<Month> {
@@ -95,6 +98,8 @@ extension Template where Unit == Day {
 }
 
 /// A type used to construct a format template representing a named weekday
+///
+/// - SeeAlso: ``Template``, "Formatting Weekdays"
 public enum Weekday { }
 
 extension Template where Unit == Weekday {
@@ -139,6 +144,8 @@ extension Template where Unit == Standalone<Weekday> {
 }
 
 /// A type used to construct a format template representing day periods (AM and PM)
+///
+/// - SeeAlso: ``Template``, "Formatting Day Periods"
 public enum DayPeriod { }
 
 extension Template where Unit == DayPeriod {
