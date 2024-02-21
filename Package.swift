@@ -19,10 +19,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.1.0")
     ],
     targets: [
-        .target(name: "Time", dependencies: [],
-                swiftSettings: [
-                    .unsafeFlags(["-Xfrontend", "-strict-concurrency=complete"])
-                ]),
+        .target(name: "Time", dependencies: []),
         
         .testTarget(name: "TimeTests", dependencies: ["Time"]),
     ]
