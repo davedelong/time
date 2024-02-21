@@ -35,7 +35,7 @@ extension Template where Unit == Year {
     /// For example, `.digits(paddedToLength: 3)` might result in year strings of "005", "024", or "941".
     /// - Parameter paddedToLength: The length of the resulting string. Extra leading digits are omitted, and the string is zero-padded to reach the specified length
     /// - Returns: A template for the string representation of a calendar year
-    public static func digits(paddedToLength: Int) -> Template {
+    public static func digits(paddedToLength: Int) -> Template<Year> {
         guard paddedToLength > 0 else { fatalError("Cannot pad to a length less than 1") }
         let template = String(repeating: "y", count: paddedToLength)
         return Template(template)
@@ -169,7 +169,7 @@ extension Template where Unit == Hour {
     /// The natural length of the numeric hour, optionally with the day period
     /// - Parameter dayPeriod: The `Template<DayPeriod>` to use when formatting; may be `nil` to omit it
     /// - Returns: A template for the string representation of an hour
-    public static func naturalDigits(dayPeriod: Template<DayPeriod>?) -> Template {
+    public static func naturalDigits(dayPeriod: Template<DayPeriod>?) -> Template<Hour> {
         guard let p = dayPeriod else { return Template("J") }
         
         if p == .wide {
@@ -184,7 +184,7 @@ extension Template where Unit == Hour {
     /// The numeric hour, zero-padded to two digits, optionally with the day period
     /// - Parameter dayPeriod: The `Template<DayPeriod>` to use when formatting; may be `nil` to omit it
     /// - Returns: A template for the string representation of an hour
-    public static func twoDigits(dayPeriod: Template<DayPeriod>?) -> Template {
+    public static func twoDigits(dayPeriod: Template<DayPeriod>?) -> Template<Hour> {
         guard let p = dayPeriod else { return Template("JJ") }
         
         if p == .wide {
@@ -224,7 +224,7 @@ extension Template where Unit == Nanosecond {
     /// The numeric fractional seconds
     /// - Parameter length: The number of significant digits to include
     /// - Returns: A template for the string representation of a fractional second
-    public static func digits(_ length: Int) -> Template {
+    public static func digits(_ length: Int) -> Template<Nanosecond> {
         guard length > 0 else { fatalError("Cannot pad to a length less than 1") }
         let template = String(repeating: "S", count: length)
         return Template(template)
@@ -278,7 +278,7 @@ extension Template where Unit == TimeZone {
     ///
     /// - Parameter includingZ: Whether UTC+0 time zones format as "Z"
     /// - Returns: A template for the string representation of a time zone
-    public static func ISO8601BasicWithHours(includingZ: Bool = false) -> Template {
+    public static func ISO8601BasicWithHours(includingZ: Bool = false) -> Template<TimeZone> {
         return Template(includingZ ? "X" : "x")
     }
     
@@ -290,7 +290,7 @@ extension Template where Unit == TimeZone {
     ///   - extended: Whether formatted time zone offsets should incldue a colon between the hour and minute fields
     ///   - includingZ: Whether UTC+0 time zones format as "Z"
     /// - Returns: A template for the string representation of a time zone
-    public static func ISO8601WithHoursAndMinutes(extended: Bool = false, includingZ: Bool = false) -> Template {
+    public static func ISO8601WithHoursAndMinutes(extended: Bool = false, includingZ: Bool = false) -> Template<TimeZone> {
         if extended {
             return Template(includingZ ? "XXX" : "xxx")
         } else {
