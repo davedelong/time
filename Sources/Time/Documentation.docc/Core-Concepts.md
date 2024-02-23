@@ -88,10 +88,10 @@ If `today` is `January 31st, 2020`, then:
 
 In **Time**, iterative addition is handled by the ``FixedSequence`` (and its underlying ``FixedIterator``). The implementation of this type uses the second approach, which involves *scaling* the "stride" value for each successive iteration, and always performing the offset calculation relative to the *start* value, and not the most-recently-calculated value.
 
-### Non-existent Values
+### Non-existent values
 
 Many potential calendar values *look* valid, but may not locally exist. The simplest example of this involves Daylight Saving Time. When DST is observed to "spring forward", a particular named hour of a day may not exist. In the United States, these transitions happen at 2 AM, and so 1:59:59 AM is followed one second later by 3:00:00 AM. Thus, a "2:12 AM" value for that day may *look* correct, but will not exist.
 
-Other examples include leap days: "February 29, 2023" is not a valid date, even though "February" is a known month name, "2023" is a valid year, and "29" is within the general range of days in a month. Another example might what happened in the `Pacific/Apia` time zone in 2011, when that time zone transitioned across the international date line, resulting in "December 30, 2011" not existing (December 29, 2011 at 23:59:59 was followed by December 31, 2011 at 00:00:00).
+Other examples include leap days: "February 29, 2023" is not a valid date, even though "February" is a known month name, "2023" is a valid year, and "29" is within the general range of days in a month. Another example is what happened in the `Pacific/Apia` time zone in 2011, when that time zone transitioned across the international date line, resulting in "December 30, 2011" not existing (December 29, 2011 at 23:59:59 was followed by December 31, 2011 at 00:00:00).
 
 In **Time**, any operation that could involve non-existent values is an operation that `throws`, and will produce a ``TimeError`` if such a situation is encountered. For example, ``Fixed/init(region:strictDateComponents:)`` or ``Fixed/converted(to:behavior:)-6z6df``.

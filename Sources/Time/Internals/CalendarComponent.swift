@@ -45,8 +45,8 @@ extension Calendar.Component {
     
     internal var minimumRequiredComponent: Self {
         switch self {
-            // all fixed values have a timezone,
-            // so as long as it's a fixed value, the timezone requirement is satisfied
+            // all fixed values have a time zone,
+            // so as long as it's a fixed value, the time zone requirement is satisfied
             case .era: return .era
             case .timeZone: return .era
                 
