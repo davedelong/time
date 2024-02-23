@@ -7,6 +7,7 @@ Planned and proposed features for **Time**.
 - ISO 8601 Formatting
     - There are interesting questions that arise around what should happen if you try to format a non-Gregorian date as ISO8601
 - "Floating" values
+    - [#69](https://github.com/davedelong/time/issues/69)
     - Ex: "any June". Useful for birthdays and another recurring events
     - Approximate differences
     - Formatting
@@ -18,6 +19,7 @@ Planned and proposed features for **Time**.
 - Formatting `TimeDifference` values
 - Formatting `Range<Fixed<U>>` values
 - Pseudo-units (weeks and quarters)
+    - Weeks: [#68](https://github.com/davedelong/time/issues/68)
     - Probably not done as a new `Unit`, since it would interfere with the GTOE/LTOE protocols
 - Parsing fixed values
 
