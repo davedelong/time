@@ -56,7 +56,7 @@ public struct Region: Hashable, Sendable {
     /// automatically update to reflect any changes the user makes to their time zone, locale, or calendar
     /// while the process is running.
     ///
-    /// The only way to get a region with autoupdating values is to use `Region.autoupdatingCurrent`
+    /// The only way to get a `Region` with autoupdating values is to use ``Region/autoupdatingCurrent``.
     ///
     /// - Parameters:
     ///   - calendar: The region's `Calendar`

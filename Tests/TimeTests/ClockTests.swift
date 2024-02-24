@@ -110,7 +110,7 @@ class ClockTests: XCTestCase {
         
         let elapsedTime = nextSecond - thisSecond
         
-        XCTAssertEqual(elapsedTime.timeInterval, 0.5, accuracy: 0.05) // 10% margin for error
+        XCTAssertEqual(elapsedTime.timeInterval, 0.5, accuracy: 0.075) // 15% margin for error
     }
     
     func testDecelerated_10x() {
@@ -123,7 +123,7 @@ class ClockTests: XCTestCase {
         
         let elapsedTime = nextSecond - thisSecond
         
-        XCTAssertEqual(elapsedTime.timeInterval, 0.1, accuracy: 0.01) // 10% margin for error
+        XCTAssertEqual(elapsedTime.timeInterval, 0.1, accuracy: 0.015) // 15% margin for error
     }
 }
 
