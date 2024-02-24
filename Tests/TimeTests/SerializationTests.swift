@@ -32,7 +32,6 @@ class SerializationTests: XCTestCase {
         
         func testRoundTrip<U: Unit>(of timePeriod: Fixed<U>, file: StaticString = #file, line: UInt = #line) throws {
             let encoded = try JSONEncoder().encode(timePeriod)
-            print("JSON: \(String(data: encoded, encoding: .utf8)!)")
             let decoded = try JSONDecoder().decode(Fixed<U>.self, from: encoded)
             XCTAssertEqual(timePeriod, decoded, file: file, line: line)
         }

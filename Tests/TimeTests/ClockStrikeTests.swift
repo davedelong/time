@@ -187,6 +187,7 @@ final class ClockStrikeTests: XCTestCase {
                 } else {
                     let expected = results.removeFirst()
                     XCTAssertEqual(value, expected)
+                    print(value.debugDescription, expected.debugDescription)
                     strikesTwice.fulfill()
                 }
             })

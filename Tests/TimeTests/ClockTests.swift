@@ -51,8 +51,8 @@ class ClockTests: XCTestCase {
         let daysInTheYear = Array(thisYear.days)
         
         let weeks = daysInTheYear.slice(between: { $0.weekOfYear != $1.weekOfYear })
-        print(weeks.map(\.debugDescription))
-        
+        let weekLengths = weeks.map(\.count)
+        XCTAssertTrue(weekLengths.allSatisfy({ $0 > 0 && $0 <= 7 }))        
     }
     
     func testSystem() {
