@@ -39,7 +39,7 @@ struct ClocksView: View {
             
             Spacer()
         }
-        .onReceive(clock.strike(every: Second.self).publisher, perform: { now = $0 })
+        .onReceive(clock.strike(every: Second.self).publisher.receive(on: DispatchQueue.main), perform: { now = $0 })
     }
     
 }

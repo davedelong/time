@@ -225,6 +225,9 @@ import Dispatch
 extension ClockStrikes {
     
     /// The values at which the clock will strikes, as a Combine publisher
+    ///
+    /// - Warning: This publisher produces values on an undefined scheduler. If you need to receive
+    /// updates on a particular Scheduler, use the `.receive(on:)` operator. 
     public struct Publisher: Combine.Publisher {
         
         internal let strikes: ClockStrikes
@@ -243,6 +246,9 @@ extension ClockStrikes {
     }
     
     /// Retrieve the publisher which emits the values at which the clock will strike
+    ///
+    /// - Warning: This publisher produces values on an undefined scheduler. If you need to receive
+    /// updates on a particular Scheduler, use the `.receive(on:)` operator.
     public var publisher: Publisher {
         return Publisher(strikes: self)
     }
@@ -258,7 +264,7 @@ private class StrikesSubscription<SubscriberType, U>: Subscription
     private var subscriber: SubscriberType?
     private let clock: any RegionalClock
     private var timeIterator: AnyIterator<Fixed<U>>
-    private var nextStrike: DispatchWorkItem?
+    private var nextStrike: CancellationToken?
     
     init(subscriber: SubscriberType, clock: any RegionalClock, iterator: AnyIterator<Fixed<U>>) {
         self.subscriber = subscriber
@@ -282,24 +288,10 @@ private class StrikesSubscription<SubscriberType, U>: Subscription
             return
         }
         
-        let clockNow = clock.now
         let strikeInstant = nextStrikeTime.firstInstant
-        
-        let realSecondsUntilStrike: TimeInterval
-        
-        if strikeInstant <= clockNow {
-            // strike already passed
-            // strike immediately
-            realSecondsUntilStrike = 0
-        } else {
-            let clockSecondsUntilStrike = strikeInstant - clockNow
-            realSecondsUntilStrike = (clockSecondsUntilStrike / clock.SISecondsPerClockSecond).timeInterval
-        }
-        let strike = DispatchWorkItem { [weak self] in
+        self.nextStrike = clock.wait(until: strikeInstant, tolerance: nil, strike: { [weak self] in
             self?.performStrike(at: nextStrikeTime)
-        }
-        nextStrike = strike
-        DispatchQueue.main.asyncAfter(deadline: .now() + realSecondsUntilStrike, execute: strike)
+        })
     }
     
     private func performStrike(at time: Fixed<U>) {

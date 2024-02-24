@@ -35,22 +35,7 @@ extension RegionalClock {
     /// - Parameter deadline: The `Instant` at which this task should wake up again, relative to this clock
     /// - Parameter tolerance: How much leeway there is in missing the deadline
     public func sleep(until deadline: Instant, tolerance: Instant.Duration?) async throws {
-        let now = self.now
-        let difference = now - deadline
-        
-        // `difference` contains the number of CLOCK seconds that must elapse until the deadline is hit
-        
-        // if the deadline is in the past, immediately return
-        if difference <= .zero { return }
-        
-        let sisecondsToWait = difference / self.SISecondsPerClockSecond
-        let systemTolerance = tolerance.map { $0 / self.SISecondsPerClockSecond }
-        
-        let systemClock = SystemClock(region: .current)
-        let systemNow = systemClock.now
-        let systemDeadline = systemNow + sisecondsToWait
-        
-        try await Task.sleep(until: systemDeadline, tolerance: systemTolerance, clock: systemClock)
+        try await self.sleep(until: deadline, tolerance: tolerance, token: nil)
     }
     
 }
