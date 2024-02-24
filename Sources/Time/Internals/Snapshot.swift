@@ -32,39 +32,6 @@ extension Locale {
         if self != .autoupdatingCurrent { return self }
         return Self.currentSnapshot.snapshot
     }
-    
-    internal var bcp47FirstWeekday: String? {
-        switch calendar.firstWeekday {
-            case 1: return "sun"
-            case 2: return "mon"
-            case 3: return "tue"
-            case 4: return "wed"
-            case 5: return "thu"
-            case 6: return "fri"
-            case 7: return "sat"
-            default: return nil
-        }
-    }
-    
-    internal var bcp47HourCycle: String? {
-        let formatString = DateFormatter.dateFormat(fromTemplate: "J", options: 0, locale: self)
-        switch formatString {
-            case "h": return "h12" // 1-12
-            case "H": return "h23" // 0-23
-            case "K": return "h11" // 0-11
-            case "k": return "h24" // 1-24
-            default: return nil
-        }
-    }
-    
-    internal var wants24HourTime: Bool {
-        if let cycle = bcp47HourCycle {
-            return cycle == "h23" || cycle == "h24"
-        }
-        
-        let hour = DateFormatter.dateFormat(fromTemplate: "J", options: 0, locale: self)
-        return hour?.contains("H") == true || hour?.contains("k") == true
-    }
 }
 
 extension TimeZone {

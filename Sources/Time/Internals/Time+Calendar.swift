@@ -71,6 +71,24 @@ extension Calendar {
         return self.range(of: smallest, containing: date)
     }
     
+    func isEquivalent(to other: Calendar) -> Bool {
+        guard identifier == other.identifier else { return false }
+        guard timeZone.isEquivalent(to: other.timeZone) else { return false }
+        guard firstWeekday == other.firstWeekday else { return false }
+        guard minimumDaysInFirstWeek == other.minimumDaysInFirstWeek else { return false }
+        
+        return true
+    }
+    
+    var isLikelyAutoupdating: Bool { self == .autoupdatingCurrent }
+    
+    var loggingDescription: String {
+        if isEquivalent(to: Calendar.standard(identifier)) {
+            return (try? identifier.encodingIdentifier) ?? "\(identifier)"
+        }
+        return self.debugDescription
+    }
+    
 }
 
 extension Calendar.Identifier {
@@ -82,18 +100,18 @@ extension Calendar.Identifier {
                 case .buddhist: return "buddhist"
                 case .chinese: return "chinese"
                 case .coptic: return "coptic"
-                case .ethiopicAmeteMihret: return "ethiopicAmeteMihret"
-                case .ethiopicAmeteAlem: return "ethiopicAmeteAlem"
+                case .ethiopicAmeteMihret: return "ethiopic"
+                case .ethiopicAmeteAlem: return "ethiopic-amete-alem"
                 case .hebrew: return "hebrew"
                 case .iso8601: return "iso8601"
                 case .indian: return "indian"
                 case .islamic: return "islamic"
-                case .islamicCivil: return "islamicCivil"
+                case .islamicCivil: return "islamic-civil"
                 case .japanese: return "japanese"
                 case .persian: return "persian"
-                case .republicOfChina: return "republicOfChina"
-                case .islamicTabular: return "islamicTabular"
-                case .islamicUmmAlQura: return "islamicUmmAlQura"
+                case .republicOfChina: return "roc"
+                case .islamicTabular: return "islamic-tbla"
+                case .islamicUmmAlQura: return "islamic-umalqura"
                 default:
                     let ctx = EncodingError.Context(codingPath: [], debugDescription: "Unknown calendar identifier: '\(self)'")
                     throw TimeError.encodingError(EncodingError.invalidValue(self, ctx))
@@ -107,18 +125,18 @@ extension Calendar.Identifier {
             case "buddhist": self = .buddhist
             case "chinese": self = .chinese
             case "coptic": self = .coptic
-            case "ethiopicAmeteMihret": self = .ethiopicAmeteMihret
-            case "ethiopicAmeteAlem": self = .ethiopicAmeteAlem
+            case "ethiopic": self = .ethiopicAmeteMihret
+            case "ethiopic-amete-alem": self = .ethiopicAmeteAlem
             case "hebrew": self = .hebrew
             case "iso8601": self = .iso8601
             case "indian": self = .indian
             case "islamic": self = .islamic
-            case "islamicCivil": self = .islamicCivil
+            case "islamic-civil": self = .islamicCivil
             case "japanese": self = .japanese
             case "persian": self = .persian
-            case "republicOfChina": self = .republicOfChina
-            case "islamicTabular": self = .islamicTabular
-            case "islamicUmmAlQura": self = .islamicUmmAlQura
+            case "roc": self = .republicOfChina
+            case "islamic-tbla": self = .islamicTabular
+            case "islamic-umalqura": self = .islamicUmmAlQura
             default:
                 let ctx = DecodingError.Context(codingPath: [], debugDescription: "Unknown calendar identifier: '\(encodingIdentifier)'")
                 throw TimeError.decodingError(DecodingError.dataCorrupted(ctx))

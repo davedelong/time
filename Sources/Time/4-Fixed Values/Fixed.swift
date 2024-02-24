@@ -141,7 +141,13 @@ extension Fixed: CustomStringConvertible, CustomDebugStringConvertible {
     }
     
     public var debugDescription: String {
-        return "Fixed<\(Granularity.self)>{ timestamp: \(instant), components: \(dateComponents), locale: \(locale), calendar: \(calendar), timeZone: \(timeZone) }"
+        return "Fixed<\(Granularity.self)>{ " + [
+            "timestamp: \(instant.description)",
+            "components: \(dateComponents.loggingDescription)",
+            "locale: \(locale.loggingDescription)",
+            "calendar: \(calendar.loggingDescription)",
+            "timeZone: \(timeZone.identifier)"
+        ].joined(separator: ", ") + " }"
     }
     
 }

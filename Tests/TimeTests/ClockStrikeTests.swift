@@ -174,7 +174,7 @@ final class ClockStrikeTests: XCTestCase {
         
         let start = clock.nextSecond
         var results = [start, start.nextSecond]
-        print("Expecting strikes at \(results)")
+        print("Expecting strikes at \(results.map(\.debugDescription))")
         
         clock
             .strike(every: TimeDifference<Second, Era>.seconds(1), startingFrom: start)

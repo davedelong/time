@@ -2,6 +2,15 @@ import Foundation
 
 extension Calendar.Component {
     
+    internal static let all: Array<Calendar.Component> = numericComponents + [.calendar, .timeZone]
+    
+    internal static let numericComponents: Array<Calendar.Component> = [
+        .era, .year, .month, .day,
+        .hour, .minute, .second, .nanosecond,
+        .weekday, .weekdayOrdinal, .quarter, 
+        .weekOfMonth, .weekOfYear, .yearForWeekOfYear
+    ]
+    
     internal static let ascendingOrder: Array<Calendar.Component> = [.nanosecond, .second, .minute, .hour, .day, .month, .year, .era]
     internal static let descendingOrder: Array<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .nanosecond]
     

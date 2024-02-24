@@ -51,7 +51,7 @@ class ClockTests: XCTestCase {
         let daysInTheYear = Array(thisYear.days)
         
         let weeks = daysInTheYear.slice(between: { $0.weekOfYear != $1.weekOfYear })
-        print(weeks)
+        print(weeks.map(\.debugDescription))
         
     }
     

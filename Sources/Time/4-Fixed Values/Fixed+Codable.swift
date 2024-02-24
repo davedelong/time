@@ -21,9 +21,9 @@ extension Region: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(timeZone, forKey: .timeZone)
-        try container.encode(locale, forKey: .locale)
-        try container.encode(calendar, forKey: .calendar)
+        try container.encode(CodableTimeZone(timeZone: timeZone), forKey: .timeZone)
+        try container.encode(CodableLocale(locale: locale), forKey: .locale)
+        try container.encode(CodableCalendar(calendar: calendar), forKey: .calendar)
     }
 }
 
@@ -62,6 +62,10 @@ private struct CodableLocale: Codable {
     
     let locale: Locale
     
+    init(locale: Locale) {
+        self.locale = locale
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         do {
@@ -88,6 +92,10 @@ private struct CodableLocale: Codable {
 private struct CodableTimeZone: Codable {
     
     let timeZone: TimeZone
+    
+    init(timeZone: TimeZone) {
+        self.timeZone = timeZone
+    }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -116,17 +124,18 @@ private struct CodableCalendar: Codable {
     
     let calendar: Calendar
     
+    init(calendar: Calendar) {
+        self.calendar = calendar
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         do {
-            #if os(Linux)
             // on Linux, Calendar.Identifier does not appear to be Codable
-            // therefore, we must manually decode its value
+            // Also, encoding a Calendar.Identifier appears to include extra empty objects
+            // in the JSON; so instead, we'll decode the bare identifier manually
             let encodingIdentifier = try container.decode(String.self)
             let identifier = try Calendar.Identifier(encodingIdentifier: encodingIdentifier)
-            #else
-            let identifier = try container.decode(Calendar.Identifier.self)
-            #endif
             self.calendar = Calendar.standard(identifier)
         } catch {
             self.calendar = try container.decode(Calendar.self)
@@ -138,14 +147,11 @@ private struct CodableCalendar: Codable {
         
         if standard.isEquivalent(to: calendar) {
             var single = encoder.singleValueContainer()
-            #if os(Linux)
             // on Linux, Calendar.Identifier does not appear to be Codable
-            // therefore, we must manually encode its value
+            // Also, encoding a Calendar.Identifier appears to include extra empty objects
+            // in the JSON; so instead, we'll encode the bare identifier manually
             let encodingIdentifier = try calendar.identifier.encodingIdentifier
             try single.encode(encodingIdentifier)
-            #else
-            try single.encode(calendar.identifier)
-            #endif
         } else {
             try calendar.encode(to: encoder)
         }

@@ -157,11 +157,14 @@ extension SISeconds: Codable {
     }
     
     public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
         let (seconds, attoseconds) = rawValue.components
-        try container.encode(seconds, forKey: .seconds)
         if attoseconds != 0 {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(seconds, forKey: .seconds)
             try container.encode(attoseconds, forKey: .attoseconds)
+        } else {
+            var container = encoder.singleValueContainer()
+            try container.encode(seconds)
         }
     }
     

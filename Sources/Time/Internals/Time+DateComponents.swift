@@ -90,6 +90,14 @@ internal extension DateComponents {
         return Calendar.Component.ascendingOrder.first(where: { self.has(component: $0) })
     }
     
+    var loggingDescription: String {
+        return "{" + Calendar.Component.numericComponents.compactMap({ unit -> String? in
+            guard let v = self.value(for: unit), v != FoundationNotFound else { return nil }
+            guard self.has(component: unit) else { return nil }
+            return "\(unit): \(v)"
+        }).joined(separator: ", ") + "}"
+    }
+    
     func isLessThan(other: DateComponents) -> Bool {
         for unit in Calendar.Component.descendingOrder {
             let lValue = self.value(for: unit)
