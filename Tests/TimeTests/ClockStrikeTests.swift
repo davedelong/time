@@ -23,8 +23,8 @@ final class ClockStrikeTests: XCTestCase {
     var cancellables = Set<AnyCancellable>()
     
     override func tearDown() {
+        cancellables.removeAll()
         super.tearDown()
-        cancellables = []
     }
     
     func testPastStrike() {
@@ -169,12 +169,12 @@ final class ClockStrikeTests: XCTestCase {
     // There's no way to make a `testFixedStrikeCancelAsync()` test, because callers cannot cancel an async for loop
     
     func testIntervalStrike() {
-        let strikesTwice = expectation(description: "Clock strikes twice, once per second")
-        strikesTwice.expectedFulfillmentCount = 2
-        
         let start = clock.nextSecond
         var results = [start, start.nextSecond]
-        print("Expecting strikes at \(results.map(\.debugDescription))")
+        print("Expecting \(results.count) strikes at \(results.map(\.debugDescription))")
+        
+        let strikesTwice = expectation(description: "Clock strikes twice, once per second")
+        strikesTwice.expectedFulfillmentCount = results.count
         
         clock
             .strike(every: TimeDifference<Second, Era>.seconds(1), startingFrom: start)
@@ -182,9 +182,13 @@ final class ClockStrikeTests: XCTestCase {
             .sink(receiveCompletion: { (completion) in
                 XCTFail("Repeating strike completed: \(completion)")
             }, receiveValue: { value in
-                let expected = results.removeFirst()
-                XCTAssertEqual(value, expected)
-                strikesTwice.fulfill()
+                if results.isEmpty {
+                    XCTFail("Received unexpected strike at \(value.debugDescription)")
+                } else {
+                    let expected = results.removeFirst()
+                    XCTAssertEqual(value, expected)
+                    strikesTwice.fulfill()
+                }
             })
             .store(in: &cancellables)
         
