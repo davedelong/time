@@ -7,11 +7,16 @@ internal class CancellationToken {
     private var _isCancelled = false
     
     var isCancelled: Bool {
-        lock.withLock { self._isCancelled }
+        lock.lock()
+        let c = self._isCancelled
+        lock.unlock()
+        return c
     }
     
     func cancel() {
-        lock.withLock { self._isCancelled = true }
+        lock.lock()
+        self._isCancelled = true
+        lock.unlock()
     }
     
 }
