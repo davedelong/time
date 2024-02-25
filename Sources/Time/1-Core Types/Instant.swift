@@ -1,12 +1,5 @@
 import Foundation
 
-#warning("FUTURE: make this more resilient against overflow")
-// It could be worthwhile having checks to see if it's better to convert from one epoch to another
-// based on how close to a particular epoch an Instant is.
-// For example, if we get a value in early 2038 based on the Unix epoch, we might want to consider
-// recognizing this and instead basing it off the Reference epoch instead
-// (note: the 2038 problem isn't an issue with Instant because it's based on Duration and not Int32, but still)
-
 /// An `Instant` is an instantaneous point in time, relative to an `Epoch`.
 public struct Instant: Hashable, Comparable, InstantProtocol, Sendable {
     public typealias Duration = SISeconds
@@ -41,7 +34,9 @@ public struct Instant: Hashable, Comparable, InstantProtocol, Sendable {
     public var intervalSinceReferenceEpoch: SISeconds { epoch.offsetFromReferenceDate + intervalSinceEpoch }
 
     /// Convert the `Instant` into its `Foundation.Date` representation.
-    public var date: Foundation.Date { Date(timeIntervalSinceReferenceDate: intervalSinceReferenceEpoch.timeInterval) }
+    public var date: Foundation.Date {
+        Date(timeIntervalSinceReferenceDate: intervalSinceReferenceEpoch.timeInterval)
+    }
 
     /// Construct an `Instant` as the number of seconds since a particular `Epoch`.
     public init(interval: SISeconds, since epoch: Epoch) {
@@ -124,11 +119,16 @@ extension Instant: Codable {
     
 }
 
-extension Instant: CustomStringConvertible {
+extension Instant: CustomStringConvertible, CustomDebugStringConvertible {
     
     public var description: String {
         let direction = self.intervalSinceEpoch >= 0 ? "+" : ""
         return "\(epoch)\(direction)\(intervalSinceEpoch)"
+    }
+    
+    public var debugDescription: String {
+        let direction = self.intervalSinceEpoch >= 0 ? "+" : ""
+        return "\(epoch)\(direction)\(intervalSinceEpoch.debugDescription)"
     }
     
 }

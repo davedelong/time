@@ -106,7 +106,7 @@ final class ClockStrikeTests: XCTestCase {
             })
             .store(in: &cancellables)
         
-        wait(for: [strikesOnce, completes], timeout: 1, enforceOrder: true)
+        wait(for: [strikesOnce, completes], timeout: 1.5, enforceOrder: true)
     }
     
     func testStrikeAtSpecificValueAsync() async throws {

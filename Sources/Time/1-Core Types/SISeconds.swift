@@ -10,7 +10,7 @@ import Foundation
 /// of representation is needed.
 ///
 /// - SeeAlso: [https://en.wikipedia.org/wiki/SI_base_unit](https://en.wikipedia.org/wiki/SI_base_unit)
-public struct SISeconds: RawRepresentable, Hashable, Comparable, DurationProtocol, Sendable, CustomStringConvertible {
+public struct SISeconds: RawRepresentable, Hashable, Comparable, DurationProtocol, Sendable, CustomStringConvertible, CustomDebugStringConvertible {
     
     internal static let secondsBetweenUnixAndReferenceEpochs = SISeconds(Date.timeIntervalBetween1970AndReferenceDate)
     
@@ -118,6 +118,11 @@ public struct SISeconds: RawRepresentable, Hashable, Comparable, DurationProtoco
     
     public var description: String {
         return "\(timeInterval)"
+    }
+    
+    public var debugDescription: String {
+        let (s, a) = rawValue.components
+        return "{ seconds: \(s), attoseconds: \(a) }"
     }
     
 }

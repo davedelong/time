@@ -142,7 +142,7 @@ extension Fixed: CustomStringConvertible, CustomDebugStringConvertible {
     
     public var debugDescription: String {
         return "Fixed<\(Granularity.self)>{ " + [
-            "timestamp: \(instant.description)",
+            "timestamp: \(instant.debugDescription)",
             "components: \(dateComponents.loggingDescription)",
             "locale: \(locale.loggingDescription)",
             "calendar: \(calendar.loggingDescription)",
