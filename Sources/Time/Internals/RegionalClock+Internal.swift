@@ -38,7 +38,10 @@ extension RegionalClock {
             
             // we care about the passage of real time, which happens regardless of whether the process is suspended or not
             // therefore we calculate the REAL time to wait based on a continuous clock
-            try await Task.sleep(for: realTimeToWait.rawValue, tolerance: realTolerance?.rawValue, clock: .continuous)
+            let realTimeClock = ContinuousClock()
+            try await Task.sleep(until: realTimeClock.now + realTimeToWait.rawValue,
+                                 tolerance: realTolerance?.rawValue,
+                                 clock: realTimeClock)
             
         } while token?.isCancelled != true
     }
