@@ -28,9 +28,9 @@ extension Locale {
         #endif
     })
     
-    func snapshot() -> Self {
-        if self != .autoupdatingCurrent { return self }
-        return Self.currentSnapshot.snapshot
+    func snapshot(forcedCopy: Bool) -> Self {
+        if forcedCopy == false && self != .autoupdatingCurrent { return self }
+        return Self.currentSnapshot.snapshot(forcedCopy: forcedCopy)
     }
 }
 
@@ -40,9 +40,9 @@ extension TimeZone {
         return TimeZone.standard(TimeZone.autoupdatingCurrent.identifier)
     })
     
-    func snapshot() -> Self {
-        if self != .autoupdatingCurrent { return self }
-        return Self.currentSnapshot.snapshot
+    func snapshot(forcedCopy: Bool) -> Self {
+        if forcedCopy == false && self != .autoupdatingCurrent { return self }
+        return Self.currentSnapshot.snapshot(forcedCopy: forcedCopy)
     }
     
 }
@@ -68,9 +68,9 @@ extension Calendar {
         return snapshot
     })
     
-    func snapshot() -> Self {
-        if self != .autoupdatingCurrent { return self }
-        return Self.currentSnapshot.snapshot
+    func snapshot(forcedCopy: Bool) -> Self {
+        if forcedCopy == false && self != .autoupdatingCurrent { return self }
+        return Self.currentSnapshot.snapshot(forcedCopy: forcedCopy)
     }
     
 }
@@ -83,7 +83,9 @@ private class Snapshot<T>: @unchecked Sendable {
     private var observationToken: NSObjectProtocol?
     private let lock = NSLock()
     
-    var snapshot: T {
+    func snapshot(forcedCopy: Bool) -> T {
+        if forcedCopy { return createSnapshot() }
+        
         lock.lock()
         let returnValue: T
         if let _snapshot {

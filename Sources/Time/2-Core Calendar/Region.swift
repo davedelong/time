@@ -64,16 +64,16 @@ public struct Region: Hashable, Sendable {
     ///   - locale: The region's `Locale`
     public init(calendar: Calendar, timeZone: TimeZone, locale: Locale) {
         if calendar.timeZone != timeZone || calendar.locale != locale {
-            var actualCalendar = calendar.snapshot()
+            var actualCalendar = calendar.snapshot(forcedCopy: false)
             actualCalendar.timeZone = timeZone
             actualCalendar.locale = locale
             
             self.calendar = actualCalendar
         } else {
-            self.calendar = calendar.snapshot()
+            self.calendar = calendar.snapshot(forcedCopy: false)
         }
-        self.timeZone = timeZone.snapshot()
-        self.locale = locale.snapshot()
+        self.timeZone = timeZone.snapshot(forcedCopy: false)
+        self.locale = locale.snapshot(forcedCopy: false)
         self.isAutoupdating = false
     }
 
@@ -109,9 +109,9 @@ public struct Region: Hashable, Sendable {
     internal func snapshot(forced: Bool) -> Region {
         if forced == false && self.isAutoupdating == false { return self }
         
-        return Region(calendar: calendar.snapshot(),
-                      timeZone: timeZone.snapshot(),
-                      locale: locale.snapshot())
+        return Region(calendar: calendar.snapshot(forcedCopy: forced),
+                      timeZone: timeZone.snapshot(forcedCopy: forced),
+                      locale: locale.snapshot(forcedCopy: forced))
     }
     
     public func hash(into hasher: inout Hasher) {
