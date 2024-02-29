@@ -46,4 +46,5 @@ For additional information, refer to [the documentation][spi] and included examp
 
 ## License
 
-**Time** is licensed under the MIT License. For more information, see the `LICENSE  ` file.
+**Time** is licensed under the MIT License. For more information, see the [LICENSE](https://github.com/davedelong/time/blob/main/LICENSE) file.
+
