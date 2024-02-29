@@ -160,9 +160,10 @@ extension Fixed {
          NOTE:
          - this iteration is NOT typical iteration. For example if we're finding the nearest "13 minutes", then
          we'll iterate and check :00, :13, :26, :39, :52, :00, :13 ... etc
+         
+         ALSO:
+         - github issue #70 tracks improving the performance of this method
          */
-        
-        #warning("FUTURE: this could be optimized by using modulo arithmetic to try and 'jump' to the rounded values")
         
         let represented = match.dateComponents.representedComponents
         guard let smallest = Calendar.Component.ascendingOrder.first(where: { represented.contains($0) }) else {

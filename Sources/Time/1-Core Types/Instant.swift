@@ -4,22 +4,22 @@ import Foundation
 public struct Instant: Hashable, Comparable, InstantProtocol, Sendable {
     public typealias Duration = SISeconds
 
-    /// Determine if two Instants are equivalent.
+    /// Determine if two `Instant`s are equivalent.
     public static func ==(lhs: Instant, rhs: Instant) -> Bool {
         return lhs.intervalSinceReferenceEpoch == rhs.intervalSinceReferenceEpoch
     }
 
-    /// Determine if one Instant occurs before another Instant.
+    /// Determine if one `Instant` occurs before another `Instant`.
     public static func <(lhs: Instant, rhs: Instant) -> Bool {
         return lhs.intervalSinceReferenceEpoch < rhs.intervalSinceReferenceEpoch
     }
 
-    /// Determine the number of seconds between two Instants.
+    /// Determine the number of seconds between two `Instant`s.
     public static func -(lhs: Instant, rhs: Instant) -> SISeconds {
         return lhs.intervalSinceReferenceEpoch - rhs.intervalSinceReferenceEpoch
     }
 
-    /// Apply an offset in seconds to an Instant.
+    /// Apply an offset in seconds to an `Instant`.
     public static func +(lhs: Instant, rhs: SISeconds) -> Instant {
         return Instant(interval: lhs.intervalSinceEpoch + rhs, since: lhs.epoch)
     }

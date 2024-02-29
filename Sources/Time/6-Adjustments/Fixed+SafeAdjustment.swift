@@ -107,7 +107,7 @@ extension Fixed where Granularity: LTOEDay {
         var s = self
         let targetWeekday = region.calendar.firstWeekday
         
-        #warning("FUTURE: this is O(n). Could this be done in O(1) by pre-computing the number of days to move backwards?")
+        // Github issue #71 tracks improving this
         while s.dayOfWeek != targetWeekday {
             s = s.previousDay
         }

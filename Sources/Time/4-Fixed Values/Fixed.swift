@@ -21,10 +21,6 @@ import Foundation
 /// Fixed values are Equatable, Hashable, Comparable, Sendable, and Codable.
 public struct Fixed<Granularity: Unit & LTOEEra> {
     
-    #warning("1.0: remove this deprecation")
-    @available(*, deprecated, message: "The `Smallest` generic parameter has been renamed", renamed: "Granularity")
-    public typealias Smallest = Granularity
-    
     /// The set of `Calendar.Components` represented by this particular `Fixed` value
     internal static var representedComponents: Set<Calendar.Component> {
         return Calendar.Component.from(lower: Granularity.self, to: Era.self)

@@ -9,7 +9,7 @@ Working with calendars can be extremely complicated and error-prone. **Time** so
 **Time** can be installed like any other Swift package. Add this to the `dependencies` section of your Package.swift:
 
 ```swift
-.package(url: "https://github.com/davedelong/time", from: "0.9.5")
+.package(url: "https://github.com/davedelong/time", from: "1.0.0")
 ```
 
 ## Platform Support
@@ -34,12 +34,16 @@ Here's the TL;DR of the documentation:
 
 - These values can be _formatted_ into human-readable strings via their `.format(...)` methods.
 
-For additional information, refer to the documentation and included examples.
+For additional information, refer to [the documentation][spi] and included examples.
 
 ## Contributing
 
-**Time** is fully open source, available at [https://github.com/davedelong/time][ghi]. If you have feature requests, suggestions, or have discovered a bug, please open a [new issue][ghi].
+**Time** is fully open source, available at [https://github.com/davedelong/time][gh]. If you have feature requests, suggestions, or have discovered a bug, please open a [new issue][ghi].
 
 [spi]: https://swiftpackageindex.com/davedelong/time
 [gh]: https://github.com/davedelong/time
 [ghi]: https://github.com/davedelong/time/issues
+
+## License
+
+**Time** is licensed under the MIT License. For more information, see the `LICENSE  ` file.
