@@ -109,4 +109,33 @@ class FixedFormattingTests: XCTestCase {
         XCTAssertEqual(try v.format(raw: "y-MM-dd 'at' HH:mm:ss", strict: false), "2001-01-01 at 00:00:00")
     }
     
+    func testOmittedTimeZoneInDescription() throws {
+        let fixedNano = try Fixed(region: .posix,
+                                  year: 2024, month: 3, day: 3,
+                                  hour: 10, minute: 12, second: 24, nanosecond: 500_000_000)
+        
+        // these values have time of day components,
+        // therefore they should show the time zone
+        let fixedSecond = fixedNano.fixedSecond
+        let fixedMinute = fixedNano.fixedMinute
+        let fixedHour = fixedNano.fixedHour
+        
+        XCTAssertTrue(fixedNano.description.hasSuffix(" GMT"))
+        XCTAssertTrue(fixedSecond.description.hasSuffix(" GMT"))
+        XCTAssertTrue(fixedMinute.description.hasSuffix(" GMT"))
+        XCTAssertTrue(fixedHour.description.hasSuffix(" GMT"))
+        
+        // these values do not have time of day components,
+        // therefore they should not show the time zone
+        let fixedDay = fixedNano.fixedDay
+        let fixedMonth = fixedNano.fixedMonth
+        let fixedYear = fixedNano.fixedYear
+        let fixedEra = fixedNano.fixedEra
+        
+        XCTAssertFalse(fixedDay.description.hasSuffix(" GMT"))
+        XCTAssertFalse(fixedMonth.description.hasSuffix(" GMT"))
+        XCTAssertFalse(fixedYear.description.hasSuffix(" GMT"))
+        XCTAssertFalse(fixedEra.description.hasSuffix(" GMT"))
+    }
+    
 }

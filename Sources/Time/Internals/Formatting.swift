@@ -11,25 +11,40 @@ extension Fixed {
         
         let order = Calendar.Component.descendingOrder
         let represented = Self.representedComponents
+        var hasTime = false
         
         for unit in order {
             guard represented.contains(unit) else { continue }
             switch unit {
                 case .era:
                     if calendar.isEraRelevant { f.append(Template<Era>.abbreviated) }
-                case .year: f.append(Template<Year>.naturalDigits)
-                case .month: f.append(Template<Month>.naturalName)
+                case .year: 
+                    f.append(Template<Year>.naturalDigits)
+                case .month:
+                    f.append(Template<Month>.naturalName)
                 case .day:
                     f.append(Template<Weekday>.naturalName)
                     f.append(Template<Day>.naturalDigits)
-                case .hour: f.append(Template<Hour>.naturalDigits)
-                case .minute: f.append(Template<Minute>.naturalDigits)
-                case .second: f.append(Template<Second>.naturalDigits)
-                case .nanosecond: f.append(Template<Nanosecond>.digits(4))
-                default: continue
+                case .hour: 
+                    f.append(Template<Hour>.naturalDigits)
+                    hasTime = true
+                case .minute:
+                    f.append(Template<Minute>.naturalDigits)
+                    hasTime = true
+                case .second:
+                    f.append(Template<Second>.naturalDigits)
+                    hasTime = true
+                case .nanosecond:
+                    f.append(Template<Nanosecond>.digits(4))
+                    hasTime = true
+                default: 
+                    continue
             }
         }
-        f.append(Template<TimeZone>.shortSpecific)
+        
+        if hasTime {
+            f.append(Template<TimeZone>.shortSpecific)
+        }
         
         return f
     }
