@@ -59,15 +59,15 @@ class LinuxIssues: XCTestCase {
             
             // the Template<Hour> methods can't be used here, because they define templates,
             // and this unit test will use the underlying `.template` as a raw dateFormat
-            (Template<Hour>("h"),                                                               "6",                    "6 AM",                 #file,  #line),
-            (Template<Hour>("h a"),                                                             "6 AM",                 "6 AM",                 #file,  #line),
-            (Template<Hour>("h aaaa"),                                                          "6 AM",                 "6 AM",                 #file,  #line),
-            (Template<Hour>("h aaaaa"),                                                         "6 a",                  "6 a",                  #file,  #line),
+            (Template<Hour>("h"),                                                               "6",                    "6 AM",                 #file,  #line),
+            (Template<Hour>("h a"),                                                             "6 AM",                 "6 AM",                 #file,  #line),
+            (Template<Hour>("h aaaa"),                                                          "6 AM",                 "6 AM",                 #file,  #line),
+            (Template<Hour>("h aaaaa"),                                                         "6 a",                  "6 a",                  #file,  #line),
             
-            (Template<Hour>("hh"),                                                              "06",                   "6 AM",                 #file,  #line),
-            (Template<Hour>("hh a"),                                                            "06 AM",                "6 AM",                 #file,  #line),
-            (Template<Hour>("hh aaaa"),                                                         "06 AM",                "6 AM",                 #file,  #line),
-            (Template<Hour>("hh aaaaa"),                                                        "06 a",                 "6 a",                  #file,  #line),
+            (Template<Hour>("hh"),                                                              "06",                   "6 AM",                 #file,  #line),
+            (Template<Hour>("hh a"),                                                            "06 AM",                "6 AM",                 #file,  #line),
+            (Template<Hour>("hh aaaa"),                                                         "06 AM",                "6 AM",                 #file,  #line),
+            (Template<Hour>("hh aaaaa"),                                                        "06 a",                 "6 a",                  #file,  #line),
             
             (Template<Hour>("H"),                                                               "6",                    "06",                   #file,  #line),
             (Template<Hour>("H a"),                                                             "6 AM",                 "06",                   #file,  #line),
@@ -89,15 +89,15 @@ class LinuxIssues: XCTestCase {
             (Template<Hour>("kk aaaa"),                                                         "06 AM",                "06",                   #file,  #line),
             (Template<Hour>("kk aaaaa"),                                                        "06 a",                 "06",                   #file,  #line),
             
-            (Template<Hour>("K"),                                                               "6",                    "6 AM",                 #file,  #line),
-            (Template<Hour>("K a"),                                                             "6 AM",                 "6 AM",                 #file,  #line),
-            (Template<Hour>("K aaaa"),                                                          "6 AM",                 "6 AM",                 #file,  #line),
-            (Template<Hour>("K aaaaa"),                                                         "6 a",                  "6 a",                  #file,  #line),
+            (Template<Hour>("K"),                                                               "6",                    "6 AM",                 #file,  #line),
+            (Template<Hour>("K a"),                                                             "6 AM",                 "6 AM",                 #file,  #line),
+            (Template<Hour>("K aaaa"),                                                          "6 AM",                 "6 AM",                 #file,  #line),
+            (Template<Hour>("K aaaaa"),                                                         "6 a",                  "6 a",                  #file,  #line),
             
-            (Template<Hour>("KK"),                                                              "06",                   "6 AM",                 #file,  #line),
-            (Template<Hour>("KK a"),                                                            "06 AM",                "6 AM",                 #file,  #line),
-            (Template<Hour>("KK aaaa"),                                                         "06 AM",                "6 AM",                 #file,  #line),
-            (Template<Hour>("KK aaaaa"),                                                        "06 a",                 "6 a",                  #file,  #line),
+            (Template<Hour>("KK"),                                                              "06",                   "6 AM",                 #file,  #line),
+            (Template<Hour>("KK a"),                                                            "06 AM",                "6 AM",                 #file,  #line),
+            (Template<Hour>("KK aaaa"),                                                         "06 AM",                "6 AM",                 #file,  #line),
+            (Template<Hour>("KK aaaaa"),                                                        "06 a",                 "6 a",                  #file,  #line),
             
             (Template<Minute>.naturalDigits,                                                    "3",                    "3",                    #file,  #line),
             (Template<Minute>.twoDigits,                                                        "03",                   "3",                    #file,  #line),
@@ -133,8 +133,11 @@ class LinuxIssues: XCTestCase {
             let rawStyle = FixedFormat<Nanosecond>(raw: format.template)
             let templateStyle = FixedFormat<Nanosecond>(templates: [format])
             
-            let rawFormatted = now.format(rawStyle)
-            let templateFormatted = now.format(templateStyle)
+            // on macOS, some of the formats use unusual whitespace characters in format string
+            // this replaces them with plain whitespace to make comparison a bit more consistent.
+            // You should not do this in a production environment.
+            let rawFormatted = String(now.format(rawStyle).map { $0.isWhitespace ? " " : $0 })
+            let templateFormatted = String(now.format(templateStyle).map { $0.isWhitespace ? " " : $0 })
             
             XCTAssertEqual(rawFormatted, expectedRaw, "Raw format '\(format.template)' produced '\(rawFormatted)' instead of '\(expectedRaw)'", file: file, line: line)
             XCTAssertEqual(templateFormatted, expectedTemplate, "Template '\(format.template)' produced '\(templateFormatted)' instead of '\(expectedTemplate)'", file: file, line: line)
