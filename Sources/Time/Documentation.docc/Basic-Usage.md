@@ -65,7 +65,7 @@ One of the most fundamental use cases of **Time** is to be notified when the tim
 A clock that notifies you about time changes is called a ["striking clock"](https://en.wikipedia.org/wiki/Striking_clock), and you recreate that behavior using the various `.strike(...)` methods on a ``RegionalClock``:
 
 ```swift
-for try await currentMinute in Clocks.system.strike(every: Minute.self).asyncValue {
+for try await currentMinute in Clocks.system.strike(every: Minute.self).asyncValues {
     print("The time is now \(currentMinute.format(time: .long))")
 }
 ```
