@@ -1,7 +1,7 @@
 import Foundation
 
 /// A type that encapsulates the information necessary to format a fixed value
-internal struct FixedFormat<Granularity: Unit & LTOEEra> {
+internal struct FixedFormat<Granularity: Unit & LTOEEra>: Sendable {
     
     internal let configuration: FormatConfiguration
     

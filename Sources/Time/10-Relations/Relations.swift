@@ -6,7 +6,7 @@ import Foundation
 /// This set of possibilities is entirely encapsulated by the `Relation` enum.
 ///
 /// - SeeAlso: [Allen's Interval Algebra](https://en.wikipedia.org/wiki/Allen%27s_interval_algebra)
-public enum Relation: Hashable, CaseIterable {
+public enum Relation: Hashable, CaseIterable, Sendable {
     
     internal static let meetings: Set<Relation> = [.meets, .isMetBy, .starts, .isStartedBy, .finishes, .isFinishedBy]
     internal static let overlappings: Set<Relation> = [.overlaps, .isOverlappedBy, .during, .contains, .equal]

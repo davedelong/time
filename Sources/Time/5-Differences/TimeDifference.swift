@@ -7,7 +7,7 @@ import Foundation
 /// - Parameter MinimumGranularity: The smallest representable ``Unit`` expressed in this time difference.
 /// - Parameter MaximumGranularity: The largest represesntable ``Unit`` expressed in this time difference.
 ///
-public struct TimeDifference<MinimumGranularity: Unit, MaximumGranularity: Unit> {
+public struct TimeDifference<MinimumGranularity: Unit, MaximumGranularity: Unit>: Sendable {
     internal let dateComponents: DateComponents
     
     internal init(_ dateComponents: DateComponents) {

@@ -1,6 +1,6 @@
 import Foundation
 
-internal enum FormatConfiguration: Hashable {
+internal enum FormatConfiguration: Hashable, Sendable {
     case template(String)
     case raw(String)
     case styles(DateFormatter.Style, DateFormatter.Style)
