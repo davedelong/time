@@ -1,12 +1,12 @@
 import Foundation
 
 /// An enum describing the direction to perform a rounding calculation
-public enum RoundingDirection {
-    
+public enum RoundingDirection: Sendable {
+
     /// Perform a rounding calculation such that the rounded value is preferred to be forward in time
     case forward
     
-    /// Perform a rounding calcuation such that the rounded value is preferred to be backwards in time
+    /// Perform a rounding calculation such that the rounded value is preferred to be backwards in time
     case backward
     
     /// Perform a rounding calculation towards the closer of two forwards and backwards values

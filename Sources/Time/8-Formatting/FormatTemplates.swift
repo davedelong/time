@@ -1,7 +1,7 @@
 import Foundation
 
 /// A type for defining template patterns used when formatting fixed values
-public struct Template<Unit>: Equatable, Format {
+public struct Template<Unit>: Equatable, Format, Sendable {
     internal let template: String
     internal init(_ template: String) {
         self.template = template

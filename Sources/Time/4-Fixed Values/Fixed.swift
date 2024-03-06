@@ -19,7 +19,7 @@ import Foundation
 /// and some methods and properties may slightly alter their behavior and semantics depending on their receiver's specified unit.
 ///
 /// Fixed values are Equatable, Hashable, Comparable, Sendable, and Codable.
-public struct Fixed<Granularity: Unit & LTOEEra> {
+public struct Fixed<Granularity: Unit & LTOEEra>: Sendable {
     
     /// The set of `Calendar.Components` represented by this particular `Fixed` value
     internal static var representedComponents: Set<Calendar.Component> {
