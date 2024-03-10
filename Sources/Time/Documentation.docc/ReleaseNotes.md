@@ -2,6 +2,16 @@
 
 A brief history of **Time**.
 
+## 1.0.1
+
+10 March, 2024
+
+- The time zone is selectively included in the ``Fixed/description`` of fixed values (#73)
+- ``Relation``, ``RoundingDirection``, ``Fixed``, ``TimeDifference``, and ``Template`` now conform to `Sendable` (#78)
+
+- [Github release](https://github.com/davedelong/time/releases/tag/1.0.1)
+
+
 ## 1.0.0
 
 29 February, 2024 - The initial release of **Time**.
