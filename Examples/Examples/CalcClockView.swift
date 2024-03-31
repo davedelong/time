@@ -1,5 +1,5 @@
 //
-//  ClockView.swift
+//  CalcClockView.swift
 //  datetimecalculator
 //
 //  Created by Robert Dodson on 3/27/24.
@@ -10,7 +10,7 @@ import SwiftUI
 import Time
 
 
-struct ClockView: View
+struct CalcClockView: View
 {
     @Binding var selectedSecond : Fixed<Second>
     
@@ -65,24 +65,24 @@ struct ClockView: View
                 update()
             }
             
-            if hourType == ClockView.HOUR12
+            if hourType == CalcClockView.HOUR12
             {
                 Text(ampm)
             }
             
             Picker("",selection: $hourType)
             {
-                Text(ClockView.HOUR24)
-                    .tag(ClockView.HOUR24)
-                Text(ClockView.HOUR12)
-                    .tag(ClockView.HOUR12)
+                Text(CalcClockView.HOUR24)
+                    .tag(CalcClockView.HOUR24)
+                Text(CalcClockView.HOUR12)
+                    .tag(CalcClockView.HOUR12)
             }
             .frame(width: 70)
-            .onChange(of: hourType)
-            { oldValue, newValue in
+            .valueChanged(value: hourType, onChange:
+            { newValue in
                 hourType = newValue
                 update()
-            }
+            })
             
             Button("Now")
             {
@@ -90,11 +90,11 @@ struct ClockView: View
                 update()
             }
         }
-        .onChange(of: selectedSecond) 
-        { oldValue, newValue in
+        .valueChanged(value: selectedSecond, onChange:
+        { newValue in
             selectedSecond = newValue
             update()
-        }
+        })
     }
     
     
@@ -120,9 +120,9 @@ struct ClockView: View
     
     func update()
     {
-        ampm = selectedSecond.hour >= 12 ? ClockView.PM : ClockView.AM
+        ampm = selectedSecond.hour >= 12 ? CalcClockView.PM : CalcClockView.AM
         hourName = selectedSecond.hour
-        if hourType == ClockView.HOUR12
+        if hourType == CalcClockView.HOUR12
         {
             hourName = selectedSecond.hour > 12 ? selectedSecond.hour - 12 : selectedSecond.hour
             if hourName == 0
@@ -133,3 +133,18 @@ struct ClockView: View
     }
 }
 
+
+import Combine
+
+extension View {
+    /// A backwards compatible wrapper for  `onChange`
+    @ViewBuilder func valueChanged<T: Equatable>(value: T, onChange: @escaping (T) -> Void) -> some View {
+        if #available(iOS 17.0, macOS 14.0, *) {
+            self.onChange(of: value, perform: onChange)
+        } else {
+            self.onReceive(Just(value)) { (value) in
+                onChange(value)
+            }
+        }
+    }
+}

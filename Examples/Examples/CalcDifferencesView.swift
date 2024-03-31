@@ -1,5 +1,5 @@
 //
-//  DifferencesView.swift
+//  CalcDifferencesView.swift
 //  datetimecalculator
 //
 //  Created by Robert Dodson on 3/27/24.
@@ -9,7 +9,7 @@ import SwiftUI
 
 import Time
 
-struct DifferencesView: View
+struct CalcDifferencesView: View
 {
     @Binding var startSecond : Fixed<Second>
     @Binding var endSecond : Fixed<Second>

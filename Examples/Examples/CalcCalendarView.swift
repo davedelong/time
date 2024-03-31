@@ -1,5 +1,5 @@
 //
-//  CalenderView.swift
+//  CalcCalendarView.swift
 //  datetimecalculator
 //
 //  Created by Robert Dodson on 3/2/24.
@@ -10,7 +10,7 @@ import SwiftUI
 import Time
 
 
-struct CalenderView: View
+struct CalcCalendarView: View
 {
     @Binding var selectedSecond : Fixed<Second>
    
@@ -28,17 +28,18 @@ struct CalenderView: View
         VStack
         {
             calendarView
-            ClockView(selectedSecond: $selectedSecond)
+            CalcClockView(selectedSecond: $selectedSecond)
         }
         .onAppear()
         {
             update()
         }
-        .onChange(of: selectedSecond)
-        { oldValue, newValue in
+        .valueChanged(value: selectedSecond, onChange:
+        { newValue in
             selectedSecond = newValue
             update()
-        }
+        })
+        
     }
     
     
@@ -139,11 +140,11 @@ struct CalenderView: View
                 }
                 .pickerStyle(.automatic)
                 .frame(width: 120)
-                .onChange(of: monthName)
-                { oldValue, newValue in
+                .valueChanged(value: monthName, onChange:
+                { newValue in
                     setdate(day:selectedSecond.fixedDay,month:newValue)
                     update()
-                }
+                })
                 
                 // year stepper
                 Stepper
@@ -233,27 +234,28 @@ struct CalenderView: View
         }
     }
 }
-
-
-struct DayToggleStyle: ToggleStyle
-{
-    func makeBody(configuration: Configuration) -> some View
-    {
-        Button(action: { configuration.$isOn.wrappedValue = !configuration.isOn })
-        {
-            configuration.label
-                .foregroundStyle(configuration.isOn ? AnyShapeStyle(.selection) : AnyShapeStyle(.primary))
-                .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .background 
-        {
-            if configuration.isOn 
-            {
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.accentColor)
-            }
-        }
-    }
-    
-}
+/*
+ 
+ struct DayToggleStyle: ToggleStyle
+ {
+ func makeBody(configuration: Configuration) -> some View
+ {
+ Button(action: { configuration.$isOn.wrappedValue = !configuration.isOn })
+ {
+ configuration.label
+ .foregroundStyle(configuration.isOn ? AnyShapeStyle(.selection) : AnyShapeStyle(.primary))
+ .contentShape(Rectangle())
+ }
+ .buttonStyle(.plain)
+ .background
+ {
+ if configuration.isOn
+ {
+ RoundedRectangle(cornerRadius: 4)
+ .fill(Color.accentColor)
+ }
+ }
+ }
+ 
+ }
+ */

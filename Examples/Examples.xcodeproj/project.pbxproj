@@ -14,6 +14,10 @@
 		55EB43C12B865B37002D8798 /* Time in Frameworks */ = {isa = PBXBuildFile; productRef = 55EB43C02B865B37002D8798 /* Time */; };
 		55EB43C32B865B5D002D8798 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EB43C22B865B5D002D8798 /* CalendarView.swift */; };
 		55EB43C52B867256002D8798 /* ClocksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EB43C42B867256002D8798 /* ClocksView.swift */; };
+		AE92B7542BB8EF3600A5F9A6 /* CalcCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92B7502BB8EF3600A5F9A6 /* CalcCalendarView.swift */; };
+		AE92B7552BB8EF3600A5F9A6 /* CalcClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92B7512BB8EF3600A5F9A6 /* CalcClockView.swift */; };
+		AE92B7562BB8EF3600A5F9A6 /* CalcDifferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92B7522BB8EF3600A5F9A6 /* CalcDifferencesView.swift */; };
+		AE92B7572BB8EF3600A5F9A6 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92B7532BB8EF3600A5F9A6 /* CalculatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		55EB43B92B865B18002D8798 /* Examples.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Examples.entitlements; sourceTree = "<group>"; };
 		55EB43C22B865B5D002D8798 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		55EB43C42B867256002D8798 /* ClocksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClocksView.swift; sourceTree = "<group>"; };
+		AE92B7502BB8EF3600A5F9A6 /* CalcCalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcCalendarView.swift; sourceTree = "<group>"; };
+		AE92B7512BB8EF3600A5F9A6 /* CalcClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcClockView.swift; sourceTree = "<group>"; };
+		AE92B7522BB8EF3600A5F9A6 /* CalcDifferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcDifferencesView.swift; sourceTree = "<group>"; };
+		AE92B7532BB8EF3600A5F9A6 /* CalculatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,10 @@
 		55EB43AF2B865B15002D8798 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				AE92B7502BB8EF3600A5F9A6 /* CalcCalendarView.swift */,
+				AE92B7512BB8EF3600A5F9A6 /* CalcClockView.swift */,
+				AE92B7532BB8EF3600A5F9A6 /* CalculatorView.swift */,
+				AE92B7522BB8EF3600A5F9A6 /* CalcDifferencesView.swift */,
 				55EB43B02B865B15002D8798 /* ExamplesApp.swift */,
 				55EB43B22B865B15002D8798 /* ContentView.swift */,
 				55EB43C22B865B5D002D8798 /* CalendarView.swift */,
@@ -153,9 +165,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE92B7562BB8EF3600A5F9A6 /* CalcDifferencesView.swift in Sources */,
+				AE92B7552BB8EF3600A5F9A6 /* CalcClockView.swift in Sources */,
 				55EB43B32B865B15002D8798 /* ContentView.swift in Sources */,
 				55EB43C52B867256002D8798 /* ClocksView.swift in Sources */,
+				AE92B7572BB8EF3600A5F9A6 /* CalculatorView.swift in Sources */,
 				55EB43B12B865B15002D8798 /* ExamplesApp.swift in Sources */,
+				AE92B7542BB8EF3600A5F9A6 /* CalcCalendarView.swift in Sources */,
 				55EB43C32B865B5D002D8798 /* CalendarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +316,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.davedelong.time.Examples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -325,6 +342,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.davedelong.time.Examples;
 				PRODUCT_NAME = "$(TARGET_NAME)";

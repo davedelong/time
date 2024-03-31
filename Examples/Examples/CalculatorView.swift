@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  CalculatorView.swift
 //  datetimecalculator
 //
 //  Created by Robert Dodson on 3/2/24.
@@ -9,7 +9,7 @@ import SwiftUI
 
 import Time
 
-struct ContentView: View
+struct CalculatorView: View
 {
     @State var startSecond = Clocks.system.currentSecond
     @State var endSecond = Clocks.system.currentSecond + .days(1)
@@ -25,20 +25,20 @@ struct ContentView: View
             Text("From:")
                 .font(.largeTitle)
                 .foregroundColor(startColor)
-            CalenderView(selectedSecond:$startSecond,color:startColor)
+            CalcCalendarView(selectedSecond:$startSecond,color:startColor)
             
             Spacer()
             
             Text("To:")
                 .font(.largeTitle)
                 .foregroundColor(endColor)
-            CalenderView(selectedSecond:$endSecond,color:endColor)
+            CalcCalendarView(selectedSecond:$endSecond,color:endColor)
            
             Spacer()
             
             Text("Differences:")
                 .font(.largeTitle)
-            DifferencesView(startSecond:$startSecond,endSecond:$endSecond,startColor:startColor,endColor:endColor)
+            CalcDifferencesView(startSecond:$startSecond,endSecond:$endSecond,startColor:startColor,endColor:endColor)
         }
         .frame(width: 400,height: 800)
         .padding()
