@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		556BFE2F2BBCEF0A0024FF2A /* DayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556BFE2E2BBCEF0A0024FF2A /* DayPicker.swift */; };
+		556BFE312BBCF5F10024FF2A /* MonthPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556BFE302BBCF5F10024FF2A /* MonthPicker.swift */; };
+		556BFE332BBEECA20024FF2A /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556BFE322BBEECA20024FF2A /* TimePicker.swift */; };
 		55EB43B12B865B15002D8798 /* ExamplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EB43B02B865B15002D8798 /* ExamplesApp.swift */; };
 		55EB43B32B865B15002D8798 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EB43B22B865B15002D8798 /* ContentView.swift */; };
 		55EB43B52B865B18002D8798 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55EB43B42B865B18002D8798 /* Assets.xcassets */; };
@@ -15,12 +18,14 @@
 		55EB43C32B865B5D002D8798 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EB43C22B865B5D002D8798 /* CalendarView.swift */; };
 		55EB43C52B867256002D8798 /* ClocksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EB43C42B867256002D8798 /* ClocksView.swift */; };
 		AE92B7542BB8EF3600A5F9A6 /* CalcCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92B7502BB8EF3600A5F9A6 /* CalcCalendarView.swift */; };
-		AE92B7552BB8EF3600A5F9A6 /* CalcClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92B7512BB8EF3600A5F9A6 /* CalcClockView.swift */; };
 		AE92B7562BB8EF3600A5F9A6 /* CalcDifferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92B7522BB8EF3600A5F9A6 /* CalcDifferencesView.swift */; };
 		AE92B7572BB8EF3600A5F9A6 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92B7532BB8EF3600A5F9A6 /* CalculatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		556BFE2E2BBCEF0A0024FF2A /* DayPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPicker.swift; sourceTree = "<group>"; };
+		556BFE302BBCF5F10024FF2A /* MonthPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPicker.swift; sourceTree = "<group>"; };
+		556BFE322BBEECA20024FF2A /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		55EB43AD2B865B15002D8798 /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55EB43B02B865B15002D8798 /* ExamplesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesApp.swift; sourceTree = "<group>"; };
 		55EB43B22B865B15002D8798 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -30,7 +35,6 @@
 		55EB43C22B865B5D002D8798 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		55EB43C42B867256002D8798 /* ClocksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClocksView.swift; sourceTree = "<group>"; };
 		AE92B7502BB8EF3600A5F9A6 /* CalcCalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcCalendarView.swift; sourceTree = "<group>"; };
-		AE92B7512BB8EF3600A5F9A6 /* CalcClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcClockView.swift; sourceTree = "<group>"; };
 		AE92B7522BB8EF3600A5F9A6 /* CalcDifferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcDifferencesView.swift; sourceTree = "<group>"; };
 		AE92B7532BB8EF3600A5F9A6 /* CalculatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -47,6 +51,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		556BFE2D2BBCEEFA0024FF2A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				556BFE302BBCF5F10024FF2A /* MonthPicker.swift */,
+				556BFE2E2BBCEF0A0024FF2A /* DayPicker.swift */,
+				556BFE322BBEECA20024FF2A /* TimePicker.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		556BFE342BBEF3190024FF2A /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				AE92B7532BB8EF3600A5F9A6 /* CalculatorView.swift */,
+				AE92B7502BB8EF3600A5F9A6 /* CalcCalendarView.swift */,
+				AE92B7522BB8EF3600A5F9A6 /* CalcDifferencesView.swift */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
 		55EB43A42B865B15002D8798 = {
 			isa = PBXGroup;
 			children = (
@@ -66,14 +90,12 @@
 		55EB43AF2B865B15002D8798 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
-				AE92B7502BB8EF3600A5F9A6 /* CalcCalendarView.swift */,
-				AE92B7512BB8EF3600A5F9A6 /* CalcClockView.swift */,
-				AE92B7532BB8EF3600A5F9A6 /* CalculatorView.swift */,
-				AE92B7522BB8EF3600A5F9A6 /* CalcDifferencesView.swift */,
 				55EB43B02B865B15002D8798 /* ExamplesApp.swift */,
 				55EB43B22B865B15002D8798 /* ContentView.swift */,
 				55EB43C22B865B5D002D8798 /* CalendarView.swift */,
 				55EB43C42B867256002D8798 /* ClocksView.swift */,
+				556BFE342BBEF3190024FF2A /* Calculator */,
+				556BFE2D2BBCEEFA0024FF2A /* Components */,
 				55EB43B42B865B18002D8798 /* Assets.xcassets */,
 				55EB43B92B865B18002D8798 /* Examples.entitlements */,
 				55EB43B62B865B18002D8798 /* Preview Content */,
@@ -165,13 +187,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				556BFE312BBCF5F10024FF2A /* MonthPicker.swift in Sources */,
 				AE92B7562BB8EF3600A5F9A6 /* CalcDifferencesView.swift in Sources */,
-				AE92B7552BB8EF3600A5F9A6 /* CalcClockView.swift in Sources */,
+				556BFE2F2BBCEF0A0024FF2A /* DayPicker.swift in Sources */,
 				55EB43B32B865B15002D8798 /* ContentView.swift in Sources */,
 				55EB43C52B867256002D8798 /* ClocksView.swift in Sources */,
 				AE92B7572BB8EF3600A5F9A6 /* CalculatorView.swift in Sources */,
 				55EB43B12B865B15002D8798 /* ExamplesApp.swift in Sources */,
 				AE92B7542BB8EF3600A5F9A6 /* CalcCalendarView.swift in Sources */,
+				556BFE332BBEECA20024FF2A /* TimePicker.swift in Sources */,
 				55EB43C32B865B5D002D8798 /* CalendarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
