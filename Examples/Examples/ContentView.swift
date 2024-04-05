@@ -17,6 +17,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("Clocks", systemImage: "clock")
                 }
+            
+            CalculatorView()
+                .tabItem {
+                    Label("Calculator", systemImage: "calendar.badge.clock")
+                }
         }
         .scenePadding()
     }
