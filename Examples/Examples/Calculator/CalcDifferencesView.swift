@@ -21,8 +21,6 @@ struct CalcDifferencesView: View {
     @State var minuteDifference = 0
     @State var secondDifference = 0
     
-    @State var sign = ""
-    
     private var conjunction: String { wholeDifference ? "or" : "and" }
     
     var body: some View {
@@ -38,7 +36,7 @@ struct CalcDifferencesView: View {
                     .font(.headline)
                 
                 HStack {
-                    Stepper("\(sign)^[\(yearDifference) year](inflect: true)") {
+                    Stepper("^[\(yearDifference) year](inflect: true)") {
                         endSecond = endSecond.nextYear
                     } onDecrement: {
                         endSecond = endSecond.previousYear
@@ -52,7 +50,7 @@ struct CalcDifferencesView: View {
                     .fixedSize()
                     .labelsHidden()
                     
-                    Stepper("\(sign)^[\(monthDifference) month](inflect: true)") {
+                    Stepper("^[\(monthDifference) month](inflect: true)") {
                         endSecond = endSecond.nextMonth
                     } onDecrement:  {
                         endSecond = endSecond.previousMonth
@@ -60,7 +58,7 @@ struct CalcDifferencesView: View {
                     
                     Text(conjunction)
                     
-                    Stepper("\(sign)^[\(dayDifference) day](inflect: true)") {
+                    Stepper("^[\(dayDifference) day](inflect: true)") {
                         endSecond = endSecond.nextDay
                     } onDecrement: {
                         endSecond = endSecond.previousDay
@@ -71,7 +69,7 @@ struct CalcDifferencesView: View {
                 HStack {
                     Text(conjunction)
                     
-                    Stepper("\(sign)^[\(hourDifference) hour](inflect: true)") {
+                    Stepper("^[\(hourDifference) hour](inflect: true)") {
                         endSecond = endSecond.nextHour
                     } onDecrement: {
                         endSecond = endSecond.previousHour
@@ -79,7 +77,7 @@ struct CalcDifferencesView: View {
                     
                     Text(conjunction)
                     
-                    Stepper("\(sign)^[\(minuteDifference) minute](inflect: true)") {
+                    Stepper("^[\(minuteDifference) minute](inflect: true)") {
                         endSecond = endSecond.nextMinute
                     } onDecrement: {
                         endSecond = endSecond.previousMinute
@@ -87,7 +85,7 @@ struct CalcDifferencesView: View {
                     
                     Text(conjunction)
                     
-                    Stepper("\(sign)^[\(secondDifference) second](inflect: true)") {
+                    Stepper("^[\(secondDifference) second](inflect: true)") {
                         endSecond = endSecond.nextSecond
                     } onDecrement: {
                         endSecond = endSecond.previousSecond
@@ -121,6 +119,5 @@ struct CalcDifferencesView: View {
             minuteDifference = difference.minutes
             secondDifference = difference.seconds
         }
-        sign = startSecond.isAfter(endSecond) ? "-" : ""
     }
 }

@@ -81,17 +81,10 @@ extension Fixed {
     
     internal func computeDifference<Min: Unit, Max: Unit>(to other: Fixed<Granularity>) -> TimeDifference<Min, Max> {
         
-        let thisRange = self.range
-        let otherRange = other.range
-        
-        let minRange = thisRange.lowerBound < otherRange.lowerBound ? thisRange : otherRange
-        let maxRange = thisRange.upperBound > otherRange.upperBound ? thisRange : otherRange
-        
-        let min = minRange.lowerBound.date
-        let max = maxRange.upperBound.date
-        
         let units = Calendar.Component.from(lower: Min.self, to: Max.self)
-        let difference = calendar.dateComponents(units, from: min, to: max)
+        let difference = calendar.dateComponents(units,
+                                                 from: self.firstInstant.date,
+                                                 to: other.firstInstant.date)
         return TimeDifference(difference)
     }
     
