@@ -85,4 +85,14 @@ class WeekTests: XCTestCase {
         XCTAssertTime(w3Days[6], era: 1, year: 2024, month: 1, day: 20)
     }
     
+    func testFirstAndLastDays() throws {
+        let d1 = try Fixed<Day>(region: .posix, year: 2024, month: 1, day: 1)
+        let c = Clocks.custom(startingFrom: d1.firstInstant)
+        
+        let w1 = c.currentWeek
+        
+        XCTAssertTime(w1.firstDay, era: 1, year: 2023, month: 12, day: 31)
+        XCTAssertTime(w1.lastDay, era: 1, year: 2024, month: 1, day: 6)
+    }
+    
 }
