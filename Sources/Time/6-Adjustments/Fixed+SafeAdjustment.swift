@@ -48,7 +48,7 @@ extension Fixed {
     public func offset(by count: Int) -> Self {
         guard count != 0 else { return self }
         
-        let difference = TimeDifference<Granularity, Era>(value: count, unit: Granularity.requiredComponent)
+        let difference = TimeDifference<Granularity, Era>(value: count, unit: Granularity.component)
         return applying(difference: difference)
     }
     
@@ -64,7 +64,7 @@ extension Fixed {
 
 }
 
-extension Fixed where Granularity: LTOEYear {
+extension Fixed where Granularity: StandardUnit & LTOEYear {
     
     /// Create a new `Fixed` value by moving forward one year.
     public var nextYear: Self { return adding(years: 1) }
@@ -82,7 +82,7 @@ extension Fixed where Granularity: LTOEYear {
     
 }
 
-extension Fixed where Granularity: LTOEMonth {
+extension Fixed where Granularity: StandardUnit & LTOEMonth {
     
     /// Create a new `Fixed` value by moving forward one month.
     public var nextMonth: Self { return adding(months: 1) }

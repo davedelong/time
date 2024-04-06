@@ -56,4 +56,33 @@ class WeekTests: XCTestCase {
         XCTAssertTime(nextDays[6], era: 1, year: 2024, month: 1, day: 13)
     }
     
+    func testWeekAdjustment() throws {
+        let d1 = try Fixed<Day>(region: .posix, year: 2024, month: 1, day: 1)
+        let c = Clocks.custom(startingFrom: d1.firstInstant)
+        
+        let w1 = c.currentWeek
+        
+        let w2 = w1 + .weeks(3)
+        let w2Days = Array(w2.days)
+        XCTAssertEqual(w2Days.count, 7)
+        XCTAssertTime(w2Days[0], era: 1, year: 2024, month: 1, day: 21)
+        XCTAssertTime(w2Days[1], era: 1, year: 2024, month: 1, day: 22)
+        XCTAssertTime(w2Days[2], era: 1, year: 2024, month: 1, day: 23)
+        XCTAssertTime(w2Days[3], era: 1, year: 2024, month: 1, day: 24)
+        XCTAssertTime(w2Days[4], era: 1, year: 2024, month: 1, day: 25)
+        XCTAssertTime(w2Days[5], era: 1, year: 2024, month: 1, day: 26)
+        XCTAssertTime(w2Days[6], era: 1, year: 2024, month: 1, day: 27)
+        
+        let w3 = w2.offset(by: -1)
+        let w3Days = Array(w3.days)
+        XCTAssertEqual(w3Days.count, 7)
+        XCTAssertTime(w3Days[0], era: 1, year: 2024, month: 1, day: 14)
+        XCTAssertTime(w3Days[1], era: 1, year: 2024, month: 1, day: 15)
+        XCTAssertTime(w3Days[2], era: 1, year: 2024, month: 1, day: 16)
+        XCTAssertTime(w3Days[3], era: 1, year: 2024, month: 1, day: 17)
+        XCTAssertTime(w3Days[4], era: 1, year: 2024, month: 1, day: 18)
+        XCTAssertTime(w3Days[5], era: 1, year: 2024, month: 1, day: 19)
+        XCTAssertTime(w3Days[6], era: 1, year: 2024, month: 1, day: 20)
+    }
+    
 }
