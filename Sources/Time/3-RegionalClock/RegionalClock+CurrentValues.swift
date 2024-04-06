@@ -51,6 +51,9 @@ extension RegionalClock {
     /// Retrieve the next calendar month of the `RegionalClock`
     public var nextMonth: Fixed<Month> { return current().next }
     
+    /// Retrieve the next calendar week of the `RegionalClock`
+    public var nextWeek: Fixed<Week> { return current().next }
+    
     /// Retrieve the next calendar day of the `RegionalClock`
     public var nextDay: Fixed<Day> { return current().next }
     
@@ -68,6 +71,9 @@ extension RegionalClock {
     
     /// Retrieve the previous calendar month of the `RegionalClock`
     public var previousMonth: Fixed<Month> { return current().previous }
+    
+    /// Retrieve the previous calendar week of the `RegionalClock`
+    public var previousWeek: Fixed<Week> { return current().previous }
     
     /// Retrieve the previous calendar day of the `RegionalClock`
     public var previousDay: Fixed<Day> { return current().previous }
