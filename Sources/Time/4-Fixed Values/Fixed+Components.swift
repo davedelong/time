@@ -21,6 +21,10 @@ extension Fixed {
     @available(*, unavailable, message: "It's impossible to know the last instant of a calendar value, just like it's impossible to know the last number before 1.0")
     public var lastInstant: Instant { fatalError() }
     
+}
+
+extension Fixed where Granularity: StandardUnit & LTOEEra {
+    
     /// Retrieve the numeric era of a fixed calendrical value.
     ///
     /// This value is typically very low (`0` or `1`), but some calendars use eras extensively and can return values much larger.
