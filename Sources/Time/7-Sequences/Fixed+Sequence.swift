@@ -46,7 +46,7 @@ public struct FixedSequence<U: Unit & LTOEEra>: Sequence {
         constructor = { FixedIterator(region: lower.region, range: lower.firstInstant ... upper.firstInstant, stride: stride) }
     }
     
-    internal init<S>(parent: Fixed<S>, stride: TimeDifference<U, Era> = TimeDifference(value: 1, unit: U.component)) {
+    internal init<S>(parent: Fixed<S>, stride: TimeDifference<U, Era> = TimeDifference(value: 1, unit: U.requiredComponent)) {
         constructor = { FixedIterator(region: parent.region, range: parent.range, stride: stride) }
     }
     

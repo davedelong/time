@@ -30,8 +30,8 @@ extension Calendar.Component {
     
     internal static func from<L: Unit, U: Unit>(lower: L.Type, to upper: U.Type) -> Set<Calendar.Component> {
         let order = Calendar.Component.ascendingOrder
-        guard let lowerIndex = order.firstIndex(of: L.component) else { return [] }
-        guard let upperIndex = order.firstIndex(of: U.component) else { return [] }
+        guard let lowerIndex = order.firstIndex(of: L.requiredComponent) else { return [] }
+        guard let upperIndex = order.firstIndex(of: U.requiredComponent) else { return [] }
         guard lowerIndex <= upperIndex else { return [] }
         
         let components = order[lowerIndex ... upperIndex]

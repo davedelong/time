@@ -10,7 +10,7 @@ extension Fixed {
     /// - is this calendar value contained within this other calendar value?
     /// - etc
     public var range: Range<Instant> {
-        let range = calendar.range(containing: self.instant.date, in: self.representedComponents)
+        let range = calendar.range(of: Granularity.component, containing: self.instant.date)
         
         return Instant(date: range.lowerBound) ..< Instant(date: range.upperBound)
     }
@@ -27,43 +27,43 @@ extension Fixed {
     public var era: Int { dateComponents.era.unwrap("A Fixed<\(Granularity.self)> must have an era value") }
 }
 
-extension Fixed where Granularity: LTOEYear {
+extension Fixed where Granularity: StandardUnit & LTOEYear {
     
     /// Retrieve the numeric year of a fixed calendrical value.
     public var year: Int { dateComponents.year.unwrap("A Fixed<\(Granularity.self)> must have a year value") }
 }
 
-extension Fixed where Granularity: LTOEMonth {
+extension Fixed where Granularity: StandardUnit & LTOEMonth {
     
     /// Retrieve the numeric month of a fixed calendrical value.
     public var month: Int { dateComponents.month.unwrap("A Fixed<\(Granularity.self)> must have a month value") }
 }
 
-extension Fixed where Granularity: LTOEDay {
+extension Fixed where Granularity: StandardUnit & LTOEDay {
     
     /// Retrieve the numeric day of a fixed calendrical value.
     public var day: Int { dateComponents.day.unwrap("A Fixed<\(Granularity.self)> must have a day value") }
 }
 
-extension Fixed where Granularity: LTOEHour {
+extension Fixed where Granularity: StandardUnit & LTOEHour {
     
     /// Retrieve the numeric hour of a fixed calendrical value.
     public var hour: Int { dateComponents.hour.unwrap("A Fixed<\(Granularity.self)> must have an hour value") }
 }
 
-extension Fixed where Granularity: LTOEMinute {
+extension Fixed where Granularity: StandardUnit & LTOEMinute {
     
     /// Retrieve the numeric minute of a fixed calendrical value
     public var minute: Int { dateComponents.minute.unwrap("A Fixed<\(Granularity.self)> must have a minute value") }
 }
 
-extension Fixed where Granularity: LTOESecond {
+extension Fixed where Granularity: StandardUnit & LTOESecond {
     
     /// Retrieve the numeric second of a fixed calendrical value.
     public var second: Int { dateComponents.second.unwrap("A Fixed<\(Granularity.self)> must have a second value") }
 }
 
-extension Fixed where Granularity: LTOENanosecond {
+extension Fixed where Granularity: StandardUnit & LTOENanosecond {
     
     /// Retrieve the numeric nanosecond of a fixed calendrical value.
     public var nanosecond: Int { dateComponents.nanosecond.unwrap("A Fixed<\(Granularity.self)> must have a nanosecond value") }

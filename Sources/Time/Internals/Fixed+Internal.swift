@@ -20,8 +20,8 @@ extension Fixed {
     }
     
     internal func value<U: Unit>(for unit: U.Type) -> Int? {
-        guard representedComponents.contains(U.component) else { return nil }
-        return dateComponents.value(for: U.component)
+        guard representedComponents.contains(U.requiredComponent) else { return nil }
+        return dateComponents.value(for: U.requiredComponent)
     }
     
     internal func first<U: Unit>() -> Fixed<U> {

@@ -25,6 +25,9 @@ extension Fixed where Granularity: LTOEDay {
     /// In effect, this property returns a truncated version of the fixed value;
     /// all of the calendar units smaller than the month will be removed.
     public var fixedMonth: Fixed<Month> { truncated() }
+    
+    /// Retrieve the fixed week containing this calendar value.
+    public var fixedWeek: Fixed<Week> { truncated() }
 }
 
 extension Fixed where Granularity: LTOEHour {

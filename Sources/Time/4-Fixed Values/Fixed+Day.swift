@@ -49,7 +49,7 @@ extension Fixed where Granularity == Day {
     
 }
 
-extension Fixed where Granularity: LTOEDay {
+extension Fixed where Granularity: StandardUnit & LTOEDay {
     
     /// Returns `true` if this fixed value is known to occur during the weekend.
     ///

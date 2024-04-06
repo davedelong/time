@@ -1,6 +1,6 @@
 import Foundation
 
-extension Fixed where Granularity: GTOEMonth {
+extension Fixed where Granularity: GTDay {
     
     /// Retrieve the first day of this fixed value
     public var firstDay: Fixed<Day> { return first() }

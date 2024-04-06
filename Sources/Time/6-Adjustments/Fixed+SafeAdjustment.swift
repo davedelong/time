@@ -48,7 +48,7 @@ extension Fixed {
     public func offset(by count: Int) -> Self {
         guard count != 0 else { return self }
         
-        let difference = TimeDifference<Granularity, Era>(value: count, unit: Granularity.component)
+        let difference = TimeDifference<Granularity, Era>(value: count, unit: Granularity.requiredComponent)
         return applying(difference: difference)
     }
     
@@ -100,7 +100,7 @@ extension Fixed where Granularity: LTOEMonth {
     
 }
 
-extension Fixed where Granularity: LTOEDay {
+extension Fixed where Granularity: StandardUnit & LTOEDay {
     
     /// Adjust the date to the beginning of the calendar's week.
     public var startOfWeek: Self {
