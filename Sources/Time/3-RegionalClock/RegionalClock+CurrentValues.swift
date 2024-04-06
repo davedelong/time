@@ -27,6 +27,9 @@ extension RegionalClock {
     /// Retrieve the current calendar month of the `RegionalClock`.
     public var currentMonth: Fixed<Month> { return current() }
     
+    /// Retrieve the current calendar week of the `RegionalClock`.
+    public var currentWeek: Fixed<Week> { return current() }
+    
     /// Retrieve the current calendar day of the `RegionalClock`.
     public var currentDay: Fixed<Day> { return current() }
     
