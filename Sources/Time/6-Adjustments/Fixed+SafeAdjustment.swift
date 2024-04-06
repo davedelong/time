@@ -104,14 +104,7 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
     
     /// Adjust the date to the beginning of the calendar's week.
     public var startOfWeek: Self {
-        var s = self
-        let targetWeekday = region.calendar.firstWeekday
-        
-        // Github issue #71 tracks improving this
-        while s.dayOfWeek != targetWeekday {
-            s = s.previousDay
-        }
-        return s
+        return self.fixedWeek.first()
     }
     
     /// Create a new `Fixed` value by moving forward one day.
