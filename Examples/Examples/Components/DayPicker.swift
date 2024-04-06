@@ -106,7 +106,7 @@ struct DayPicker<Label: View>: View {
             }
             .font(.headline)
             
-            Grid(alignment: .centerFirstTextBaseline) {
+            Grid(alignment: .centerFirstTextBaseline, horizontalSpacing: 2, verticalSpacing: 2) {
                 GridRow {
                     ForEach(weeks[0], id: \.self) { day in
                         Text(day.format(weekday: .abbreviatedName))
@@ -126,7 +126,7 @@ struct DayPicker<Label: View>: View {
                     }
                 }
             }
-            .aspectRatio(7.0 / Double(weeks.count + 1), contentMode: .fit)
+//            .aspectRatio(7.0 / Double(weeks.count + 1), contentMode: .fit)
         }
         .padding()
     }
@@ -147,7 +147,9 @@ struct DayPicker<Label: View>: View {
                 .fixedSize() // prevent the text from wrapping
                 .monospacedDigit()
                 .opacity(day.month == currentMonth.month ? 1.0 : 0.5)
+                .padding(2)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .aspectRatio(1.0, contentMode: .fit)
         }
         .toggleStyle(DayToggleStyle())
     }
