@@ -82,12 +82,12 @@ struct DayPicker<Label: View>: View {
         let weeks = self.weeksForCurrentMonth
         
         return VStack {
-            
             // current month + movement controls
             HStack {
                 label($currentMonth)
                 
                 Spacer()
+                    .layoutPriority(-1)
                 
                 Button(action: { currentMonth = currentMonth.previous }) {
                     Image(systemName: "arrowtriangle.backward.fill")
@@ -106,42 +106,50 @@ struct DayPicker<Label: View>: View {
             }
             .font(.headline)
             
-            // weekday name headers
-            HStack {
-                ForEach(weeks[0], id: \.self) { day in
-                    Text(day.format(weekday: .abbreviatedName))
-                        .fixedSize() // prevent the text from wrapping
-                        .frame(maxWidth: .infinity, alignment: .center)
+            Grid(alignment: .centerFirstTextBaseline) {
+                GridRow {
+                    ForEach(weeks[0], id: \.self) { day in
+                        Text(day.format(weekday: .abbreviatedName))
+                            .fixedSize() // prevent the text from wrapping
+                    }
+                    .font(.subheadline)
+                }
+            
+                Divider()
+                    .gridCellUnsizedAxes(.horizontal)
+                
+                ForEach(weeks, id: \.self) { week in
+                    GridRow {
+                        ForEach(week, id: \.self) { day in
+                            toggle(for: day)
+                        }
+                    }
                 }
             }
-            .font(.subheadline)
-            
-            Divider()
-            
-            // weeks
-            ForEach(weeks, id: \.self) { week in
-                weekView(week)
-            }
+            .aspectRatio(7.0 / Double(weeks.count + 1), contentMode: .fit)
         }
-        .onAppear {
-            if let selection { currentMonth = selection.fixedMonth }
-        }
+        .padding()
     }
     
-    private func weekView(_ week: Array<Fixed<Day>>) -> some View {
-        HStack {
-            ForEach(week, id: \.self) { day in
-                Toggle(isOn: Binding(get: { selection == day },
-                                     set: { selection = $0 ? day : nil })) {
-                    Text(day.format(day: .naturalDigits))
-                        .fixedSize() // prevent the text from wrapping
-                        .monospacedDigit()
-                        .opacity(day.month == currentMonth.month ? 1.0 : 0.5)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                }
-                .toggleStyle(DayToggleStyle())
+    private func toggle(for day: Fixed<Day>) -> some View {
+        let isOn = Binding(get: { selection == day },
+                           set: { on in
+            if on {
+                selection = day
+                currentMonth = day.fixedMonth
+            } else {
+                selection = nil
             }
+        })
+        
+        return Toggle(isOn: isOn) {
+            Text(day.format(day: .naturalDigits))
+                .fixedSize() // prevent the text from wrapping
+                .monospacedDigit()
+                .opacity(day.month == currentMonth.month ? 1.0 : 0.5)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .toggleStyle(DayToggleStyle())
     }
 }
 
