@@ -79,6 +79,13 @@ extension Fixed {
         return nil
     }
     
+    internal func computeWholeDifference<U: Unit>(to other: Fixed<Granularity>) -> TimeDifference<U, U> {
+        let difference = calendar.dateComponents([U.component],
+                                                 from: self.firstInstant.date,
+                                                 to: other.firstInstant.date)
+        return TimeDifference(difference)
+    }
+    
     internal func computeDifference<Min: Unit, Max: Unit>(to other: Fixed<Granularity>) -> TimeDifference<Min, Max> {
         
         let units = Calendar.Component.from(lower: Min.self, to: Max.self)
@@ -88,7 +95,7 @@ extension Fixed {
         return TimeDifference(difference)
     }
     
-    internal func roundEra(direction: RoundingDirection) -> Self {
+    internal func roundEra(direction: RoundingDirection) -> Self where Granularity: StandardUnit {
         // for gregorian calendars, this returns 0 ..< 2
         guard let maxRange = self.calendar.maximumRange(of: .era) else { return self }
         

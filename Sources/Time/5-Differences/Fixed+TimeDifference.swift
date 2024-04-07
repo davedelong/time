@@ -45,7 +45,7 @@ extension Fixed where Granularity: LTOEYear {
     /// - Parameter other: A fixed value
     /// - Returns: A ``TimeDifference`` that describes the difference in whole years between the two fixed values.
     public func differenceInWholeYears(to other: Self) -> TimeDifference<Year, Year> {
-        return computeDifference(to: other)
+        return computeWholeDifference(to: other)
     }
     
 }
@@ -61,7 +61,7 @@ extension Fixed where Granularity: LTOEMonth {
     /// - Parameter other: A fixed value
     /// - Returns: A ``TimeDifference`` that describes the difference in whole months between the two fixed values.
     public func differenceInWholeMonths(to other: Self) -> TimeDifference<Month, Month> {
-        return computeDifference(to: other)
+        return computeWholeDifference(to: other)
     }
     
 }
@@ -77,7 +77,7 @@ extension Fixed where Granularity: LTOEDay {
     /// - Parameter other: A fixed value
     /// - Returns: A ``TimeDifference`` that describes the difference in whole days between the two fixed values.
     public func differenceInWholeDays(to other: Self) -> TimeDifference<Day, Day> {
-        return computeDifference(to: other)
+        return computeWholeDifference(to: other)
     }
     
 }
@@ -93,7 +93,7 @@ extension Fixed where Granularity: LTOEHour {
     /// - Parameter other: A fixed value
     /// - Returns: A ``TimeDifference`` that describes the difference in whole hours between the two fixed values.
     public func differenceInWholeHours(to other: Self) -> TimeDifference<Hour, Hour> {
-        return computeDifference(to: other)
+        return computeWholeDifference(to: other)
     }
     
 }
@@ -109,7 +109,7 @@ extension Fixed where Granularity: LTOEMinute {
     /// - Parameter other: A fixed value
     /// - Returns: A ``TimeDifference`` that describes the difference in whole minutes between the two fixed values.
     public func differenceInWholeMinutes(to other: Self) -> TimeDifference<Minute, Minute> {
-        return computeDifference(to: other)
+        return computeWholeDifference(to: other)
     }
     
 }
@@ -125,7 +125,7 @@ extension Fixed where Granularity: LTOESecond {
     /// - Parameter other: A fixed value
     /// - Returns: A ``TimeDifference`` that describes the difference in whole seconds between the two fixed values.
     public func differenceInWholeSeconds(to other: Self) -> TimeDifference<Second, Second> {
-        return computeDifference(to: other)
+        return computeWholeDifference(to: other)
     }
     
 }
