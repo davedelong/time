@@ -16,8 +16,9 @@ class FixedTests: XCTestCase {
         ("testAddingComponents", testAddingComponents),
     ]
     
-    func testInitializingGregorianDateWithoutEraSucceeds() {
-        XCTAssertNoThrow(try Fixed<Day>(region: .posix, year: 1970, month: 4, day: 1))
+    func testInitializingGregorianDateWithoutEraSucceeds() throws {
+        let day = try Fixed<Day>(region: .posix, year: 1970, month: 4, day: 1)
+        XCTAssertEqual(day.era, 1)
     }
     
     func testInitializingGregorianDateWithEraSucceeds() {

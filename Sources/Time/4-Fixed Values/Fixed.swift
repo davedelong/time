@@ -88,10 +88,10 @@ public struct Fixed<Granularity: Unit & LTOEEra>: Sendable {
     /// - Parameter region: The `Region` in which to interpret the date components
     /// - Parameter strictDateComponents: The `DateComponents` describing the desired calendrical date
     public init(region: Region, strictDateComponents: DateComponents) throws {
-        let date = try region.calendar.exactDate(from: strictDateComponents,
-                                                 in: region.timeZone,
-                                                 matching: Self.representedComponents)
-        self.init(region: region, instant: Instant(date: date), components: strictDateComponents)
+        let (date, actualComponents) = try region.calendar.exactDate(from: strictDateComponents,
+                                                                     in: region.timeZone,
+                                                                     matching: Self.representedComponents)
+        self.init(region: region, instant: Instant(date: date), components: actualComponents)
     }
     
 }

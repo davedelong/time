@@ -25,19 +25,19 @@ extension Calendar {
         return [.era]
     }
     
-    internal func exactDate(from components: DateComponents, in timeZone: TimeZone, matching: Set<Calendar.Component>) throws -> Date {
-        var restricted = try components.requireAndRestrict(to: matching, lenient: self.lenientUnitsForFixedTimePeriods)
-        restricted.timeZone = timeZone
+    internal func exactDate(from components: DateComponents, in timeZone: TimeZone, matching: Set<Calendar.Component>) throws -> (Date, DateComponents) {
+        var restrictedComponents = try components.requireAndRestrict(to: matching, lenient: self.lenientUnitsForFixedTimePeriods)
+        restrictedComponents.timeZone = timeZone
         
-        guard let proposed = self.date(from: restricted) else {
-            let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)
-            throw TimeError.invalidDateComponents(restricted, in: r)
+        guard let proposedDate = self.date(from: restrictedComponents) else {
+            let r = Region(calendar: self, timeZone: timeZone, locale: self.locale ?? .current)
+            throw TimeError.invalidDateComponents(restrictedComponents, in: r)
         }
         
-        let proposedComponents = self.dateComponents(in: timeZone, from: proposed)
+        let proposedComponents = self.dateComponents(in: timeZone, from: proposedDate)
         
-        if isEraRelevant == false && restricted.era == nil {
-            restricted.era = proposedComponents.era
+        if isEraRelevant == false && restrictedComponents.era == nil {
+            restrictedComponents.era = proposedComponents.era
         }
         
         for unit in matching {
@@ -48,13 +48,15 @@ extension Calendar {
             // appears to be restricted to within about 24,000 nanoseconds
             if unit == .nanosecond { continue }
             
-            guard proposedComponents.value(for: unit) == restricted.value(for: unit) else {
+            guard proposedComponents.value(for: unit) == restrictedComponents.value(for: unit) else {
                 let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)
-                throw TimeError.invalidDateComponents(restricted, in: r)
+                throw TimeError.invalidDateComponents(restrictedComponents, in: r)
             }
         }
         
-        return proposed
+        let actualComponents = try! proposedComponents.requireAndRestrict(to: matching, lenient: [])
+        
+        return (proposedDate, actualComponents)
     }
     
     internal func range(of unit: Calendar.Component, containing date: Date) -> Range<Date> {

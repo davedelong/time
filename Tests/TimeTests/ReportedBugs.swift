@@ -64,4 +64,9 @@ class ReportedBugs: XCTestCase {
         XCTAssertEqual(formattedGregorian, "1")
         XCTAssertEqual(formattedISO8601, "7")
     }
+    
+    func testValuesWithoutErasStillHaveThem_GH82() throws {
+        let day = try Fixed(region: .posix, year: 2024, month: 4, day: 7)
+        XCTAssertEqual(day.era, 1)
+    }
 }
