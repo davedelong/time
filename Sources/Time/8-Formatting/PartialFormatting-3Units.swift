@@ -1,6 +1,6 @@
 import Foundation
 
-extension Fixed where Granularity: LTOEDay {
+extension Fixed where Granularity: StandardUnit & LTOEDay {
     
     /// Format the year, month, and day of a fixed value
     /// - Parameters:
@@ -19,7 +19,7 @@ extension Fixed where Granularity: LTOEDay {
     
 }
 
-extension Fixed where Granularity: LTOEHour {
+extension Fixed where Granularity: StandardUnit & LTOEHour {
     
     /// Format the month, day, and hour of a fixed value
     /// - Parameters:
@@ -39,7 +39,7 @@ extension Fixed where Granularity: LTOEHour {
     
 }
 
-extension Fixed where Granularity: LTOEMinute {
+extension Fixed where Granularity: StandardUnit & LTOEMinute {
     
     /// Format the day, hour, and minute of a fixed value
     /// - Parameters:
@@ -59,7 +59,7 @@ extension Fixed where Granularity: LTOEMinute {
     
 }
 
-extension Fixed where Granularity: LTOESecond {
+extension Fixed where Granularity: StandardUnit & LTOESecond {
     
     /// Format the hour, minute, and second of a fixed value
     /// - Parameters:
@@ -77,7 +77,7 @@ extension Fixed where Granularity: LTOESecond {
     
 }
 
-extension Fixed where Granularity: LTOENanosecond {
+extension Fixed where Granularity: StandardUnit & LTOENanosecond {
     
     /// Format the minute, second, and nanosecond of a fixed value
     /// - Parameters:

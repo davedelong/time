@@ -11,7 +11,7 @@ extension Fixed {
     
 }
 
-extension Fixed where Granularity: LTOEYear {
+extension Fixed where Granularity: StandardUnit & LTOEYear {
     
     /// Format the year of a fixed value
     /// - Parameters:
@@ -25,7 +25,7 @@ extension Fixed where Granularity: LTOEYear {
     
 }
 
-extension Fixed where Granularity: LTOEMonth {
+extension Fixed where Granularity: StandardUnit & LTOEMonth {
     
     /// Format the month of a fixed value
     /// - Parameters:
@@ -39,7 +39,7 @@ extension Fixed where Granularity: LTOEMonth {
     
 }
 
-extension Fixed where Granularity: LTOEDay {
+extension Fixed where Granularity: StandardUnit & LTOEDay {
     
     /// Format the day of a fixed value
     /// - Parameters:
@@ -65,7 +65,7 @@ extension Fixed where Granularity: LTOEDay {
     
 }
 
-extension Fixed where Granularity: LTOEHour {
+extension Fixed where Granularity: StandardUnit & LTOEHour {
     
     /// Format the hour of a fixed value
     /// - Parameters:
@@ -79,7 +79,7 @@ extension Fixed where Granularity: LTOEHour {
     
 }
 
-extension Fixed where Granularity: LTOEMinute {
+extension Fixed where Granularity: StandardUnit & LTOEMinute {
     
     /// Format the minute of a fixed value
     /// - Parameters:
@@ -93,7 +93,7 @@ extension Fixed where Granularity: LTOEMinute {
     
 }
 
-extension Fixed where Granularity: LTOESecond {
+extension Fixed where Granularity: StandardUnit & LTOESecond {
     
     /// Format the second of a fixed value
     /// - Parameters:
@@ -107,7 +107,7 @@ extension Fixed where Granularity: LTOESecond {
     
 }
 
-extension Fixed where Granularity: LTOENanosecond {
+extension Fixed where Granularity: StandardUnit & LTOENanosecond {
     
     /// Format the nanosecond of a fixed value
     /// - Parameters:
