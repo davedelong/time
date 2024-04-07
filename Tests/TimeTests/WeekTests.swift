@@ -95,4 +95,91 @@ class WeekTests: XCTestCase {
         XCTAssertTime(w1.lastDay, era: 1, year: 2024, month: 1, day: 6)
     }
     
+    func testWeeksOfMonth() throws {
+        let m1 = try Fixed<Month>(region: .posix, year: 2024, month: 1)
+        XCTAssertThrowsError(try m1.nthWeek(0))
+        
+        let w1 = try m1.nthWeek(1)
+        XCTAssertTime(w1.firstDay, era: 1, year: 2023, month: 12, day: 31)
+        XCTAssertTime(w1.lastDay, era: 1, year: 2024, month: 1, day: 6)
+        
+        let w2 = try m1.nthWeek(2)
+        XCTAssertTime(w2.firstDay, era: 1, year: 2024, month: 1, day: 7)
+        XCTAssertTime(w2.lastDay, era: 1, year: 2024, month: 1, day: 13)
+        
+        let w3 = try m1.nthWeek(3)
+        XCTAssertTime(w3.firstDay, era: 1, year: 2024, month: 1, day: 14)
+        XCTAssertTime(w3.lastDay, era: 1, year: 2024, month: 1, day: 20)
+        
+        let w4 = try m1.nthWeek(4)
+        XCTAssertTime(w4.firstDay, era: 1, year: 2024, month: 1, day: 21)
+        XCTAssertTime(w4.lastDay, era: 1, year: 2024, month: 1, day: 27)
+        
+        let w5 = try m1.nthWeek(5)
+        XCTAssertTime(w5.firstDay, era: 1, year: 2024, month: 1, day: 28)
+        XCTAssertTime(w5.lastDay, era: 1, year: 2024, month: 2, day: 3)
+        
+        XCTAssertThrowsError(try m1.nthWeek(6))
+    }
+    
+    func testWeeksOfYear() throws {
+        let y1 = try Fixed<Year>(region: .posix, year: 2024)
+        let yearWeeks = Array(y1.weeks)
+        XCTAssertEqual(yearWeeks.count, 52)
+        
+        let w1 = yearWeeks[0]
+        XCTAssertTime(w1.firstDay, era: 1, year: 2023, month: 12, day: 31)
+    }
+    
+    func testWeekRounding() throws {
+        let d1 = try Fixed<Day>(region: .posix, year: 2024, month: 1, day: 1)
+        
+        let startOfNearestWeek = d1.roundedToNearestWeek()
+        XCTAssertTime(startOfNearestWeek, era: 1, year: 2023, month: 12, day: 31)
+        
+        let startOfWeekRoundedDown = d1.roundedToWeek(direction: .backward)
+        XCTAssertTime(startOfWeekRoundedDown, era: 1, year: 2023, month: 12, day: 31)
+        
+        let startOfWeekRoundedUp = d1.roundedToWeek(direction: .forward)
+        XCTAssertTime(startOfWeekRoundedUp, era: 1, year: 2024, month: 1, day: 7)
+    }
+    
+    func testFullWeeks() throws {
+        let m1 = try Fixed<Month>(region: .posix, year: 2024, month: 1)
+        
+        let ffw1 = try XCTUnwrap(m1.firstFullWeek)
+        // the first week of January 2024 begins on 31 Dec 2023; it's not a full week
+        XCTAssertTime(ffw1.firstDay, era: 1, year: 2024, month: 1, day: 7)
+        
+        let lfw1 = try XCTUnwrap(m1.lastFullWeek)
+        // the last week of January 2024 starts on 28 Jan; it's not a full week
+        XCTAssertTime(lfw1.firstDay, era: 1, year: 2024, month: 1, day: 21)
+        
+        // september 2024's first full week should also be its first week
+        let m2 = try Fixed<Month>(region: .posix, year: 2024, month: 9)
+        let ffw2 = try XCTUnwrap(m2.firstFullWeek)
+        XCTAssertTime(ffw2.firstDay, era: 1, year: 2024, month: 9, day: 1)
+        XCTAssertEqual(m2.firstWeek, ffw2)
+        
+        // november 2024's last full week should also be its last week
+        let m3 = m2.adding(months: 2)
+        let lfw3 = try XCTUnwrap(m3.lastFullWeek)
+        XCTAssertTime(lfw3.firstDay, era: 1, year: 2024, month: 11, day: 24)
+        XCTAssertEqual(m3.lastWeek, lfw3)
+        
+        // The coptic calendar has an intercalary month of 5 or 6 days
+        // that means it's never long enough to contain an entire full week
+        // this tests that we can retrieve the weeks that contain its start and end days,
+        // but the month itself has no full weeks
+        let copticRegion = Region.posix.setCalendar(Calendar(identifier: .coptic))
+        let piKogiEnavot = try Fixed<Month>(region: copticRegion, year: 1740, month: 13)
+        let w1 = piKogiEnavot.firstWeek
+        XCTAssertEqual(piKogiEnavot.relation(to: w1), .isOverlappedBy)
+        
+        let w2 = piKogiEnavot.lastWeek
+        XCTAssertEqual(piKogiEnavot.relation(to: w2), .overlaps)
+        
+        XCTAssertNil(piKogiEnavot.firstFullWeek)
+        XCTAssertNil(piKogiEnavot.lastFullWeek)
+    }
 }

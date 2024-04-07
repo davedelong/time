@@ -18,7 +18,7 @@ func XCTAssertEqualWithAccuracyWorkaround<FP: BinaryFloatingPoint>(_ value1: FP,
 }
 
 @discardableResult
-func XCTAssertTime<U: LTOEEra>(_ time: Fixed<U>, era: Int, file: StaticString = #file, line: UInt = #line) -> Bool {
+func XCTAssertTime<U: StandardUnit & LTOEEra>(_ time: Fixed<U>, era: Int, file: StaticString = #file, line: UInt = #line) -> Bool {
     if time.era == era { return true }
     XCTFail("Unexpected time components: \(time), expecting era=\(era)", file: file, line: line)
     return false
