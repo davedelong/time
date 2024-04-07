@@ -13,7 +13,7 @@ public enum RoundingDirection: Sendable {
     case nearest
 }
 
-extension Fixed where Granularity: LTOEYear {
+extension Fixed where Granularity: StandardUnit & LTOEYear {
     
     /// Round the fixed value towards the nearest boundary that matches a whole multiple.
     ///
@@ -70,7 +70,7 @@ extension Fixed where Granularity: LTOEYear {
     public var nearestEra: Fixed<Era> { roundedToNearestEra().fixedEra }
 }
 
-extension Fixed where Granularity: LTOEMonth {
+extension Fixed where Granularity: StandardUnit & LTOEMonth {
     
     /// Round this fixed value towards a year boundary
     /// - Parameter direction: The preferred rounding direction
@@ -92,7 +92,7 @@ extension Fixed where Granularity: LTOEMonth {
     public var nearestYear: Fixed<Year> { roundedToNearestYear().fixedYear }
 }
 
-extension Fixed where Granularity: LTOEDay {
+extension Fixed where Granularity: StandardUnit & LTOEDay {
     
     /// Round this fixed value towards a month boundary
     /// - Parameter direction: The preferred rounding direction
@@ -112,6 +112,25 @@ extension Fixed where Granularity: LTOEDay {
     
     /// Retrieve the nearest `Fixed<Month>`
     public var nearestMonth: Fixed<Month> { roundedToNearestMonth().fixedMonth }
+    
+    /// Round this fixed value towards a week boundary
+    /// - Parameter direction: The preferred rounding direction
+    /// - Returns: A fixed value whose `.firstInstant` is a week boundary
+    public func roundedToWeek(direction: RoundingDirection) -> Self {
+        round(to: Week.self, direction: direction)
+    }
+    
+    /// Round this fixed value towards the nearest week boundary
+    ///
+    /// Equivalent to `.roundedToWeek(direction: .nearest)`
+    ///
+    /// - Returns: A fixed value whose `.firstInstant` is a week boundary
+    public func roundedToNearestWeek() -> Self {
+        round(to: Week.self, direction: .nearest)
+    }
+    
+    /// Retrieve the nearest `Fixed<Week>`
+    public var nearestWeek: Fixed<Week> { roundedToNearestWeek().fixedWeek }
 }
 
 extension Fixed where Granularity: LTOEHour {
