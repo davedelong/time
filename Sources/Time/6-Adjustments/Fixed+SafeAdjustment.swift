@@ -100,6 +100,24 @@ extension Fixed where Granularity: StandardUnit & LTOEMonth {
     
 }
 
+extension Fixed where Granularity: LTMonth {
+    
+    /// Create a new `Fixed` value by moving forward one week.
+    public var nextWeek: Self { return adding(weeks: 1) }
+    
+    /// Create a new `Fixed` value by moving backward one week.
+    public var previousWeek: Self { return subtracting(weeks: 1) }
+    
+    /// Create a new `Fixed` value by moving forward some number of weeks.
+    /// - Parameter months: The number of weeks by which to move forward.
+    public func adding(weeks: Int) -> Self { return applying(difference: .weeks(weeks)) }
+    
+    /// Create a new `Fixed` value by moving backward some number of weeks.
+    /// - Parameter months: The number of weeks by which to move backward.
+    public func subtracting(weeks: Int) -> Self { return applying(difference: .weeks(-weeks)) }
+    
+}
+
 extension Fixed where Granularity: StandardUnit & LTOEDay {
     
     /// Adjust the date to the beginning of the calendar's week.

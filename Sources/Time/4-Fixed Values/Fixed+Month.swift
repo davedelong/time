@@ -23,7 +23,7 @@ extension Fixed where Granularity: GTDay {
     /// - Note: The allowable values for `ordinal` depend on the fixed value's `.calendar` and granularity.
     /// For example, getting the `.nthDay(72)` of a `Fixed<Month>` will throw an error, because no supported calendar has a month
     /// with more than about 31 days. However, getting the `.nthDay(72)` of a `Fixed<Year>` is fine, because years typically have at least
-    /// than 340 days in them.
+    /// 340 days in them.
     public func nthDay(_ ordinal: Int) throws -> Fixed<Day> { return try nth(ordinal) }
     
     /// Get a sequence of all the days in this fixed value.

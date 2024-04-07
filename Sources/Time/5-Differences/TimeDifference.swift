@@ -11,8 +11,11 @@ public struct TimeDifference<MinimumGranularity: Unit, MaximumGranularity: Unit>
     internal let dateComponents: DateComponents
     
     internal init(_ dateComponents: DateComponents) {
-        let allowed = Calendar.Component.from(lower: MinimumGranularity.self, to: MaximumGranularity.self)
-        self.dateComponents = dateComponents.restrict(to: allowed)
+        // this doesn't need to .restrict the DateComponents, because
+        // the DateComponents value is only created through specific helper methods
+        //
+        // That would need to be revisited if this ever gains an arbitrary public initializer
+        self.dateComponents = dateComponents
     }
     
     internal init(value: Int, unit: Calendar.Component) {
@@ -77,6 +80,17 @@ extension TimeDifference where MinimumGranularity: LTOEMonth, MaximumGranularity
         return dateComponents.month
             .unwrap("A TimeDifference<\(MinimumGranularity.self), \(MaximumGranularity.self)> must have a month value")
     }
+}
+
+extension TimeDifference where MinimumGranularity: LTMonth, MaximumGranularity: GTDay {
+    
+    /// Create a time difference representing a specific number of weeks
+    /// - Parameter value: the number of weeks
+    /// - Returns: A `TimeDifference` that represents an interval of `value` weeks.
+    public static func weeks(_ value: Int) -> TimeDifference { return self.init(value: value, unit: .weekOfYear) }
+    
+    // There is no `.weeks` accessor,
+    // because it is not a standard unit to extract
 }
 
 extension TimeDifference where MinimumGranularity: LTOEDay, MaximumGranularity: GTOEDay {
