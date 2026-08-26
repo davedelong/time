@@ -2,10 +2,13 @@ import Foundation
 
 extension Fixed where Granularity: StandardUnit & GTOEMonth & LTOEYear {
     
+    /// The week that includes the first day of this value
     public var firstOverlappingWeek: Fixed<Week> { first() }
     
+    /// The week that includes the last day of this value
     public var lastOverlappingWeek: Fixed<Week> { .init(region: region, instant: lastDay.firstInstant) }
     
+    /// The first week that is fully contained by this unit, if it exists.
     public var firstFullWeek: Fixed<Week>? {
         let thisRange = self.range
         let firstWeek = self.firstOverlappingWeek
@@ -27,6 +30,7 @@ extension Fixed where Granularity: StandardUnit & GTOEMonth & LTOEYear {
         return nil
     }
     
+    /// The last week that is fully contained by this unit, if it exists.
     public var lastFullWeek: Fixed<Week>? {
         let thisRange = self.range
         let lastWeek = self.lastOverlappingWeek
@@ -91,6 +95,7 @@ extension Fixed where Granularity: StandardUnit & GTOEMonth & LTOEYear {
 
 extension Fixed where Granularity: StandardUnit & GTOEMonth & LTOEYear {
     
+    /// A sequence of all the weeks that overlap with this value.
     public var overlappingWeeks: FixedSequence<Week> {
         return FixedSequence(start: self.firstOverlappingWeek,
                              stride: .weeks(1),
@@ -99,6 +104,9 @@ extension Fixed where Granularity: StandardUnit & GTOEMonth & LTOEYear {
         })
     }
     
+    /// A sequence of all the weeks that are fully contained in this value.
+    ///
+    /// May result in an empty sequence if this value doesn't contain a single full week.
     public var fullWeeks: FixedSequence<Week> {
         // if this value does not contain a full week, return an empty sequence
         guard let first = self.firstFullWeek else { return .init() }

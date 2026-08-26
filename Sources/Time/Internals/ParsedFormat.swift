@@ -2,7 +2,7 @@ import Foundation
 
 internal struct ParsedFormat {
     
-    enum FormatComponent {
+    enum Component {
         case literal(String)
         case format(Character, Int)
         case template(Character, Int)
@@ -23,7 +23,7 @@ internal struct ParsedFormat {
             }
         }
         
-        func compact(with subsequent: FormatComponent) -> (FormatComponent, FormatComponent?) {
+        func compact(with subsequent: Component) -> (Component, Component?) {
             switch (self, subsequent) {
                 case (.literal(let left), .literal(let right)):
                     return (.literal(left + right), nil)
@@ -47,30 +47,30 @@ internal struct ParsedFormat {
         }
     }
     
-    var components: Array<FormatComponent>
+    var components: Array<Component>
     
     var isTemplate: Bool { components.contains(where: \.isTemplate) }
     
     init(formatString: String) throws {
-        var components = Array<FormatComponent>()
+        var components = Array<Component>()
         
         var isEscaped = false
         var previousChar: Character?
         
         for currentChar in formatString {
-            if currentChar == SingleQuote {
-                if isEscaped && previousChar == SingleQuote {
+            if currentChar == .singleQuote {
+                if isEscaped && previousChar == .singleQuote {
                     // double-escaped single-quote
-                    components.append(.literal(String(SingleQuote)))
+                    components.append(.literal(String(.singleQuote)))
                 }
                 isEscaped.toggle()
             } else if isEscaped {
                 components.append(.literal(String(currentChar)))
             } else {
-                if templateCharacters.contains(currentChar) {
+                if Character.templateCharacters.contains(currentChar) {
                     // it's a template character
                     components.append(.template(currentChar, 1))
-                } else if formatCharacters.contains(currentChar) {
+                } else if Character.formatCharacters.contains(currentChar) {
                     // it's a format character
                     components.append(.format(currentChar, 1))
                 } else {
@@ -82,7 +82,7 @@ internal struct ParsedFormat {
             previousChar = currentChar
         }
         
-        var compacted = Array<FormatComponent>()
+        var compacted = Array<Component>()
         
         if var current = components.first {
             for next in components.dropFirst() {
@@ -108,6 +108,8 @@ internal struct ParsedFormat {
     }
 }
 
-private let templateCharacters: Set<Character> = ["j", "J", "C"]
-private let formatCharacters: Set<Character> = ["G", "y", "Y", "u", "U", "r", "Q", "q", "M", "L", "w", "W", "d", "D", "F", "g", "E", "e", "c", "a", "b", "B", "h", "H", "k", "K", "m", "s", "S", "A", "z", "Z", "O", "v", "V", "X", "x"]
-private let SingleQuote: Character = "'"
+extension Character {
+    static let templateCharacters: Set<Character> = ["j", "J", "C"]
+    static let formatCharacters: Set<Character> = ["G", "y", "Y", "u", "U", "r", "Q", "q", "M", "L", "w", "W", "d", "D", "F", "g", "E", "e", "c", "a", "b", "B", "h", "H", "k", "K", "m", "s", "S", "A", "z", "Z", "O", "v", "V", "X", "x"]
+    static let singleQuote: Character = "'"
+}
