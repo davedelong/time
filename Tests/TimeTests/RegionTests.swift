@@ -3,7 +3,7 @@ import XCTest
 
 class RegionTests: XCTestCase {
 
-    static var allTests = [
+    static let allTests = [
         ("test24HourPreference", test24HourPreference),
         ("testCannotCreateAutoupdatingRegion", testCannotCreateAutoupdatingRegion),
         ("testTimezoneForcedCopy", testTimezoneForcedCopy)

@@ -1,7 +1,7 @@
 import Foundation
 import Dispatch
 
-internal class CancellationToken {
+internal class CancellationToken: @unchecked Sendable {
     
     private let lock = NSLock()
     private var _isCancelled = false
@@ -52,7 +52,7 @@ extension RegionalClock {
     }
     
     @discardableResult
-    internal func wait(until instant: Instant, tolerance: Instant.Duration?, strike: @escaping () -> Void) -> CancellationToken {
+    internal func wait(until instant: Instant, tolerance: Instant.Duration?, strike: @escaping @Sendable () -> Void) -> CancellationToken {
         let token = CancellationToken()
         Task {
             do {

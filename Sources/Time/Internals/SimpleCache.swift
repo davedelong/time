@@ -24,7 +24,7 @@ extension TimeZone {
     }
 }
 
-internal class SimpleCache<Key: Hashable, T> {
+internal class SimpleCache<Key: Hashable, T>: @unchecked Sendable {
     
     private var storage = Dictionary<Key, T>()
     private let lock = NSLock()

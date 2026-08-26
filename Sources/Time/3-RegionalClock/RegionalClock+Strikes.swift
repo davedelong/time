@@ -237,7 +237,7 @@ extension ClockStrikes {
         
         /// Set up a new Combine subscription for this `ClockStrikes`
         /// - Parameter subscriber: The subscriber that receives strike events
-        public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+        public func receive<S>(subscriber: S) where S: Subscriber, S: Sendable, Failure == S.Failure, Output == S.Input {
             let subscription = StrikesSubscription<S, U>(subscriber: subscriber,
                                                          clock: strikes.clock,
                                                          iterator: strikes.iterator)
@@ -255,12 +255,14 @@ extension ClockStrikes {
     
 }
 
-private class StrikesSubscription<SubscriberType, U>: Subscription
+private final class StrikesSubscription<SubscriberType, U>: Subscription, @unchecked Sendable
     where U: Unit,
           SubscriberType: Subscriber,
+          SubscriberType: Sendable,
           SubscriberType.Failure == ClockStrikes<U>.Publisher.Failure,
           SubscriberType.Input == ClockStrikes<U>.Publisher.Output {
     
+    private let lock = NSLock()
     private var subscriber: SubscriberType?
     private let clock: any RegionalClock
     private var timeIterator: AnyIterator<Fixed<U>>
@@ -275,6 +277,24 @@ private class StrikesSubscription<SubscriberType, U>: Subscription
     }
     
     private func scheduleNextStrike() {
+        let perform = lock.withLock { _withLock_scheduleNextStrike() }
+        perform?()
+    }
+    
+    private func performStrike(at time: Fixed<U>) {
+        let perform = lock.withLock { _withLock_performStrike(at: time) }
+        perform?()
+    }
+    
+    public func request(_ demand: Subscribers.Demand) {
+        // We ignore this, since time doesn't care when we're looking.
+    }
+    
+    public func cancel() {
+        lock.withLock { self._withLock_cancel() }
+    }
+    
+    private func _withLock_scheduleNextStrike() -> (() -> Void)? {
         var nextTime: Fixed<U>? = timeIterator.next()
         let now = clock.current(U.self)
         while let next = nextTime, next < now {
@@ -283,28 +303,46 @@ private class StrikesSubscription<SubscriberType, U>: Subscription
         }
         
         guard let nextStrikeTime = nextTime else {
-            subscriber?.receive(completion: .finished)
-            cancel()
-            return
+            let performFinish: (() -> ())?
+            if let subscriber {
+                performFinish = { subscriber.receive(completion: .finished) }
+            } else {
+                performFinish = nil
+            }
+            _withLock_cancel()
+            return performFinish
         }
         
         let strikeInstant = nextStrikeTime.firstInstant
         self.nextStrike = clock.wait(until: strikeInstant, tolerance: nil, strike: { [weak self] in
             self?.performStrike(at: nextStrikeTime)
         })
+        
+        return nil
     }
     
-    private func performStrike(at time: Fixed<U>) {
+    private func _withLock_performStrike(at time: Fixed<U>) -> (() -> Void)? {
         nextStrike = nil
-        _ = subscriber?.receive(time)
-        scheduleNextStrike()
+        let performNext = _withLock_scheduleNextStrike()
+        
+        switch (performNext, self.subscriber) {
+            case (.none, .none):
+                return nil
+            case (.some(let next), .none):
+                return next
+            case (.none, .some(let sub)):
+                return {
+                    _ = sub.receive(time)
+                }
+            case (.some(let next), .some(let sub)):
+                return {
+                    _ = sub.receive(time)
+                    next()
+                }
+        }
     }
     
-    public func request(_ demand: Subscribers.Demand) {
-        // We ignore this, since time doesn't care when we're looking.
-    }
-    
-    public func cancel() {
+    private func _withLock_cancel() {
         nextStrike?.cancel()
         nextStrike = nil
         subscriber = nil
