@@ -1,4 +1,4 @@
-// swift-tools-version:6.2
+// swift-tools-version:5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -21,6 +21,6 @@ let package = Package(
     targets: [
         .target(name: "Time", dependencies: []),
         
-        .testTarget(name: "TimeTests", dependencies: ["Time"]),
+            .testTarget(name: "TimeTests", dependencies: ["Time"]),
     ]
 )

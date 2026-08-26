@@ -167,6 +167,6 @@ public protocol GTOEEra: GTOEYear, GTYear { }
 #if swift(>=5.8)
 @_documentation(visibility: internal)
 #endif
-public struct ProtocolCloser<U: Unit> {
+public struct ProtocolCloser<U: Unit>: Sendable {
     internal init() { }
 }

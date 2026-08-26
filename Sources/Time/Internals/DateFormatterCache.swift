@@ -32,7 +32,7 @@ extension DateFormatter {
     }
 }
 
-private class DateFormatterCache {
+private class DateFormatterCache: @unchecked Sendable {
     
     static let shared = DateFormatterCache()
     

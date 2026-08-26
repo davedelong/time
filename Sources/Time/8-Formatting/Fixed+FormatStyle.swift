@@ -1,7 +1,7 @@
 import Foundation
 
 /// A convenient way to specify general formats for fixed values.
-public struct FixedFormatStyle: Hashable {
+public struct FixedFormatStyle: Hashable, Sendable {
     
     /// An extremely verbose format style.
     ///
