@@ -4,7 +4,7 @@ import XCTest
 
 class ThreadingTests: XCTestCase {
 
-    static var allTests = [
+    static let allTests = [
         ("testMultithreadingWithCopies", testMultithreadingWithCopies),
     ]
 

@@ -3,7 +3,7 @@ import XCTest
 
 class FixedFormattingTests: XCTestCase {
     
-    static var allTests = [
+    static let allTests = [
         ("testEraFormatting", testEraFormatting),
         ("testYearFormatting", testYearFormatting),
         ("testMonthFormatting", testMonthFormatting),

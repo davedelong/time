@@ -1,6 +1,6 @@
 import Foundation
 
-internal func require(_ condition: @autoclosure () -> Bool, _ why: @autoclosure () -> String, file: StaticString = #fileID, line: UInt = #line) {
+internal func require(_ condition: @autoclosure () -> Bool, _ why: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
     guard condition() == true else {
         fatalError(why(), file: file, line: line)
     }
@@ -8,7 +8,7 @@ internal func require(_ condition: @autoclosure () -> Bool, _ why: @autoclosure 
 
 internal extension Optional {
     
-    func unwrap(_ why: @autoclosure () -> String, file: StaticString = #fileID, line: UInt = #line) -> Wrapped {
+    func unwrap(_ why: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) -> Wrapped {
         guard let value = self else {
             fatalError(why(), file: file, line: line)
         }
@@ -17,6 +17,6 @@ internal extension Optional {
     
 }
 
-internal func invalid(_ function: StaticString = #function, file: StaticString = #fileID, line: UInt = #line) -> Never {
+internal func invalid(_ function: StaticString = #function, file: StaticString = #file, line: UInt = #line) -> Never {
     fatalError("\(function) is invalid", file: file, line: line)
 }

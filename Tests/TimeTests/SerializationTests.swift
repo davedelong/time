@@ -4,7 +4,7 @@ import protocol Time.Unit
 
 class SerializationTests: XCTestCase {
 
-    static var allTests = [
+    static let allTests = [
         ("testCodableRegionRoundTrip", testCodableRegionRoundTrip),
         ("testCodableTimePeriodRoundTrip", testCodableTimePeriodRoundTrip),
         ("testMaliciousPayload", testMaliciousPayload),
@@ -30,7 +30,7 @@ class SerializationTests: XCTestCase {
 
         let clock = Clocks.system
         
-        func testRoundTrip<U: Unit>(of timePeriod: Fixed<U>, file: StaticString = #file, line: UInt = #line) throws {
+        func testRoundTrip<U: Unit>(of timePeriod: Fixed<U>, file: StaticString = #filePath, line: UInt = #line) throws {
             let encoded = try JSONEncoder().encode(timePeriod)
             let decoded = try JSONDecoder().decode(Fixed<U>.self, from: encoded)
             XCTAssertEqual(timePeriod, decoded, file: file, line: line)

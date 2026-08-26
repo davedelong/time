@@ -3,7 +3,7 @@ import XCTest
 
 class FixedTests: XCTestCase {
 
-    static var allTests = [
+    static let allTests = [
         ("testInitializingGregorianDateWithoutEraSucceeds", testInitializingGregorianDateWithoutEraSucceeds),
         ("testInitializingGregorianDateWithEraSucceeds", testInitializingGregorianDateWithEraSucceeds),
         ("testInitializingJapaneseDateWithoutEraFails", testInitializingJapaneseDateWithoutEraFails),

@@ -3,7 +3,7 @@ import XCTest
 
 class RelationTests: XCTestCase {
     
-    static var allTests = [
+    static let allTests = [
         ("testBeforeAndAfter", testBeforeAndAfter),
         ("testMeetsAndIsMetBy", testMeetsAndIsMetBy),
         ("testOverlapsAndIsOverlappedBy", testOverlapsAndIsOverlappedBy),

@@ -7,7 +7,7 @@ import Combine
 @available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 final class ClockStrikeTests: XCTestCase {
     
-    static var allTests = [
+    static let allTests = [
         ("testPastStrike", testPastStrike),
         ("testImmediateStrike", testImmediateStrike),
         ("testStrikeAtSpecificValue", testStrikeAtSpecificValue),

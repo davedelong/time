@@ -33,7 +33,7 @@ extension Collection {
 
 class ClockTests: XCTestCase {
     
-    static var allTests = [
+    static let allTests = [
         ("testSystem", testSystem),
         ("testExplicit", testExplicit),
         ("testAccelerated_2x", testAccelerated_2x),
