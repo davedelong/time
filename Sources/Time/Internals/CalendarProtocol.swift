@@ -26,6 +26,8 @@ internal protocol CalendarProtocol: Sendable, CustomStringConvertible, CustomDeb
     func component(_ unit: Calendar.Component, from date: Date) -> Int
     func ordinality(of unit: Calendar.Component, in larger: Calendar.Component, for date: Date) -> Int?
     func date(byAdding components: DateComponents, to date: Date, wrappingComponents: Bool) -> Date?
+    
+    func format(date: Date, using timeZone: TimeZone, locale: Locale, configuration: FormatConfiguration) -> String
 }
 
 extension CalendarProtocol {
@@ -58,4 +60,26 @@ extension Calendar: CalendarProtocol {
         
         return true
     }
+    
+    func format(date: Date, using timeZone: TimeZone, locale: Locale, configuration: FormatConfiguration) -> String {
+        
+        let key = DateFormatter.Key(configuration: configuration,
+                                    calendar: self,
+                                    locale: locale,
+                                    timeZone: timeZone)
+        
+        let df = DateFormatter.formatter(for: key)
+        return df.string(from: date)
+    }
+}
+
+extension Region {
+    
+    func format(date: Date, using configuration: FormatConfiguration) -> String {
+        return self.anyCalendar.format(date: date,
+                                       using: timeZone,
+                                       locale: locale,
+                                       configuration: configuration)
+    }
+    
 }

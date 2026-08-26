@@ -220,14 +220,8 @@ extension Fixed {
     }
     
     internal func format<S>(_ style: FixedFormat<S>) -> String {
-        let key = DateFormatter.Key(configuration: style.configuration,
-                                    calendar: self.region.anyCalendar,
-                                    locale: self.region.locale,
-                                    timeZone: self.region.timeZone)
-        
-        let formatter = DateFormatter.formatter(for: key)
-        
-        return formatter.string(from: self.dateForFormatting())
+        let date = self.dateForFormatting()
+        return self.region.format(date: date, using: style.configuration)
     }
     
     internal func format(_ templates: Array<Format?>) -> String {

@@ -65,11 +65,11 @@ public struct Region: Hashable, Sendable {
     ///   - timeZone: The region's `TimeZone`
     ///   - locale: The region's `Locale`
     public init(calendar: Calendar, timeZone: TimeZone, locale: Locale) {
-        let anyCalendar = calendar as CalendarProtocol
+        let anyCalendar = calendar as any CalendarProtocol
         self.init(anyCalendar: anyCalendar, timeZone: timeZone, locale: locale)
     }
     
-    internal init(anyCalendar: CalendarProtocol, timeZone: TimeZone, locale: Locale) {
+    internal init(anyCalendar: any CalendarProtocol, timeZone: TimeZone, locale: Locale) {
         if anyCalendar.timeZone != timeZone || anyCalendar.locale != locale {
             var actualCalendar = anyCalendar.snapshot(forcedCopy: false)
             actualCalendar.timeZone = timeZone
