@@ -2,7 +2,7 @@ import XCTest
 @testable import Time
 
 class FixedTests: XCTestCase {
-
+    
     static var allTests = [
         ("testInitializingGregorianDateWithoutEraSucceeds", testInitializingGregorianDateWithoutEraSucceeds),
         ("testInitializingGregorianDateWithEraSucceeds", testInitializingGregorianDateWithEraSucceeds),
@@ -41,43 +41,43 @@ class FixedTests: XCTestCase {
         let year = try! Fixed<Year>(region: .posix, era: 1, year: 2020)
         let lastMonth = year.lastMonth
         let expectedlastMonth = try! Fixed<Month>(region: .posix, era:1, year: 2020, month: 12)
-
+        
         XCTAssertEqual(lastMonth, expectedlastMonth)
     }
-
+    
     func testLastDayOfMonth() {
         
         let month = try! Fixed<Month>(region: .posix, era: 1, year: 2020, month: 2)
         let lastDay = month.lastDay
         let expectedLastDay = try! Fixed<Day>(region: .posix, era:1, year: 2020, month: 2, day: 29)
-
+        
         XCTAssertEqual(lastDay, expectedLastDay)
     }
-
+    
     func testLastHourOfDay() {
         
         let day = try! Fixed<Day>(region: .posix, era: 1, year: 2020, month: 2, day: 29)
         let lastHour = day.lastHour
         let expectedlastHour = try! Fixed<Hour>(region: .posix, era:1, year: 2020, month: 2, day: 29, hour: 23)
-
+        
         XCTAssertEqual(lastHour, expectedlastHour)
     }
-
+    
     func testLastMinuteOfHour() {
         
         let hour = try! Fixed<Hour>(region: .posix, era: 1, year: 2020, month: 2, day: 29, hour: 13)
         let lastMinute = hour.lastMinute
         let expectedlastMinute = try! Fixed<Minute>(region: .posix, era:1, year: 2020, month: 2, day: 29, hour: 13, minute: 59)
-
+        
         XCTAssertEqual(lastMinute, expectedlastMinute)
     }
-
+    
     func testLastSecondOfMinute() {
         
         let minute = try! Fixed<Minute>(region: .posix, era: 1, year: 2020, month: 2, day: 29, hour: 13, minute: 31)
         let lastSecond = minute.lastSecond
         let expectedlastSecond = try! Fixed<Second>(region: .posix, era:1, year: 2020, month: 2, day: 29, hour: 13, minute: 31, second: 59)
-
+        
         XCTAssertEqual(lastSecond, expectedlastSecond)
     }
     
@@ -101,6 +101,21 @@ class FixedTests: XCTestCase {
         let minuteOfFirstSecond = firstSecond.fixedMinute
         let minuteOfSecondSecond = secondSecond.fixedMinute
         XCTAssertEqual(minuteOfFirstSecond, minuteOfSecondSecond)
+    }
+    
+    func testTotalMinutesCalculations() throws {
+        let today = Clocks.system.today
+        
+        var start = try today.firstMinute.setting(hour: 7, minute: 30)
+        var end = try today.firstMinute.setting(hour: 20, minute: 45)
+        XCTAssertEqual(start.differenceInWholeMinutes(to: end).minutes, 795)
+        
+        start = try start.setting(hour: 11, minute: 0)
+        end = try end.setting(hour: 17, minute: 0)
+        XCTAssertEqual(start.differenceInWholeMinutes(to: end).minutes, 360)
+        
+        end = try end.setting(hour: 11, minute: 30)
+        XCTAssertEqual(start.differenceInWholeMinutes(to: end).minutes, 30)
     }
     
     func testRounding() throws {
