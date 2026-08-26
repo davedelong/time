@@ -237,7 +237,7 @@ extension ClockStrikes {
         
         /// Set up a new Combine subscription for this `ClockStrikes`
         /// - Parameter subscriber: The subscriber that receives strike events
-        public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+        public func receive<S>(subscriber: S) where S: Subscriber, S: Sendable, Failure == S.Failure, Output == S.Input {
             let subscription = StrikesSubscription<S, U>(subscriber: subscriber,
                                                          clock: strikes.clock,
                                                          iterator: strikes.iterator)
@@ -258,6 +258,7 @@ extension ClockStrikes {
 private final class StrikesSubscription<SubscriberType, U>: Subscription, @unchecked Sendable
     where U: Unit,
           SubscriberType: Subscriber,
+          SubscriberType: Sendable,
           SubscriberType.Failure == ClockStrikes<U>.Publisher.Failure,
           SubscriberType.Input == ClockStrikes<U>.Publisher.Output {
     

@@ -6,17 +6,17 @@ import PackageDescription
 let package = Package(
     name: "Time",
     platforms: [
-        .macOS(.v13),
-        .iOS(.v16),
-        .tvOS(.v16),
-        .watchOS(.v9),
-        .macCatalyst(.v16),
+        .macOS(.v14),
+        .iOS(.v17),
+        .tvOS(.v17),
+        .watchOS(.v10),
+        .macCatalyst(.v17),
     ],
     products: [
         .library(name: "Time", targets: ["Time"])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.1.0")
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.5.0")
     ],
     targets: [
         .target(name: "Time", dependencies: []),
