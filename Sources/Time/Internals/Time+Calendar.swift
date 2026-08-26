@@ -68,7 +68,9 @@ extension CalendarProtocol {
         return self.range(of: smallest, containing: date)
     }
     
-    var isLikelyAutoupdating: Bool { self.isEquivalent(to: Calendar.autoupdatingCurrent) }
+    var isLikelyAutoupdating: Bool {
+        (self as? Calendar == .autoupdatingCurrent)
+    }
     
     var loggingDescription: String {
         if isEquivalent(to: Calendar.standard(identifier)) {

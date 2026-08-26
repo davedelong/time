@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal protocol CalendarProtocol: Sendable, CustomStringConvertible, CustomDebugStringConvertible {
+internal protocol CalendarProtocol: Sendable, CustomStringConvertible, CustomDebugStringConvertible, Hashable {
     var identifier: Calendar.Identifier { get }
     var timeZone: TimeZone { get set }
     var locale: Locale? { get set }
@@ -21,6 +21,17 @@ internal protocol CalendarProtocol: Sendable, CustomStringConvertible, CustomDeb
     func snapshot(forcedCopy: Bool) -> Self
     
     func maximumRange(of unit: Calendar.Component) -> Range<Int>?
+    
+    func isDateInWeekend(_ date: Date) -> Bool
+    func component(_ unit: Calendar.Component, from date: Date) -> Int
+    func ordinality(of unit: Calendar.Component, in larger: Calendar.Component, for date: Date) -> Int?
+    func date(byAdding components: DateComponents, to date: Date, wrappingComponents: Bool) -> Date?
+}
+
+extension CalendarProtocol {
+    func date(byAdding components: DateComponents, to date: Date) -> Date? {
+        self.date(byAdding: components, to: date, wrappingComponents: false)
+    }
 }
 
 extension Calendar: CalendarProtocol {

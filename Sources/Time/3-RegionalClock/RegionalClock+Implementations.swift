@@ -81,7 +81,7 @@ internal struct CustomClock: RegionalClock {
         self.clockStart = referenceInstant
         self.region = region
         self.rate = rate
-        self.SISecondsPerClockSecond = rate * region.calendar.SISecondsPerSecond
+        self.SISecondsPerClockSecond = rate * region.anyCalendar.SISecondsPerSecond
     }
     
     internal var now: Instant {

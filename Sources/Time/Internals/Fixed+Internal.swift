@@ -97,7 +97,7 @@ extension Fixed {
     
     internal func roundEra(direction: RoundingDirection) -> Self where Granularity: StandardUnit {
         // for gregorian calendars, this returns 0 ..< 2
-        guard let maxRange = self.calendar.maximumRange(of: .era) else { return self }
+        guard let maxRange = self.anyCalendar.maximumRange(of: .era) else { return self }
         
         // working with a closed range (0 ... 1) is much nicer
         let closedMaxRange = maxRange.lowerBound ... (maxRange.upperBound - 1)
@@ -113,7 +113,7 @@ extension Fixed {
     }
     
     internal func round<U: LTOEEra>(to unit: U.Type = U.self, direction: RoundingDirection) -> Self {
-        guard let maxRange = self.calendar.maximumRange(of: unit.component) else { return self }
+        guard let maxRange = self.anyCalendar.maximumRange(of: unit.component) else { return self }
         
         let roundedDown: Fixed<U> = self.truncated()
         let roundedDownStart = roundedDown.firstInstant
@@ -176,7 +176,7 @@ extension Fixed {
             fatalError("Unable to determine next unit larger from \(smallest)")
         }
         
-        let baseIterationRange = self.calendar.range(of: nextLargest, containing: self.instant.date)
+        let baseIterationRange = self.anyCalendar.range(of: nextLargest, containing: self.instant.date)
         
         let iterationStart = Self(region: self.region, date: baseIterationRange.lowerBound)
         
@@ -221,7 +221,7 @@ extension Fixed {
     
     internal func format<S>(_ style: FixedFormat<S>) -> String {
         let key = DateFormatter.Key(configuration: style.configuration,
-                                    calendar: self.region.calendar,
+                                    calendar: self.region.anyCalendar,
                                     locale: self.region.locale,
                                     timeZone: self.region.timeZone)
         

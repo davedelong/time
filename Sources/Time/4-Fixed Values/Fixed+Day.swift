@@ -54,7 +54,7 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
     /// Returns `true` if this fixed value is known to occur during the weekend.
     ///
     /// The definition of a "weekend" is supplied by the `Region`'s `Calendar`.
-    public var isWeekend: Bool { return calendar.isDateInWeekend(approximateMidPoint.date) }
+    public var isWeekend: Bool { return anyCalendar.isDateInWeekend(approximateMidPoint.date) }
     
     /// Returns `true` if this fixed value is known to *not* occur during the weekend.
     ///
@@ -71,7 +71,7 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
     /// Returns the numerical representation of the this value's day of the week.
     ///
     /// For the Gregorian calendar, 1 = Sunday, 2 = Monday, ... 7 = Saturday
-    public var dayOfWeek: Int { return calendar.component(.weekday, from: approximateMidPoint.date) }
+    public var dayOfWeek: Int { return anyCalendar.component(.weekday, from: approximateMidPoint.date) }
     
     /// Returns the day of the month on which this fixed value occurs.
     ///
@@ -83,13 +83,13 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
     ///
     /// For example, given a value that represents the first of February on the Gregorian calendar,
     /// this property returns "32".
-    public var dayOfYear: Int { return calendar.ordinality(of: .day, in: .year, for: approximateMidPoint.date)! }
+    public var dayOfYear: Int { return anyCalendar.ordinality(of: .day, in: .year, for: approximateMidPoint.date)! }
     
     /// Returns the ordinal of this fixed value's weekday within its month.
     ///
     /// For example, if this fixed value falls on the second "Friday" of a month on the Gregorian calendar,
     /// then `dayOfWeek` returns `6` ("Friday"), and this property returns `2` (the "second" Friday).
-    public var dayOfWeekOrdinal: Int { return calendar.component(.weekdayOrdinal, from: approximateMidPoint.date) }
+    public var dayOfWeekOrdinal: Int { return anyCalendar.component(.weekdayOrdinal, from: approximateMidPoint.date) }
     
     /// Returns the week of the month on which this fixed value occurs.
     ///
@@ -97,7 +97,7 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
     /// attributed to a different "week of the month" than the month in which the day occurs. For example, if January 31st is a Friday, then
     /// the following day (February 1st) wil likely belong to the same week of the month as the previous day (typically 4 or 5), even though they
     /// occur in distinct calendar months. The behavior of this property is determined by the `.calendar.firstWeekday` and `.calendar.minimumDaysInFirstWeek` properties.
-    public var weekOfMonth: Int { return calendar.component(.weekOfMonth, from: approximateMidPoint.date) }
+    public var weekOfMonth: Int { return anyCalendar.component(.weekOfMonth, from: approximateMidPoint.date) }
     
     /// Returns the week of the year on which this fixed value occurs.
     ///
@@ -107,5 +107,5 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
     /// attributed to a different "week of the year" than the year in which the day occurs. For example, if December 31st is a Friday, then
     /// the following day (January 1st) wil likely belong to the same week of the year as the previous day (typically 52 or 53), even though they
     /// occur in distinct calendar years. The behavior of this property is determined by the `.calendar.firstWeekday` and `.calendar.minimumDaysInFirstWeek` properties.
-    public var weekOfYear: Int { return calendar.component(.weekOfYear, from: approximateMidPoint.date) }
+    public var weekOfYear: Int { return anyCalendar.component(.weekOfYear, from: approximateMidPoint.date) }
 }

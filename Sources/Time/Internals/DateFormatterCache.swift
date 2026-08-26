@@ -9,10 +9,24 @@ internal enum FormatConfiguration: Hashable, Sendable {
 extension DateFormatter {
     
     internal struct Key: Hashable {
+        static func ==(lhs: Self, rhs: Self) -> Bool {
+            return lhs.configuration == rhs.configuration &&
+            lhs.calendar.isEquivalent(to: rhs.calendar) &&
+            lhs.locale == rhs.locale &&
+            lhs.timeZone == rhs.timeZone
+        }
+        
         let configuration: FormatConfiguration
-        let calendar: Calendar
+        let calendar: any CalendarProtocol
         let locale: Locale
         let timeZone: TimeZone
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(configuration)
+            hasher.combine(calendar.identifier)
+            hasher.combine(locale.identifier)
+            hasher.combine(timeZone.identifier)
+        }
     }
     
     internal static func formatter(for key: Key) -> DateFormatter {
@@ -50,7 +64,7 @@ private class DateFormatterCache: @unchecked Sendable {
         } else {
             let formatter = DateFormatter()
             formatter.locale = key.locale
-            formatter.calendar = key.calendar
+            formatter.calendar = key.calendar as! Calendar
             formatter.timeZone = key.timeZone
             switch key.configuration {
                 case .template(let template):

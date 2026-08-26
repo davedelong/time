@@ -24,7 +24,7 @@ extension Fixed where Granularity == Year {
     /// - Throws: A ``TimeError`` if the specified components cannot be converted into a calendar value.
     public init(region: Region, era: Int? = nil, year: Int) throws {
         let components = DateComponents(era: era, year: year)
-        if components.has(component: .era) == false && region.calendar.isEraRelevant {
+        if components.has(component: .era) == false && region.anyCalendar.isEraRelevant {
             throw TimeError.invalidDateComponents(components, units: [.era], in: region)
         }
         try self.init(region: region, strictDateComponents: components)

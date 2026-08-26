@@ -3,7 +3,7 @@ import Foundation
 extension Region {
     
     func isEquivalent(to other: Region) -> Bool {
-        return calendar.isEquivalent(to: other.calendar) &&
+        return anyCalendar.isEquivalent(to: other.anyCalendar) &&
                timeZone.isEquivalent(to: other.timeZone) &&
                locale.isEquivalent(to: other.locale)
     }

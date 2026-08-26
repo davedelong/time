@@ -100,29 +100,29 @@ public struct Region: Hashable, Sendable {
     
     public func setTimeZone(_ timeZone: TimeZone) -> Region {
         if timeZone == self.timeZone { return self }
-        return Region(calendar: self.calendar, timeZone: timeZone, locale: self.locale)
+        return Region(anyCalendar: self.anyCalendar, timeZone: timeZone, locale: self.locale)
     }
     
     public func setCalendar(_ calendar: Calendar) -> Region {
         if calendar == self.calendar { return self }
-        return Region(calendar: calendar, timeZone: self.timeZone, locale: self.locale)
+        return Region(anyCalendar: calendar, timeZone: self.timeZone, locale: self.locale)
     }
     
     public func setLocale(_ locale: Locale) -> Region {
         if locale == self.locale { return self }
-        return Region(calendar: self.calendar, timeZone: self.timeZone, locale: locale)
+        return Region(anyCalendar: self.anyCalendar, timeZone: self.timeZone, locale: locale)
     }
     
     internal func snapshot(forced: Bool) -> Region {
         if forced == false && self.isAutoupdating == false { return self }
         
-        return Region(calendar: calendar.snapshot(forcedCopy: forced),
+        return Region(anyCalendar: anyCalendar.snapshot(forcedCopy: forced),
                       timeZone: timeZone.snapshot(forcedCopy: forced),
                       locale: locale.snapshot(forcedCopy: forced))
     }
     
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(calendar.identifier)
+        hasher.combine(anyCalendar.identifier)
         hasher.combine(timeZone.identifier)
         hasher.combine(locale.identifier)
     }

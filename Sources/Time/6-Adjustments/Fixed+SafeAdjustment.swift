@@ -34,7 +34,7 @@ extension Fixed {
     public func applying(difference: TimeDifference<Granularity, Era>) -> Self {
         let d = self.range.lowerBound.date
         let diff = difference.dateComponents
-        let newDate = self.calendar.date(byAdding: diff, to: d).unwrap("Unable to add \(diff) to \(self)")
+        let newDate = self.anyCalendar.date(byAdding: diff, to: d).unwrap("Unable to add \(diff) to \(self)")
         return Self(region: self.region, date: newDate)
     }
     
