@@ -323,9 +323,11 @@ private final class StrikesSubscription<SubscriberType, U>: Subscription, @unche
     
     private func _withLock_performStrike(at time: Fixed<U>) -> (() -> Void)? {
         nextStrike = nil
+        // capture the subscriber locally because _withLock_scheduleNextString() might call cancel()
+        let localSub = self.subscriber
         let performNext = _withLock_scheduleNextStrike()
         
-        switch (performNext, self.subscriber) {
+        switch (performNext, localSub) {
             case (.none, .none):
                 return nil
             case (.some(let next), .none):
