@@ -104,6 +104,7 @@ public struct Region: Hashable, Sendable {
     }
     
     public func setCalendar(_ calendar: Calendar) -> Region {
+        // swiftlint:disable:next prefer-anycalendar
         if calendar == self.calendar { return self }
         return Region(anyCalendar: calendar, timeZone: self.timeZone, locale: self.locale)
     }

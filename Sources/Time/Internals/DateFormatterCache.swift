@@ -6,6 +6,8 @@ internal enum FormatConfiguration: Hashable, Sendable {
     case styles(DateFormatter.Style, DateFormatter.Style)
 }
 
+// swiftlint:disable prefer-anycalendar
+
 extension DateFormatter {
     
     internal struct Key: Hashable {

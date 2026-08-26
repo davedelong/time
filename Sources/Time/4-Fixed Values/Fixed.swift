@@ -37,16 +37,19 @@ public struct Fixed<Granularity: Unit & LTOEEra>: Sendable {
         return Self.representedComponents
     }
     
-    internal var anyCalendar: any CalendarProtocol { return region.anyCalendar }
+    internal var anyCalendar: any CalendarProtocol { region.anyCalendar }
     
     /// The `Calendar` used in computing this `Fixed` value's components, as defined by its `Region`.
-    public var calendar: Calendar { return region.calendar }
+    public var calendar: Calendar {
+        // swiftlint:disable:next prefer-anycalendar
+        return region.calendar
+    }
     
     /// The `TimeZone` used in computing this `Fixed` value's components, as defined by its `Region`.
-    public var timeZone: TimeZone { return region.timeZone }
+    public var timeZone: TimeZone { region.timeZone }
     
     /// The `Locale` used in computing this `Fixed` value's components, as defined by its `Region`.
-    public var locale: Locale { return region.locale }
+    public var locale: Locale { region.locale }
     
     /// The designated initializer for all Fixed values
     ///

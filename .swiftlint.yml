@@ -1,0 +1,46 @@
+# This is the list of built-in rules: https://realm.github.io/SwiftLint/rule-directory.html
+# Since we are using `only_rules`, all of these rules are DISABLED by default
+
+# These are the rules that will be checked
+only_rules:
+  - custom_rules
+  - function_body_length
+  - file_length
+
+# Case-sensitive paths to include during linting. Directory paths supplied on the
+# command line will be ignored.
+included:
+  - ".*\\.swift"
+  
+excluded: # case-sensitive paths to ignore during linting. Takes precedence over `included`
+  - Examples
+
+# If true, SwiftLint will not fail if no lintable files are found.
+allow_zero_lintable_files: false
+
+# If true, SwiftLint will treat all warnings as errors.
+strict: false
+
+# If true, SwiftLint will treat all errors as warnings.
+lenient: false
+
+reporter: "xcode" 
+
+function_body_length:
+  warning: 150
+  error: 300
+  
+file_length:
+  warning: 750
+  error: 1000
+
+custom_rules:
+  prefer-anycalendar:
+    name: "Prefer .anyCalendar"
+    # this regex:
+    # - disables dot-matching-newlines (?-s)
+    # - matches any line that does not start with (optional) whitespace and two slashes
+    # - and contains ".calendar" followed by a work boundary
+    regex: "(?-s)^(?!\\s*//).*\\.calendar\\b"
+    message: "Use .anyCalendar internally"
+    severity: error

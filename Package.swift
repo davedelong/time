@@ -16,10 +16,13 @@ let package = Package(
         .library(name: "Time", targets: ["Time"])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.5.0")
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.5.0"),
+        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.65.0")
     ],
     targets: [
-        .target(name: "Time", dependencies: []),
+        .target(name: "Time",
+                dependencies: [],
+                plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]),
         
         .testTarget(name: "TimeTests", dependencies: ["Time"]),
     ]

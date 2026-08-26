@@ -9,6 +9,7 @@ extension Locale {
         guard bcp47FirstWeekday == other.bcp47FirstWeekday else { return false }
         
         #else
+        // swiftlint:disable:next prefer-anycalendar
         guard calendar.identifier == other.calendar.identifier else { return false }
         guard collation == other.collation else { return false }
         guard currency == other.currency else { return false }

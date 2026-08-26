@@ -2,6 +2,7 @@ import Foundation
 
 extension Calendar.Component {
     
+    // swiftlint:disable:next prefer-anycalendar
     internal static let all: Array<Calendar.Component> = numericComponents + [.calendar, .timeZone]
     
     internal static let numericComponents: Array<Calendar.Component> = [
@@ -78,9 +79,11 @@ extension Calendar.Component {
             case .minute: return .minute
             case .second: return .second
             case .nanosecond: return .nanosecond
-                
+            
+            // swiftlint:disable prefer-anycalendar
             case .calendar:
                 fatalError("Invalid calendar component: .calendar")
+            // swiftlint:enable prefer-anycalendar
                 
             // TODO: replace @unknown after the "isLeapMonth" issue is resolved
             /* @unknown */ default: return .day

@@ -45,7 +45,10 @@ extension RegionalClock {
     internal var anyCalendar: any CalendarProtocol { region.anyCalendar }
     
     /// The `Calendar` used by the `RegionalClock`, as defined by its `region`.
-    public var calendar: Calendar { region.calendar }
+    public var calendar: Calendar {
+        // swiftlint:disable:next prefer-anycalendar
+        return region.calendar
+    }
     
     /// The `TimeZone` used by the `RegionalClock`, as defined by its `region`.
     public var timeZone: TimeZone { region.timeZone }

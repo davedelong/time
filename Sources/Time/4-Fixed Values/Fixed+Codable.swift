@@ -1,5 +1,7 @@
 import Foundation
 
+// swiftlint:disable prefer-anycalendar
+
 extension Region: Codable {
     private enum CodingKeys: String, CodingKey {
         case timeZone

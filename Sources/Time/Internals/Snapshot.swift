@@ -13,6 +13,7 @@ extension Locale {
         if auto.isEquivalent(to: standard) { return standard }
         var components = Locale.Components()
         
+        // swiftlint:disable:next prefer-anycalendar
         components.calendar = auto.calendar.identifier
         components.firstDayOfWeek = auto.firstDayOfWeek
         components.hourCycle = auto.hourCycle
