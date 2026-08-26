@@ -41,10 +41,16 @@ extension TimeZone {
     })
     
     func snapshot(forcedCopy: Bool) -> Self {
-        if forcedCopy == false && self != .autoupdatingCurrent { return self }
-        return Self.currentSnapshot.snapshot(forcedCopy: forcedCopy)
+        if self == .autoupdatingCurrent {
+            return Self.currentSnapshot.snapshot(forcedCopy: forcedCopy)
+        }
+        
+        if forcedCopy == false {
+            return self
+        } else {
+            return TimeZone.standard(self.identifier)
+        }
     }
-    
 }
 
 extension Calendar {

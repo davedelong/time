@@ -2,6 +2,15 @@
 
 A brief history of **Time**.
 
+## 1.0.2
+
+11 April, 2024
+
+- Fixed an issue where differences in whole values could produce values that were off by one unit
+- Fixed an issue where Fixed values created without an era would crash when attempting to access their ``Fixed/era``
+
+- [Github release](https://github.com/davedelong/time/releases/tag/1.0.2)
+
 ## 1.0.1
 
 10 March, 2024
