@@ -15,7 +15,7 @@ public struct Region: Hashable, Sendable {
     public static func ==(lhs: Self, rhs: Self) -> Bool {
         guard lhs.locale.isEquivalent(to: rhs.locale) else { return false }
         guard lhs.timeZone.isEquivalent(to: rhs.timeZone) else { return false }
-        guard lhs.calendar.isEquivalent(to: rhs.calendar) else { return false }
+        guard lhs.anyCalendar.isEquivalent(to: rhs.anyCalendar) else { return false }
         
         return true
     }
@@ -31,8 +31,10 @@ public struct Region: Hashable, Sendable {
     /// The "autoupdating" current region. This Region will automatically track changes to the user's selected time zone, calendar, and locale.
     public static let autoupdatingCurrent = Region(autoupdating: ())
     
+    internal let anyCalendar: any CalendarProtocol
+    
     /// The `Calendar` used in this `Region`.
-    public let calendar: Calendar
+    public var calendar: Calendar { anyCalendar as! Calendar }
     
     /// The `TimeZone` used in this `Region`.
     public let timeZone: TimeZone
@@ -43,7 +45,7 @@ public struct Region: Hashable, Sendable {
     internal let isAutoupdating: Bool
     
     private init(autoupdating: Void = ()) {
-        self.calendar = .autoupdatingCurrent
+        self.anyCalendar = Calendar.autoupdatingCurrent
         self.timeZone = .autoupdatingCurrent
         self.locale = .autoupdatingCurrent
         self.isAutoupdating = true
@@ -63,14 +65,19 @@ public struct Region: Hashable, Sendable {
     ///   - timeZone: The region's `TimeZone`
     ///   - locale: The region's `Locale`
     public init(calendar: Calendar, timeZone: TimeZone, locale: Locale) {
-        if calendar.timeZone != timeZone || calendar.locale != locale {
-            var actualCalendar = calendar.snapshot(forcedCopy: false)
+        let anyCalendar = calendar as CalendarProtocol
+        self.init(anyCalendar: anyCalendar, timeZone: timeZone, locale: locale)
+    }
+    
+    internal init(anyCalendar: CalendarProtocol, timeZone: TimeZone, locale: Locale) {
+        if anyCalendar.timeZone != timeZone || anyCalendar.locale != locale {
+            var actualCalendar = anyCalendar.snapshot(forcedCopy: false)
             actualCalendar.timeZone = timeZone
             actualCalendar.locale = locale
             
-            self.calendar = actualCalendar
+            self.anyCalendar = actualCalendar
         } else {
-            self.calendar = calendar.snapshot(forcedCopy: false)
+            self.anyCalendar = anyCalendar.snapshot(forcedCopy: false)
         }
         self.timeZone = timeZone.snapshot(forcedCopy: false)
         self.locale = locale.snapshot(forcedCopy: false)

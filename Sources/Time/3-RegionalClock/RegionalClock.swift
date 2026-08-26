@@ -42,6 +42,8 @@ extension RegionalClock {
 
 extension RegionalClock {
     
+    internal var anyCalendar: any CalendarProtocol { region.anyCalendar }
+    
     /// The `Calendar` used by the `RegionalClock`, as defined by its `region`.
     public var calendar: Calendar { region.calendar }
     
@@ -94,7 +96,7 @@ extension RegionalClock {
     /// - Parameter calendar: The `Calendar` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `Calendar`.
     public func converted(to calendar: Calendar) -> any RegionalClock {
-        if calendar.isEquivalent(to: self.calendar) { return self }
+        if anyCalendar.isEquivalent(to: self.anyCalendar) { return self }
         let newRegion = self.region.setCalendar(calendar)
         return self.converted(to: newRegion)
     }

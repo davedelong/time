@@ -37,6 +37,8 @@ public struct Fixed<Granularity: Unit & LTOEEra>: Sendable {
         return Self.representedComponents
     }
     
+    internal var anyCalendar: any CalendarProtocol { return region.anyCalendar }
+    
     /// The `Calendar` used in computing this `Fixed` value's components, as defined by its `Region`.
     public var calendar: Calendar { return region.calendar }
     
@@ -59,7 +61,7 @@ public struct Fixed<Granularity: Unit & LTOEEra>: Sendable {
     /// - Parameter region: The `Region` in which to interpret the point in time
     /// - Parameter instant: The `Instant` that is contained by the constructed `Fixed` value
     public init(region: Region, instant: Instant) {
-        let dateComponents = region.calendar.dateComponents(in: region.timeZone, from: instant.date)
+        let dateComponents = region.anyCalendar.dateComponents(in: region.timeZone, from: instant.date)
                                             .restrict(to: Self.representedComponents)
         self.init(region: region, instant: instant, components: dateComponents)
     }
@@ -68,7 +70,7 @@ public struct Fixed<Granularity: Unit & LTOEEra>: Sendable {
     /// - Parameter region: The `Region` in which to interpret the point in time
     /// - Parameter instant: The `Date` that is contained by the constructed `Fixed` value
     public init(region: Region, date: Foundation.Date) {
-        let dateComponents = region.calendar.dateComponents(in: region.timeZone, from: date)
+        let dateComponents = region.anyCalendar.dateComponents(in: region.timeZone, from: date)
                                             .restrict(to: Self.representedComponents)
         self.init(region: region, instant: Instant(date: date), components: dateComponents)
     }
@@ -88,7 +90,7 @@ public struct Fixed<Granularity: Unit & LTOEEra>: Sendable {
     /// - Parameter region: The `Region` in which to interpret the date components
     /// - Parameter strictDateComponents: The `DateComponents` describing the desired calendrical date
     public init(region: Region, strictDateComponents: DateComponents) throws {
-        let (date, actualComponents) = try region.calendar.exactDate(from: strictDateComponents,
+        let (date, actualComponents) = try region.anyCalendar.exactDate(from: strictDateComponents,
                                                                      in: region.timeZone,
                                                                      matching: Self.representedComponents)
         self.init(region: region, instant: Instant(date: date), components: actualComponents)

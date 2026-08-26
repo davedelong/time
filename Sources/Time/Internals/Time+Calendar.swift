@@ -1,7 +1,6 @@
 import Foundation
 
-extension Calendar {
-    static let eraRelevance = SimpleCache<Calendar.Identifier, Bool>()
+extension CalendarProtocol {
     
     /// Different calendars may have different definitions of what a "second" is.
     /// For example, on Earth, calendars all have the convention that one calendar-second
@@ -20,7 +19,7 @@ extension Calendar {
     /// The relevancy of the era is taken into account when doing default formatting
     /// of calendar Values.
     internal var isEraRelevant: Bool {
-        Self.eraRelevance.get(identifier, create: {
+        eraRelevance.get(identifier, create: {
             (maximumRange(of: .era)?.upperBound ?? 0) > 2
         })
     }
@@ -35,7 +34,7 @@ extension Calendar {
         restrictedComponents.timeZone = timeZone
         
         guard let proposedDate = self.date(from: restrictedComponents) else {
-            let r = Region(calendar: self, timeZone: timeZone, locale: self.locale ?? .current)
+            let r = Region(anyCalendar: self, timeZone: timeZone, locale: self.locale ?? .current)
             throw TimeError.invalidDateComponents(restrictedComponents, in: r)
         }
         
@@ -54,7 +53,7 @@ extension Calendar {
             if unit == .nanosecond { continue }
             
             guard proposedComponents.value(for: unit) == restrictedComponents.value(for: unit) else {
-                let r = Region(calendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)
+                let r = Region(anyCalendar: self, timeZone: self.timeZone, locale: self.locale ?? .current)
                 throw TimeError.invalidDateComponents(restrictedComponents, in: r)
             }
         }
@@ -64,30 +63,12 @@ extension Calendar {
         return (proposedDate, actualComponents)
     }
     
-    internal func range(of unit: Calendar.Component, containing date: Date) -> Range<Date> {
-        var start = Date()
-        var length: TimeInterval = 0
-        let succeeded = self.dateInterval(of: unit, start: &start, interval: &length, for: date)
-        require(succeeded, "We should always be able to get the range of a calendar component")
-        
-        return start ..< start.addingTimeInterval(length)
-    }
-    
     internal func range(containing date: Date, in units: Set<Calendar.Component>) -> Range<Date> {
         let smallest = Calendar.Component.smallest(from: units)
         return self.range(of: smallest, containing: date)
     }
     
-    func isEquivalent(to other: Calendar) -> Bool {
-        guard identifier == other.identifier else { return false }
-        guard timeZone.isEquivalent(to: other.timeZone) else { return false }
-        guard firstWeekday == other.firstWeekday else { return false }
-        guard minimumDaysInFirstWeek == other.minimumDaysInFirstWeek else { return false }
-        
-        return true
-    }
-    
-    var isLikelyAutoupdating: Bool { self == .autoupdatingCurrent }
+    var isLikelyAutoupdating: Bool { self.isEquivalent(to: Calendar.autoupdatingCurrent) }
     
     var loggingDescription: String {
         if isEquivalent(to: Calendar.standard(identifier)) {
@@ -97,6 +78,8 @@ extension Calendar {
     }
     
 }
+
+private let eraRelevance = SimpleCache<Calendar.Identifier, Bool>()
 
 extension Calendar.Identifier {
     
