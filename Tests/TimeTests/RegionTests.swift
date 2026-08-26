@@ -21,7 +21,7 @@ class RegionTests: XCTestCase {
     func testCannotCreateAutoupdatingRegion() {
         let auto = Region.autoupdatingCurrent
         XCTAssertTrue(auto.isAutoupdating)
-        XCTAssertTrue(auto.calendar.isLikelyAutoupdating)
+        XCTAssertTrue(auto.anyCalendar.isLikelyAutoupdating)
         XCTAssertTrue(auto.timeZone.isLikelyAutoupdating)
         XCTAssertTrue(auto.locale.isLikelyAutoupdating)
         
@@ -31,7 +31,7 @@ class RegionTests: XCTestCase {
         
         XCTAssertEqual(auto, autoAttempt)
         XCTAssertFalse(autoAttempt.isAutoupdating)        
-        XCTAssertFalse(autoAttempt.calendar.isLikelyAutoupdating)
+        XCTAssertFalse(autoAttempt.anyCalendar.isLikelyAutoupdating)
         XCTAssertFalse(autoAttempt.timeZone.isLikelyAutoupdating)
         XCTAssertFalse(autoAttempt.locale.isLikelyAutoupdating)
     }

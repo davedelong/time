@@ -16,6 +16,7 @@ internal protocol CalendarProtocol: Sendable, CustomStringConvertible, CustomDeb
     
     func date(from dateComponents: DateComponents) -> Date?
     func dateComponents(in timeZone: TimeZone, from date: Date) -> DateComponents
+    func dateComponents(_ unit: Set<Calendar.Component>, from start: Date, to end: Date) -> DateComponents
     func range(of unit: Calendar.Component, containing date: Date) -> Range<Date>
     
     func snapshot(forcedCopy: Bool) -> Self

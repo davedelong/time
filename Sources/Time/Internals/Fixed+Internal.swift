@@ -80,18 +80,18 @@ extension Fixed {
     }
     
     internal func computeWholeDifference<U: Unit>(to other: Fixed<Granularity>) -> TimeDifference<U, U> {
-        let difference = calendar.dateComponents([U.component],
-                                                 from: self.firstInstant.date,
-                                                 to: other.firstInstant.date)
+        let difference = anyCalendar.dateComponents([U.component],
+                                                    from: self.firstInstant.date,
+                                                    to: other.firstInstant.date)
         return TimeDifference(difference)
     }
     
     internal func computeDifference<Min: Unit, Max: Unit>(to other: Fixed<Granularity>) -> TimeDifference<Min, Max> {
         
         let units = Calendar.Component.from(lower: Min.self, to: Max.self)
-        let difference = calendar.dateComponents(units,
-                                                 from: self.firstInstant.date,
-                                                 to: other.firstInstant.date)
+        let difference = anyCalendar.dateComponents(units,
+                                                    from: self.firstInstant.date,
+                                                    to: other.firstInstant.date)
         return TimeDifference(difference)
     }
     

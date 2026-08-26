@@ -17,7 +17,7 @@ internal struct FixedFormat<Granularity: Unit & LTOEEra>: Sendable {
         self.configuration = .template(templates.compactMap { $0?.template }.joined())
     }
     
-    init(naturalFormats calendar: Calendar) {
+    init(naturalFormats calendar: any CalendarProtocol) {
         let formats = Fixed<Granularity>.naturalFormats(in: calendar)
         self.init(templates: formats)
     }

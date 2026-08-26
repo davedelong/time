@@ -6,7 +6,7 @@ internal protocol Format {
 
 extension Fixed {
     
-    static func naturalFormats(in calendar: Calendar) -> Array<Format?> {
+    static func naturalFormats(in calendar: any CalendarProtocol) -> Array<Format?> {
         var f = Array<Format?>()
         
         let order = Calendar.Component.descendingOrder

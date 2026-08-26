@@ -134,7 +134,7 @@ extension Fixed: CustomStringConvertible, CustomDebugStringConvertible {
     ///
     /// The description is a localized "natural" formatting of the calendar value.
     public var description: String {
-        let style = FixedFormat<Granularity>(naturalFormats: calendar)
+        let style = FixedFormat<Granularity>(naturalFormats: anyCalendar)
         return format(style)
     }
     
@@ -143,7 +143,7 @@ extension Fixed: CustomStringConvertible, CustomDebugStringConvertible {
             "timestamp: \(instant.debugDescription)",
             "components: \(dateComponents.loggingDescription)",
             "locale: \(locale.loggingDescription)",
-            "calendar: \(calendar.loggingDescription)",
+            "calendar: \(anyCalendar.loggingDescription)",
             "timeZone: \(timeZone.identifier)"
         ].joined(separator: ", ") + " }"
     }

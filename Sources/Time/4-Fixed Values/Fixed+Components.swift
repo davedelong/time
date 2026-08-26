@@ -10,7 +10,7 @@ extension Fixed {
     /// - is this calendar value contained within this other calendar value?
     /// - etc
     public var range: Range<Instant> {
-        let range = calendar.range(of: Granularity.component, containing: self.instant.date)
+        let range = anyCalendar.range(of: Granularity.component, containing: self.instant.date)
         
         return Instant(date: range.lowerBound) ..< Instant(date: range.upperBound)
     }

@@ -16,7 +16,7 @@ import Foundation
 #if swift(>=5.8)
 @_documentation(visibility: internal)
 #endif
-public protocol Unit: Sendable {
+public protocol Unit: Sendable, SendableMetatype {
     static var _closer: ProtocolCloser<Self> { get }
     
     /// The `Calendar.Component` that this unit represents

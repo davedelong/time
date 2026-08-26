@@ -144,7 +144,7 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
     /// For the Gregorian calendar, 1 = Sunday, 2 = Monday, ... 7 = Saturday
     /// - Returns: A fixed value whose `.dayOfWeek` is equal to the `dayOfWeek` parameter.
     public func next(dayOfWeek: Int) -> Self {
-        let daysInWeek = calendar.maximumRange(of: .weekday) ?? 1 ..< 8
+        let daysInWeek = anyCalendar.maximumRange(of: .weekday) ?? 1 ..< 8
         var day = dayOfWeek
         while day < daysInWeek.lowerBound { day += daysInWeek.count }
         day %= daysInWeek.count

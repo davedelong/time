@@ -83,7 +83,7 @@ extension Fixed {
     /// - Throws: A ``TimeError`` if the conversion could not be completed
     /// - Warning: This operation may fail for many possible reasons and should be used with care. For full details, see ``ConversionBehavior``.
     public func converted(to timeZone: TimeZone, behavior: ConversionBehavior) throws -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        let newRegion = Region(anyCalendar: anyCalendar, timeZone: timeZone, locale: locale)
         return try self.converted(to: newRegion, behavior: behavior)
     }
     
@@ -104,7 +104,7 @@ extension Fixed {
     ///
     /// Changing a fixed value's locale affects how the value is formatted. It does not change the underlying components.
     public func converted(to locale: Locale) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        let newRegion = Region(anyCalendar: anyCalendar, timeZone: timeZone, locale: locale)
         return Self(region: newRegion, instant: self.instant, components: self.dateComponents)
     }
     
@@ -122,7 +122,7 @@ extension Fixed where Granularity: GTOEDay {
     /// - Throws: Throws a ``TimeError`` if the underlying components do not exist in the specified `timeZone`. For example,
     /// converting "30 December 2011" to the `Pacific/Apia` time zone throws an error, because that day did not exist in that time zone.
     public func converted(to timeZone: TimeZone) throws -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        let newRegion = Region(anyCalendar: anyCalendar, timeZone: timeZone, locale: locale)
         return try Self(region: newRegion, strictDateComponents: self.dateComponents)
     }
     
@@ -139,7 +139,7 @@ extension Fixed where Granularity: LTOEDay {
     /// and when months change, etc. Therefore, it is not possible to map "February 2024" to a non-gregorian calendar, since
     /// there is not a guaranteed correspondance between their underlying `Range<Instant>` values.
     public func converted(to calendar: Calendar) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        let newRegion = Region(anyCalendar: calendar, timeZone: timeZone, locale: locale)
         return Self(region: newRegion, instant: self.approximateMidPoint)
     }
     
@@ -156,7 +156,7 @@ extension Fixed where Granularity: LTOEHour {
     /// - Parameter timeZone: The new time zone of the resulting fixed value
     /// - Returns: A fixed value representing the same range of time in a different `TimeZone`.
     public func converted(to timeZone: TimeZone) -> Self {
-        let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
+        let newRegion = Region(anyCalendar: anyCalendar, timeZone: timeZone, locale: locale)
         return Self(region: newRegion, instant: self.firstInstant)
     }
     
