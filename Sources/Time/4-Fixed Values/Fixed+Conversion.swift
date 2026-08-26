@@ -17,12 +17,19 @@ public enum ConversionBehavior {
     /// Similarly, a fixed value representing a 13th month on a lunisolar calendar would fail
     /// when converted to a gregorian region.
     ///
-    /// - Warning: In general, this operation only makes sense to perform on fixed values that represent a day (or larger) range.
+    /// In general, you should use this to answer the question: "if it's 2 PM in Rome, when will it be 2 PM in Los Angeles?". That
+    /// question wants to preserve the *components* (eg "2 PM"), while allowing the underlying *range* to change.
+    ///
+    /// - Warning: In general, this operation only makes sense to perform on fixed values that share the same calendar.
     case preservingComponents
     
     /// When converting a fixed value, the ``Fixed/range`` should be preserved.
     ///
-    /// This operation represents answering the question "if it's 2 PM in Los Angeles, what time is it in Rome?".
+    /// This operation represents answering the question "if it's 2 PM in Los Angeles, what time is it in Rome?". This question
+    /// requests preserving the *range* (the hour's duration), while asking for the *components* to change.
+    ///
+    /// This operation can also answer the question "what is this particular's day representation in a different calendar?". Again,
+    /// this question want's the *range* to stay the same (the day's duration), while allowing for the date components to change.
     ///
     /// - Warning: In general, this operation only makes sense to perform on fixed values that represent a day (or smaller) range.
     /// Attempting to use this on larger units (months, years, and eras) will likely result in a thrown ``TimeError``, since most calendars
@@ -57,6 +64,7 @@ extension Fixed {
                 let startValue = Fixed(region: newRegion, instant: currentRange.lowerBound)
                 if startValue.range == currentRange { return startValue }
                 
+                // we just checked the lower bound; see if converting the instant works
                 if self.instant != currentRange.lowerBound {
                     let instantValue = Fixed(region: newRegion, instant: self.instant)
                     if instantValue.range == currentRange { return instantValue }
