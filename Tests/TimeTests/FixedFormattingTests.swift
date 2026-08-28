@@ -55,8 +55,8 @@ class FixedFormattingTests: XCTestCase {
         XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .naturalName), "January 2001 AD")
         XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .abbreviatedName), "Jan 2001 AD")
         XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .narrowName), "J 2001 AD")
-        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .naturalDigits), "1 2001 AD")
-        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .twoDigits), "01 2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .naturalDigits), "1/2001 AD")
+        XCTAssertEqual(v.format(era: .abbreviated, year: .naturalDigits, month: .twoDigits), "01/2001 AD")
     }
     
     func testDayFormatting() {
