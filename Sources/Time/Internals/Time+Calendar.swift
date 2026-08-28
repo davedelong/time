@@ -85,54 +85,59 @@ private let eraRelevance = SimpleCache<Calendar.Identifier, Bool>()
 
 extension Calendar.Identifier {
     
+    static let encodingNames: Bimap<Self, String> = {
+        var map: Bimap<Self, String> = [
+            .gregorian: "gregorian",
+            .buddhist: "buddhist",
+            .chinese: "chinese",
+            .coptic: "coptic",
+            .ethiopicAmeteMihret: "ethiopic",
+            .ethiopicAmeteAlem: "ethiopic-amete-alem",
+            .hebrew: "hebrew",
+            .iso8601: "iso8601",
+            .indian: "indian",
+            .islamic: "islamic",
+            .islamicCivil: "islamic-civil",
+            .japanese: "japanese",
+            .persian: "persian",
+            .republicOfChina: "roc",
+            .islamicTabular: "islamic-tbla",
+            .islamicUmmAlQura: "islamic-umalqura",
+        ]
+        
+        if #available(macOS 26, iOS 26, tvOS 26, watchOS 26, *) {
+            map[.bangla] = "bangla"
+            map[.gujarati] = "gujarati"
+            map[.kannada] = "kannada"
+            map[.malayalam] = "malayalam"
+            map[.marathi] = "marathi"
+            map[.odia] = "odia"
+            map[.tamil] = "tamil"
+            map[.telugu] = "telugu"
+            map[.vikram] = "vikram"
+            map[.dangi] = "dangi"
+            map[.vietnamese] = "vietnamese"
+        }
+        return map
+    }()
+    
     var encodingIdentifier: String {
         get throws {
-            switch self {
-                case .gregorian: return "gregorian"
-                case .buddhist: return "buddhist"
-                case .chinese: return "chinese"
-                case .coptic: return "coptic"
-                case .ethiopicAmeteMihret: return "ethiopic"
-                case .ethiopicAmeteAlem: return "ethiopic-amete-alem"
-                case .hebrew: return "hebrew"
-                case .iso8601: return "iso8601"
-                case .indian: return "indian"
-                case .islamic: return "islamic"
-                case .islamicCivil: return "islamic-civil"
-                case .japanese: return "japanese"
-                case .persian: return "persian"
-                case .republicOfChina: return "roc"
-                case .islamicTabular: return "islamic-tbla"
-                case .islamicUmmAlQura: return "islamic-umalqura"
-                default:
-                    let ctx = EncodingError.Context(codingPath: [], debugDescription: "Unknown calendar identifier: '\(self)'")
-                    throw TimeError.encodingError(EncodingError.invalidValue(self, ctx))
+            guard let identifier = Self.encodingNames[self] else {
+                let ctx = EncodingError.Context(codingPath: [], debugDescription: "Unknown calendar identifier: '\(self)'")
+                throw TimeError.encodingError(EncodingError.invalidValue(self, ctx))
             }
+            return identifier
         }
     }
     
     init(encodingIdentifier: String) throws {
-        switch encodingIdentifier {
-            case "gregorian": self = .gregorian
-            case "buddhist": self = .buddhist
-            case "chinese": self = .chinese
-            case "coptic": self = .coptic
-            case "ethiopic": self = .ethiopicAmeteMihret
-            case "ethiopic-amete-alem": self = .ethiopicAmeteAlem
-            case "hebrew": self = .hebrew
-            case "iso8601": self = .iso8601
-            case "indian": self = .indian
-            case "islamic": self = .islamic
-            case "islamic-civil": self = .islamicCivil
-            case "japanese": self = .japanese
-            case "persian": self = .persian
-            case "roc": self = .republicOfChina
-            case "islamic-tbla": self = .islamicTabular
-            case "islamic-umalqura": self = .islamicUmmAlQura
-            default:
-                let ctx = DecodingError.Context(codingPath: [], debugDescription: "Unknown calendar identifier: '\(encodingIdentifier)'")
-                throw TimeError.decodingError(DecodingError.dataCorrupted(ctx))
+        guard let id = Self.encodingNames[encodingIdentifier] else {
+            let ctx = DecodingError.Context(codingPath: [], debugDescription: "Unknown calendar identifier: '\(encodingIdentifier)'")
+            throw TimeError.decodingError(DecodingError.dataCorrupted(ctx))
         }
+        
+        self = id
     }
     
 }
