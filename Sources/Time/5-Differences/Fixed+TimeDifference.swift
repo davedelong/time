@@ -48,6 +48,14 @@ extension Fixed where Granularity: LTOEYear {
         return computeWholeDifference(to: other)
     }
     
+    /// Compute the difference in whole years from this value to another fixe value as an integer.
+    ///
+    /// - SeeAlso: ``differenceInWholeYears(to:)->TimeDifference<Year,Year>
+    @_disfavoredOverload
+    public func differenceInWholeYears(to other: Self) -> Int {
+        return differenceInWholeYears(to: other).years
+    }
+    
 }
 
 extension Fixed where Granularity: LTOEMonth {
@@ -62,6 +70,14 @@ extension Fixed where Granularity: LTOEMonth {
     /// - Returns: A ``TimeDifference`` that describes the difference in whole months between the two fixed values.
     public func differenceInWholeMonths(to other: Self) -> TimeDifference<Month, Month> {
         return computeWholeDifference(to: other)
+    }
+    
+    /// Compute the difference in whole months from this value to another fixe value as an integer.
+    ///
+    /// - SeeAlso: ``differenceInWholeMonths(to:)->TimeDifference<Month,Month>``
+    @_disfavoredOverload
+    public func differenceInWholeMonths(to other: Self) -> Int {
+        return self.differenceInWholeMonths(to: other).months
     }
     
 }
@@ -80,6 +96,14 @@ extension Fixed where Granularity: LTOEDay {
         return computeWholeDifference(to: other)
     }
     
+    /// Compute the difference in whole days from this value to another fixe value as an integer.
+    ///
+    /// - SeeAlso: ``differenceInWholeDays(to:)->TimeDifference<Day,Day>``
+    @_disfavoredOverload
+    public func differenceInWholeDays(to other: Self) -> Int {
+        return self.differenceInWholeDays(to: other).days
+    }
+    
 }
 
 extension Fixed where Granularity: LTOEHour {
@@ -94,6 +118,14 @@ extension Fixed where Granularity: LTOEHour {
     /// - Returns: A ``TimeDifference`` that describes the difference in whole hours between the two fixed values.
     public func differenceInWholeHours(to other: Self) -> TimeDifference<Hour, Hour> {
         return computeWholeDifference(to: other)
+    }
+    
+    /// Compute the difference in whole hours from this value to another fixe value as an integer.
+    ///
+    /// - SeeAlso: ``differenceInWholeHours(to:)->TimeDifference<Hour,Hour>``
+    @_disfavoredOverload
+    public func differenceInWholeHours(to other: Self) -> Int {
+        return self.differenceInWholeHours(to: other).hours
     }
     
 }
@@ -112,6 +144,14 @@ extension Fixed where Granularity: LTOEMinute {
         return computeWholeDifference(to: other)
     }
     
+    /// Compute the difference in whole minutes from this value to another fixe value as an integer.
+    ///
+    /// - SeeAlso: ``differenceInWholeMinutes(to:)->TimeDifference<Minute,Minute>``
+    @_disfavoredOverload
+    public func differenceInWholeMinutes(to other: Self) -> Int {
+        return self.differenceInWholeMinutes(to: other).minutes
+    }
+    
 }
 
 extension Fixed where Granularity: LTOESecond {
@@ -126,6 +166,14 @@ extension Fixed where Granularity: LTOESecond {
     /// - Returns: A ``TimeDifference`` that describes the difference in whole seconds between the two fixed values.
     public func differenceInWholeSeconds(to other: Self) -> TimeDifference<Second, Second> {
         return computeWholeDifference(to: other)
+    }
+    
+    /// Compute the difference in whole seconds from this value to another fixe value as an integer.
+    ///
+    /// - SeeAlso: ``differenceInWholeSeconds(to:)->TimeDifference<Second,Second>``
+    @_disfavoredOverload
+    public func differenceInWholeSeconds(to other: Self) -> Int {
+        return self.differenceInWholeSeconds(to: other).seconds
     }
     
 }
