@@ -7,35 +7,22 @@ on:
 
 jobs:
 
-  linux:
+  debug-build:
+    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        image: 
-          - "swift:5.7.2"
-    name: Linux
-    runs-on: ubuntu-latest
-    container:
-      image: ${{ matrix.image }}
+        os: [ubuntu-latest, macos-latest]
+        swift: ["5.7", "6.2", "latest"]
+    runs-on: ${{ matrix.os }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Swift Version
-      run: swift --version
-    - name: Debug Build
-      run: swift build -v -c debug
-    - name: Debug Test
-      run: swift test -v -c debug --enable-test-discovery
-
-  macos:
-    name: MacOS
-    runs-on: macos-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Swift Version
-      run: swift --version
-    - name: Debug Build
-      run: swift build -v -c debug
-    - name: Debug Test
-      run: swift test -v -c debug --enable-test-discovery
+      - uses: swift-actions/setup-swift@v2.4.0
+        with:
+          swift-version: ${{ matrix.swift }}
+      - uses: actions/checkout@v7
+      - name: Swift Version
+        run: swift --version
+      - name: Debug Build
+        run: swift build -v -c debug
+      - name: Debug Test
+        run: swift test -v -c debug --enable-test-discovery
