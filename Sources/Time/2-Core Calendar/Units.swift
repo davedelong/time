@@ -10,13 +10,19 @@ import Foundation
 
 // the @_documentation attribute is from https://github.com/apple/swift/pull/60242
 
+#if os(Linux)
+public typealias _TimeSendable = Sendable
+#else
+public typealias _TimeSendable = Sendable & SendableMetatype
+#endif
+
 /// The base protocol for defining calendrical units
 ///
 /// - Warning: You may not implement this protocol.
 #if swift(>=5.8)
 @_documentation(visibility: internal)
 #endif
-public protocol Unit: Sendable, SendableMetatype {
+public protocol Unit: _TimeSendable {
     static var _closer: ProtocolCloser<Self> { get }
     
     /// The `Calendar.Component` that this unit represents

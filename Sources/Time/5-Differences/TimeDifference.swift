@@ -1,4 +1,8 @@
+#if os(Linux)
+@preconcurrency import Foundation
+#else
 import Foundation
+#endif
 
 /// `TimeDifference` is a type used for expressing the difference between two fixed values and adjusting them forward or backwards in time.
 ///

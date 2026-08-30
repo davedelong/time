@@ -1,4 +1,8 @@
+#if os(Linux)
+@preconcurrency import Foundation
+#else
 import Foundation
+#endif
 
 internal enum FormatConfiguration: Hashable, Sendable {
     case template(String)

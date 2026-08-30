@@ -1,4 +1,8 @@
+#if os(Linux)
+@preconcurrency import Foundation
+#else
 import Foundation
+#endif
 
 /// A `Fixed<U>` is a type that corresponds to one (and only one) value on a physical calendar. When you think of "a calendar value", you're thinking of a `Fixed<U>`.
 ///

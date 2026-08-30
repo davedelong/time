@@ -1,4 +1,8 @@
+#if os(Linux)
+@preconcurrency import Foundation
+#else
 import Foundation
+#endif
 
 /// A convenient way to specify general formats for fixed values.
 public struct FixedFormatStyle: Hashable, Sendable {

@@ -5,9 +5,13 @@
 //  Created by Dave DeLong on 8/26/26.
 //
 
+#if os(Linux)
+@preconcurrency import Foundation
+#else
 import Foundation
+#endif
 
-internal protocol CalendarProtocol: Sendable, CustomStringConvertible, CustomDebugStringConvertible, Hashable {
+internal protocol CalendarProtocol: _TimeSendable, CustomStringConvertible, CustomDebugStringConvertible, Hashable {
     var identifier: Calendar.Identifier { get }
     var timeZone: TimeZone { get set }
     var locale: Locale? { get set }
