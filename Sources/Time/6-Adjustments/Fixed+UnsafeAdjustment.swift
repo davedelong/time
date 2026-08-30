@@ -12,7 +12,7 @@ extension Fixed where Granularity: LTOEYear {
     /// `try aFixedDay.setting(year: -1)` would throw an error, because no supported calendar produces negative-numbered years.
     /// As another example, `try february29.setting(year: 2023)` would throw an error, because 2023 on the gregorian calendar
     /// was not a leap year, and February 29th did not exist that year.
-    public func setting(year: Int) throws -> Self {
+    public func setting(year: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year))
     }
     
@@ -26,7 +26,7 @@ extension Fixed where Granularity: LTOEMonth {
     ///   - month: The new month value
     /// - Returns: A new fixed value with the specified year and month
     /// - Throws: Throws a ``TimeError`` if setting the year and month would result in a non-existent date.
-    public func setting(year: Int, month: Int) throws -> Self {
+    public func setting(year: Int, month: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month))
     }
     
@@ -35,7 +35,7 @@ extension Fixed where Granularity: LTOEMonth {
     ///   - month: The new month value
     /// - Returns: A new fixed value with the specified month
     /// - Throws: Throws a ``TimeError`` if setting the month would result in a non-existent date.
-    public func setting(month: Int) throws -> Self {
+    public func setting(month: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(month: month))
     }
     
@@ -50,7 +50,7 @@ extension Fixed where Granularity: LTOEDay {
     ///   - day: The new day value
     /// - Returns: A new fixed value with the specified year, month, and day
     /// - Throws: Throws a ``TimeError`` if setting the year, month, and day would result in a non-existent date.
-    public func setting(year: Int, month: Int, day: Int) throws -> Self {
+    public func setting(year: Int, month: Int, day: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day))
     }
     
@@ -60,7 +60,7 @@ extension Fixed where Granularity: LTOEDay {
     ///   - day: The new day value
     /// - Returns: A new fixed value with the specified month and day
     /// - Throws: Throws a ``TimeError`` if setting the month and day would result in a non-existent date.
-    public func setting(month: Int, day: Int) throws -> Self {
+    public func setting(month: Int, day: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(month: month, day: day))
     }
     
@@ -69,7 +69,7 @@ extension Fixed where Granularity: LTOEDay {
     ///   - day: The new day value
     /// - Returns: A new fixed value with the specified day
     /// - Throws: Throws a ``TimeError`` if setting the day would result in a non-existent date.
-    public func setting(day: Int) throws -> Self {
+    public func setting(day: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(day: day))
     }
     
@@ -85,7 +85,7 @@ extension Fixed where Granularity: LTOEHour {
     ///   - hour: The new hour value
     /// - Returns: A new fixed value with the specified year, month, day, and hour
     /// - Throws: Throws a ``TimeError`` if setting the year, month, day, and hour would result in a non-existent date.
-    public func setting(year: Int, month: Int, day: Int, hour: Int) throws -> Self {
+    public func setting(year: Int, month: Int, day: Int, hour: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day, hour: hour))
     }
     
@@ -96,7 +96,7 @@ extension Fixed where Granularity: LTOEHour {
     ///   - hour: The new hour value
     /// - Returns: A new fixed value with the specified month, day, and hour
     /// - Throws: Throws a ``TimeError`` if setting the month, day, and hour would result in a non-existent date.
-    public func setting(month: Int, day: Int, hour: Int) throws -> Self {
+    public func setting(month: Int, day: Int, hour: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(month: month, day: day, hour: hour))
     }
     
@@ -106,7 +106,7 @@ extension Fixed where Granularity: LTOEHour {
     ///   - hour: The new hour value
     /// - Returns: A new fixed value with the specified day and hour
     /// - Throws: Throws a ``TimeError`` if setting the day and hour would result in a non-existent date.
-    public func setting(day: Int, hour: Int) throws -> Self {
+    public func setting(day: Int, hour: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(day: day, hour: hour))
     }
     
@@ -115,7 +115,7 @@ extension Fixed where Granularity: LTOEHour {
     ///   - hour: The new hour value
     /// - Returns: A new fixed value with the specified hour
     /// - Throws: Throws a ``TimeError`` if setting the hour would result in a non-existent date.
-    public func setting(hour: Int) throws -> Self {
+    public func setting(hour: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(hour: hour))
     }
     
@@ -132,7 +132,7 @@ extension Fixed where Granularity: LTOEMinute {
     ///   - minute: The new minute value
     /// - Returns: A new fixed value with the specified year, month, day, hour, and minute
     /// - Throws: Throws a ``TimeError`` if setting the year, month, day, hour, and minute would result in a non-existent date.
-    public func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int) throws -> Self {
+    public func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute))
     }
     
@@ -144,7 +144,7 @@ extension Fixed where Granularity: LTOEMinute {
     ///   - minute: The new minute value
     /// - Returns: A new fixed value with the specified month, day, hour, and minute
     /// - Throws: Throws a ``TimeError`` if setting the month, day, hour, and minute would result in a non-existent date.
-    public func setting(month: Int, day: Int, hour: Int, minute: Int) throws -> Self {
+    public func setting(month: Int, day: Int, hour: Int, minute: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(month: month, day: day, hour: hour, minute: minute))
     }
     
@@ -155,7 +155,7 @@ extension Fixed where Granularity: LTOEMinute {
     ///   - minute: The new minute value
     /// - Returns: A new fixed value with the specified day, hour, and minute
     /// - Throws: Throws a ``TimeError`` if setting the day, hour, and minute would result in a non-existent date.
-    public func setting(day: Int, hour: Int, minute: Int) throws -> Self {
+    public func setting(day: Int, hour: Int, minute: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(day: day, hour: hour, minute: minute))
     }
     
@@ -165,7 +165,7 @@ extension Fixed where Granularity: LTOEMinute {
     ///   - minute: The new minute value
     /// - Returns: A new fixed value with the specified hour and minute
     /// - Throws: Throws a ``TimeError`` if setting the hour and minute would result in a non-existent date.
-    public func setting(hour: Int, minute: Int) throws -> Self {
+    public func setting(hour: Int, minute: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(hour: hour, minute: minute))
     }
     
@@ -174,7 +174,7 @@ extension Fixed where Granularity: LTOEMinute {
     ///   - minute: The new minute value
     /// - Returns: A new fixed value with the specified minute
     /// - Throws: Throws a ``TimeError`` if setting the minute would result in a non-existent date.
-    public func setting(minute: Int) throws -> Self {
+    public func setting(minute: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(minute: minute))
     }
     
@@ -192,7 +192,7 @@ extension Fixed where Granularity: LTOESecond {
     ///   - second: The new second value
     /// - Returns: A new fixed value with the specified year, month, day, hour, minute, and second
     /// - Throws: Throws a ``TimeError`` if setting the year, month, day, hour, minute, and second would result in a non-existent date.
-    public func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) throws -> Self {
+    public func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute, second: second))
     }
     
@@ -205,7 +205,7 @@ extension Fixed where Granularity: LTOESecond {
     ///   - second: The new second value
     /// - Returns: A new fixed value with the specified month, day, hour, minute, and second
     /// - Throws: Throws a ``TimeError`` if setting the month, day, hour, minute, and second would result in a non-existent date.
-    public func setting(month: Int, day: Int, hour: Int, minute: Int, second: Int) throws -> Self {
+    public func setting(month: Int, day: Int, hour: Int, minute: Int, second: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(month: month, day: day, hour: hour, minute: minute, second: second))
     }
     
@@ -217,7 +217,7 @@ extension Fixed where Granularity: LTOESecond {
     ///   - second: The new second value
     /// - Returns: A new fixed value with the specified day, hour, minute, and second
     /// - Throws: Throws a ``TimeError`` if setting the day, hour, minute, and second would result in a non-existent date.
-    public func setting(day: Int, hour: Int, minute: Int, second: Int) throws -> Self {
+    public func setting(day: Int, hour: Int, minute: Int, second: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(day: day, hour: hour, minute: minute, second: second))
     }
     
@@ -228,7 +228,7 @@ extension Fixed where Granularity: LTOESecond {
     ///   - second: The new second value
     /// - Returns: A new fixed value with the specified hour, minute, and second
     /// - Throws: Throws a ``TimeError`` if setting the hour, minute, and second would result in a non-existent date.
-    public func setting(hour: Int, minute: Int, second: Int) throws -> Self {
+    public func setting(hour: Int, minute: Int, second: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(hour: hour, minute: minute, second: second))
     }
     
@@ -238,7 +238,7 @@ extension Fixed where Granularity: LTOESecond {
     ///   - second: The new second value
     /// - Returns: A new fixed value with the specified minute and second
     /// - Throws: Throws a ``TimeError`` if setting the minute and second would result in a non-existent date.
-    public func setting(minute: Int, second: Int) throws -> Self {
+    public func setting(minute: Int, second: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(minute: minute, second: second))
     }
     
@@ -247,7 +247,7 @@ extension Fixed where Granularity: LTOESecond {
     ///   - second: The new second value
     /// - Returns: A new fixed value with the specified second
     /// - Throws: Throws a ``TimeError`` if setting the second would result in a non-existent date.
-    public func setting(second: Int) throws -> Self {
+    public func setting(second: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(second: second))
     }
     
@@ -266,7 +266,7 @@ extension Fixed where Granularity: LTOENanosecond {
     ///   - nanosecond: The new nanosecond value
     /// - Returns: A new fixed value with the specified year, month, day, hour, minute, second, and nanosecond
     /// - Throws: Throws a ``TimeError`` if setting the year, month, day, hour, minute, second, and nanosecond would result in a non-existent date.
-    public func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Self {
+    public func setting(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(year: year, month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond))
     }
     
@@ -280,7 +280,7 @@ extension Fixed where Granularity: LTOENanosecond {
     ///   - nanosecond: The new nanosecond value
     /// - Returns: A new fixed value with the specified month, day, hour, minute, second, and nanosecond
     /// - Throws: Throws a ``TimeError`` if setting the month, day, hour, minute, second, and nanosecond would result in a non-existent date.
-    public func setting(month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Self {
+    public func setting(month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond))
     }
     
@@ -293,7 +293,7 @@ extension Fixed where Granularity: LTOENanosecond {
     ///   - nanosecond: The new nanosecond value
     /// - Returns: A new fixed value with the specified day, hour, minute, second, and nanosecond
     /// - Throws: Throws a ``TimeError`` if setting the day, hour, minute, second, and nanosecond would result in a non-existent date.
-    public func setting(day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Self {
+    public func setting(day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond))
     }
     
@@ -305,7 +305,7 @@ extension Fixed where Granularity: LTOENanosecond {
     ///   - nanosecond: The new nanosecond value
     /// - Returns: A new fixed value with the specified hour, minute, second, and nanosecond
     /// - Throws: Throws a ``TimeError`` if setting the hour, minute, second, and nanosecond would result in a non-existent date.
-    public func setting(hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Self {
+    public func setting(hour: Int, minute: Int, second: Int, nanosecond: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(hour: hour, minute: minute, second: second, nanosecond: nanosecond))
     }
     
@@ -316,7 +316,7 @@ extension Fixed where Granularity: LTOENanosecond {
     ///   - nanosecond: The new nanosecond value
     /// - Returns: A new fixed value with the specified minute, second, and nanosecond
     /// - Throws: Throws a ``TimeError`` if setting the minute, second, and nanosecond would result in a non-existent date.
-    public func setting(minute: Int, second: Int, nanosecond: Int) throws -> Self {
+    public func setting(minute: Int, second: Int, nanosecond: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(minute: minute, second: second, nanosecond: nanosecond))
     }
     
@@ -326,7 +326,7 @@ extension Fixed where Granularity: LTOENanosecond {
     ///   - nanosecond: The new nanosecond value
     /// - Returns: A new fixed value with the specified second and nanosecond
     /// - Throws: Throws a ``TimeError`` if setting the second and nanosecond would result in a non-existent date.
-    public func setting(second: Int, nanosecond: Int) throws -> Self {
+    public func setting(second: Int, nanosecond: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(second: second, nanosecond: nanosecond))
     }
     
@@ -335,7 +335,7 @@ extension Fixed where Granularity: LTOENanosecond {
     ///   - nanosecond: The new nanosecond value
     /// - Returns: A new fixed value with the specified nanosecond
     /// - Throws: Throws a ``TimeError`` if setting the nanosecond would result in a non-existent date.
-    public func setting(nanosecond: Int) throws -> Self {
+    public func setting(nanosecond: Int) throws(TimeError) -> Self {
         return try Self(region: region, strictDateComponents: dateComponents.setting(nanosecond: nanosecond))
     }
 }
@@ -346,7 +346,7 @@ extension Fixed where Granularity == Year {
     /// - Parameter month: The new month value
     /// - Returns: A new `Fixed<Month>` with the specified month value
     /// - Throws: Throws a ``TimeError`` if the specified month value would result in a non-existent date.
-    public func setting(month: Int) throws -> Fixed<Month> {
+    public func setting(month: Int) throws(TimeError) -> Fixed<Month> {
         return try Fixed<Month>(region: region, strictDateComponents: dateComponents.setting(month: month))
     }
     
@@ -355,7 +355,7 @@ extension Fixed where Granularity == Year {
     /// - Parameter day: The new day value
     /// - Returns: A new `Fixed<Day>` with the specified month and day values
     /// - Throws: Throws a ``TimeError`` if the specified month and day values would result in a non-existent date.
-    public func setting(month: Int, day: Int) throws -> Fixed<Day> {
+    public func setting(month: Int, day: Int) throws(TimeError) -> Fixed<Day> {
         return try Fixed<Day>(region: region, strictDateComponents: dateComponents.setting(month: month, day: day))
     }
     
@@ -365,7 +365,7 @@ extension Fixed where Granularity == Year {
     /// - Parameter hour: The new hour value
     /// - Returns: A new `Fixed<Hour>` with the specified month, day, and hour values
     /// - Throws: Throws a ``TimeError`` if the specified month, day, and hour values would result in a non-existent date.
-    public func setting(month: Int, day: Int, hour: Int) throws -> Fixed<Hour> {
+    public func setting(month: Int, day: Int, hour: Int) throws(TimeError) -> Fixed<Hour> {
         return try Fixed<Hour>(region: region, strictDateComponents: dateComponents.setting(month: month, day: day, hour: hour))
     }
     
@@ -376,7 +376,7 @@ extension Fixed where Granularity == Year {
     /// - Parameter minute: The new minute value
     /// - Returns: A new `Fixed<Minute>` with the specified month, day, hour, and minute values
     /// - Throws: Throws a ``TimeError`` if the specified month, day, hour, and minute values would result in a non-existent date.
-    public func setting(month: Int, day: Int, hour: Int, minute: Int) throws -> Fixed<Minute> {
+    public func setting(month: Int, day: Int, hour: Int, minute: Int) throws(TimeError) -> Fixed<Minute> {
         return try Fixed<Minute>(region: region, strictDateComponents: dateComponents.setting(month: month, day: day, hour: hour, minute: minute))
     }
     
@@ -388,7 +388,7 @@ extension Fixed where Granularity == Year {
     /// - Parameter second: The new second value
     /// - Returns: A new `Fixed<Second>` with the specified month, day, hour, minute, and second values
     /// - Throws: Throws a ``TimeError`` if the specified month, day, hour, minute, and second values would result in a non-existent date.
-    public func setting(month: Int, day: Int, hour: Int, minute: Int, second: Int) throws -> Fixed<Second> {
+    public func setting(month: Int, day: Int, hour: Int, minute: Int, second: Int) throws(TimeError) -> Fixed<Second> {
         return try Fixed<Second>(region: region, strictDateComponents: dateComponents.setting(month: month, day: day, hour: hour, minute: minute, second: second))
     }
     
@@ -401,7 +401,7 @@ extension Fixed where Granularity == Year {
     /// - Parameter nanosecond: The new nanosecond value
     /// - Returns: A new `Fixed<Nanosecond>` with the specified month, day, hour, minute, second, and nanosecond values
     /// - Throws: Throws a ``TimeError`` if the specified month, day, hour, minute, second, and nanosecond values would result in a non-existent date.
-    public func setting(month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Fixed<Nanosecond> {
+    public func setting(month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws(TimeError) -> Fixed<Nanosecond> {
         return try Fixed<Nanosecond>(region: region, strictDateComponents: dateComponents.setting(month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond))
     }
 }
@@ -412,7 +412,7 @@ extension Fixed where Granularity == Month {
     /// - Parameter day: The new day value
     /// - Returns: A new `Fixed<Day>` with the specified day value
     /// - Throws: Throws a ``TimeError`` if the specified day value would result in a non-existent date.
-    public func setting(day: Int) throws -> Fixed<Day> {
+    public func setting(day: Int) throws(TimeError) -> Fixed<Day> {
         return try Fixed<Day>(region: region, strictDateComponents: dateComponents.setting(day: day))
     }
     
@@ -421,7 +421,7 @@ extension Fixed where Granularity == Month {
     /// - Parameter hour: The new hour value
     /// - Returns: A new `Fixed<Hour>` with the specified day and hour values
     /// - Throws: Throws a ``TimeError`` if the specified day and hour values would result in a non-existent date.
-    public func setting(day: Int, hour: Int) throws -> Fixed<Hour> {
+    public func setting(day: Int, hour: Int) throws(TimeError) -> Fixed<Hour> {
         return try Fixed<Hour>(region: region, strictDateComponents: dateComponents.setting(day: day, hour: hour))
     }
     
@@ -431,7 +431,7 @@ extension Fixed where Granularity == Month {
     /// - Parameter minute: The new minute value
     /// - Returns: A new `Fixed<Minute>` with the specified day, hour, and minute values
     /// - Throws: Throws a ``TimeError`` if the specified day, hour, and minute values would result in a non-existent date.
-    public func setting(day: Int, hour: Int, minute: Int) throws -> Fixed<Minute> {
+    public func setting(day: Int, hour: Int, minute: Int) throws(TimeError) -> Fixed<Minute> {
         return try Fixed<Minute>(region: region, strictDateComponents: dateComponents.setting(day: day, hour: hour, minute: minute))
     }
     
@@ -442,7 +442,7 @@ extension Fixed where Granularity == Month {
     /// - Parameter second: The new second value
     /// - Returns: A new `Fixed<Second>` with the specified day, hour, minute, and second values
     /// - Throws: Throws a ``TimeError`` if the specified day, hour, minute, and second values would result in a non-existent date.
-    public func setting(day: Int, hour: Int, minute: Int, second: Int) throws -> Fixed<Second> {
+    public func setting(day: Int, hour: Int, minute: Int, second: Int) throws(TimeError) -> Fixed<Second> {
         return try Fixed<Second>(region: region, strictDateComponents: dateComponents.setting(day: day, hour: hour, minute: minute, second: second))
     }
     
@@ -454,7 +454,7 @@ extension Fixed where Granularity == Month {
     /// - Parameter nanosecond: The new nanosecond value
     /// - Returns: A new `Fixed<Nanosecond>` with the specified day, hour, minute, second, and nanosecond values
     /// - Throws: Throws a ``TimeError`` if the specified day, hour, minute, second, and nanosecond values would result in a non-existent date.
-    public func setting(day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Fixed<Nanosecond> {
+    public func setting(day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws(TimeError) -> Fixed<Nanosecond> {
         return try Fixed<Nanosecond>(region: region, strictDateComponents: dateComponents.setting(day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond))
     }
 }
@@ -465,7 +465,7 @@ extension Fixed where Granularity == Day {
     /// - Parameter hour: The new hour value
     /// - Returns: A new `Fixed<Hour>` with the specified hour value
     /// - Throws: Throws a ``TimeError`` if the specified hour value would result in a non-existent date.
-    public func setting(hour: Int) throws -> Fixed<Hour> {
+    public func setting(hour: Int) throws(TimeError) -> Fixed<Hour> {
         return try Fixed<Hour>(region: region, strictDateComponents: dateComponents.setting(hour: hour))
     }
     
@@ -474,7 +474,7 @@ extension Fixed where Granularity == Day {
     /// - Parameter minute: The new minute value
     /// - Returns: A new `Fixed<Minute>` with the specified hour and minute values
     /// - Throws: Throws a ``TimeError`` if the specified hour and minute values would result in a non-existent date.
-    public func setting(hour: Int, minute: Int) throws -> Fixed<Minute> {
+    public func setting(hour: Int, minute: Int) throws(TimeError) -> Fixed<Minute> {
         return try Fixed<Minute>(region: region, strictDateComponents: dateComponents.setting(hour: hour, minute: minute))
     }
     
@@ -484,7 +484,7 @@ extension Fixed where Granularity == Day {
     /// - Parameter second: The new second value
     /// - Returns: A new `Fixed<Second>` with the specified hour, minute, and second values
     /// - Throws: Throws a ``TimeError`` if the specified hour, minute, and second values would result in a non-existent date.
-    public func setting(hour: Int, minute: Int, second: Int) throws -> Fixed<Second> {
+    public func setting(hour: Int, minute: Int, second: Int) throws(TimeError) -> Fixed<Second> {
         return try Fixed<Second>(region: region, strictDateComponents: dateComponents.setting(hour: hour, minute: minute, second: second))
     }
     
@@ -495,7 +495,7 @@ extension Fixed where Granularity == Day {
     /// - Parameter nanosecond: The new nanosecond value
     /// - Returns: A new `Fixed<Nanosecond>` with the specified hour, minute, second, and nanosecond values
     /// - Throws: Throws a ``TimeError`` if the specified hour, minute, second, and nanosecond values would result in a non-existent date.
-    public func setting(hour: Int, minute: Int, second: Int, nanosecond: Int) throws -> Fixed<Nanosecond> {
+    public func setting(hour: Int, minute: Int, second: Int, nanosecond: Int) throws(TimeError) -> Fixed<Nanosecond> {
         return try Fixed<Nanosecond>(region: region, strictDateComponents: dateComponents.setting(hour: hour, minute: minute, second: second, nanosecond: nanosecond))
     }
 }
@@ -506,7 +506,7 @@ extension Fixed where Granularity == Hour {
     /// - Parameter minute: The new minute value
     /// - Returns: A new `Fixed<Nanosecond>` with the specified minute value
     /// - Throws: Throws a ``TimeError`` if the specified minute value would result in a non-existent date.
-    public func setting(minute: Int) throws -> Fixed<Minute> {
+    public func setting(minute: Int) throws(TimeError) -> Fixed<Minute> {
         return try Fixed<Minute>(region: region, strictDateComponents: dateComponents.setting(minute: minute))
     }
     
@@ -515,7 +515,7 @@ extension Fixed where Granularity == Hour {
     /// - Parameter second: The new second value
     /// - Returns: A new `Fixed<Second>` with the specified minute and second values
     /// - Throws: Throws a ``TimeError`` if the specified minute and second values would result in a non-existent date.
-    public func setting(minute: Int, second: Int) throws -> Fixed<Second> {
+    public func setting(minute: Int, second: Int) throws(TimeError) -> Fixed<Second> {
         return try Fixed<Second>(region: region, strictDateComponents: dateComponents.setting(minute: minute, second: second))
     }
     
@@ -525,7 +525,7 @@ extension Fixed where Granularity == Hour {
     /// - Parameter nanosecond: The new nanosecond value
     /// - Returns: A new `Fixed<Nanosecond>` with the specified minute, second, and nanosecond values
     /// - Throws: Throws a ``TimeError`` if the specified minute, second, and nanosecond values would result in a non-existent date.
-    public func setting(minute: Int, second: Int, nanosecond: Int) throws -> Fixed<Nanosecond> {
+    public func setting(minute: Int, second: Int, nanosecond: Int) throws(TimeError) -> Fixed<Nanosecond> {
         return try Fixed<Nanosecond>(region: region, strictDateComponents: dateComponents.setting(minute: minute, second: second, nanosecond: nanosecond))
     }
 }
@@ -536,7 +536,7 @@ extension Fixed where Granularity == Minute {
     /// - Parameter second: The new second value
     /// - Returns: A new `Fixed<Second>` with the specified second value
     /// - Throws: Throws a ``TimeError`` if the specified second value would result in a non-existent date.
-    public func setting(second: Int) throws -> Fixed<Second> {
+    public func setting(second: Int) throws(TimeError) -> Fixed<Second> {
         return try Fixed<Second>(region: region, strictDateComponents: dateComponents.setting(second: second))
     }
     
@@ -545,7 +545,7 @@ extension Fixed where Granularity == Minute {
     /// - Parameter nanosecond: The new nanosecond value
     /// - Returns: A new `Fixed<Nanosecond>` with the specified second and nanosecond values
     /// - Throws: Throws a ``TimeError`` if the specified second and nanosecond values would result in a non-existent date.
-    public func setting(second: Int, nanosecond: Int) throws -> Fixed<Nanosecond> {
+    public func setting(second: Int, nanosecond: Int) throws(TimeError) -> Fixed<Nanosecond> {
         return try Fixed<Nanosecond>(region: region, strictDateComponents: dateComponents.setting(second: second, nanosecond: nanosecond))
     }
 }
@@ -556,7 +556,7 @@ extension Fixed where Granularity == Second {
     /// - Parameter nanosecond: The new nanosecond value
     /// - Returns: A new `Fixed<Nanosecond>` with the specified nanosecond value
     /// - Throws: Throws a ``TimeError`` if the specified nanosecond value would result in a non-existent date.
-    public func setting(nanosecond: Int) throws -> Fixed<Nanosecond> {
+    public func setting(nanosecond: Int) throws(TimeError) -> Fixed<Nanosecond> {
         return try Fixed<Nanosecond>(region: region, strictDateComponents: dateComponents.setting(nanosecond: nanosecond))
     }
 }

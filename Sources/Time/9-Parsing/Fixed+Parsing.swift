@@ -8,7 +8,7 @@ extension Fixed {
     ///   - rawFormat: An format string to use as the tempalte for parsing, such as `"y-MM-dd"`
     ///   - region: The ``Region`` to be used for parsing the string
     /// - Throws: A ``TimeError`` if the string cannot be parsed using the provided format and region.
-    public init(stringValue: String, rawFormat: String, region: Region) throws {
+    public init(stringValue: String, rawFormat: String, region: Region) throws(TimeError) {
         let df = DateFormatter.formatter(for: rawFormat, region: region)
         if let date = df.date(from: stringValue) {
             self.init(region: region, date: date)

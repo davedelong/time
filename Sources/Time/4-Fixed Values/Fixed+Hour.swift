@@ -24,7 +24,7 @@ extension Fixed where Granularity: GTOEHour, Granularity: LTOEYear {
     /// For example, getting the `.nthMinute(72)` of a `Fixed<Hour>` will throw an error, because no supported calendar has more
     /// 60 minutes in an hour. However, getting the `.nthMinute(72)` of a `Fixed<Day>` is fine, because days typically have more
     /// than 1,440 minutes in them.
-    public func nthMinute(_ ordinal: Int) throws -> Fixed<Minute> { return try nth(ordinal) }
+    public func nthMinute(_ ordinal: Int) throws(TimeError) -> Fixed<Minute> { return try nth(ordinal) }
     
     /// Get a sequence of all the minutes in this fixed value.
     ///

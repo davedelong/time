@@ -19,7 +19,7 @@ extension Fixed where Granularity == Year {
     /// - Parameter ordinal: The offset of the desired month, as measured from the start of this value's range
     /// - Returns: a fixed month
     /// - Throws: This method throws a ``TimeError`` if `ordinal` is outside the range of values allowed by the `.calendar`.
-    public func nthMonth(_ ordinal: Int) throws -> Fixed<Month> { return try nth(ordinal) }
+    public func nthMonth(_ ordinal: Int) throws(TimeError) -> Fixed<Month> { return try nth(ordinal) }
     
     /// Retrieve a month in this year with a specific number
     /// - Parameter month: The number of the month (`1`, `8`, etc)

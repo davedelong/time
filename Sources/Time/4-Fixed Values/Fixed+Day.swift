@@ -26,7 +26,7 @@ extension Fixed where Granularity: GTOEDay, Granularity: LTOEYear {
     ///
     /// - Warning: This method does not guarantee a correspondance between the `ordinal` and the returned value's `.hour`. Offsetting
     /// and missing hours (or extra hours) may mean that the `.hour` value may be less than, equal to, or greater than the `ordinal` parameter.
-    public func nthHour(_ ordinal: Int) throws -> Fixed<Hour> { return try nth(ordinal) }
+    public func nthHour(_ ordinal: Int) throws(TimeError) -> Fixed<Hour> { return try nth(ordinal) }
     
     /// Get a sequence of all the hours in this fixed value.
     ///

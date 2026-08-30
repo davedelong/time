@@ -302,7 +302,7 @@ final class ClockStrikeTests: XCTestCase {
 #else
 
 final class ClockStrikeTests: XCTestCase {
-    static var allTests: [(String, (ClockStrikeTests) -> () throws -> ())] = []
+    static let allTests: [(String, (ClockStrikeTests) -> () throws -> ())] = []
 }
 
 #endif

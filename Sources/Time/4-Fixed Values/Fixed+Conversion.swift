@@ -48,7 +48,7 @@ extension Fixed {
     /// - Returns: A new fixed value that has been converted to the specified time zone.
     /// - Throws: A ``TimeError`` if the conversion could not be completed
     /// - Warning: This operation may fail for many possible reasons and should be used with care. For full details, see ``ConversionBehavior``.
-    public func converted(to newRegion: Region, behavior: ConversionBehavior) throws -> Self {
+    public func converted(to newRegion: Region, behavior: ConversionBehavior) throws(TimeError) -> Self {
         if newRegion.isEquivalent(to: self.region) { return self }
         
         switch behavior {
@@ -82,7 +82,7 @@ extension Fixed {
     /// - Returns: A new fixed value that has been converted to the specified time zone.
     /// - Throws: A ``TimeError`` if the conversion could not be completed
     /// - Warning: This operation may fail for many possible reasons and should be used with care. For full details, see ``ConversionBehavior``.
-    public func converted(to timeZone: TimeZone, behavior: ConversionBehavior) throws -> Self {
+    public func converted(to timeZone: TimeZone, behavior: ConversionBehavior) throws(TimeError) -> Self {
         let newRegion = Region(anyCalendar: anyCalendar, timeZone: timeZone, locale: locale)
         return try self.converted(to: newRegion, behavior: behavior)
     }
@@ -95,7 +95,7 @@ extension Fixed {
     /// - Returns: A new fixed value that has been converted to the specified calendar.
     /// - Throws: A ``TimeError`` if the conversion could not be completed
     /// - Warning: This operation may fail for many possible reasons and should be used with care. For full details, see ``ConversionBehavior``.
-    public func converted(to calendar: Calendar, behavior: ConversionBehavior) throws -> Self {
+    public func converted(to calendar: Calendar, behavior: ConversionBehavior) throws(TimeError) -> Self {
         let newRegion = Region(calendar: calendar, timeZone: timeZone, locale: locale)
         return try self.converted(to: newRegion, behavior: behavior)
     }
@@ -121,7 +121,7 @@ extension Fixed where Granularity: GTOEDay {
     /// - Returns: A new fixed value with the same underlying components
     /// - Throws: Throws a ``TimeError`` if the underlying components do not exist in the specified `timeZone`. For example,
     /// converting "30 December 2011" to the `Pacific/Apia` time zone throws an error, because that day did not exist in that time zone.
-    public func converted(to timeZone: TimeZone) throws -> Self {
+    public func converted(to timeZone: TimeZone) throws(TimeError) -> Self {
         let newRegion = Region(anyCalendar: anyCalendar, timeZone: timeZone, locale: locale)
         return try Self(region: newRegion, strictDateComponents: self.dateComponents)
     }

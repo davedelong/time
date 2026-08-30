@@ -51,7 +51,7 @@ internal struct ParsedFormat {
     
     var isTemplate: Bool { components.contains(where: \.isTemplate) }
     
-    init(formatString: String) throws {
+    init(formatString: String) throws(TimeError) {
         var components = Array<Component>()
         
         var isEscaped = false

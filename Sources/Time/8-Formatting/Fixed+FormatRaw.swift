@@ -24,7 +24,7 @@ extension Fixed {
     ///     unrepresented calendar components.
     /// - Throws: A `TimeError` if either the `rawFormatString` is syntactically incorrect, or the format string is
     /// requesting units for formatting that are not represented by this fixed value *and* the `strict` parameter is `true`
-    public func format(raw rawFormatString: String, strict: Bool = true) throws -> String {
+    public func format(raw rawFormatString: String, strict: Bool = true) throws(TimeError) -> String {
         let format = try ParsedFormat(formatString: rawFormatString)
         
         let formattedUnits = format.components.compactMap(\.unit)

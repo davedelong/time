@@ -29,7 +29,7 @@ extension CalendarProtocol {
         return [.era]
     }
     
-    internal func exactDate(from components: DateComponents, in timeZone: TimeZone, matching: Set<Calendar.Component>) throws -> (Date, DateComponents) {
+    internal func exactDate(from components: DateComponents, in timeZone: TimeZone, matching: Set<Calendar.Component>) throws(TimeError) -> (Date, DateComponents) {
         var restrictedComponents = try components.requireAndRestrict(to: matching, lenient: self.lenientUnitsForFixedTimePeriods)
         restrictedComponents.timeZone = timeZone
         
@@ -124,7 +124,7 @@ extension Calendar.Identifier {
     }()
     
     var encodingIdentifier: String {
-        get throws {
+        get throws(TimeError) {
             guard let identifier = Self.encodingNames[self] else {
                 let ctx = EncodingError.Context(codingPath: [], debugDescription: "Unknown calendar identifier: '\(self)'")
                 throw TimeError.encodingError(EncodingError.invalidValue(self, ctx))
@@ -133,7 +133,7 @@ extension Calendar.Identifier {
         }
     }
     
-    init(encodingIdentifier: String) throws {
+    init(encodingIdentifier: String) throws(TimeError) {
         guard let id = Self.encodingNames[encodingIdentifier] else {
             let ctx = DecodingError.Context(codingPath: [], debugDescription: "Unknown calendar identifier: '\(encodingIdentifier)'")
             throw TimeError.decodingError(DecodingError.dataCorrupted(ctx))

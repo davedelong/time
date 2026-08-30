@@ -25,7 +25,7 @@ extension Fixed where Granularity == Era {
     /// - Parameter ordinal: The offset of the desired year, as measured from the start of this era
     /// - Returns: a fixed year
     /// - Throws: This method throws a `TimeError` if `ordinal` is outside the range of values allowed by the `.calendar`.
-    public func nthYear(_ ordinal: Int) throws -> Fixed<Year> { return try nth(ordinal) }
+    public func nthYear(_ ordinal: Int) throws(TimeError) -> Fixed<Year> { return try nth(ordinal) }
     
     /// Retrieve a year in this era with a specific number
     /// - Parameter number: The number of the year (`1492`, `2024`, etc)

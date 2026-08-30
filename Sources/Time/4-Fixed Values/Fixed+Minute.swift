@@ -26,7 +26,7 @@ extension Fixed where Granularity: GTOEMinute, Granularity: LTOEYear {
     ///
     /// - Warning: This method does not guarantee a correspondance between the `ordinal` and the returned value's `.second`. Offsetting
     /// and missing seconds (or extra seconds) may mean that the `.second` value may be less than, equal to, or greater than the `ordinal` parameter.
-    public func nthSecond(_ ordinal: Int) throws -> Fixed<Second> { return try nth(ordinal) }
+    public func nthSecond(_ ordinal: Int) throws(TimeError) -> Fixed<Second> { return try nth(ordinal) }
     
     /// Get a sequence of all the seconds in this fixed value.
     ///

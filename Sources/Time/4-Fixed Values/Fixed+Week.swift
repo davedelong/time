@@ -71,7 +71,7 @@ extension Fixed where Granularity: StandardUnit & GTOEMonth & LTOEYear {
     ///
     /// - Warning: The first day of the first week will likely *not* be the same as the first day of the month, and may not be in the month at all.
     /// Each ``Region`` has its own rules about how weeks are attributed to months.
-    public func nthFullWeek(_ ordinal: Int) throws -> Fixed<Week> {
+    public func nthFullWeek(_ ordinal: Int) throws(TimeError) -> Fixed<Week> {
         let unit = Granularity.self == Year.self ? Calendar.Component.weekOfYear : .weekOfMonth
         let dc = DateComponents(value: ordinal, component: unit)
         

@@ -23,7 +23,7 @@ internal extension DateComponents {
     ///   - lenient: a set of ``Calendar.Component`` values that may be omitted from the returned value
     /// - Returns: a ``DateComponents`` value that will only contain the required components. If a component is missing from the receiver,
     /// and that component is *not* present in the `lenient` set, then this will throw an error
-    func requireAndRestrict(to components: Set<Calendar.Component>, lenient: Set<Calendar.Component>) throws -> DateComponents {
+    func requireAndRestrict(to components: Set<Calendar.Component>, lenient: Set<Calendar.Component>) throws(TimeError) -> DateComponents {
         
         var final = DateComponents()
         var missing = Set<Calendar.Component>()

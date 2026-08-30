@@ -32,7 +32,7 @@ extension Fixed {
         return Fixed<U>(region: region, instant: range.upperBound) - TimeDifference(value: 1, unit: U.component)
     }
     
-    internal func nth<U: Unit>(_ ordinal: Int) throws -> Fixed<U> {
+    internal func nth<U: Unit>(_ ordinal: Int) throws(TimeError) -> Fixed<U> {
         let target = DateComponents(value: ordinal, component: U.component)
         
         guard ordinal >= 1 else {

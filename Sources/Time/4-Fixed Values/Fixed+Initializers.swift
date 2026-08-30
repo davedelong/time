@@ -7,7 +7,7 @@ extension Fixed where Granularity == Era {
     ///   - region: The `Region` in which the components will be interpreted.
     ///   - era: The numeric `Era` value for the value.
     /// - Throws: A ``TimeError`` if the specified components cannot be converted into a calendar value.
-    public init(region: Region, era: Int) throws {
+    public init(region: Region, era: Int) throws(TimeError) {
         let components = DateComponents(era: era)
         try self.init(region: region, strictDateComponents: components)
     }
@@ -22,7 +22,7 @@ extension Fixed where Granularity == Year {
     ///   - era: The numeric `Era` value for the value. If omitted, it will assumed to be the "current" era.
     ///   - year: The numeric `Year` value.
     /// - Throws: A ``TimeError`` if the specified components cannot be converted into a calendar value.
-    public init(region: Region, era: Int? = nil, year: Int) throws {
+    public init(region: Region, era: Int? = nil, year: Int) throws(TimeError) {
         let components = DateComponents(era: era, year: year)
         if components.has(component: .era) == false && region.anyCalendar.isEraRelevant {
             throw TimeError.invalidDateComponents(components, units: [.era], in: region)
@@ -41,7 +41,7 @@ extension Fixed where Granularity == Month {
     ///   - year: The numeric `Year` value.
     ///   - month: The numeric `Month` value.
     /// - Throws: A ``TimeError`` error if the specified components cannot be converted into a calendar value.
-    public init(region: Region, era: Int? = nil, year: Int, month: Int) throws {
+    public init(region: Region, era: Int? = nil, year: Int, month: Int) throws(TimeError) {
         let components = DateComponents(era: era, year: year, month: month)
         try self.init(region: region, strictDateComponents: components)
     }
@@ -58,7 +58,7 @@ extension Fixed where Granularity == Day {
     ///   - month: The numeric `Month` value.
     ///   - day: the numeric `Day` value.
     /// - Throws: A ``TimeError`` error if the specified components cannot be converted into a calendar value.
-    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int) throws {
+    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int) throws(TimeError) {
         let components = DateComponents(era: era, year: year, month: month, day: day)
         try self.init(region: region, strictDateComponents: components)
     }
@@ -76,7 +76,7 @@ extension Fixed where Granularity == Hour {
     ///   - day: the numeric `Day` value.
     ///   - hour: the numeric `Hour` value.
     /// - Throws: A ``TimeError`` error if the specified components cannot be converted into a calendar value.
-    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int) throws {
+    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int) throws(TimeError) {
         let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour)
         try self.init(region: region, strictDateComponents: components)
     }
@@ -95,7 +95,7 @@ extension Fixed where Granularity == Minute {
     ///   - hour: the numeric `Hour` value.
     ///   - minute: the numeric `Minute` value.
     /// - Throws: A ``TimeError`` error if the specified components cannot be converted into a calendar value.
-    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int) throws {
+    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int) throws(TimeError) {
         let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute)
         try self.init(region: region, strictDateComponents: components)
     }
@@ -115,7 +115,7 @@ extension Fixed where Granularity == Second {
     ///   - minute: the numeric `Minute` value.
     ///   - second: the numeric `Second` value.
     /// - Throws: A ``TimeError`` error if the specified components cannot be converted into a calendar value.
-    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) throws {
+    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) throws(TimeError) {
         let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute, second: second)
         try self.init(region: region, strictDateComponents: components)
     }
@@ -136,7 +136,7 @@ extension Fixed where Granularity == Nanosecond {
     ///   - second: the numeric `Second` value.
     ///   - nanosecond: the numeric `Nanosecond` value.
     /// - Throws: A ``TimeError`` error if the specified components cannot be converted into a calendar value.
-    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws {
+    public init(region: Region, era: Int? = nil, year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int, nanosecond: Int) throws(TimeError) {
         let components = DateComponents(era: era, year: year, month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nanosecond)
         try self.init(region: region, strictDateComponents: components)
     }
