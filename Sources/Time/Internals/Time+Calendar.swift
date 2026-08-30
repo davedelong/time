@@ -105,6 +105,7 @@ extension Calendar.Identifier {
             .islamicUmmAlQura: "islamic-umalqura",
         ]
         
+        #if swift(>=6.2)
         if #available(macOS 26, iOS 26, tvOS 26, watchOS 26, *) {
             map[.bangla] = "bangla"
             map[.gujarati] = "gujarati"
@@ -118,6 +119,7 @@ extension Calendar.Identifier {
             map[.dangi] = "dangi"
             map[.vietnamese] = "vietnamese"
         }
+        #endif
         return map
     }()
     
