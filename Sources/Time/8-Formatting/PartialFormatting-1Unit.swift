@@ -119,7 +119,8 @@ extension Fixed {
     /// - Parameter timeZone: The template for formatting the time zone
     /// - Returns: A string with the formatted time zone information
     public func format(timeZone: Template<TimeZone>) -> String {
-        return format([timeZone])
+        let format = FixedFormat<Granularity>(templates: [timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -133,7 +134,8 @@ extension Fixed where Granularity: StandardUnit & LTOEYear {
     /// - Returns: A string with the formatted year information
     public func format(year: Template<Year>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([year, timeZone])
+        let format = FixedFormat<Granularity>(templates: [year, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -147,7 +149,8 @@ extension Fixed where Granularity: StandardUnit & LTOEMonth {
     /// - Returns: A string with the formatted month information
     public func format(month: Template<Standalone<Month>>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([month, timeZone])
+        let format = FixedFormat<Granularity>(templates: [month, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -163,7 +166,8 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
     public func format(day: Template<Day>,
                        weekday: Template<Weekday>? = nil,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([day, weekday, timeZone])
+        let format = FixedFormat<Granularity>(templates: [day, weekday, timeZone])
+        return self.format(using: format)
     }
     
     /// Format the weekday of a fixed value
@@ -173,7 +177,8 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
     /// - Returns: A string with the formatted weekday information
     public func format(weekday: Template<Standalone<Weekday>>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([weekday, timeZone])
+        let format = FixedFormat<Granularity>(templates: [weekday, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -187,7 +192,8 @@ extension Fixed where Granularity: StandardUnit & LTOEHour {
     /// - Returns: A string with the formatted hour information
     public func format(hour: Template<Hour>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([hour, timeZone])
+        let format = FixedFormat<Granularity>(templates: [hour, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -201,7 +207,8 @@ extension Fixed where Granularity: StandardUnit & LTOEMinute {
     /// - Returns: A string with the formatted minute information
     public func format(minute: Template<Minute>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([minute, timeZone])
+        let format = FixedFormat<Granularity>(templates: [minute, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -215,7 +222,8 @@ extension Fixed where Granularity: StandardUnit & LTOESecond {
     /// - Returns: A string with the formatted second information
     public func format(second: Template<Second>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([second, timeZone])
+        let format = FixedFormat<Granularity>(templates: [second, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -229,7 +237,8 @@ extension Fixed where Granularity: StandardUnit & LTOENanosecond {
     /// - Returns: A string with the formatted nanosecond information
     public func format(nanosecond: Template<Nanosecond>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([nanosecond, timeZone])
+        let format = FixedFormat<Granularity>(templates: [nanosecond, timeZone])
+        return self.format(using: format)
     }
     
 }

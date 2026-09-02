@@ -174,7 +174,8 @@ extension Fixed {
     /// - Parameter era: The template for formatting the era
     /// - Returns: A string with the formatted era information
     public func format(era: Template<Era>) -> String {
-        return format([era])
+        let format = FixedFormat<Granularity>(templates: [era])
+        return self.format(using: format)
     }
     
 }
@@ -190,7 +191,8 @@ extension Fixed where Granularity: StandardUnit & LTOEYear {
     public func format(era: Template<Era>,
                        year: Template<Year>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([era, year, timeZone])
+        let format = FixedFormat<Granularity>(templates: [era, year, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -208,7 +210,8 @@ extension Fixed where Granularity: StandardUnit & LTOEMonth {
                        year: Template<Year>,
                        month: Template<Month>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([era, year, month, timeZone])
+        let format = FixedFormat<Granularity>(templates: [era, year, month, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -230,7 +233,8 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
                        day: Template<Day>,
                        weekday: Template<Weekday>? = nil,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([era, year, month, day, weekday, timeZone])
+        let format = FixedFormat<Granularity>(templates: [era, year, month, day, weekday, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -254,7 +258,8 @@ extension Fixed where Granularity: StandardUnit & LTOEHour {
                        weekday: Template<Weekday>? = nil,
                        hour: Template<Hour>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([era, year, month, day, weekday, hour, timeZone])
+        let format = FixedFormat<Granularity>(templates: [era, year, month, day, weekday, hour, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -280,7 +285,8 @@ extension Fixed where Granularity: StandardUnit & LTOEMinute {
                        hour: Template<Hour>,
                        minute: Template<Minute>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([era, year, month, day, weekday, hour, minute, timeZone])
+        let format = FixedFormat<Granularity>(templates: [era, year, month, day, weekday, hour, minute, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -308,7 +314,8 @@ extension Fixed where Granularity: StandardUnit & LTOESecond {
                        minute: Template<Minute>,
                        second: Template<Second>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([era, year, month, day, weekday, hour, minute, second, timeZone])
+        let format = FixedFormat<Granularity>(templates: [era, year, month, day, weekday, hour, minute, second, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -338,7 +345,8 @@ extension Fixed where Granularity: StandardUnit & LTOENanosecond {
                        second: Template<Second>,
                        nanosecond: Template<Nanosecond>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
+        let format = FixedFormat<Granularity>(templates: [era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
+        return self.format(using: format)
     }
     
 }

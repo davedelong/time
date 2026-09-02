@@ -219,9 +219,4 @@ extension Fixed {
         }
     }
     
-    internal func format(_ templates: Array<Format?>) -> String {
-        let style = FixedFormat<Granularity>(templates: templates)
-        return format(using: style)
-    }
-    
 }

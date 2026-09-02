@@ -105,7 +105,8 @@ extension Fixed where Granularity: StandardUnit & LTOEDay {
                        day: Template<Day>,
                        weekday: Template<Weekday>? = nil,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([year, month, day, weekday, timeZone])
+        let format = FixedFormat<Granularity>(templates: [year, month, day, weekday, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -125,7 +126,8 @@ extension Fixed where Granularity: StandardUnit & LTOEHour {
                        weekday: Template<Weekday>? = nil,
                        hour: Template<Hour>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([month, day, weekday, hour, timeZone])
+        let format = FixedFormat<Granularity>(templates: [month, day, weekday, hour, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -145,7 +147,8 @@ extension Fixed where Granularity: StandardUnit & LTOEMinute {
                        hour: Template<Hour>,
                        minute: Template<Minute>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([day, weekday, hour, minute, timeZone])
+        let format = FixedFormat<Granularity>(templates: [day, weekday, hour, minute, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -163,7 +166,8 @@ extension Fixed where Granularity: StandardUnit & LTOESecond {
                        minute: Template<Minute>,
                        second: Template<Second>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([hour, minute, second, timeZone])
+        let format = FixedFormat<Granularity>(templates: [hour, minute, second, timeZone])
+        return self.format(using: format)
     }
     
 }
@@ -181,7 +185,8 @@ extension Fixed where Granularity: StandardUnit & LTOENanosecond {
                        second: Template<Second>,
                        nanosecond: Template<Nanosecond>,
                        timeZone: Template<TimeZone>? = nil) -> String {
-        return format([minute, second, nanosecond, timeZone])
+        let format = FixedFormat<Granularity>(templates: [minute, second, nanosecond, timeZone])
+        return self.format(using: format)
     }
     
 }
