@@ -68,10 +68,10 @@ extension Calendar: CalendarProtocol {
     
     func format(date: Date, using timeZone: TimeZone, locale: Locale, configuration: FormatConfiguration) -> String {
         
-        let key = DateFormatter.Key(configuration: configuration,
-                                    calendar: self,
-                                    locale: locale,
-                                    timeZone: timeZone)
+        let key = FormatterKey(configuration: configuration,
+                               calendar: self,
+                               locale: locale,
+                               timeZone: timeZone)
         
         let df = DateFormatter.formatter(for: key)
         return df.string(from: date)
@@ -85,6 +85,10 @@ extension Region {
                                        using: timeZone,
                                        locale: locale,
                                        configuration: configuration)
+    }
+    
+    func format(range: Range<Date>, using configuration: FormatConfiguration) -> String {
+        fatalError()
     }
     
 }

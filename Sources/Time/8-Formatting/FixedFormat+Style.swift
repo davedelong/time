@@ -53,6 +53,51 @@ public struct FixedFormatStyle: Hashable, Sendable {
     
     internal let style: DateFormatter.Style
     
+    internal var intervalStyle: DateIntervalFormatter.Style {
+        switch style {
+            case .none: return .none
+            case .short: return .short
+            case .medium: return .medium
+            case .long: return .long
+            case .full: return .full
+            @unknown default: return .none
+        }
+    }
+    
+}
+
+extension FixedFormat where Granularity: LTOEDay {
+    
+    /// Create a format for the fixed value's date information
+    /// - Parameter dateStyle: The `FixedFormatStyle` to use
+    public init(date dateStyle: FixedFormatStyle) {
+        self.init(configuration: .styles(dateStyle, .none))
+    }
+    
+}
+
+extension FixedFormat where Granularity: LTOEMinute {
+    
+    /// Create a format for the fixed value's date and time information
+    ///
+    /// - Parameters:
+    ///   - dateStyle: The `FixedFormatStyle` to use for the date information
+    ///   - timeStyle: The `FixedFormatStyle` to use for the time information
+    /// - Note: Formatting the time using the `.full`, `.long`, or `.medium` format styles will produce a string that displays a seconds value.
+    /// If these are used on a `Fixed<Minute>` value, then it will assume the seconds component is `:00`.
+    public init(date dateStyle: FixedFormatStyle, time timeStyle: FixedFormatStyle) {
+        self.init(configuration: .styles(dateStyle, timeStyle))
+    }
+    
+    /// Create a format for the fixed value's time information
+    ///
+    /// - Parameter timeStyle: The `FixedFormatStyle` to use
+    /// - Note: Formatting the time using the `.full`, `.long`, or `.medium` format styles will produce a string that displays a seconds value.
+    /// If these are used on a `Fixed<Minute>` value, then it will assume the seconds component is `:00`.
+    public init(time timeStyle: FixedFormatStyle) {
+        self.init(configuration: .styles(.none, timeStyle))
+    }
+    
 }
 
 extension Fixed where Granularity: LTOEDay {
@@ -61,8 +106,8 @@ extension Fixed where Granularity: LTOEDay {
     /// - Parameter dateStyle: The `FixedFormatStyle` to use
     /// - Returns: A localized string containing the formatted date information
     public func format(date dateStyle: FixedFormatStyle) -> String {
-        let style = FixedFormat<Granularity>(dateStyle: dateStyle.style, timeStyle: .none)
-        return self.format(style)
+        let style = FixedFormat<Granularity>(dateStyle: dateStyle, timeStyle: .none)
+        return self.format(using: style)
     }
     
 }
@@ -78,8 +123,8 @@ extension Fixed where Granularity: LTOEMinute {
     /// - Note: Formatting the time using the `.full`, `.long`, or `.medium` format styles will produce a string that displays a seconds value.
     /// If these are used on a `Fixed<Minute>` value, then it will assume the seconds component is `:00`.
     public func format(date dateStyle: FixedFormatStyle, time timeStyle: FixedFormatStyle) -> String {
-        let style = FixedFormat<Granularity>(dateStyle: dateStyle.style, timeStyle: timeStyle.style)
-        return self.format(style)
+        let style = FixedFormat<Granularity>(dateStyle: dateStyle, timeStyle: timeStyle)
+        return self.format(using: style)
     }
     
     /// Format the fixed value's time information
@@ -89,8 +134,8 @@ extension Fixed where Granularity: LTOEMinute {
     /// - Note: Formatting the time using the `.full`, `.long`, or `.medium` format styles will produce a string that displays a seconds value.
     /// If these are used on a `Fixed<Minute>` value, then it will assume the seconds component is `:00`.
     public func format(time timeStyle: FixedFormatStyle) -> String {
-        let style = FixedFormat<Granularity>(dateStyle: .none, timeStyle: timeStyle.style)
-        return self.format(style)
+        let style = FixedFormat<Granularity>(dateStyle: .none, timeStyle: timeStyle)
+        return self.format(using: style)
     }
     
 }

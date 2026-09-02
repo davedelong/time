@@ -43,8 +43,6 @@ final class ManualClock: RegionalClock, @unchecked Sendable {
     }
     
     init(now: Instant? = nil, region: Region = .current, rate: Double = 1.0) {
-        let base = Clocks.system(in: region)
-        
         if let now {
             self.underlyingClock = Clocks.custom(startingFrom: now, rate: rate, region: region)
         } else {

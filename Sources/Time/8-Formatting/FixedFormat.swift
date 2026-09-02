@@ -1,20 +1,30 @@
 import Foundation
 
 /// A type that encapsulates the information necessary to format a fixed value
-internal struct FixedFormat<Granularity: Unit & LTOEEra>: Sendable {
+public struct FixedFormat<Granularity: Unit & LTOEEra>: Sendable {
     
     internal let configuration: FormatConfiguration
     
-    internal init(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style) {
-        self.configuration = .styles(dateStyle, timeStyle)
+    internal init(configuration: FormatConfiguration) {
+        self.configuration = configuration
     }
     
-    internal init(raw: String) {
-        self.configuration = .raw(raw)
+}
+
+internal enum FormatConfiguration: Hashable, Sendable {
+    case template(String)
+    case raw(String)
+    case styles(FixedFormatStyle?, FixedFormatStyle?)
+}
+
+extension FixedFormat {
+    
+    internal init(dateStyle: FixedFormatStyle?, timeStyle: FixedFormatStyle?) {
+        self.init(configuration: .styles(dateStyle, timeStyle))
     }
     
     internal init(templates: Array<Format?>) {
-        self.configuration = .template(templates.compactMap { $0?.template }.joined())
+        self.init(configuration: .template(templates.compactMap { $0?.template }.joined()))
     }
     
     init(naturalFormats calendar: any CalendarProtocol) {

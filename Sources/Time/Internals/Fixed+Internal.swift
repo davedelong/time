@@ -219,14 +219,9 @@ extension Fixed {
         }
     }
     
-    internal func format<S>(_ style: FixedFormat<S>) -> String {
-        let date = self.dateForFormatting()
-        return self.region.format(date: date, using: style.configuration)
-    }
-    
     internal func format(_ templates: Array<Format?>) -> String {
         let style = FixedFormat<Granularity>(templates: templates)
-        return format(style)
+        return format(using: style)
     }
     
 }

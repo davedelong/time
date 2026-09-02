@@ -142,7 +142,7 @@ extension Fixed: CustomStringConvertible, CustomDebugStringConvertible {
     /// The description is a localized "natural" formatting of the calendar value.
     public var description: String {
         let style = FixedFormat<Granularity>(naturalFormats: anyCalendar)
-        return format(style)
+        return format(using: style)
     }
     
     public var debugDescription: String {

@@ -133,14 +133,14 @@ class LinuxIssues: XCTestCase {
         ]
         
         for (format, expectedRaw, expectedTemplate, file, line) in allFormats {
-            let rawStyle = FixedFormat<Nanosecond>(raw: format.template)
+            let rawStyle = try FixedFormat<Nanosecond>(raw: format.template)
             let templateStyle = FixedFormat<Nanosecond>(templates: [format])
             
             // on macOS, some of the formats use unusual whitespace characters in format string
             // this replaces them with plain whitespace to make comparison a bit more consistent.
             // You should not do this in a production environment.
-            let rawFormatted = String(now.format(rawStyle).map { $0.isWhitespace ? " " : $0 })
-            let templateFormatted = String(now.format(templateStyle).map { $0.isWhitespace ? " " : $0 })
+            let rawFormatted = String(now.format(using: rawStyle).map { $0.isWhitespace ? " " : $0 })
+            let templateFormatted = String(now.format(using: templateStyle).map { $0.isWhitespace ? " " : $0 })
             
             XCTAssertEqual(rawFormatted, expectedRaw, "Raw format '\(format.template)' produced '\(rawFormatted)' instead of '\(expectedRaw)'", file: file, line: line)
             XCTAssertEqual(templateFormatted, expectedTemplate, "Template '\(format.template)' produced '\(templateFormatted)' instead of '\(expectedTemplate)'", file: file, line: line)
