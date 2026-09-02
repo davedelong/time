@@ -4,6 +4,17 @@ import Time
 
 class WeekTests: XCTestCase {
     
+    static let allTests = [
+        ("testWeekContainingDay", testWeekContainingDay),
+        ("testCurrentWeek", testCurrentWeek),
+        ("testWeekAdjustment", testWeekAdjustment),
+        ("testFirstAndLastDays", testFirstAndLastDays),
+        ("testWeeksOfMonth", testWeeksOfMonth),
+        ("testWeeksOfYear", testWeeksOfYear),
+        ("testWeekRounding", testWeekRounding),
+        ("testFullWeeks", testFullWeeks)
+    ]
+    
     func testWeekContainingDay() throws {
         let d1 = try Fixed<Day>(region: .posix, year: 2024, month: 1, day: 1)
         let w1 = d1.fixedWeek

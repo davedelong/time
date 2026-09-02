@@ -3,6 +3,13 @@ import Time
 
 class ReportedBugs: XCTestCase {
     
+    static let allTests = [
+        ("testSwedenRangeCrashAroundDST", testSwedenRangeCrashAroundDST),
+        ("testSwedenRepeatedOffsettingAroundDST", testSwedenRepeatedOffsettingAroundDST),
+        ("testISO8601WeekdayNumber_GH75", testISO8601WeekdayNumber_GH75),
+        ("testValuesWithoutErasStillHaveThem_GH82", testValuesWithoutErasStillHaveThem_GH82)
+    ]
+    
     func testSwedenRangeCrashAroundDST() throws {
         let sweden = Region(calendar: Calendar(identifier: .gregorian),
                             timeZone: TimeZone(identifier: "Europe/Stockholm")!,

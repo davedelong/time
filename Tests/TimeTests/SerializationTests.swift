@@ -8,7 +8,7 @@ class SerializationTests: XCTestCase {
         ("testCodableRegionRoundTrip", testCodableRegionRoundTrip),
         ("testCodableTimePeriodRoundTrip", testCodableTimePeriodRoundTrip),
         ("testMaliciousPayload", testMaliciousPayload),
-        ("testNonEraTimePeriod", testMaliciousPayload),
+        ("testOldSerializationFormat", testOldSerializationFormat),
     ]
 
     func testCodableRegionRoundTrip() throws {

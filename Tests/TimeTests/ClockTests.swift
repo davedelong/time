@@ -34,6 +34,7 @@ extension Collection {
 class ClockTests: XCTestCase {
     
     static let allTests = [
+        ("testWeeksInYear", testWeeksInYear),
         ("testSystem", testSystem),
         ("testExplicit", testExplicit),
         ("testAccelerated_2x", testAccelerated_2x),
@@ -43,7 +44,9 @@ class ClockTests: XCTestCase {
         ("testNextDSTTransitionForTimeZoneWithDST", testNextDSTTransitionForTimeZoneWithDST),
         ("testNextDSTTransitionNextYearForTimeZoneWithDST", testNextDSTTransitionNextYearForTimeZoneWithDST),
         ("testNextDSTTransitionForTimeZoneWithoutDST", testNextDSTTransitionForTimeZoneWithoutDST),
-        ("testNextDSTTransitionNextYearForTimeZoneWithoutDST", testNextDSTTransitionNextYearForTimeZoneWithoutDST)
+        ("testNextDSTTransitionNextYearForTimeZoneWithoutDST", testNextDSTTransitionNextYearForTimeZoneWithoutDST),
+        ("testAutoupdatingCalendarProducesStaticCalendar", testAutoupdatingCalendarProducesStaticCalendar),
+        ("testAutoupdatingRegionProducesStaticRegion", testAutoupdatingRegionProducesStaticRegion)
     ]
     
     func testWeeksInYear() {

@@ -3,6 +3,9 @@ import XCTest
 @testable import Time
 
 class LinuxIssues: XCTestCase {
+    static let allTests = [
+        ("testFormatting", testFormatting)
+    ]
     
     func testFormatting() throws {
         /*

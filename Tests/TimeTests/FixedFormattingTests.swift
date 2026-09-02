@@ -10,6 +10,7 @@ class FixedFormattingTests: XCTestCase {
         ("testDayFormatting", testDayFormatting),
         ("testRawFormatting_Strict", testRawFormatting_Strict),
         ("testRawFormatting_Lenient", testRawFormatting_Lenient),
+        ("testOmittedTimeZoneInDescription", testOmittedTimeZoneInDescription)
     ]
     
     // create a clock that starts at the first instant of the reference era

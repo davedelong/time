@@ -14,6 +14,13 @@ class FixedTests: XCTestCase {
         ("testLastMinuteOfHour", testLastMinuteOfHour),
         ("testLastSecondOfMinute", testLastSecondOfMinute),
         ("testAddingComponents", testAddingComponents),
+        ("testValuesWithDifferentInstantsAreStillEqual", testValuesWithDifferentInstantsAreStillEqual),
+        ("testTotalMinutesCalculations", testTotalMinutesCalculations),
+        ("testRounding", testRounding),
+        ("testSimpleMultipleRounding", testSimpleMultipleRounding),
+        ("testBoundaryAlignedSequence", testBoundaryAlignedSequence),
+        ("testValidConversion", testValidConversion),
+        ("testInvalidConversion", testInvalidConversion)
     ]
     
     func testInitializingGregorianDateWithoutEraSucceeds() throws {

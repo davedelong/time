@@ -21,6 +21,15 @@ public protocol RegionalClock: Clock where Instant == Time.Instant, Duration == 
     /// in real time.
     var SISecondsPerClockSecond: Double { get }
     
+    /// Suspend the current concurrency task until the specified deadline, relative to this clock
+    ///
+    /// The default implementation computes the realtime duration until the specified deadline, and uses
+    /// `Task.sleep` to wait until the specified time.
+    ///
+    /// - Parameter deadline: The `Instant` at which this task should wake up again, relative to this clock
+    /// - Parameter tolerance: How much leeway there is in missing the deadline
+    func sleep(until deadline: Instant, tolerance: Instant.Duration?) async throws
+    
 }
 
 extension RegionalClock {
@@ -31,9 +40,7 @@ extension RegionalClock {
     /// The default implementation; one nanosecond (1e-9)
     public var minimumResolution: SISeconds { return SISeconds(1.0 / Double(1e9)) }
     
-    /// Suspend the current concurrency task until the specified deadline, relative to this clock
-    /// - Parameter deadline: The `Instant` at which this task should wake up again, relative to this clock
-    /// - Parameter tolerance: How much leeway there is in missing the deadline
+    /// The default implementation
     public func sleep(until deadline: Instant, tolerance: Instant.Duration?) async throws {
         try await self.sleep(until: deadline, tolerance: tolerance, token: nil)
     }
@@ -72,6 +79,8 @@ extension RegionalClock {
         guard factor > 0 else {
             fatalError("You cannot create a clock where time has stopped or flows backwards")
         }
+        if factor == 1.0 { return self }
+        
         return ScaledClock(scale: factor, from: self)
     }
     

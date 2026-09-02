@@ -9,14 +9,21 @@ final class ClockStrikeTests: XCTestCase {
     
     static let allTests = [
         ("testPastStrike", testPastStrike),
+        ("testPastStrikeAsync", testPastStrikeAsync),
         ("testImmediateStrike", testImmediateStrike),
+        ("testImmediateStrikeAsync", testImmediateStrikeAsync),
         ("testStrikeAtSpecificValue", testStrikeAtSpecificValue),
+        ("testStrikeAtSpecificValueAsync", testStrikeAtSpecificValueAsync),
         ("testScaledStrikeAtSpecificValue", testScaledStrikeAtSpecificValue),
+        ("testScaledStrikeAtSpecificValueAsync", testScaledStrikeAtSpecificValueAsync),
         ("testFixedStrikeCancel", testFixedStrikeCancel),
         ("testIntervalStrike", testIntervalStrike),
+        ("testIntervalStrikeAsync", testIntervalStrikeAsync),
         ("testIntervalStrikeWithPastStart", testIntervalStrikeWithPastStart),
+        ("testIntervalStrikeWithPastStartAsync", testIntervalStrikeWithPastStartAsync),
         ("testIntervalStrikeCancel", testIntervalStrikeCancel),
         ("testPredicateStrike", testPredicateStrike),
+        ("testPredicateStrikeAsync", testPredicateStrikeAsync)
     ]
     
     let clock = Clocks.system
