@@ -17,7 +17,6 @@ Planned and proposed features for **Time**.
     - Enumeration
     - Rounding
 - Formatting `TimeDifference` values
-- Formatting `Range<Fixed<U>>` values
 - Pseudo-units
     - Quarters
 - Parsing fixed values
@@ -30,6 +29,7 @@ Planned and proposed features for **Time**.
 
 - Recurrence Rules
     - Including serialization
+    - Including celestial anchors (lunar events, sunrise/sunset, etc)
     - SeeAlso: https://forums.swift.org/t/pitch-calendar-recurrencerule/70068
 - Custom Calendars
     - ISO 8601 should maybe be its own calendar

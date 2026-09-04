@@ -8,6 +8,10 @@ extension FixedFormat {
         self.init(templates: [era])
     }
     
+    public static func era(_ era: Template<Era>) -> Self {
+        self.init(templates: [era])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOEYear {
@@ -23,6 +27,9 @@ extension FixedFormat where Granularity: StandardUnit & LTOEYear {
         self.init(templates: [era, year, timeZone])
     }
     
+    public static func era(_ era: Template<Era>, year: Template<Year>, timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [era, year, timeZone])
+    }
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOEMonth {
@@ -37,6 +44,13 @@ extension FixedFormat where Granularity: StandardUnit & LTOEMonth {
                 year: Template<Year>,
                 month: Template<Month>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [era, year, month, timeZone])
+    }
+    
+    public static func era(_ era: Template<Era>,
+                           year: Template<Year>,
+                           month: Template<Month>,
+                           timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [era, year, month, timeZone])
     }
     
@@ -58,6 +72,15 @@ extension FixedFormat where Granularity: StandardUnit & LTOEDay {
                 day: Template<Day>,
                 weekday: Template<Weekday>? = nil,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [era, year, month, day, weekday, timeZone])
+    }
+    
+    public static func era(_ era: Template<Era>? = nil,
+                           year: Template<Year>,
+                           month: Template<Month>,
+                           day: Template<Day>,
+                           weekday: Template<Weekday>? = nil,
+                           timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [era, year, month, day, weekday, timeZone])
     }
     
@@ -84,6 +107,16 @@ extension FixedFormat where Granularity: StandardUnit & LTOEHour {
         self.init(templates: [era, year, month, day, weekday, hour, timeZone])
     }
     
+    public static func era(_ era: Template<Era>? = nil,
+                           year: Template<Year>,
+                           month: Template<Month>,
+                           day: Template<Day>,
+                           weekday: Template<Weekday>? = nil,
+                           hour: Template<Hour>,
+                           timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [era, year, month, day, weekday, hour, timeZone])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOEMinute {
@@ -106,6 +139,17 @@ extension FixedFormat where Granularity: StandardUnit & LTOEMinute {
                 hour: Template<Hour>,
                 minute: Template<Minute>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [era, year, month, day, weekday, hour, minute, timeZone])
+    }
+    
+    public static func era(_ era: Template<Era>? = nil,
+                           year: Template<Year>,
+                           month: Template<Month>,
+                           day: Template<Day>,
+                           weekday: Template<Weekday>? = nil,
+                           hour: Template<Hour>,
+                           minute: Template<Minute>,
+                           timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [era, year, month, day, weekday, hour, minute, timeZone])
     }
     
@@ -136,6 +180,18 @@ extension FixedFormat where Granularity: StandardUnit & LTOESecond {
         self.init(templates: [era, year, month, day, weekday, hour, minute, second, timeZone])
     }
     
+    public static func era(_ era: Template<Era>? = nil,
+                           year: Template<Year>,
+                           month: Template<Month>,
+                           day: Template<Day>,
+                           weekday: Template<Weekday>? = nil,
+                           hour: Template<Hour>,
+                           minute: Template<Minute>,
+                           second: Template<Second>,
+                           timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [era, year, month, day, weekday, hour, minute, second, timeZone])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOENanosecond {
@@ -162,6 +218,19 @@ extension FixedFormat where Granularity: StandardUnit & LTOENanosecond {
                 second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
+    }
+    
+    public static func era(_ era: Template<Era>? = nil,
+                           year: Template<Year>,
+                           month: Template<Month>,
+                           day: Template<Day>,
+                           weekday: Template<Weekday>? = nil,
+                           hour: Template<Hour>,
+                           minute: Template<Minute>,
+                           second: Template<Second>,
+                           nanosecond: Template<Nanosecond>,
+                           timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [era, year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
     }
     

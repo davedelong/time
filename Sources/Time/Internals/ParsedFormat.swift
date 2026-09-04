@@ -1,8 +1,8 @@
 import Foundation
 
-internal struct ParsedFormat {
+internal struct ParsedFormat: Hashable {
     
-    enum Component {
+    enum Component: Hashable {
         case literal(String)
         case format(Character, Int)
         case template(Character, Int)

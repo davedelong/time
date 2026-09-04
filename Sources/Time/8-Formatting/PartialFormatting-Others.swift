@@ -21,6 +21,16 @@ extension FixedFormat where Granularity: StandardUnit & LTOEMinute {
         self.init(templates: [year, month, day, weekday, hour, minute, timeZone])
     }
     
+    public static func year(_ year: Template<Year>,
+                            month: Template<Month>,
+                            day: Template<Day>,
+                            weekday: Template<Weekday>? = nil,
+                            hour: Template<Hour>,
+                            minute: Template<Minute>,
+                            timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [year, month, day, weekday, hour, minute, timeZone])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOESecond {
@@ -44,6 +54,16 @@ extension FixedFormat where Granularity: StandardUnit & LTOESecond {
         self.init(templates: [month, day, weekday, hour, minute, second, timeZone])
     }
     
+    public static func month(_ month: Template<Month>,
+                             day: Template<Day>,
+                             weekday: Template<Weekday>? = nil,
+                             hour: Template<Hour>,
+                             minute: Template<Minute>,
+                             second: Template<Second>,
+                             timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [month, day, weekday, hour, minute, second, timeZone])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOENanosecond {
@@ -64,6 +84,16 @@ extension FixedFormat where Granularity: StandardUnit & LTOENanosecond {
                 second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [day, weekday, hour, minute, second, nanosecond, timeZone])
+    }
+    
+    public static func day(_ day: Template<Day>,
+                           weekday: Template<Weekday>? = nil,
+                           hour: Template<Hour>,
+                           minute: Template<Minute>,
+                           second: Template<Second>,
+                           nanosecond: Template<Nanosecond>,
+                           timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [day, weekday, hour, minute, second, nanosecond, timeZone])
     }
     
@@ -93,6 +123,17 @@ extension FixedFormat where Granularity: StandardUnit & LTOESecond {
         self.init(templates: [year, month, day, weekday, hour, minute, second, timeZone])
     }
     
+    public static func year(_ year: Template<Year>,
+                            month: Template<Month>,
+                            day: Template<Day>,
+                            weekday: Template<Weekday>? = nil,
+                            hour: Template<Hour>,
+                            minute: Template<Minute>,
+                            second: Template<Second>,
+                            timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [year, month, day, weekday, hour, minute, second, timeZone])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOENanosecond {
@@ -115,6 +156,17 @@ extension FixedFormat where Granularity: StandardUnit & LTOENanosecond {
                 second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [month, day, weekday, hour, minute, second, nanosecond, timeZone])
+    }
+    
+    public static func month(_ month: Template<Month>,
+                             day: Template<Day>,
+                             weekday: Template<Weekday>? = nil,
+                             hour: Template<Hour>,
+                             minute: Template<Minute>,
+                             second: Template<Second>,
+                             nanosecond: Template<Nanosecond>,
+                             timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [month, day, weekday, hour, minute, second, nanosecond, timeZone])
     }
     
@@ -143,6 +195,18 @@ extension FixedFormat where Granularity: StandardUnit & LTOENanosecond {
                 second: Template<Second>,
                 nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
+    }
+    
+    public static func year(_ year: Template<Year>,
+                            month: Template<Month>,
+                            day: Template<Day>,
+                            weekday: Template<Weekday>? = nil,
+                            hour: Template<Hour>,
+                            minute: Template<Minute>,
+                            second: Template<Second>,
+                            nanosecond: Template<Nanosecond>,
+                            timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [year, month, day, weekday, hour, minute, second, nanosecond, timeZone])
     }
     

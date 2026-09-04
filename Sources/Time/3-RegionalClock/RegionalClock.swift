@@ -108,7 +108,7 @@ extension RegionalClock {
     /// - Parameter calendar: The `Calendar` of the new `RegionalClock`.
     /// - Returns: A new `RegionalClock` that reports values in the specified `Calendar`.
     public func converted(to calendar: Calendar) -> any RegionalClock {
-        if anyCalendar.isEquivalent(to: self.anyCalendar) { return self }
+        if calendar.isEquivalent(to: self.anyCalendar) { return self }
         let newRegion = self.region.setCalendar(calendar)
         return self.converted(to: newRegion)
     }

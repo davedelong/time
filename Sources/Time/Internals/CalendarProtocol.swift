@@ -33,6 +33,7 @@ internal protocol CalendarProtocol: _TimeSendable, CustomStringConvertible, Cust
     func date(byAdding components: DateComponents, to date: Date, wrappingComponents: Bool) -> Date?
     
     func format(date: Date, using timeZone: TimeZone, locale: Locale, configuration: FormatConfiguration) -> String
+    func format(range: Range<Date>, using timeZone: TimeZone, locale: Locale, configuration: FormatConfiguration) -> String
 }
 
 extension CalendarProtocol {
@@ -76,6 +77,16 @@ extension Calendar: CalendarProtocol {
         let df = DateFormatter.formatter(for: key)
         return df.string(from: date)
     }
+    
+    func format(range: Range<Date>, using timeZone: TimeZone, locale: Locale, configuration: FormatConfiguration) -> String {
+        let key = FormatterKey(configuration: configuration,
+                               calendar: self,
+                               locale: locale,
+                               timeZone: timeZone)
+        
+        let rf = DateIntervalFormatter.formatter(for: key)
+        return rf.string(from: range.lowerBound, to: range.upperBound)
+    }
 }
 
 extension Region {
@@ -88,7 +99,10 @@ extension Region {
     }
     
     func format(range: Range<Date>, using configuration: FormatConfiguration) -> String {
-        fatalError()
+        return self.anyCalendar.format(range: range,
+                                       using: timeZone,
+                                       locale: locale,
+                                       configuration: configuration)
     }
     
 }

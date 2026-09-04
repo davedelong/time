@@ -32,7 +32,7 @@ extension Fixed {
     /// and the produced value.
     /// - Returns: A new fixed value that has been adjusted forwards or backwards in time
     public func applying(difference: TimeDifference<Granularity, Era>) -> Self {
-        let d = self.range.lowerBound.date
+        let d = self.approximateMidPoint.date
         let diff = difference.dateComponents
         let newDate = self.anyCalendar.date(byAdding: diff, to: d).unwrap("Unable to add \(diff) to \(self)")
         return Self(region: self.region, date: newDate)

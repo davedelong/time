@@ -74,6 +74,10 @@ extension FixedFormat where Granularity: LTOEDay {
         self.init(configuration: .styles(dateStyle, .none))
     }
     
+    public static func date(_ date: FixedFormatStyle) -> Self {
+        self.init(configuration: .styles(date, .none))
+    }
+    
 }
 
 extension FixedFormat where Granularity: LTOEMinute {
@@ -96,6 +100,14 @@ extension FixedFormat where Granularity: LTOEMinute {
     /// If these are used on a `Fixed<Minute>` value, then it will assume the seconds component is `:00`.
     public init(time timeStyle: FixedFormatStyle) {
         self.init(configuration: .styles(.none, timeStyle))
+    }
+    
+    public static func date(_ date: FixedFormatStyle, time: FixedFormatStyle) -> Self {
+        self.init(configuration: .styles(date, time))
+    }
+    
+    public static func time(_ time: FixedFormatStyle) -> Self {
+        self.init(configuration: .styles(.none, time))
     }
     
 }

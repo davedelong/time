@@ -47,6 +47,10 @@ extension FixedFormat {
         }
         self.init(configuration: config)
     }
+    
+    public static func raw(_ raw: String, strict: Bool = true) throws(TimeError) -> Self {
+        try .init(raw: raw, strict: strict)
+    }
 }
 
 extension Fixed {

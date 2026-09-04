@@ -8,6 +8,10 @@ extension FixedFormat {
         self.init(templates: [timeZone])
     }
     
+    public static func timeZone(_ timeZone: Template<TimeZone>) -> Self {
+        self.init(templates: [timeZone])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOEYear {
@@ -21,6 +25,11 @@ extension FixedFormat where Granularity: StandardUnit & LTOEYear {
         self.init(templates: [year, timeZone])
     }
     
+    public static func year(_ year: Template<Year>,
+                            timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [year, timeZone])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOEMonth {
@@ -31,6 +40,11 @@ extension FixedFormat where Granularity: StandardUnit & LTOEMonth {
     ///   - timeZone: The template for formatting the time zone
     public init(month: Template<Standalone<Month>>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [month, timeZone])
+    }
+    
+    public static func month(_ month: Template<Standalone<Month>>,
+                             timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [month, timeZone])
     }
     
@@ -49,12 +63,23 @@ extension FixedFormat where Granularity: StandardUnit & LTOEDay {
         self.init(templates: [day, weekday, timeZone])
     }
     
+    public static func day(_ day: Template<Day>,
+                           weekday: Template<Weekday>? = nil,
+                           timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [day, weekday, timeZone])
+    }
+    
     /// Create a format for the weekday of a fixed value
     /// - Parameters:
     ///   - weekday: The template for formatting the day of the week
     ///   - timeZone: The template for formatting the time zone
     public init(weekday: Template<Standalone<Weekday>>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [weekday, timeZone])
+    }
+    
+    public static func weekday(_ weekday: Template<Standalone<Weekday>>,
+                               timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [weekday, timeZone])
     }
     
@@ -71,6 +96,11 @@ extension FixedFormat where Granularity: StandardUnit & LTOEHour {
         self.init(templates: [hour, timeZone])
     }
     
+    public static func hour(_ hour: Template<Hour>,
+                            timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [hour, timeZone])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOEMinute {
@@ -81,6 +111,11 @@ extension FixedFormat where Granularity: StandardUnit & LTOEMinute {
     ///   - timeZone: The template for formatting the time zone
     public init(minute: Template<Minute>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [minute, timeZone])
+    }
+    
+    public static func minute(_ minute: Template<Minute>,
+                              timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [minute, timeZone])
     }
     
@@ -97,6 +132,11 @@ extension FixedFormat where Granularity: StandardUnit & LTOESecond {
         self.init(templates: [second, timeZone])
     }
     
+    public static func second(_ second: Template<Second>,
+                              timeZone: Template<TimeZone>? = nil) -> Self {
+        self.init(templates: [second, timeZone])
+    }
+    
 }
 
 extension FixedFormat where Granularity: StandardUnit & LTOENanosecond {
@@ -107,6 +147,11 @@ extension FixedFormat where Granularity: StandardUnit & LTOENanosecond {
     ///   - timeZone: The template for formatting the time zone
     public init(nanosecond: Template<Nanosecond>,
                 timeZone: Template<TimeZone>? = nil) {
+        self.init(templates: [nanosecond, timeZone])
+    }
+    
+    public static func nanosecond(_ nanosecond: Template<Nanosecond>,
+                                  timeZone: Template<TimeZone>? = nil) -> Self {
         self.init(templates: [nanosecond, timeZone])
     }
     
