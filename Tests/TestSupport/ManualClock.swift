@@ -1,7 +1,7 @@
 import Foundation
 import Time
 
-final class ManualClock: RegionalClock, @unchecked Sendable {
+public final class ManualClock: RegionalClock, @unchecked Sendable {
     
     private struct SleepingTask {
         let deadline: Instant
@@ -24,7 +24,7 @@ final class ManualClock: RegionalClock, @unchecked Sendable {
     }
     
     /// The clock's `Region`, used for creating calendrical values.
-    var region: Region {
+    public var region: Region {
         get {
             lock.withLock { self.underlyingClock.region }
         }
@@ -33,7 +33,7 @@ final class ManualClock: RegionalClock, @unchecked Sendable {
         }
     }
     
-    var SISecondsPerClockSecond: Double {
+    public var SISecondsPerClockSecond: Double {
         get {
             lock.withLock { self.underlyingClock.SISecondsPerClockSecond }
         }
@@ -42,7 +42,7 @@ final class ManualClock: RegionalClock, @unchecked Sendable {
         }
     }
     
-    init(now: Instant? = nil, region: Region = .current, rate: Double = 1.0) {
+    public init(now: Instant? = nil, region: Region = .current, rate: Double = 1.0) {
         if let now {
             self.underlyingClock = Clocks.custom(startingFrom: now, rate: rate, region: region)
         } else {
@@ -97,7 +97,7 @@ final class ManualClock: RegionalClock, @unchecked Sendable {
         }
     }
     
-    func sleep(until deadline: Instant, tolerance: SISeconds?) async throws {
+    public func sleep(until deadline: Instant, tolerance: SISeconds?) async throws {
         try await withUnsafeThrowingContinuation { continuation in
             let shouldInvoke = lock.withLock {
                 let now = self.underlyingClock.now

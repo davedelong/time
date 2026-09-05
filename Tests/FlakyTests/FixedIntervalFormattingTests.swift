@@ -1,5 +1,6 @@
 import XCTest
 @testable import Time
+import TestSupport
 
 class FixedIntervalFormattingTests: XCTestCase {
     

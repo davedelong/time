@@ -21,6 +21,8 @@ let package = Package(
     targets: [
         .target(name: "Time", dependencies: []),
         
-            .testTarget(name: "TimeTests", dependencies: ["Time"]),
+        .target(name: "TestSupport", dependencies: ["Time"], path: "Tests/TestSupport"),
+        .testTarget(name: "TimeTests", dependencies: ["Time", "TestSupport"]),
+        .testTarget(name: "FlakyTests", dependencies: ["Time", "TestSupport"])
     ]
 )
