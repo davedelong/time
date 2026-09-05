@@ -2,7 +2,7 @@ import XCTest
 @testable import Time
 import TestSupport
 
-class FixedIntervalFormattingTests: XCTestCase {
+class FixedIntervalFormattingTests: XCFlakyTestCase {
     
     static let allTests = [
         ("testEraFormatting", testEraFormatting),
