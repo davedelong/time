@@ -52,7 +52,7 @@ If you need more flexibility around which units get displayed, you can use forma
 let systemClock = Clocks.system
 let thisMinute = systemClock.currentMinute
 
-let formattedTime = thisMinute.format(year: .naturalDigits, month: .fullName, day: .naturalDigits, hour: .naturalDigits, minute: .twoDigits)
+let formattedTime = thisMinute.format(year: .naturalDigits, month: .naturalName, day: .naturalDigits, hour: .naturalDigits, minute: .twoDigits)
 print("The time is currently \(formattedTime)")
 ```
 

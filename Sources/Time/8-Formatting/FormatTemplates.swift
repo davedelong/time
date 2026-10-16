@@ -30,10 +30,10 @@ extension Template where Unit == Year {
     /// The last to digits of a year, such as "05", "24" or "41"
     public static let twoDigits = digits(paddedToLength: 2)
     
-    /// A year padded or truncated to a fixed length
+    /// A year padded to a minimum length, or its last two digits when the length is two.
     ///
-    /// For example, `.digits(paddedToLength: 3)` might result in year strings of "005", "024", or "941".
-    /// - Parameter paddedToLength: The length of the resulting string. Extra leading digits are omitted, and the string is zero-padded to reach the specified length
+    /// For example, `.digits(paddedToLength: 3)` formats year 5 as "005" and year 2024 as "2024".
+    /// - Parameter paddedToLength: The minimum number of digits. A length of two uses the last two digits; other lengths pad with zeros without truncating the year.
     /// - Returns: A template for the string representation of a calendar year
     public static func digits(paddedToLength: Int) -> Template<Year> {
         guard paddedToLength > 0 else { fatalError("Cannot pad to a length less than 1") }
