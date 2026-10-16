@@ -136,7 +136,7 @@ extension Fixed where Granularity: LTOEDay {
         let daysInWeek = calendar.maximumRange(of: .weekday) ?? 1 ..< 8
         var day = dayOfWeek
         while day < daysInWeek.lowerBound { day += daysInWeek.count }
-        day %= daysInWeek.count
+        day = (day - daysInWeek.lowerBound) % daysInWeek.count + daysInWeek.lowerBound
         
         let thisDay = self.dayOfWeek
         
