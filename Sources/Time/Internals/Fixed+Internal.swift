@@ -56,7 +56,7 @@ extension Fixed {
     }
     
     internal func numbered<U: Unit>(_ number: Int) -> Fixed<U>? {
-        guard let potential: Fixed<U> = try? nth(number - 1) else { return nil }
+        guard let potential: Fixed<U> = try? nth(max(1, number - 1)) else { return nil }
         guard let value = potential.value(for: U.self) else { return nil }
         if value == number { return potential }
         
@@ -72,6 +72,7 @@ extension Fixed {
         var current = potential
         while true {
             let next = current.applying(difference: delta)
+            guard self.range.contains(next.firstInstant) else { return nil }
             if next.value(for: U.self) == number { return next }
             if tooFar(next) { break }
             current = next
